@@ -1,16 +1,10 @@
 {
   "hosting": {
-    "public": "dist/password-app/browser",
+    "public": "dist\\password-app\\browser",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
     ]
   }
 }
