@@ -1,0 +1,49 @@
+<!-- Main Container -->
+<div class=" h-[100vh]  w-full flex items-center overflow-hidden justify-between bg-gray-100">
+    <!-- Login Card Content Will Go Here -->
+     <div class="w-3/6 flex justify-center items-center h-full bg-white">
+         <div class="max-w-xl w-1/2 ">
+             <!-- Form -->
+             <form id="signupForm" class="space-y-8" [formGroup]="signupForm">
+               <!-- Logo or Branding -->
+               <div class="text-center text-3xl">
+                Create Your Account
+                </div>
+             <!-- Email Input -->
+             <div >
+                <label for="name" class="block text-sm font-bold mb-2">name</label>
+                <input type="name" id="name" formControlName="name" placeholder="Your name" class="appearance-none rounded-full relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-50" required>
+              </div>
+              <div >
+                <label for="email" class="block text-sm font-bold mb-2">email</label>
+                <input type="email" id="email" formControlName="email" placeholder="Your email" class="appearance-none rounded-full relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-50" required>
+              </div>
+              <div >
+                <label for="phone" class="block text-sm font-bold mb-2">phone</label>
+                <input type="phone" id="phone" formControlName="phone" placeholder="Your phone" class="appearance-none rounded-full relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-50" required>
+              </div>
+             <div >
+               <label for="password" class="block text-sm font-bold mb-2">Password</label>
+               <input type="password" id="password" formControlName="password" placeholder="Your Password" class="appearance-none rounded-full relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-50" required>
+             </div>
+             <div class="flex flex-col space-y-6">
+                <div class="text-right">
+                 already have account? <a routerLink="/login" class="text-sm text-blue-700 hover:text-blue-900 ">logn now</a>
+                </div>
+                <!-- Submit Button -->
+                <button (click)="onSubmit()"
+                  class="bg-indigo-600 w-full hover:bg-indigo-900 text-white font-bold py-2 px-4  rounded-full">
+                  Signup now
+                </button>
+               
+              </div>
+           </form>
+           <!-- Forgot Password Link -->
+         </div>
+     </div>
+     <div class="w-3/6 h-full flex flex-col justify-center items-center text-center p-12 text-white "  style="background-image: url('https://flowbite.s3.amazonaws.com/blocks/marketing-ui/authentication/illustration.svg'); background-repeat: no-repeat; background-size: cover;">
+            <h1 class="text-4xl ">Welcome to Our Password manager app</h1>
+            <span class="text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos ducimus dolorem quibusdam doloribus dolore, nesciunt cumque ab quia. Facere eaque soluta provident voluptatem odio laborum est facilis exercitationem, beatae nisi!</span>
+     </div>
+
+  </div>

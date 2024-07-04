@@ -1,0 +1,25 @@
+{
+  "name": "Great Extension",
+  "version": "1.0",
+  "description": "Build an Extension with Angular",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "src/index.html"
+  },
+  "content_security_policy": {
+    "script-src": ["self", "unsafe-eval", "https://cdn.tailwindcss.com/"],
+    "object-src": ["self"]
+  },
+  "background": "background.js",
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "alarms",
+    "notifications",
+    "storage",
+    "webNavigation",
+    "activeTab",
+    "bookmarks",
+    "declarativeContent"
+  ]
+}

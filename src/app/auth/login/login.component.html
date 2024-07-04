@@ -1,0 +1,52 @@
+<!-- Main Container -->
+<div class="h-full relative w-full flex flex-auto items-center overflow-hidden justify-between">
+  <!-- Login Card Content Will Go Here -->
+  <div class="w-3/6 flex justify-center items-center flex-auto bg-white h-[100vh]">
+    <div class="max-w-xl w-1/2">
+      <!-- Form -->
+      <form id="loginForm" class="flex flex-col space-y-8" [formGroup]="loginForm">
+        <!-- Logo or Branding -->
+        <div class="text-center text-3xl">
+          Login with your account
+        </div>
+        <!-- Email Input -->
+        <div>
+          <label for="username" class="block text-sm font-bold mb-2">username address</label>
+          <input type="username" id="username" formControlName="username" placeholder="Your username"
+            class="appearance-none rounded-full relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-50"
+            required>
+        </div>
+        <!-- Password Input -->
+        <div>
+          <label for="password" class="block text-sm font-bold mb-2">Password</label>
+          <input type="password" id="password" formControlName="password" placeholder="Your Password"
+            class="appearance-none rounded-full relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-50"
+            required>
+        </div>
+        <!-- signup account link -->
+        <div class="flex flex-col space-y-6">
+          <div class="text-right">
+           not have account? <a routerLink="/signup" class="text-sm text-blue-700 hover:text-blue-900 ">signup now</a>
+          </div>
+          <!-- Submit Button -->
+          <button (click)="onSubmit()"
+            class="bg-indigo-600 w-full hover:bg-indigo-900 text-white font-bold py-2 px-4  rounded-full">
+            Login
+          </button>
+          <!-- Forgot Password Link -->
+          <div class="text-center">
+            <a routerLink="/reset-password" class="text-sm text-blue-700 hover:text-blue-900 ">Forgot Password?</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="w-3/6 h-full flex flex-col justify-center items-center text-center p-12 text-white "
+    style="background-image: url('https://images.pexels.com/photos/1486974/pexels-photo-1486974.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'); background-repeat: no-repeat; background-size: cover;">
+    <h1 class="text-4xl ">Welcome to Our Password manager app</h1>
+    <span class="text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos ducimus dolorem quibusdam
+      doloribus dolore, nesciunt cumque ab quia. Facere eaque soluta provident voluptatem odio laborum est facilis
+      exercitationem, beatae nisi!</span>
+  </div>
+
+</div>

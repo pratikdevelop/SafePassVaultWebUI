@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Share Password</h2>
+<mat-dialog-content>
+    <p>The password has been shared successfully. You can copy the link below and share it with the recipient.</p>
+    Share Link:
+    <span class="leading-6 break-words">{{ data.shareLink }}</span>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="copyLink()">
+       copy
+    </button>
+    <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
