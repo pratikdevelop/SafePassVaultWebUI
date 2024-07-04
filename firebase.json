@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist\\password-app\\browser",
+    "public": "dist\\password-app\browser",
     "ignore": [
       "firebase.json",
       "**/.*",
