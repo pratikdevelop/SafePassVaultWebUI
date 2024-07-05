@@ -6,7 +6,7 @@ import { Observable, switchMap, of, catchError, tap, throwError, map } from 'rxj
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://44.206.224.230/api/auth';
+  private apiUrl = 'http://52.91.240.97/api/auth';
 
   constructor(private http: HttpClient) { }
 

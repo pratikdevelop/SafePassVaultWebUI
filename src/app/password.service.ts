@@ -10,7 +10,7 @@ import CryptoJS from 'crypto-js';
   providedIn: 'root'
 })
 export class PasswordService {
-  private apiUrl = 'http://44.206.224.230/api/passwords';
+  private apiUrl = 'http://52.91.240.97/api/passwords';
   private headers = new HttpHeaders({
     Authorization: 'Bearer ' + localStorage.getItem("token")
   });
