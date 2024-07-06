@@ -7,18 +7,13 @@ import {
   inject,
 } from '@angular/core';
 import {
-  FormGroup,
-  FormBuilder,
-  Validators,
   FormsModule,
-  ReactiveFormsModule,
+  ReactiveFormsModule
 } from '@angular/forms';
-import { AES } from 'crypto-js';
-import {MatCardModule} from '@angular/material/card';
-import { v4 as uuidv4 } from 'uuid';
+import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
-import { map, BehaviorSubject, tap, catchError, config } from 'rxjs';
+import { tap, catchError } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { PasswordService } from '../password.service'; // Import the new service
 import { MatIconModule } from '@angular/material/icon';
@@ -44,7 +39,8 @@ import { PasswordFormComponent } from './dialog/password-form/password-form.comp
     MatTableModule,
     MatButtonModule,
     AsyncPipe,
-    MatIconModule
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [{ provide: 'Window', useValue: window }],
   templateUrl: './password.component.html',
@@ -52,8 +48,7 @@ import { PasswordFormComponent } from './dialog/password-form/password-form.comp
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PasswordComponent {
-  passwords = []; // Use a Subject to manage password updates
-  filteredPasswords$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  passwords: any[] = []; // Use a Subject to manage password updates
   changedetect = inject(ChangeDetectorRef);
   passwordService = inject(PasswordService); // Inject the service
   displayedColumns: string[] = [
@@ -61,56 +56,45 @@ export class PasswordComponent {
     'website',
     'username',
     'password',
+    'update_at',
     'action',
   ];
-  headers = {
-    Authorization: 'Bearer ' + localStorage.getItem('token'), //the token is a variable which holds the token
-  };
   readonly dialog = inject(MatDialog);
 
   filterValue: string = ''; // Add filterValue property
   constructor(@Inject('Window') public window: Window, private clipboard: Clipboard) { }
   ngOnInit(): void {
-  
+    this.passwordService.filteredPasswords$.subscribe((filteredPasswords: any[]) => {
 
-    // Fetch passwords and update the Subject
-    this.getPasswords();
-    // Subscribe to filteredPasswords$ to update the table
-    this.filteredPasswords$.subscribe((filteredPasswords: any) => {
-      this.passwords = filteredPasswords;
-      this.changedetect.detectChanges();
+      if (filteredPasswords && filteredPasswords.length > 0) {
+        this.passwords = filteredPasswords;
+      } else {
+        this.getPasswords();
+      }
+    }, error => {
+      this.getPasswords();
     });
   }
 
   getPasswords(): void {
     this.passwordService.getPasswords().subscribe((passwords: any[]) => {
-      this.filteredPasswords$.next(passwords); // Initialize filteredPasswords$ with fetched data
-      console.log("pass", passwords);
-      
+      console.log("p", passwords);
+
+      this.passwords = passwords;
+      this.changedetect.detectChanges();
+    }, error => {
+      this.passwords = [];
+      this.changedetect.detectChanges();
     });
 
   }
-  // Removed getPasswords() method
-
-
-
-  autofill(id: string): void {
-    this.filteredPasswords$
-      .pipe(
-        map((passwords: any[]) => passwords.find((password) => password._id === id))
-      )
-      .subscribe((passwordObject: { website: string | URL; username: string; password: string; }) => {
-        if (passwordObject) {
-          const urlObject = new URL(passwordObject.website);
-          const searchParams = new URLSearchParams();
-          searchParams.set('username', passwordObject.username);
-          searchParams.set('password', passwordObject.password);
-          urlObject.search = searchParams.toString();
-          const autofilledUrl = urlObject.href;
-          this.window.open(urlObject, 'blank');
-
-        }
-      });
+  autofill(password: any): void {
+      const urlObject = new URL(password.website);
+      const searchParams = new URLSearchParams();
+      searchParams.set('username', password.username);
+      searchParams.set('password', password.password);
+      urlObject.search = searchParams.toString();
+      this.window.open(urlObject, 'blank');
   }
 
   generateStrongPassword(length: number = 12): void {
@@ -133,12 +117,7 @@ export class PasswordComponent {
       .deletePassword(id)
       .pipe(
         tap(() => {
-          // Update the filtered passwords array
-          const currentValue = this.filteredPasswords$.getValue();
-          const updatedValue = currentValue
-            .filter((password: { _id: string; }) => password._id !== id)
-            .slice();
-          this.filteredPasswords$.next(updatedValue);
+          this.getPasswords();
         }),
         catchError((error: any) => {
           console.error('err', error);
@@ -152,58 +131,14 @@ export class PasswordComponent {
       });
   }
 
-  filterPasswords(): void {
-    const filterValueLower = this.filterValue.toLowerCase().trim();
-    const filter = this.filteredPasswords$.pipe(
-      map((filterValue: any) => {
-        if (!filterValueLower) {
-          this.passwords = filterValue;
-        } else {
-          this.passwords = filterValue.filter(
-            ({ website }: { website: string }) => {
-              website.toLowerCase().includes(filterValueLower);
-            }
-          );
-        }
-      })
-    );
-  }
-
-
-
   trackById(index: number, item: any): number {
     return item?._id; // assuming your Password object has an 'id' property
   }
-
-
-  // sharePassword(passwordId: string) {
-  //   this.filteredPasswords$
-  //     .pipe(
-  //       map((passwords: any[]) => passwords.find((password) => password._id === passwordId))
-  //     )
-  //     .subscribe((passwordObject: { website: string | URL; username: string; password: string; key: string }) => {
-  //       if (passwordObject) {
-  //         // 2. Encrypt the password (if you're not using a secure sharing service)
-  //         const encryptedPassword = AES.encrypt(
-  //           passwordObject['password'],
-  //           passwordObject['key']
-  //         )// Implement encryption
-
-  //         // 3. Copy the encrypted password to the clipboard
-  //         this.clipboard.copy(encryptedPassword.toString());
-              
-
-  //         // 4. Provide feedback to the user
-  //         alert('Password copied to clipboard!');
-  //       }
-  //     })
-  // }
 
   sharePassword(passwordId: string) {
     this.passwordService.sharePassword(passwordId)
       .subscribe(
         (response) => {
-          // Display the share link to the user
           this.openDialog('0ms', '0ms', `${response.shareLink}`);
         },
         (error) => {
@@ -222,12 +157,12 @@ export class PasswordComponent {
     });
   }
 
-  openPasswordFormDialog(password:any ): void {
+  openPasswordFormDialog(password: any): void {
     this.dialog.open(PasswordFormComponent, {
       width: '1400px',
-      data:{password}
-    }).afterClosed().subscribe((res)=>{
-      if(res) this.getPasswords();
+      data: { password }
+    }).afterClosed().subscribe((res) => {
+      if (res) this.getPasswords();
     })
   }
 }
@@ -235,9 +170,9 @@ export class PasswordComponent {
 
 @Component({
   selector: 'dialog-animations-example-dialog',
-  templateUrl:"share-dialog.html",
+  templateUrl: "share-dialog.html",
   standalone: true,
-  imports: [MatButtonModule, MatDialogActions, MatCardModule, MatIconModule , MatDialogClose, MatDialogTitle, MatDialogContent, MatSnackBarModule],
+  imports: [MatButtonModule, MatDialogActions, MatCardModule, MatIconModule, MatDialogClose, MatDialogTitle, MatDialogContent, MatSnackBarModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DialogAnimationsExampleDialog {
@@ -246,8 +181,8 @@ export class DialogAnimationsExampleDialog {
   readonly clipboard = inject(Clipboard);
   readonly snackbar = inject(MatSnackBar)
   copyLink(): void {
-   this.clipboard.copy(this.data.shareLink.toString());
-   this.snackbar.open("Link is copy to clipboard", "close", {duration:3000})
-  this.dialogRef.close()
+    this.clipboard.copy(this.data.shareLink.toString());
+    this.snackbar.open("Link is copy to clipboard", "close", { duration: 3000 })
+    this.dialogRef.close()
   }
 }

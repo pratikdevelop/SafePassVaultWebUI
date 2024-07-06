@@ -1,7 +1,7 @@
 // home/pc-02/Music/password-app/src/app/password.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { map, tap, catchError, switchMap } from 'rxjs/operators';
 import { AES } from 'crypto-js';
 import CryptoJS from 'crypto-js';
@@ -14,6 +14,8 @@ export class PasswordService {
   private headers = new HttpHeaders({
     Authorization: 'Bearer ' + localStorage.getItem("token")
   });
+  filteredPasswords$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+
 
   constructor(private http: HttpClient) { }
   getPasswords(): Observable<any[]> {
@@ -35,7 +37,8 @@ export class PasswordService {
               return throwError(new Error('Failed to decrypt password')); // Handle individual decryption errors
             }
           });
-  
+      this.filteredPasswords$.next(decryptedPasswords); // Initialize filteredPasswords$ with fetched data
+          
           return of(decryptedPasswords);
         }),
         catchError((error: any) => {
@@ -57,6 +60,7 @@ export class PasswordService {
         );
 
         response.password = decryptedPassword.toString(CryptoJS.enc.Utf8);
+        this.getPasswords();
         return of(response); // Return the modified password object
       }),
       catchError((error: any) => {

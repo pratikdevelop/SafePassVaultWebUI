@@ -3,6 +3,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import axios from 'axios';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../auth.service';
  
 
 @Component({
@@ -16,6 +17,7 @@ export class LoginComponent implements OnInit {
   snackbar = inject(MatSnackBar)
   router =inject(Router)
   route = inject(ActivatedRoute);
+  auth = inject(AuthService)
   loginForm: FormGroup = new FormGroup({
     username: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)])
@@ -30,10 +32,16 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      axios.post("http://44.206.224.230/api/auth/login", this.loginForm.value).then((res: { data: { token: string; }; })=>{
-        localStorage.setItem("token", res.data.token)
-        this.snackbar.open("Login successfull", "close", )
-        this.router.navigateByUrl("/");
+      this.auth.login(this.loginForm.value).subscribe((response)=>{
+          console.log("too", response);
+          
+        localStorage.setItem('token', response.token);
+        this.snackbar.open('Login successful', 'close'); // Assuming snackbar implementation
+        this.router.navigateByUrl('/');
+      }, error=>{
+        console.error('Error logging in:', error);
+        this.snackbar.open('Login failed: ' + error.message, 'close');
+        
       })
     }
   }
