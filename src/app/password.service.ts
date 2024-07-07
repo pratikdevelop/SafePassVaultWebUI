@@ -10,7 +10,7 @@ import CryptoJS from 'crypto-js';
   providedIn: 'root'
 })
 export class PasswordService {
-  private apiUrl = 'https://passwordapi-jck9.onrender.com/api/passwords';
+  private apiUrl = 'http://localhost:3000/api/passwords';
   private headers = new HttpHeaders({
     Authorization: 'Bearer ' + localStorage.getItem("token")
   });

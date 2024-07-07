@@ -20,9 +20,13 @@
     "@angular/platform-browser": "^18.0.0",
     "@angular/platform-browser-dynamic": "^18.0.0",
     "@angular/router": "^18.0.0",
+    "@preline/strong-password": "^2.3.0",
     "axios": "^1.7.2",
+    "check-password-strength": "^2.0.10",
     "crypto-js": "^4.2.0",
+    "generate-password": "^1.7.1",
     "material-icons": "^1.13.12",
+    "preline": "^2.3.0",
     "rxjs": "~7.8.0",
     "uuid": "^10.0.0",
     "zone.js": "~0.14.3"

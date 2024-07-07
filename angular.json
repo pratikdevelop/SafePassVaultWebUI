@@ -35,7 +35,8 @@
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [              "node_modules/preline/preline.js"
+          ]
           },
           "configurations": {
             "production": {

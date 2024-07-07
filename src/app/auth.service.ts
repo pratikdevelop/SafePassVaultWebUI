@@ -6,7 +6,7 @@ import { Observable, switchMap, of, catchError, tap, throwError, map } from 'rxj
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://passwordapi-jck9.onrender.com/api/auth';
+  private apiUrl = 'http://localhost:3000/api/auth';
   constructor(private http: HttpClient) { }
 
   signup(signupForm: any): Observable<any[]> {
@@ -118,5 +118,16 @@ export class AuthService {
           return throwError(error);
         })
       );
+  }
+
+  resendCode(email: string) : Observable<any> {
+    return this.http.get(`${this.apiUrl}/resend-code/${email}`) // Some APIs might require an empty payload for logout
+    .pipe(switchMap((response) => {
+        return of(response);
+      }),
+      catchError(error => {
+        return throwError(error);
+      })
+    );
   }
 }

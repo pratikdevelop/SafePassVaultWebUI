@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { AuthService } from '../../auth.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
@@ -16,12 +16,13 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit {
-  userInfo = {};
+  user:any = {};
   filterValue: string = ''; // Add filterValue property
   authService = inject(AuthService);
   snackbar = inject(MatSnackBar)
   router = inject(Router)
   dialog = inject(MatDialog)
+  detectrRef = inject(ChangeDetectorRef)
   ngOnInit(): void {
     this.getProfile()
   }
@@ -46,8 +47,9 @@ export class HeaderComponent implements OnInit {
     this.authService.getProfile()
       .subscribe(
         profileData => {
-          this.userInfo = profileData
+          this.user = profileData
           console.log("pp", profileData);
+          this.detectrRef.detectChanges();
           
         },
         error => {

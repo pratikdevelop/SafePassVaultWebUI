@@ -60,30 +60,34 @@ export class PasswordComponent {
     'action',
   ];
   readonly dialog = inject(MatDialog);
-
+  isLoading: boolean = true;
   filterValue: string = ''; // Add filterValue property
   constructor(@Inject('Window') public window: Window, private clipboard: Clipboard) { }
   ngOnInit(): void {
-    this.passwordService.filteredPasswords$.subscribe((filteredPasswords: any[]) => {
+    // this.passwordService.filteredPasswords$.subscribe((filteredPasswords: any[]) => {
 
-      if (filteredPasswords && filteredPasswords.length > 0) {
-        this.passwords = filteredPasswords;
-      } else {
-        this.getPasswords();
-      }
-    }, error => {
-      this.getPasswords();
-    });
+    //   if (filteredPasswords && filteredPasswords.length > 0) {
+    //     this.passwords = filteredPasswords;
+    //   } else {
+    //     if (this.isLoading) {
+    //       this.getPasswords();
+    //     }
+    //   }
+    // }, error => {
+    //   this.getPasswords();
+    // });
   }
 
   getPasswords(): void {
+    this.isLoading = true;
     this.passwordService.getPasswords().subscribe((passwords: any[]) => {
       console.log("p", passwords);
-
+      this.isLoading = false;
       this.passwords = passwords;
       this.changedetect.detectChanges();
     }, error => {
       this.passwords = [];
+      this.isLoading = false;
       this.changedetect.detectChanges();
     });
 
