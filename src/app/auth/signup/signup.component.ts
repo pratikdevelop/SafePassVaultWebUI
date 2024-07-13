@@ -3,7 +3,6 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { AuthService } from '../../auth.service';
-import * as passwordgenerator from 'generate-password';
 
 @Component({
   selector: 'app-signup',

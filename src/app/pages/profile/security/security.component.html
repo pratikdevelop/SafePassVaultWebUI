@@ -1,0 +1,34 @@
+    <nav class="flex flex-col p-5 w-full text-dark" aria-label="Global">
+    <h6> Security Questions</h6>
+      <p class="text-gray-700 font-normal">Set up questions for password recovery (optional).</p>
+    </nav>
+
+    <form method="post" [formGroup]="securityForm" class="flex flex-col w-full space-y-6 p-5">
+        <mat-form-field appearance="fill">
+            <mat-label>Question 1</mat-label>
+            <mat-select formControlName="securityQuestion1">
+            <mat-option value="What is your mother's maiden name?">What is your mother's maiden name?</mat-option>
+            <mat-option value="What is your favorite pet's name?">What is your favorite pet's name?</mat-option>
+            <mat-option value="What is your childhood nickname?">What is your childhood nickname?</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Answer 1</mat-label>
+            <input matInput type="text" formControlName="securityAnswer1">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Question 2</mat-label>
+            <mat-select formControlName="securityQuestion2">
+            <mat-option value="What is your favorite food?">What is your favorite food?</mat-option>
+            <mat-option value="What is your favorite travel destination?">What is your favorite travel destination?</mat-option>
+            <mat-option value="What is your favorite hobby?">What is your favorite hobby?</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Answer 2</mat-label>
+            <input matInput type="text" formControlName="securityAnswer2">
+        </mat-form-field>
+
+        <button mat-flat-button color="primary" type="submit">Save Changes</button>
+    </form>

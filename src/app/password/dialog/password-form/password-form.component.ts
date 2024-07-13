@@ -4,11 +4,13 @@ import { PasswordService } from '../../../password.service';
 import { AES } from 'crypto-js';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
 
 @Component({
   selector: 'app-password-form',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, MatButtonModule],
+  imports: [FormsModule, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatInputModule],
   templateUrl: './password-form.component.html',
   styleUrl: './password-form.component.css'
 })
@@ -22,10 +24,12 @@ export class PasswordFormComponent implements OnInit {
 
   ngOnInit() : void {
     this.passwordForm = this.formbuilder.group({
-      _id: [this.data.password?._id ?? ""],
-      website: [this.data.password?.website ?? '', Validators.required],
-      username: [this.data.password?.username ?? '', Validators.required],
-      password: [this.data.password?.password ??'', Validators.required],
+      _id: [this.data?.password?._id ?? ""],
+      name: [""],
+      description: [""],
+      website: [this.data?.password?.website ?? '', Validators.required],
+      username: [this.data?.password?.username ?? '', Validators.required],
+      password: [this.data?.password?.password ??'', Validators.required],
     });
   }
 
@@ -41,7 +45,7 @@ export class PasswordFormComponent implements OnInit {
       website: this.passwordForm?.get('website')?.value,
       username: this.passwordForm?.get('username')?.value,
       password: encryptedPassword.toString(),
-      key: this.passwordForm?.value._id ? this.data.password.key: fixedKey,
+      key: this.passwordForm?.value._id ? this.data?.password.key: fixedKey,
     };
 
     if (!this.passwordForm?.value._id) {

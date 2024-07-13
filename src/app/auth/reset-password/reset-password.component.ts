@@ -1,15 +1,13 @@
 import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
-import { FormControl, FormControlName, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import axios from 'axios';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../auth.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
-import { validate } from 'uuid';
+import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-reset-password',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, MatSnackBarModule],
+  imports: [FormsModule, ReactiveFormsModule, MatSnackBarModule, RouterModule, RouterLink],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.css'
 })

@@ -29,6 +29,19 @@ import {
 } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { PasswordFormComponent } from './dialog/password-form/password-form.component';
+import { SideNavComponent } from '../pages/side-nav/side-nav.component';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
+interface Passwords {
+  '_id': string
+    'name': string
+    'website': string
+    'username': string
+    'password': string
+    'update_at': string
+}
 
 @Component({
   selector: 'app-password',
@@ -40,42 +53,49 @@ import { PasswordFormComponent } from './dialog/password-form/password-form.comp
     MatButtonModule,
     AsyncPipe,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule, 
+    SideNavComponent, 
+    MatCheckboxModule,
+    MatTooltipModule
   ],
   providers: [{ provide: 'Window', useValue: window }],
   templateUrl: './password.component.html',
   styleUrl: './password.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
 export class PasswordComponent {
   passwords: any[] = []; // Use a Subject to manage password updates
   changedetect = inject(ChangeDetectorRef);
   passwordService = inject(PasswordService); // Inject the service
   displayedColumns: string[] = [
+    'select',
     '_id',
+    'name',
     'website',
     'username',
     'password',
     'update_at',
-    'action',
+    'action'
   ];
   readonly dialog = inject(MatDialog);
   isLoading: boolean = true;
   filterValue: string = ''; // Add filterValue property
+  selection = new SelectionModel<Passwords>(true, []);
   constructor(@Inject('Window') public window: Window, private clipboard: Clipboard) { }
   ngOnInit(): void {
-    // this.passwordService.filteredPasswords$.subscribe((filteredPasswords: any[]) => {
+    this.passwordService.filteredPasswords$.subscribe((filteredPasswords: any[]) => {
 
-    //   if (filteredPasswords && filteredPasswords.length > 0) {
-    //     this.passwords = filteredPasswords;
-    //   } else {
-    //     if (this.isLoading) {
-    //       this.getPasswords();
-    //     }
-    //   }
-    // }, error => {
-    //   this.getPasswords();
-    // });
+      if (filteredPasswords && filteredPasswords.length > 0) {
+        this.passwords = filteredPasswords;
+      } else {
+        if (this.isLoading) {
+          this.getPasswords();
+        }
+      }
+    }, error => {
+      this.getPasswords();
+    });
   }
 
   getPasswords(): void {
@@ -168,6 +188,29 @@ export class PasswordComponent {
     }).afterClosed().subscribe((res) => {
       if (res) this.getPasswords();
     })
+  }
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.passwords.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  toggleAllRows() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+
+    this.selection.select(...this.passwords);
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: Passwords): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row._id + 1}`;
   }
 }
 

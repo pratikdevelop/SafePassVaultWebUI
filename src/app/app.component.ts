@@ -7,6 +7,7 @@ import { inject } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { HeaderComponent } from './pages/header/header.component';
 import { Router, Event, NavigationEnd } from '@angular/router';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 import { IStaticMethods } from 'preline/preline';
 declare global {
@@ -18,7 +19,7 @@ declare global {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterModule, MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule, HeaderComponent],
+  imports: [RouterOutlet, RouterModule,MatButtonModule, MatIconModule, MatMenuModule,],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -12,7 +12,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     return true;
   } else {
     // Token doesn't exist, user is not authenticated
-    router.navigateByUrl((email && password)?`login?username=${route.queryParams[`username`]}&password=${route.queryParams['password']}`: `login`);
+    router.navigateByUrl((email && password)?`auth/login?username=${route.queryParams[`username`]}&password=${route.queryParams['password']}`: `auth/login`);
     return false;
   }
 };

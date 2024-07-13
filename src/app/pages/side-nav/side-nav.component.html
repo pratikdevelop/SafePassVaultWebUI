@@ -1,0 +1,37 @@
+<div class="flex relative  h-[10vh] bg-slate-800 w-full space-x-3 items-center px-5">
+    <input matInput type="text" placeholder="Search the password" [(ngModel)]="filterValue"
+      (change)="filterPasswords()"  class="px-5 py-4 w-5/12 border shadow-xl bg-white rounded"/>
+
+    <select  [(ngModel)]="selectedTags" aria-placeholder="Filter By Tags:"  class="px-8 py-4 w-2/12 border shadow-xl bg-white rounded">
+      <option  value="none">Select Tags <option>
+      <option value="work">Work</option>
+      <option value="personal">Personal</option>
+      <option value="finance">Finance</option>
+    </select>
+
+    <button class="block px-8 py-4  rounded bg-blue-500 text-white w-1/12"  [matMenuTriggerFor]="filter">Filter by</button>
+    <mat-menu #filter="matMenu">
+
+      <button (click)="setFilter('modified')" mat-menu-item >Latest Modified</button>
+      <button (click)="setFilter('favoutites')" mat-menu-item >favourites</button>
+      <button (click)="setFilter('shared')" mat-menu-item >Shared With Me</button>
+      <button (click)="setFilter('create')" mat-menu-item >created BY Me</button>
+    </mat-menu>
+
+    <button class="block px-8 py-4 w-1/12 rounded bg-blue-500 text-white" [matMenuTriggerFor]="Action">Action </button>
+    <mat-menu #Action="matMenu">
+      <button mat-menu-item (click)="performAction('delete')">Delete</button>
+      <button mat-menu-item (click)="performAction('add_favorites')">Add  to favourites</button>
+      <button mat-menu-item (click)="performAction('share')" >Share</button>
+      <button mat-menu-item (click)="performAction('export')">Export</button>
+    </mat-menu> 
+
+
+  <button  (click)="openPasswordFormDialog()" class="block px-8 py-4 w-1/12  rounded bg-blue-500 text-white">
+    Add new
+  </button>
+  <!-- <mat-menu #settingsMenu="matMenu">
+        <menu mat-menu-item (click)="openPasswordFormDialog()"></menu>
+        <menu mat-menu-item>folder</menu>
+      </mat-menu> -->
+</div>
