@@ -1,8 +1,7 @@
 <!-- Main Container -->
-<div class=" h-[100vh]  w-full flex items-center overflow-hidden justify-between bg-gray-100">
+<div class=" h-[100vh]  w-full flex items-center justify-between p-5">
   <!-- Login Card Content Will Go Here -->
-  <div class="w-3/6 flex justify-center items-center h-full bg-white">
-    <div class="max-w-xl w-1/2 ">
+  <div class="w-3/6 flex justify-center items-center">
       <!-- Form -->
       <form id="signupForm" class="space-y-8" [formGroup]="signupForm">
         <!-- Logo or Branding -->
@@ -11,9 +10,8 @@
         </div>
         <!-- Email Input -->
         <div>
-          <label for="name" class="block text-sm font-bold mb-2">name</label>
           <input type="name" id="name" formControlName="name" placeholder="Your name"
-            class="appearance-none rounded-full relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-50"
+            class="appearance-none rounded-full relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white focus:outline-none focus:ring-purple-50"
             required>
           @if(signupForm.get('name')?.hasError('required') && signupForm.get('name')?.touched) {
           <small class="text-red-600 font-semibold">Name is required.</small>
@@ -22,10 +20,8 @@
           }
         </div>
         <div>
-          <label for="email" class="block text-sm font-bold mb-2">email</label>
-          
           <input type="email" id="email" formControlName="email" placeholder="Your email"
-            class="appearance-none rounded-full relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-50"
+            class="appearance-none rounded-full relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white focus:outline-none focus:ring-purple-50"
             required>
 
           @if(signupForm.get('email')?.hasError('required') && signupForm.get('email')?.touched) {
@@ -35,7 +31,6 @@
           }
         </div>
         <div>
-          <label for="phone" class="block text-sm font-bold mb-2">phone</label>
           <input type="phone" id="phone" formControlName="phone" placeholder="Your phone"
             class="appearance-none rounded-full relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-50"
             required>
@@ -46,10 +41,14 @@
           }
         </div>
         <div>
-          <label for="password" class="block text-sm font-bold mb-2">Password</label>
+          <input type="text" formControlName="organization"  placeholder="organization name (optional)"
+          class="appearance-none rounded-full relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white focus:outline-none focus:ring-purple-50"
+          >
+        </div>
+        <div>
           <input type="password" id="hs-strong-password-with-indicator-and-hint" formControlName="password"
             placeholder="Your Password"
-            class="appearance-none rounded-full relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-50"
+            class="appearance-none rounded-full relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white focus:outline-none focus:ring-purple-50"
             required>
             <span class="ml-auto text-sm font-bold text-blue-700"  (click)="generatePassword()"> generate password</span>
           <div id="hs-strong-password" data-hs-strong-password='{
@@ -60,17 +59,17 @@
         </div>
         <div id="hs-strong-password-hints" class="mb-3">
           <div>
-            <span class="text-sm text-gray-800 dark:text-neutral-200">Level:</span>
+            <span class="text-sm text-white">Level:</span>
             <span
               data-hs-strong-password-hints-weakness-text='["Empty", "Weak", "Medium", "Strong", "Very Strong", "Super Strong"]'
-              class="text-sm font-semibold text-gray-800 dark:text-neutral-200"></span>
+              class="text-sm font-semibold text-white"></span>
           </div>
 
-          <h4 class="my-2 text-sm font-semibold text-gray-800 dark:text-white">
+          <h4 class="my-2 text-sm font-semibold text-white">
             Your password must contain:
           </h4>
 
-          <ul class="space-y-1 text-sm text-gray-500 dark:text-neutral-500">
+          <ul class="space-y-1 text-sm text-white">
             <li data-hs-strong-password-hints-rule-text="min-length"
               class="hs-strong-password-active:text-teal-500 flex items-center gap-x-2">
               <span class="hidden" data-check="">
@@ -170,7 +169,7 @@
         </div>
         <div class="flex flex-col space-y-6">
           <div class="text-right">
-            already have account? <a routerLink="auth/login" class="text-sm text-blue-700 hover:text-blue-900 ">logn now</a>
+            already have account? <a routerLink="/auth/login" class="text-sm text-blue-700 hover:text-blue-900 ">logn now</a>
           </div>
           <!-- Submit Button -->
           <button (click)="onSubmit()"
@@ -182,9 +181,8 @@
         </div>
       </form>
       <!-- Forgot Password Link -->
-    </div>
   </div>
-  <div class="w-3/6 h-full flex flex-col justify-center items-center text-center p-12 text-white "
+  <div class="w-3/6 h-full flex flex-col justify-center items-center text-center p-12  "
     style="background-image: url('https://flowbite.s3.amazonaws.com/blocks/marketing-ui/authentication/illustration.svg'); background-repeat: no-repeat; background-size: cover;">
     <h1 class="text-4xl ">Welcome to Our Password manager app</h1>
     <span class="text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos ducimus dolorem quibusdam

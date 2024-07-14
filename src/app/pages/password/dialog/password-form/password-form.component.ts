@@ -1,21 +1,25 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { PasswordService } from '../../../password.service';
+import { PasswordService } from '../../../../services/password.service';
 import { AES } from 'crypto-js';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { CommonModule } from '@angular/common';
+import { debounceTime, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-password-form',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatInputModule],
+  imports: [FormsModule, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, CommonModule, MatInputModule, MatAutocompleteModule],
   templateUrl: './password-form.component.html',
   styleUrl: './password-form.component.css'
 })
 export class PasswordFormComponent implements OnInit {
   passwordForm!: FormGroup;
+  tags: any[] = [];
   formbuilder = inject(FormBuilder);
   passwordService= inject(PasswordService)
   readonly data = inject<any>(MAT_DIALOG_DATA);
@@ -30,9 +34,23 @@ export class PasswordFormComponent implements OnInit {
       website: [this.data?.password?.website ?? '', Validators.required],
       username: [this.data?.password?.username ?? '', Validators.required],
       password: [this.data?.password?.password ??'', Validators.required],
+      searchTerm:['']
     });
   }
 
+  searchTags(): void {
+      this.passwordForm.get("searchTerm")?.valueChanges.pipe(
+        debounceTime(500), // wait for 500ms before searching
+        tap((searchTerm) => {
+          this.passwordService.searchTags(searchTerm).subscribe((res) => {
+            this.tags = res;
+          }, (error) => {
+            this.tags = [];
+            console.error("Error fetching the Tags, Error: ", error);
+          });
+        })
+      ).subscribe();
+    }
 
   addPassword(): void {
     const fixedKey = this.generateSecureKey(32);
@@ -77,5 +95,8 @@ export class PasswordFormComponent implements OnInit {
       key += characters.charAt(Math.floor(Math.random() * characters.length));
     }
     return key;
+  }
+  createNewTag(): void {
+    // implement logic to create a new tag
   }
 }

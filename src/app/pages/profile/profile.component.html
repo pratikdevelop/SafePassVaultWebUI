@@ -1,91 +1,17 @@
-<div class="relative flex w-full">
+<div class="relative flex w-full h-[90vh]">
   <ul class="flex flex-col h-full space-y-8 p-8 w-3/12">
-    <li class="active"><a (click)="setTab(0)" type="button" class="text-center font-bold uppercase text-base">Personal Details</a></li>
-    <li><a (click)="setTab(1)" type="button" class="text-center font-bold uppercase text-base">Security Token</a></li>
-    <li><a (click)="setTab(2)" type="button" class="text-center font-bold uppercase text-base">Change Password</a></li>
-    <li><a (click)="setTab(3)" type="button" class="text-center font-bold uppercase text-base">Email Notification</a></li>
-    <li><a (click)="setTab(4)" type="button" class="text-center font-bold uppercase text-base">MFA Authentication</a></li>
-    <li><a (click)="setTab(5)" type="button" class="text-center font-bold uppercase text-base">Role Permissions</a></li>
+    <li><a (click)="setTab(0)" type="button" class=" active:bg-gray-500 cursor-pointer text-center font-bold uppercase text-base ">Personal Details</a></li>
+    <li><a (click)="setTab(1)" type="button" class=" active:bg-gray-500 cursor-pointer text-center font-bold uppercase text-base">Security Token</a></li>
+    <li><a (click)="setTab(2)" type="button" class=" active:bg-gray-500 cursor-pointer text-center font-bold uppercase text-base">Change Password</a></li>
+    <li><a (click)="setTab(3)" type="button" class=" active:bg-gray-500 cursor-pointer text-center font-bold uppercase text-base">Email Notification</a></li>
+    <li><a (click)="setTab(4)" type="button" class=" active:bg-gray-500 cursor-pointer text-center font-bold uppercase text-base">MFA Authentication</a></li>
+    <li><a (click)="setTab(5)" type="button" class=" active:bg-gray-500 cursor-pointer text-center font-bold uppercase text-base">Role Permissions</a></li>
   </ul>
-  <div class="flex flex-col w-9/12 border-l-2 p-24">
+  <div class="flex flex-col w-9/12 border-l-2 px-16 py-2 space-y-6">
   @switch(tab) {
     @case (0){
-        <nav class="flex items-center justify-between  p-5 w-full text-dark" aria-label="Global">
-          <div class="flex lg:flex-1  text-xl">
-            Personal Details
-          </div>
-          <div class="flex justify-end items-center space-x-3">
-            <button mat-flat-button color="primary">Edit Profile</button>
-          </div>
-        </nav>
-    
-        <div id="profile" class="flex items-center p-6 w-full">
-          <div class="flex justify-between items-start w-4/6 relative">
-            <div class="flex flex-col mb-4">
-              <h2 class="text-lg font-bold text-dark">{{ user.name }}</h2>
-              <p class="text-gray-600">Role: {{ user.role }}</p>
-              <p class="text-gray-600">Email: {{ user.email }}</p>
-              <p class="text-gray-600">Phone: {{ user.phone }}</p>
-              <p class="text-gray-600">Created at: {{ user.createdAt | date: 'MM/dd/yyyy' }}</p>
-            </div>
-    
-          </div>
-          <div class="flex w-2/6 ">
-            <img class="rounded-full border-1 bg-cover" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z//////////////8BGxsbGxwbHiEhHiotKC0qPTgzMzg9XUJHQkdCXY1YZ1hYZ1iNfZd7c3uXfeCwnJyw4P/Zztn////////////////CABEIANQA1AMBIgACEQEDEQH/xAAZAAEBAQEBAQAAAAAAAAAAAAAABAMCAQX/2gAIAQEAAAAA+oAAAAAAAAAAAAAAA67eceAAANaNAxn4AACrcAlwAAK9gAlwAA2rAAg5ABf0ABjIAGloADz54Ab1AAEPAAopAAI8gBRSAAQ8ADS0AA+cAC/oADGQAG9QAEPAAFmoATTgAPa9QCacAANqOwzmzAAAd9++Z8gAA21yy8DrbrHMAGlfQz4e99jOTkA2rAAHMfAHdwAAOYfAXdgAATzBpaAAA8g8FW4AABHk/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAoCAhADEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/xAAuEAACAQEHAwEHBQAAAAAAAAABAgMAERIhMDFAYSBBURMEIjIzQlKBEBRgcZH/2gAIAQEAAT8A/jgVm0U0IZPFehJxRikH00QRqNqkTNrgKWJF7dTQqdMDToya7KOILi2uVJDZiumwiju4nXMlju+8NM6FLTeOgzSAcDTrcYjNRbqgZ062rb4zIhbIvGOeRaCMz2f4mPGwkFkjjnL9n+vYTfNfLgOLDjYSG2R/7y4TZIOcM8mwE5qsGUHOmaxLPObC9hunOke+xPbtnRyXxYdcyaS33R+c8Eg2io5Q+BwOVJN2X/dkkxGDYildW0PU0qL3tNPIz8DxtRI66MaE78V67eBRnfgUXZtWOzWFjrhQgTmmgYaY0QRqOoKzaAmlg+4/gU0CnQkU0TryM2OIvwKVFQYDoIB1FGJD9Negnk1+3X7jQgTk0I0GijpeJW4NMhQ2HKiivYnTYsoYWGnQobDkRpfbga7N1DLZRBBIPXGlxQO/faTro3VEt5x4GO1ItBFEEEg9MHwsedtN8w/r/8QAFBEBAAAAAAAAAAAAAAAAAAAAcP/aAAgBAgEBPwBE/8QAFBEBAAAAAAAAAAAAAAAAAAAAcP/aAAgBAwEBPwBE/9k=" alt="Profile Picture" class="rounded-full">
-          </div>
-          <!-- <mat-card>
-              <mat-card-title>Edit Profile</mat-card-title>
-              <mat-card-content>
-                <form [formGroup]="profileForm">
-                  <mat-form-field appearance="fill">
-                    <mat-label>Name</mat-label>
-                    <input matInput type="text" formControlName="name">
-                  </mat-form-field>
-                  <mat-form-field appearance="fill">
-                    <mat-label>Email Address</mat-label>
-                    <input matInput type="email" formControlName="email">
-                  </mat-form-field>
-                  <button mat-raised-button color="primary" type="submit">Save Changes</button>
-                </form>
-              </mat-card-content>
-              <mat-card-actions>
-                <button mat-button>Change Avatar</button> </mat-card-actions>
-            </mat-card> -->
-        </div>
-        <!-- <div id="security" class="settings-tab-content">
-            <mat-card>
-              <mat-card-title>Security Settings</mat-card-title>
-              <mat-card-content>
-                <mat-expansion-panel>
-                  <mat-expansion-panel-header>
-                    <mat-panel-title>Change Master Password</mat-panel-title>
-                    <mat-panel-description>Update your master password for enhanced security.</mat-panel-description>
-                  </mat-expansion-panel-header>
-                  <mat-expansion-panel-content>
-                    </mat-expansion-panel-content>
-                </mat-expansion-panel>
-      
-                <mat-expansion-panel>
-                  <mat-expansion-panel-header>
-                    <mat-panel-title>Two-Factor Authentication (2FA)</mat-panel-title>
-                    <mat-panel-description>Enable an extra layer of security with 2FA.</mat-panel-description>
-                  </mat-expansion-panel-header>
-                   <mat-expansion-panel-content>
-                    </mat-expansion-panel-content> >
-                </mat-expansion-panel>
-      
-                <mat-expansion-panel >
-                  <mat-expansion-panel-header>
-                    <mat-panel-title>Security Questions</mat-panel-title>
-                    <mat-panel-description>Set up questions for password recovery (optional).</mat-panel-description>
-                  </mat-expansion-panel-header>
-                  <<mat-expansion-panel-content>
-                    </mat-expansion-panel-content> >
-                </mat-expansion-panel>
-              </mat-card-content>
-            </mat-card>
-          </div> -->
-    }
+    <app-user-profile></app-user-profile>     
+   }
     @case (1) {
       <app-security></app-security>
     }

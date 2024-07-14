@@ -15,7 +15,7 @@ export class LayoutComponent implements OnInit {
   router = inject(Router)
   activate = inject(ActivatedRoute)
   ngOnInit(): void {
-      if (this.router.url === '/') {
+      if (this.router.url === '/home' && localStorage.getItem('token')) {
         this.router.navigateByUrl("/passwords")
       }
   }

@@ -1,14 +1,36 @@
-    <nav class="flex items-center justify-between h-[10vh] p-5 lg:px-8 bg-slate-900" aria-label="Global">
-      <div class="flex lg:flex-1 text-white text-xl">
-        Password Maanger App   
-      </div>
+<nav
+  class="flex items-center justify-between h-[10vh] relative"
+  aria-label="Global"
+>
+  <a routerLink="/" class="flex lg:flex-1 text-4xl">PassKeeper</a>
 
-      <div class="flex justify-end items-center space-x-3">
-        <a routerLink="/users" class="text-white bg-blue-500 px-6 py-2 rounded text-base font-bold">Users</a>
-        <a routerLink="/profile" class="text-white bg-blue-500 px-6 py-2 rounded text-base font-bold">profile</a>
-        <button type="button" (click)="logout()" class="text-white bg-blue-500 px-6 py-2 rounded text-base font-bold">logout</button>
-    </div>
-   
-    </nav>
-
-  
+  <div class="flex justify-end items-center space-x-3 text-base">
+    @if(token) {
+    <a
+      routerLink="/users"
+      class=" px-6 py-2 rounded text-base font-bold"
+      >Users</a
+    >
+    <a
+    routerLink="/organizations"
+    class=" px-6 py-2 rounded text-base font-bold"
+    >Organizations</a
+  >
+    <a
+      routerLink="/profile"
+      class=" px-6 py-2 rounded text-base font-bold"
+      >profile</a
+    >
+    <button
+      type="button"
+      (click)="logout()"
+      class=" px-6 py-2 rounded text-base font-bold"
+    >
+      logout
+    </button>
+    } @else {
+    <a routerLink="/auth/signup" class=" px-6 py-3">Get Started</a>
+    <a routerLink="/auth/login" class=" px-6 py-3">Log In</a>
+    }
+  </div>
+</nav>

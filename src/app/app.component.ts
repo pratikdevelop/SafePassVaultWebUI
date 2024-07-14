@@ -1,4 +1,4 @@
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { NavigationStart, RouterModule, RouterOutlet } from '@angular/router';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,7 +19,7 @@ declare global {
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterModule,MatButtonModule, MatIconModule, MatMenuModule,],
+  imports: [RouterOutlet, RouterModule,MatButtonModule, MatIconModule, MatMenuModule,HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,10 +27,14 @@ declare global {
 })
 export class AppComponent implements OnInit {
   token = localStorage.getItem("token");
+  hideHeader: boolean = false;
   router = inject(Router);
   
   ngOnInit(): void {
-    this.router.events.subscribe((event: Event) => {
+    this.router.events.subscribe((event:  any) => {   
+      this.hideHeader = event.url?.includes("/auth")
+      console.log("ebe",  this.hideHeader);
+      
       if (event instanceof NavigationEnd) {
         setTimeout(() => {
           window.HSStaticMethods.autoInit();

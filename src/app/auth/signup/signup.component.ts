@@ -2,12 +2,13 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
-import { AuthService } from '../../auth.service';
+import { AuthService } from '../../services/auth.service';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, MatSnackBarModule, RouterModule],
+  imports: [ReactiveFormsModule, FormsModule, MatSnackBarModule, RouterModule, MatButtonModule],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })
@@ -22,6 +23,7 @@ export class SignupComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     phone: new FormControl('', [Validators.required, Validators.pattern("[0-9]{10}")]),
     password: new FormControl('', [Validators.required, this.passwordValidator]),
+    organization: new FormControl('')
   });
 
   ngOnInit(): void { }
@@ -36,7 +38,7 @@ export class SignupComponent {
           response => {
             // Handle successful signup (e.g., redirect to login page, show success message)
             localStorage.setItem("email", this.signupForm.value.email)
-            this.router.navigateByUrl("/email-confirmation")
+            this.router.navigateByUrl("/auth/email-confirmation")
             console.log('Signup successful:', response);
 
             this.signupForm.reset(); // Reset form after successful signup

@@ -1,0 +1,18 @@
+<nav aria-label="Global" class="flex items-center pb-10 justify-between w-full text-dark">
+    <span class="font-bold text-2xl"> Personal Details </span>
+    <button mat-flat-button="" color="primary">Edit Profile</button>
+</nav>
+<div id="profile" class="relative flex items-center justify-between w-full">
+    <div class="flex justify-between items-start">
+        <div class="flex flex-col mb-4">
+            <h2 class="text-lg font-bold text-dark">{{user.name}}</h2>
+            <h6 class="font-bold">Role: {{user.role}}</h6>
+            <h6 class="font-bold">Email: {{user.email}}</h6>
+            <h6 class="font-bold">Phone: {{user.phone}}</h6>
+            <h6 class="font-bold">Created at: {{user.createdAt}}</h6>
+        </div>
+    </div>
+        <img
+            src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z//////////////8BGxsbGxwbHiEhHiotKC0qPTgzMzg9XUJHQkdCXY1YZ1hYZ1iNfZd7c3uXfeCwnJyw4P/Zztn////////////////CABEIANQA1AMBIgACEQEDEQH/xAAZAAEBAQEBAQAAAAAAAAAAAAAABAMCAQX/2gAIAQEAAAAA+oAAAAAAAAAAAAAAA67eceAAANaNAxn4AACrcAlwAAK9gAlwAA2rAAg5ABf0ABjIAGloADz54Ab1AAEPAAopAAI8gBRSAAQ8ADS0AA+cAC/oADGQAG9QAEPAAFmoATTgAPa9QCacAANqOwzmzAAAd9++Z8gAA21yy8DrbrHMAGlfQz4e99jOTkA2rAAHMfAHdwAAOYfAXdgAATzBpaAAA8g8FW4AABHk/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAoCAhADEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/xAAuEAACAQEHAwEHBQAAAAAAAAABAgMAERIhMDFAYSBBURMEIjIzQlKBEBRgcZH/2gAIAQEAAT8A/jgVm0U0IZPFehJxRikH00QRqNqkTNrgKWJF7dTQqdMDToya7KOILi2uVJDZiumwiju4nXMlju+8NM6FLTeOgzSAcDTrcYjNRbqgZ062rb4zIhbIvGOeRaCMz2f4mPGwkFkjjnL9n+vYTfNfLgOLDjYSG2R/7y4TZIOcM8mwE5qsGUHOmaxLPObC9hunOke+xPbtnRyXxYdcyaS33R+c8Eg2io5Q+BwOVJN2X/dkkxGDYildW0PU0qL3tNPIz8DxtRI66MaE78V67eBRnfgUXZtWOzWFjrhQgTmmgYaY0QRqOoKzaAmlg+4/gU0CnQkU0TryM2OIvwKVFQYDoIB1FGJD9Negnk1+3X7jQgTk0I0GijpeJW4NMhQ2HKiivYnTYsoYWGnQobDkRpfbga7N1DLZRBBIPXGlxQO/faTro3VEt5x4GO1ItBFEEEg9MHwsedtN8w/r/8QAFBEBAAAAAAAAAAAAAAAAAAAAcP/aAAgBAgEBPwBE/8QAFBEBAAAAAAAAAAAAAAAAAAAAcP/aAAgBAwEBPwBE/9k="
+            alt="Profile Picture" class="rounded-full">
+</div>

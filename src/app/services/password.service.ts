@@ -47,8 +47,6 @@ export class PasswordService {
         })
       );
   }
-  
-  
 
   addPassword(password: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/password`, password, { headers: this.headers })
@@ -108,5 +106,15 @@ export class PasswordService {
           throw error; // Re-throw the error to prevent silent failures
         })
       );
+  }
+
+  searchTags(name: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    const params = {
+      name: name
+    };
+    return this.http.get(this.apiUrl, { headers, params });
   }
 }

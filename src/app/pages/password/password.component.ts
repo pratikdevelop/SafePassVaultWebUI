@@ -15,7 +15,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { tap, catchError } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { PasswordService } from '../password.service'; // Import the new service
+import { PasswordService } from '../../services/password.service'; // Import the new service
 import { MatIconModule } from '@angular/material/icon';
 import { Clipboard } from '@angular/cdk/clipboard';
 import {
@@ -29,7 +29,7 @@ import {
 } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { PasswordFormComponent } from './dialog/password-form/password-form.component';
-import { SideNavComponent } from '../pages/side-nav/side-nav.component';
+import { SideNavComponent } from '../side-nav/side-nav.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -101,7 +101,6 @@ export class PasswordComponent {
   getPasswords(): void {
     this.isLoading = true;
     this.passwordService.getPasswords().subscribe((passwords: any[]) => {
-      console.log("p", passwords);
       this.isLoading = false;
       this.passwords = passwords;
       this.changedetect.detectChanges();
@@ -183,7 +182,7 @@ export class PasswordComponent {
 
   openPasswordFormDialog(password: any): void {
     this.dialog.open(PasswordFormComponent, {
-      width: '1400px',
+      width: '2000px',
       data: { password }
     }).afterClosed().subscribe((res) => {
       if (res) this.getPasswords();

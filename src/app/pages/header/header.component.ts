@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
-import { AuthService } from '../../auth.service';
+import { AuthService } from '../../services/auth.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router, RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,7 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit {
-  user: any = {};
+  token = localStorage.getItem('token')?.toString();
   filterValue: string = ''; // Add filterValue property
   authService = inject(AuthService);
   snackbar = inject(MatSnackBar)
