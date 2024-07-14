@@ -3,19 +3,18 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { PasswordService } from '../../../../services/password.service';
 import { AES } from 'crypto-js';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CommonModule } from '@angular/common';
 import { debounceTime, tap } from 'rxjs/operators';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-password-form',
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, CommonModule, MatInputModule, MatAutocompleteModule],
   templateUrl: './password-form.component.html',
-  styleUrl: './password-form.component.css'
 })
 export class PasswordFormComponent implements OnInit {
   passwordForm!: FormGroup;

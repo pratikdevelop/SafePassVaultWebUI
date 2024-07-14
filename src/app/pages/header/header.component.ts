@@ -11,7 +11,6 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
   imports: [MatSnackBarModule, RouterModule, FormsModule, MatButtonModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit {
   token = localStorage.getItem('token')?.toString();

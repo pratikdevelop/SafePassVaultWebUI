@@ -14,10 +14,8 @@
   font-size:small;
 
 }
-html, body { height: 100%; }
-body { margin: 0; 
-    font-family: "Creepster", system-ui !important;
-    font-weight: 400 !important;
-    font-style: normal !important;
-  }
+
+::ng-deep .mat-mdc-dialog-surface {
+  border-radius: .05rem !important;
+}
 

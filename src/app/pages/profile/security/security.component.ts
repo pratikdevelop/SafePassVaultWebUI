@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatOptionModule } from '@angular/material/core';
@@ -12,7 +12,6 @@ import { MatSelectModule } from '@angular/material/select';
   standalone: true,
   imports: [ReactiveFormsModule, MatFormFieldModule, FormsModule, MatCardModule, MatButtonModule, MatInputModule, MatSelectModule, MatOptionModule],
   templateUrl: './security.component.html',
-  styleUrl: './security.component.css'
 })
 export class SecurityComponent {
   securityForm = new FormGroup({

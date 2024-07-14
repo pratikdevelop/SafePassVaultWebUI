@@ -6,17 +6,11 @@ import {
   Inject,
   inject,
 } from '@angular/core';
-import {
-  FormsModule,
-  ReactiveFormsModule
-} from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
-import { MatButtonModule } from '@angular/material/button';
 import { tap, catchError } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { PasswordService } from '../../services/password.service'; // Import the new service
-import { MatIconModule } from '@angular/material/icon';
 import { Clipboard } from '@angular/cdk/clipboard';
 import {
   MAT_DIALOG_DATA,
@@ -31,9 +25,11 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { PasswordFormComponent } from './dialog/password-form/password-form.component';
 import { SideNavComponent } from '../side-nav/side-nav.component';
 import { SelectionModel } from '@angular/cdk/collections';
-import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
+import { MatButtonModule } from '@angular/material/button'
+import {MatIconModule} from '@angular/material/icon'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 interface Passwords {
   '_id': string
     'name': string
@@ -53,14 +49,12 @@ interface Passwords {
     MatButtonModule,
     AsyncPipe,
     MatIconModule,
-    MatButtonModule, 
     SideNavComponent, 
     MatCheckboxModule,
     MatTooltipModule
   ],
   providers: [{ provide: 'Window', useValue: window }],
   templateUrl: './password.component.html',
-  styleUrl: './password.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 

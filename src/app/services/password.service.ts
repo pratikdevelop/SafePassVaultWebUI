@@ -1,25 +1,22 @@
-// home/pc-02/Music/password-app/src/app/password.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { map, tap, catchError, switchMap } from 'rxjs/operators';
+import { catchError, switchMap } from 'rxjs/operators';
 import { AES } from 'crypto-js';
 import CryptoJS from 'crypto-js';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PasswordService {
-  private apiUrl = 'http://localhost:3000/api/passwords';
-  private headers = new HttpHeaders({
-    Authorization: 'Bearer ' + localStorage.getItem("token")
-  });
+  private apiUrl = `${environment[`api_url`]}/passwords`;
   filteredPasswords$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
 
 
   constructor(private http: HttpClient) { }
   getPasswords(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl, { headers: this.headers })
+    return this.http.get<any[]>(this.apiUrl)
       .pipe(
         switchMap((response: any[]) => {
           // Validate response data structure (optional)
@@ -49,7 +46,7 @@ export class PasswordService {
   }
 
   addPassword(password: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/password`, password, { headers: this.headers })
+    return this.http.post<any>(`${this.apiUrl}/password`, password)
     .pipe(
       switchMap((response: any) => { // Use switchMap to transform the entire response
         const decryptedPassword = AES.decrypt(
@@ -69,7 +66,7 @@ export class PasswordService {
   }
 
   deletePassword(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/password/${id}`, { headers: this.headers })
+    return this.http.delete<void>(`${this.apiUrl}/password/${id}`)
       .pipe(
         catchError((error: any) => {
           console.error('Error deleting password:', error);
@@ -79,7 +76,7 @@ export class PasswordService {
   }
 
   updatePassword(_id: any, newPasswordObject: { website: any; username: any; password: string; key: string; }): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/password/${_id}`, newPasswordObject, { headers: this.headers })
+    return this.http.put<any>(`${this.apiUrl}/password/${_id}`, newPasswordObject)
       .pipe(
         switchMap((response: any) => { // Use switchMap to transform the entire response
           const decryptedPassword = AES.decrypt(
@@ -99,7 +96,7 @@ export class PasswordService {
   }
 
   sharePassword(passwordId: string): Observable<{ shareLink: string }> {
-    return this.http.post<{ shareLink: string }>(`${this.apiUrl}/share/${passwordId}`,{}, { headers: this.headers })
+    return this.http.post<{ shareLink: string }>(`${this.apiUrl}/share/${passwordId}`,{})
       .pipe(
         catchError((error: any) => {
           console.error('Error generating share link:', error);

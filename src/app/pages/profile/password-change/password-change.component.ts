@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators, ValidatorFn } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -9,10 +9,9 @@ import { MatInputModule } from '@angular/material/input';
   standalone: true,
   imports: [ReactiveFormsModule, MatFormFieldModule, FormsModule, MatButtonModule, MatInputModule],
   templateUrl: './password-change.component.html',
-  styleUrl: './password-change.component.css'
 })
 export class PasswordChangeComponent implements OnInit {
-  passwordChangeForm: FormGroup   = new FormGroup({
+  passwordChangeForm: FormGroup = new FormGroup({
     currentPassword: new FormControl('', Validators.required),
     newPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
     confirmNewPassword: new FormControl('', [Validators.required])

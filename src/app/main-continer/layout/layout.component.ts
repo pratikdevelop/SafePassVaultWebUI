@@ -9,7 +9,6 @@ import { SideNavComponent } from '../../pages/side-nav/side-nav.component';
   standalone: true,
   imports: [MatSidenavModule, HeaderComponent, RouterOutlet, RouterModule, SideNavComponent],
   templateUrl: './layout.component.html',
-  styleUrl: './layout.component.css'
 })
 export class LayoutComponent implements OnInit {
   router = inject(Router)

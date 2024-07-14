@@ -10,13 +10,13 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTableModule } from '@angular/material/table';
+import { OrganizationComponent } from '../organization/organization.component';
 
 @Component({
   selector: 'app-side-nav',
   standalone: true,
-  imports: [MatButtonModule, MatMenuModule, MatMenuModule, MatTableModule, MatCheckboxModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatOptionModule, MatInputModule, MatCheckboxModule],
+  imports: [ MatMenuModule, MatTableModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatOptionModule, MatInputModule, MatCheckboxModule],
   templateUrl: './side-nav.component.html',
-  styleUrl: './side-nav.component.css'
 })
 export class SideNavComponent {
   dialog = inject(MatDialog)
@@ -42,5 +42,9 @@ console.log("event", this.action);
   filterPasswords(): void {
     const filterValueLower = this.filterValue.toLowerCase().trim();
 
+  }
+
+  createOrganization(): void {
+    this.dialog.open(OrganizationComponent) 
   }
 }

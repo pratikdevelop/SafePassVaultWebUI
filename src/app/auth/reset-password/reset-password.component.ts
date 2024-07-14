@@ -9,7 +9,6 @@ import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule, MatSnackBarModule, RouterModule, RouterLink],
   templateUrl: './reset-password.component.html',
-  styleUrl: './reset-password.component.css'
 })
 export class ResetPasswordComponent implements OnInit {
   emailForm = new FormGroup({

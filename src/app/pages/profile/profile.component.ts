@@ -9,7 +9,6 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
   imports: [SecurityComponent, PasswordChangeComponent, UserProfileComponent
   ],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.css'
 })
 export class ProfileComponent implements OnInit {
   enableSecurityQuestions = false; // Flag for optional security questions

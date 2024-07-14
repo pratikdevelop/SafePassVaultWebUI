@@ -1,0 +1,27 @@
+<form [formGroup]="organizationForm" class="flex flex-col space-y-6 p-24">
+    <h6 class="font-bold text-white leading-6">Create Organization</h6>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Organization Name</mat-label>
+      <input matInput type="text" formControlName="organization_name" />
+      @if(organizationForm.get('organization_name')?.hasError('required')) {
+      <mat-error> Organization name is required </mat-error>
+      }
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Organization Description (optional)</mat-label>
+      <input matInput type="text" formControlName="organization_description" />
+    </mat-form-field>
+
+  
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      [disabled]="!organizationForm.valid"
+    >
+      Create Organization
+    </button>
+  </form>
+  

@@ -11,7 +11,7 @@
       <option value="personal">Personal</option>
       <option value="finance">Finance</option>
     </select>
-    <button class="block px-8 py-4 rounded bg-blue-500 " [matMenuTriggerFor]="filter">Filter
+    <button mat-raised-button [matMenuTriggerFor]="filter">Filter
       by</button>
     <mat-menu #filter="matMenu">
 
@@ -20,15 +20,21 @@
       <button (click)="setFilter('shared')" mat-menu-item>Shared With Me</button>
       <button (click)="setFilter('create')" mat-menu-item>created BY Me</button>
     </mat-menu>
-    <button class="block px-8 py-4 rounded bg-blue-500 " [matMenuTriggerFor]="Action">Action </button>
+    <button mat-raised-button [matMenuTriggerFor]="Action">Action </button>
     <mat-menu #Action="matMenu">
       <button mat-menu-item (click)="performAction('delete')">Delete</button>
       <button mat-menu-item (click)="performAction('add_favorites')">Add to favourites</button>
       <button mat-menu-item (click)="performAction('share')">Share</button>
       <button mat-menu-item (click)="performAction('export')">Export</button>
     </mat-menu>
-    <button (click)="openPasswordFormDialog()" class="block px-8 py-4  rounded bg-blue-500 ">
+    <button (click)="openPasswordFormDialog()" mat-raised-button>
       Add new
     </button>
+    <a
+    (click)="createOrganization()"
+    type="button"
+    mat-raised-button
+    >Organizations</a
+  >
   </div>
 </div>

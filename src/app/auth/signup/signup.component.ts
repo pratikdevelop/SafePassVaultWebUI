@@ -10,7 +10,6 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
   imports: [ReactiveFormsModule, FormsModule, MatSnackBarModule, RouterModule, MatButtonModule],
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.css'
 })
 export class SignupComponent {
 

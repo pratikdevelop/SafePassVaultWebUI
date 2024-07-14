@@ -9,7 +9,6 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
   standalone: true,
   imports: [FormsModule, ReactiveFormsModule, MatSnackBarModule],
   templateUrl: './confirmation.component.html',
-  styleUrl: './confirmation.component.css'
 })
 export class ConfirmationComponent implements OnInit {
   OTPForm: FormGroup = new FormGroup({
