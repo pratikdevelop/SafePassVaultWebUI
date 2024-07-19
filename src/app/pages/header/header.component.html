@@ -1,31 +1,28 @@
-<nav
-  class="flex items-center justify-between h-[10vh] relative"
-  aria-label="Global"
->
-  <a routerLink="/" class="flex lg:flex-1 text-4xl">PassKeeper</a>
-
-  <div class="flex justify-end items-center space-x-3 text-base">
+<nav class="flex flex-col items-center bg-gray-900 p-5 py-2 justify-between space-y-2 text-white relative"
+  aria-label="Global">
+  <div class="flex justify-between w-full">
+    <a routerLink="/" class="flex lg:flex-1 text-4xl">PassKeeper</a>
     @if(token) {
-    <a
-      routerLink="/users"
-      class=" px-6 py-2 rounded text-base font-bold"
-      >Users</a
-    >
-    <a
-      routerLink="/profile"
-      class=" px-6 py-2 rounded text-base font-bold"
-      >profile</a
-    >
-    <button
-      type="button"
-      (click)="logout()"
-      class=" px-6 py-2 rounded text-base font-bold"
-    >
-      logout
-    </button>
-    } @else {
-    <a routerLink="/auth/signup" class=" px-6 py-3">Get Started</a>
-    <a routerLink="/auth/login" class=" px-6 py-3">Log In</a>
-    }
+    <input matInput type="text" placeholder="Search the password" [(ngModel)]="filterValue" (change)="filterPasswords()"
+      class="p-3 w-5/12 border shadow-xl bg-white rounded" />
+    <span class="flex items-center">
+
+      @if (userProfile && userProfile?.role === 'admin') {
+      <a routerLink="" mat-icon class="rounded font-bold">
+        <mat-icon>admin_panel_settings</mat-icon>
+      </a>
+      }
+      <a mat-icon routerLink="/profile" class=" rounded font-bold">
+        <mat-icon>person</mat-icon>
+      </a>
+      <button mat-icon (click)="logout()" class=" rounded font-bold">
+        <mat-icon>power_settings_new</mat-icon>
+      </button>
+    </span>
+      }
+      @else {
+      <a routerLink="/auth/signup" class=" px-6 py-3">Get Started</a>
+      <a routerLink="/auth/login" class=" px-6 py-3">Log In</a>
+      }
   </div>
 </nav>

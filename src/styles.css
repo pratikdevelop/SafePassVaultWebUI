@@ -8,14 +8,19 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Creepster", system-ui !important;
-  font-weight: 400 !important;
-  font-style: normal !important;
-  font-size:small;
-
+  font-size: small;
+  font-family: "Noto Serif", serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 62.5;
 }
 
-::ng-deep .mat-mdc-dialog-surface {
-  border-radius: .05rem !important;
+::ng-deep mdc-dialog--closing .mat-mdc-dialog-surface {
+  border-radius: 0 !important;
 }
 
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

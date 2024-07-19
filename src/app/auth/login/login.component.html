@@ -2,48 +2,49 @@
 <div class="h-full relative w-full flex flex-auto items-center overflow-hidden">
   <!-- Login Card Content Will Go Here -->
   <div class="w-full sm:w-3/6 flex justify-center items-center flex-auto bg-white h-[100vh]">
-    <div class="max-w-xl w-1/2">
-      <!-- Form -->
-      <form id="loginForm" class="flex flex-col space-y-8" [formGroup]="loginForm">
-        <!-- Logo or Branding -->
-        <div class="text-center text-3xl">
-          Login with your account
+    <!-- Form -->
+    <form id="loginForm" class="flex flex-col space-y-8" [formGroup]="loginForm">
+      <!-- Logo or Branding -->
+      <div class="text-center text-3xl">
+        Login with your account
+      </div>
+      <!-- Email Input -->
+      <mat-form-field class="w-full" appearance="fill">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" placeholder="Enter your username" required />
+        @if (loginForm.controls['username'].invalid) {
+        <mat-error>Email is invalid</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="w-full" appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" placeholder="Enter your password" [type]="hide() ? 'password' : 'text'" />
+        <button mat-icon-button matSuffix (click)="clickEvent($event)" [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hide()">
+          <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+      <!-- signup account link -->
+      <div class="flex flex-col space-y-6">
+        <div class="text-right">
+          not have account? <a routerLink="/auth/signup" class="text-sm text-blue-700 hover:text-blue-900 ">signup
+            now</a>
         </div>
-        <!-- Email Input -->
-        <div>
-          <label for="username" class="block text-sm font-bold mb-2">username address</label>
-          <input type="username" id="username" formControlName="username" placeholder="Your username"
-            class="appearance-none rounded-full relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-50"
-            required>
+        <!-- Submit Button -->
+        <button mat-raised-button type="button" color="primary" [disabled]="loginForm.invalid" (click)="onSubmit()">
+          login now
+        </button>
+        <!-- Forgot Password Link -->
+        <div class="text-center">
+          <a routerLink="/auth/reset-password" class="text-sm text-blue-700 hover:text-blue-900 ">Forgot Password?</a>
         </div>
-        <!-- Password Input -->
-        <div>
-          <label for="password" class="block text-sm font-bold mb-2">Password</label>
-          <input type="password" id="password" formControlName="password" placeholder="Your Password"
-            class="appearance-none rounded-full relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-50"
-            required>
-        </div>
-        <!-- signup account link -->
-        <div class="flex flex-col space-y-6">
-          <div class="text-right">
-           not have account? <a routerLink="/auth/signup" class="text-sm text-blue-700 hover:text-blue-900 ">signup now</a>
-          </div>
-          <!-- Submit Button -->
-          <button (click)="onSubmit()"
-            class="bg-indigo-600 w-full hover:bg-indigo-900  font-bold py-2 px-4  rounded-full">
-            Login
-          </button>
-          <!-- Forgot Password Link -->
-          <div class="text-center">
-            <a routerLink="/auth/reset-password" class="text-sm text-blue-700 hover:text-blue-900 ">Forgot Password?</a>
-          </div>
-        </div>
-      </form>
-    </div>
+      </div>
+    </form>
   </div>
   <div class=" hidden sm:w-3/6 h-full sm:flex sm:flex-col justify-center items-center text-center p-12  "
     style="background-image: url('https://images.pexels.com/photos/1486974/pexels-photo-1486974.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'); background-repeat: no-repeat; background-size: cover;">
-    <h1 class="text-4xl ">Welcome to Our Password manager app</h1>
+    <h1>Welcome to Our Password manager app</h1>
     <span class="text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos ducimus dolorem quibusdam
       doloribus dolore, nesciunt cumque ab quia. Facere eaque soluta provident voluptatem odio laborum est facilis
       exercitationem, beatae nisi!</span>

@@ -7,7 +7,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   const password = route.queryParams['password'];
   const token = localStorage.getItem('token'); // Get token from localStorage
 
-  const publicRoutes = ['/signup', '/reset-password', '/home', '/email-confirmation'];
+  const publicRoutes = ['/signup', '/reset-password', '/login' ,'/home', '/email-confirmation'];
 
   // Check if the current route is one of the public routes
   const isPublicRoute = publicRoutes.some(route => state.url.includes(route));

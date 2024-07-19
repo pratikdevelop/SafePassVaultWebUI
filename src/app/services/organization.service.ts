@@ -11,24 +11,24 @@ export class OrganizationService {
 
   constructor(private http: HttpClient) { }
 
-  createOrganization(name: string, description: string) {
-    return this.http.post(`${this.apiUrl}/organizations`, { name, description });
+  createOrganization(name: any, description: any) {
+    return this.http.post(`${this.apiUrl}/auth/organizations`, { name, description });
   }
 
   getOrganizations() {
-    return this.http.get(`${this.apiUrl}/organizations`);
+    return this.http.get(`${this.apiUrl}/auth/organizations`);
   }
 
   sendInvitation(organizationId: string, recipientId: string) {
-    return this.http.post(`${this.apiUrl}/organizations/${organizationId}/invitations`, { recipientId });
+    return this.http.post(`${this.apiUrl}/auth/organizations/${organizationId}/invitations`, { recipientId });
   }
 
   getInvitations(userId: string) {
-    return this.http.get(`${this.apiUrl}/users/${userId}/invitations`);
+    return this.http.get(`${this.apiUrl}/auth/users/${userId}/invitations`);
   }
 
   updateInvitationStatus(invitationId: string, status: string) {
-    return this.http.patch(`${this.apiUrl}/invitations/${invitationId}`, { status });
+    return this.http.patch(`${this.apiUrl}/auth/invitations/${invitationId}`, { status });
   }
 
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { AES } from 'crypto-js';
@@ -106,12 +106,10 @@ export class PasswordService {
   }
 
   searchTags(name: string): Observable<any> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
-    });
-    const params = {
-      name: name
-    };
-    return this.http.get(this.apiUrl, { headers, params });
+    return this.http.get(`${environment.api_url}/tags/search/${name}`);
+  }
+
+  addTag(payload: any): Observable<any> {
+    return this.http.post<any>(`${environment.api_url}/tags/tag`, payload);
   }
 }

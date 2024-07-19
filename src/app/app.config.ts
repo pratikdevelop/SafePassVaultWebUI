@@ -13,7 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync(), provideHttpClient(withInterceptors([apiInterceptor])),
-  importProvidersFrom([MatButtonModule, MatSnackBarModule, MatFormFieldModule, ReactiveFormsModule, FormsModule,MatInputModule ])
+  importProvidersFrom([MatButtonModule, MatSnackBarModule, MatFormFieldModule, ReactiveFormsModule, FormsModule,MatInputModule ]), provideAnimationsAsync()
   
   ]
 };

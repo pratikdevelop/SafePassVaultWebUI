@@ -4,11 +4,6 @@ import { authGuard } from "../auth.guard"
 export const route : Routes =[
     {
         path: "", 
-        redirectTo:"/home",
-        pathMatch:"full"
-    },
-    {
-        path: 'home',
         loadComponent: ()=>import("./layout/layout.component").then(m=>m.LayoutComponent),
     },
     {
@@ -18,7 +13,7 @@ export const route : Routes =[
     },
     {
         path: 'profile',
-        // canActivate: [authGuard], // Protect the admin route
+        canActivate: [authGuard], // Protect the admin route
         loadComponent:()=>import("../pages/profile/profile.component").then((m)=>m.ProfileComponent)
     },
 ]

@@ -9,7 +9,7 @@ import {
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { tap, catchError } from 'rxjs';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { PasswordService } from '../../services/password.service'; // Import the new service
 import { Clipboard } from '@angular/cdk/clipboard';
 import {
@@ -30,6 +30,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button'
 import {MatIconModule} from '@angular/material/icon'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatSidenavModule} from '@angular/material/sidenav';
+
 interface Passwords {
   '_id': string
     'name': string
@@ -51,7 +53,10 @@ interface Passwords {
     MatIconModule,
     SideNavComponent, 
     MatCheckboxModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatIconModule,
+    CommonModule,
+    MatSidenavModule     
   ],
   providers: [{ provide: 'Window', useValue: window }],
   templateUrl: './password.component.html',
@@ -166,12 +171,6 @@ export class PasswordComponent {
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string, shareLink: string): void {
-    this.dialog.open(DialogAnimationsExampleDialog, {
-      width: '1400px',
-      enterAnimationDuration,
-      exitAnimationDuration,
-      data: { shareLink }
-    });
   }
 
   openPasswordFormDialog(password: any): void {
@@ -208,21 +207,3 @@ export class PasswordComponent {
 }
 
 
-@Component({
-  selector: 'dialog-animations-example-dialog',
-  templateUrl: "share-dialog.html",
-  standalone: true,
-  imports: [MatButtonModule, MatDialogActions, MatCardModule, MatIconModule, MatDialogClose, MatDialogTitle, MatDialogContent, MatSnackBarModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-})
-export class DialogAnimationsExampleDialog {
-  readonly dialogRef = inject(MatDialogRef<DialogAnimationsExampleDialog>);
-  readonly data = inject<any>(MAT_DIALOG_DATA);
-  readonly clipboard = inject(Clipboard);
-  readonly snackbar = inject(MatSnackBar)
-  copyLink(): void {
-    this.clipboard.copy(this.data.shareLink.toString());
-    this.snackbar.open("Link is copy to clipboard", "close", { duration: 3000 })
-    this.dialogRef.close()
-  }
-}

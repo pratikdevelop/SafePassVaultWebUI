@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, switchMap, of, catchError, tap, throwError, map } from 'rxjs';
+import { Observable, switchMap, of, catchError, tap, throwError, map, BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -9,6 +9,8 @@ import { environment } from '../../environments/environment';
 export class AuthService {
   private apiUrl: string = `${environment.api_url}/auth`;
   constructor(private http: HttpClient) { }
+  private _userProfileSubject = new BehaviorSubject<any | null>(null);
+  public userProfile$: Observable<any | null> = this._userProfileSubject.asObservable();
 
   signup(signupForm: any): Observable<any[]> {
     return this.http.post<any>(`${this.apiUrl}/register`, signupForm)
@@ -91,14 +93,12 @@ export class AuthService {
 
   getProfile(): Observable<any> {
 
-    // Assuming authorization header with token for authenticated profile access
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('token')}`
-    });
 
-    return this.http.get(`${this.apiUrl}/profile`, { headers })
+    return this.http.get(`${this.apiUrl}/profile`)
       .pipe(
-        switchMap(response => { return of(response) }), // You might want to process the profile data here
+        switchMap(response => {
+            this._userProfileSubject.next(response)
+           return of(response) }), // You might want to process the profile data here
         catchError(error => {
           return throwError(error);
         })

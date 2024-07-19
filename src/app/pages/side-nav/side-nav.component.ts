@@ -1,21 +1,16 @@
 import { Component, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
-import { MatMenuModule } from '@angular/material/menu';
 import { PasswordFormComponent } from '../password/dialog/password-form/password-form.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatOptionModule } from '@angular/material/core';
-import { MatInputModule } from '@angular/material/input';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatTableModule } from '@angular/material/table';
 import { OrganizationComponent } from '../organization/organization.component';
+import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-side-nav',
   standalone: true,
-  imports: [ MatMenuModule, MatTableModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule, MatOptionModule, MatInputModule, MatCheckboxModule],
+  imports: [MatListModule, MatButtonModule,MatIconModule, MatMenuModule,],
   templateUrl: './side-nav.component.html',
 })
 export class SideNavComponent {
@@ -32,10 +27,10 @@ export class SideNavComponent {
   }
   performAction(vlaue: string): void {
     this.action = vlaue
-console.log("event", this.action);
+    console.log("event", this.action);
 
   }
-  setFilter(type:string): void {
+  setFilter(type: string): void {
     this.filter_by = type;
   }
 
@@ -45,6 +40,6 @@ console.log("event", this.action);
   }
 
   createOrganization(): void {
-    this.dialog.open(OrganizationComponent) 
+    this.dialog.open(OrganizationComponent)
   }
 }
