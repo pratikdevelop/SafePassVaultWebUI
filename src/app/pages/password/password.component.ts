@@ -1,44 +1,36 @@
-// home/pc-02/Music/password-app/src/app/password/password.component.ts
 import {
-  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Inject,
-  inject,
+  inject
 } from '@angular/core';
-import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { tap, catchError } from 'rxjs';
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { PasswordService } from '../../services/password.service'; // Import the new service
 import { Clipboard } from '@angular/cdk/clipboard';
+import {MatChipsModule} from '@angular/material/chips';
+
 import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogContent,
-  MatDialogRef,
-  MatDialogTitle,
+  MatDialog
 } from '@angular/material/dialog';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { PasswordFormComponent } from './dialog/password-form/password-form.component';
 import { SideNavComponent } from '../side-nav/side-nav.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatButtonModule } from '@angular/material/button'
-import {MatIconModule} from '@angular/material/icon'
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatMenuModule } from '@angular/material/menu';
 
-interface Passwords {
+export interface Passwords {
   '_id': string
-    'name': string
-    'website': string
-    'username': string
-    'password': string
-    'update_at': string
+  'name': string
+  'website': string
+  'username': string
+  'password': string
+  'update_at': string
 }
 
 @Component({
@@ -49,22 +41,21 @@ interface Passwords {
     ReactiveFormsModule,
     MatTableModule,
     MatButtonModule,
-    AsyncPipe,
     MatIconModule,
-    SideNavComponent, 
+    SideNavComponent,
     MatCheckboxModule,
     MatTooltipModule,
-    MatIconModule,
     CommonModule,
-    MatSidenavModule     
+    MatMenuModule,
+    MatChipsModule
   ],
   providers: [{ provide: 'Window', useValue: window }],
   templateUrl: './password.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class PasswordComponent {
   passwords: any[] = []; // Use a Subject to manage password updates
+  passwordIds= [];
   changedetect = inject(ChangeDetectorRef);
   passwordService = inject(PasswordService); // Inject the service
   displayedColumns: string[] = [
@@ -74,7 +65,10 @@ export class PasswordComponent {
     'website',
     'username',
     'password',
+    'tags',
+    'favourite',
     'update_at',
+
     'action'
   ];
   readonly dialog = inject(MatDialog);
@@ -97,11 +91,13 @@ export class PasswordComponent {
     });
   }
 
-  getPasswords(): void {
+  getPasswords(event=null): void {
     this.isLoading = true;
     this.passwordService.getPasswords().subscribe((passwords: any[]) => {
       this.isLoading = false;
       this.passwords = passwords;
+      console.log("pp", passwords);
+      
       this.changedetect.detectChanges();
     }, error => {
       this.passwords = [];
@@ -111,12 +107,22 @@ export class PasswordComponent {
 
   }
   autofill(password: any): void {
+    if (!password.website?.startsWith('http://') && !password.website?.startsWith('https://')) {
+      password.website = `https://${password.website}`; // Add https by default
+    }
+
+    // Handle potential errors gracefully
+    try {
       const urlObject = new URL(password.website);
       const searchParams = new URLSearchParams();
       searchParams.set('username', password.username);
-      searchParams.set('password', password.password);
+      searchParams.set('password', password.password);// Assuming these are for demonstration purposes, avoid storing credentials in plain text
       urlObject.search = searchParams.toString();
-      this.window.open(urlObject, 'blank');
+      this.window.open(urlObject.toString(), '_blank');
+    } catch (error) {
+      console.error('Error opening website:', error);
+      // Handle the error gracefully, e.g., display an error message to the user
+    }
   }
 
   generateStrongPassword(length: number = 12): void {
@@ -161,7 +167,7 @@ export class PasswordComponent {
     this.passwordService.sharePassword(passwordId)
       .subscribe(
         (response) => {
-          this.openDialog('0ms', '0ms', `${response.shareLink}`);
+
         },
         (error) => {
           console.error('Error generating share link:', error);
@@ -170,8 +176,6 @@ export class PasswordComponent {
 
   }
 
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string, shareLink: string): void {
-  }
 
   openPasswordFormDialog(password: any): void {
     this.dialog.open(PasswordFormComponent, {
@@ -203,6 +207,21 @@ export class PasswordComponent {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row._id + 1}`;
+  }
+
+  updateFavourites(passwordId: string): void {
+      this.passwordService.addToFavorites(passwordId)
+      .subscribe(
+        (response) => {
+          console.log('Password added to favorites successfully', response);
+          this.getPasswords();
+          // Handle success, e.g., update UI
+        },
+        (error) => {
+          console.error('Error adding password to favorites', error);
+          // Handle error, e.g., display error message
+        }
+      );
   }
 }
 

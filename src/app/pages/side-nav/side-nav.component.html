@@ -1,23 +1,23 @@
 <div class="flex relative p-3 shadow-2xl border w-full space-x-3 items-center justify-between">
     <div class="flex items-center ml-auto space-x-5">
-        <button (click)="openPasswordFormDialog()" [matMenuTriggerFor]="Action" mat-raised-button>
+        <button (click)="openPasswordFormDialog()" [matMenuTriggerFor]="addAction" mat-raised-button>
             Add
         </button>
-        <mat-menu #Action="matMenu">
+        <mat-menu #addAction="matMenu">
             <button mat-menu-item (click)="setFilter('modified')">new Password</button>
             <button mat-menu-item (click)="setFilter('favoutites')">new Cart</button>
             <button mat-menu-item (click)="setFilter('shared')">note</button>
         </mat-menu>
-        <a type="button" [matMenuTriggerFor]="Action" mat-raised-button color="primary">Filter by</a>
-        <mat-menu #Action="matMenu">
+        <a type="button" [matMenuTriggerFor]="filterAction" mat-raised-button color="primary">Filter by</a>
+        <mat-menu #filterAction="matMenu">
             <button mat-menu-item (click)="setFilter('modified')">Latest Modified</button>
             <button mat-menu-item (click)="setFilter('favoutites')">favourites</button>
             <button mat-menu-item (click)="setFilter('shared')">Shared With Me</button>
             <button mat-menu-item (click)="setFilter('create')">created BY Me</button>
         </mat-menu>
-        <button mat-icon [matMenuTriggerFor]="Action"><mat-icon>settings</mat-icon>
+        <button mat-icon [matMenuTriggerFor]="mainAction"><mat-icon>settings</mat-icon>
         </button>
-        <mat-menu #Action="matMenu">
+        <mat-menu #mainAction="matMenu">
             <button mat-menu-item (click)="performAction('delete')">Delete</button>
             <button mat-menu-item (click)="performAction('add_favorites')">Add to favourites</button>
             <button mat-menu-item (click)="performAction('share')">Share</button>

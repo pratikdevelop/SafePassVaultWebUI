@@ -34,8 +34,7 @@ export class PasswordService {
               return throwError(new Error('Failed to decrypt password')); // Handle individual decryption errors
             }
           });
-      this.filteredPasswords$.next(decryptedPasswords); // Initialize filteredPasswords$ with fetched data
-          
+          this.filteredPasswords$.next(decryptedPasswords); // Initialize filteredPasswords$ with fetched data
           return of(decryptedPasswords);
         }),
         catchError((error: any) => {
@@ -73,6 +72,19 @@ export class PasswordService {
           throw error; // Re-throw the error to prevent silent failures
         })
       );
+  }
+
+  deleteMultiplePasswords(ids: string[]): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/password/${ids}` )
+      .pipe(
+        catchError((error: any) => {
+          console.error('Error deleting password:', error);
+          throw error; // Re-throw the error to prevent silent failures
+        })
+      );
+  }
+  addToFavorites(passwordId: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/password/${passwordId}/favorite`, {}); // Assuming no additional data is sent in the request body
   }
 
   updatePassword(_id: any, newPasswordObject: { website: any; username: any; password: string; key: string; }): Observable<any> {
