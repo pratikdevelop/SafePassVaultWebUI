@@ -3,11 +3,12 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { ActivatedRoute, Router, RouterModule, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from '../../pages/header/header.component';
 import { SideNavComponent } from '../../pages/side-nav/side-nav.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-layout',
   standalone: true,
-  imports: [MatSidenavModule, HeaderComponent, RouterOutlet, RouterModule, SideNavComponent],
+  imports: [MatSidenavModule, HeaderComponent, RouterOutlet, RouterModule, SideNavComponent, MatButtonModule],
   templateUrl: './layout.component.html',
 })
 export class LayoutComponent implements OnInit {

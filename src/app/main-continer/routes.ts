@@ -7,6 +7,10 @@ export const route : Routes =[
         loadComponent: ()=>import("./layout/layout.component").then(m=>m.LayoutComponent),
     },
     {
+        path: "generator", 
+        loadComponent: ()=>import("../pages/password-genrator/password-genrator.component").then(m=>m.PasswordGenratorComponent),
+    },
+    {
         path: 'passwords',
         canActivate: [authGuard], // Protect the admin route
         loadComponent:()=>import("../pages/password/password.component").then((m)=>m.PasswordComponent)

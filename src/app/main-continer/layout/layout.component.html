@@ -1,11 +1,10 @@
-<div class="w-full rounded shadow-md flex flex-col space-y-6 px-5 md:px-28">
-  
-  <div class="py-16 relative isolate">
-    <div class="mx-auto w-8/12 text-center">
-          <h2 class="font-bold tracking-tight leading-6">
-        Passkeeper: The Password Manager Trusted by Millions
-      </h2>
-      <p class="text-xl font-light leading-8 tracking-normal">
+<div class="w-full rounded shadow-md flex flex-col space-y-16 px-5 md:px-20">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+    <div class="flex flex-col space-y-4 w-full py-6">
+      <div class="text-7xl tracking-normal">
+        Passkeeper The Password Manager Trusted by Millions
+      </div>
+      <span class="text-sm font-normal leading-6">
         Passkeeper is the best password manager for securely storing,
         generating, and sharing passwords across all of your devices. managing,
         and sharing sensitive online data such as passwords, passkeys, credit
@@ -15,273 +14,170 @@
         control of your online security and protect your digital identity. By
         using Passkeeper, you can generate strong and unique passwords, autofill
         login credentials, and securely share sensitive information with others.
-      </p>
-      <div class="mt-10 flex items-center justify-center gap-x-6">
-        <a
-          href="#"
-          class="rounded-md bg-indigo-600 px-10 py-3 text-sm font-semibold shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >Get started</a
-        >
-      </div>
-    </div>
-  </div>
-  <div
-    _ngcontent-ng-c741137482=""
-    class="py-16 md:flex md:justify-between md:items-center flex-auto"
-  >
-    <div
-      _ngcontent-ng-c741137482=""
-      class="flex flex-col space-y-4 w-full md:w-6/12  text-center"
-    >
-      <h2>
-        Passkeeper: Revolutionizing Password Management for Secure Digital
-        Living
-      </h2>
-      <span
-        _ngcontent-ng-c741137482=""
-        class="text-normal text-base text-center tracking-wider leading-6"
-      >
-        Passkeeper stands as the pinnacle of password management solutions,
-        dedicated to securely safeguarding, organizing, and sharing sensitive
-        online data, encompassing passwords, passkeys, credit cards, and more.
-        At its core, Passkeeper empowers users to assert absolute control over
-        their online security, fortifying their digital identities against cyber
-        threats. By leveraging Passkeeper, users can effortlessly generate
-        robust, unique passwords, streamline login procedures through autofill
-        capabilities, and securely share confidential information with trusted
-        parties.
       </span>
+      <button mat-raised-button color="primary" class="mr-auto">
+        Get Started
+      </button>
     </div>
-    <div
-      _ngcontent-ng-c741137482=""
-      class="flex justify-center items-center p-4 md:w-6/12"
-    >
+    <div class="flex justify-center items-center">
       <img
-        _ngcontent-ng-c741137482=""
-        src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRj8buMrNr87QzslWFMqnfrdeeqHOQVPK0saD9Ihyx3dpUvpNvss-bopZW7wL7p"
-        alt="Passkeeper Logo"
-        class="rounded-xl w-6/12"
-      />
+        src="https://img.freepik.com/premium-vector/guardian-digital-realm-mans-vigilance-login-gate_1134661-21388.jpg?size=626&ext=jpg&ga=GA1.1.1866294671.1721672145&semt=ais_user"
+        alt="Passkeeper Logo" class="rounded-full w-2/3 md:w-full h-auto" />
     </div>
   </div>
-  <div class="py-16 flex flex-col space-y-5">
-    <h2 class="text-2xl text-center font-bold mb-4">
-      Try The products of Passkeeper services
-    </h2>
-    <div class="flex flex-wrap items-center justify-between">
-      <div class="w-full md:w-1/2 xl:w-1/3 p-4">
-        <div
-          class="bg-slate-500 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4"
-        >
-          <h2 class="text-lg font-bold mb-2">Password Vault</h2>
-          <p class="">Store and organize your passwords securely</p>
-          <button
-            class="bg-orange-500 hover:bg-orange-700 font-bold py-2 px-4 rounded"
-            routerLink="/vault"
-          >
-            View Vault
-          </button>
-        </div>
+  <div class="flex flex-col space-y-5">
+    <h1 class="text-center font-extrabold">
+      Try Passkeeper Services Products
+    </h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+      <div class="bg-gray-200 relative rounded shadow-xl shadow-slate-500 border-2 border-slate-600 p-4">
+        <div class="text-3xl font-extrabold mb-2">Password Vault</div>
+        <p class="font-normal text-gray-500">Store and organize your passwords securely</p>
+        <button mat-raised-button color="primary" class="absolute  left-3 bottom-0 rounded" routerLink="/vault">
+          View Vault
+        </button>
       </div>
-      <div class="w-full md:w-1/2 xl:w-1/3 p-4">
-        <div
-          class="bg-slate-500 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4"
-        >
-          <h2 class="text-lg font-bold mb-2">Password Generator</h2>
-          <p class="">Generate strong and unique passwords</p>
-          <button
-            class="bg-orange-500 hover:bg-orange-700 font-bold py-2 px-4 rounded"
-            routerLink="/generator"
-          >
-            Generate Password
-          </button>
-        </div>
+      <div class="bg-gray-200 relative rounded shadow-xl shadow-slate-500 border-2 border-slate-600 p-4">
+        <div class="text-3xl font-extrabold mb-2">Security Dashboard</div>
+        <p class="font-normal text-gray-500">Monitor and improve your password security</p>
+        <button mat-raised-button color="primary" class="absolute  left-3 bottom-0 rounded" routerLink="/dashboard">
+          View Dashboard
+        </button>
       </div>
-      <div class="w-full md:w-1/2 xl:w-1/3 p-4">
-        <div
-          class="bg-slate-500 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4"
-        >
-          <h2 class="text-lg font-bold mb-2">Security Dashboard</h2>
-          <p class="">Monitor and improve your password security</p>
-          <button
-            class="bg-orange-500 hover:bg-orange-700 font-bold py-2 px-4 rounded"
-            routerLink="/dashboard"
-          >
-            View Dashboard
-          </button>
-        </div>
+
+
+      <div class="bg-gray-200 relative rounded shadow-xl shadow-slate-500 border-2 border-slate-600 p-4">
+        <div class="text-3xl font-extrabold mb-2">File Storage</div>
+        <p class="font-normal text-gray-500">Securely store and manage your files</p>
+        <button mat-raised-button color="primary" class="absolute  left-3 bottom-0 rounded" routerLink="/storage">
+          Manage Files
+        </button>
       </div>
-      <div class="w-full md:w-1/2 xl:w-1/3 p-4">
-        <div
-          class="bg-slate-500 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4"
-        >
-          <h2 class="text-lg font-bold mb-2">Password Checker</h2>
-          <p class="">Check the strength and security of your passwords</p>
-          <button
-            class="bg-orange-500 hover:bg-orange-700 font-bold py-2 px-4 rounded"
-            routerLink="/checker"
-          >
-            Check Password
-          </button>
-        </div>
+      <div class="bg-gray-200 relative rounded shadow-xl shadow-slate-500 border-2 border-slate-600 p-4">
+        <div class="text-3xl font-extrabold mb-2">Password Generator</div>
+        <p class="font-normal text-gray-500">
+          Generate strong & unique passwords for accounts.
+        </p>
+        <button mat-raised-button color="primary" class="absolute  left-3 bottom-0 rounded" routerLink="/generator">
+          Generate Password
+        </button>
       </div>
-      <div class="w-full md:w-1/2 xl:w-1/3 p-4">
-        <div
-          class="bg-slate-500 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4"
-        >
-          <h2 class="text-lg font-bold mb-2">File Storage</h2>
-          <p class="">Securely store and manage your files</p>
-          <button
-            class="bg-orange-500 hover:bg-orange-700 font-bold py-2 px-4 rounded"
-            routerLink="/storage"
-          >
-            Manage Files
-          </button>
-        </div>
+      <div class="bg-gray-200 relative rounded shadow-xl shadow-slate-500 border-2 border-slate-600 p-4">
+        <div class="text-3xl font-extrabold mb-2">Password Checker</div>
+        <p class="font-normal text-gray-500">Check the strength and security of passwords</p>
+        <button mat-raised-button color="primary" class="absolute  left-3 bottom-0 rounded" routerLink="/checker">
+          Check Password
+        </button>
       </div>
-      <div class="w-full md:w-1/2 xl:w-1/3 p-4">
-        <div
-          class="bg-slate-500 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4"
-        >
-          <h2 class="text-lg font-bold mb-2">Passwordless Login</h2>
-          <p class="">
-            Authenticate without a password using magic links or other methods
-          </p>
-          <button
-            class="bg-orange-500 hover:bg-orange-700 font-bold py-2 px-4 rounded"
-            routerLink="/passwordless"
-          >
-            Go Passwordless
-          </button>
-        </div>
+
+      <div class="bg-gray-200 relative rounded shadow-xl shadow-slate-500 border-2 border-slate-600 p-4">
+        <div class="text-3xl font-extrabold mb-2">Passwordless Login</div>
+        <p class="font-normal text-gray-500">Authenticate without password using other methods</p>
+        <button mat-raised-button color="primary" class="absolute  left-3 bottom-0 rounded" routerLink="/passwordless">
+          Go Passwordless
+        </button>
       </div>
     </div>
   </div>
-  <div class="py-16 flex flex-col space-y-5">
-    <h2 class="text-2xl text-center font-bold mb-4">
+  <div class="flex flex-col space-y-5">
+    <h1 class="text-center font-extrabold mb-4">
       Latest Articles on Passkeeper Features
-    </h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div
-        class="bg-slate-500 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4"
-      >
-        <h3 class="text-lg font-bold mb-2">Generate Unbreakable Passwords</h3>
-        <p class="text-white">
+    </h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+      <div class="bg-gray-200 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
+        <div class="text-3xl font-extrabold mb-2">Generate Unbreakable Passwords</div>
+        <p class="font-normal text-gray-500">
           Passkeeper crafts complex passwords using a mix of characters,
           numbers, and symbols, making them virtually impossible to crack.
         </p>
-        <p class="text-white mt-2">Security • 5 Min Read</p>
+        <p class=" mt-2">Security • 5 Min Read</p>
       </div>
-      <div
-        class="bg-slate-500 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4"
-      >
-        <h3 class="text-lg font-bold mb-2">
-          Effortless Logins with Autofill and Auto-Login
-        </h3>
-        <p class="text-white">
+      <div class="bg-gray-200 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
+        <div class="text-3xl font-extrabold mb-2">
+          Effortless Logins with Autofill
+        </div>
+        <p class="font-normal text-gray-500">
           Passkeeper integrates seamlessly with your browser and mobile devices.
           Autofill and auto-login features save you time and frustration.
         </p>
-        <p class="text-white mt-2">Convenience • 4 Min Read</p>
+        <p class=" mt-2">Convenience • 4 Min Read</p>
       </div>
-      <div
-        class="bg-slate-500 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4"
-      >
-        <h3 class="text-lg font-bold mb-2">
+      <div class="bg-gray-200 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
+        <div class="text-3xl font-extrabold mb-2">
           Secure Password Sharing Made Easy
-        </h3>
-        <p class="text-white">
+        </div>
+        <p class="font-normal text-gray-500">
           Passkeeper's secure sharing mechanism allows you to grant access with
           granular controls, ensuring complete security and peace of mind.
         </p>
-        <p class="text-white mt-2">Collaboration • 6 Min Read</p>
+        <p class=" mt-2">Collaboration • 6 Min Read</p>
       </div>
-      <div
-        class="bg-slate-500 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4"
-      >
-        <h3 class="text-lg font-bold mb-2">Advanced Security Features</h3>
-        <ul class="list-disc pl-4 text-white">
-          <li>Two-Factor Authentication (2FA)</li>
-          <li>Password Breach Alerts</li>
-          <li>Password Analyzer</li>
-          <li>Secure Notes</li>
-        </ul>
-        <p class="text-white mt-2">Security • 7 Min Read</p>
+      <div class="bg-gray-200 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
+        <div class="text-3xl font-extrabold mb-2">Advanced Security Features</div>
+        <p class="font-normal text-gray-500">Advanced security features: Two-Factor Authentication, Password Breach
+          Alerts, Password Analyzer, and Secure Notes ensure comprehensive protection</p>
+        <p class=" mt-2">Security • 7 Min Read</p>
       </div>
-      <div
-        class="bg-slate-500 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4"
-      >
-        <h3 class="text-lg font-bold mb-2">
+      <div class="bg-gray-200 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
+        <div class="text-3xl font-extrabold mb-2">
           Unparalleled Security for Your Passwords
-        </h3>
-        <p class="text-white">
+        </div>
+        <p class="font-normal text-gray-500">
           Passkeeper uses cutting-edge encryption protocols and stringent
           security measures. With end-to-end encryption, only you have access to
           your information.
         </p>
-        <p class="text-white mt-2">Privacy • 5 Min Read</p>
+        <p class=" mt-2">Privacy • 5 Min Read</p>
       </div>
     </div>
   </div>
-  <div class="py-16 flex flex-col space-y-5">
-    <h2 class="text-2xl font-bold mb-4 text-center">Benefits of using Passkeeeprs</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div
-        class="bg-slate-500 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4"
-      >
-        <h3 class="text-lg font-bold mb-2">Protect your online identity</h3>
-        <p class="text-white">
+  <div class="flex flex-col space-y-5">
+    <h1 class="font-extrabold mb-4 text-center">Benefits of using Passkeeeprs</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+      <div class="bg-gray-200 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
+        <div class="text-3xl font-extrabold mb-2">Protect your online identity</div>
+        <p class="font-normal text-gray-500">
           Safeguard your personal information with advanced encryption and
           security features.
         </p>
       </div>
-      <div
-        class="bg-slate-500 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4"
-      >
-        <h3 class="text-lg font-bold mb-2">Save time and reduce stress</h3>
-        <p class="text-white">
+      <div class="bg-gray-200 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
+        <div class="text-3xl font-extrabold mb-2">Save time and reduce stress</div>
+        <p class="font-normal text-gray-500">
           Effortlessly manage and autofill passwords, eliminating the need to
           remember multiple credentials.
         </p>
       </div>
-      <div
-        class="bg-slate-500 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4"
-      >
-        <h3 class="text-lg font-bold mb-2">Improve your online security</h3>
-        <p class="text-white">
+      <div class="bg-gray-200 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
+        <div class="text-3xl font-extrabold mb-2">Improve your online security</div>
+        <p class="font-normal text-gray-500">
           Identify and strengthen weak passwords with our password analyzer.
         </p>
       </div>
-      <div
-        class="bg-slate-500 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4"
-      >
-        <h3 class="text-lg font-bold mb-2">
-          Access your passwords from anywhere
-        </h3>
-        <p class="text-white">
-          Sync your passwords across all devices and platforms for seamless
-          access.
-        </p>
-      </div>
-      <div
-        class="bg-slate-500 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4"
-      >
-        <h3 class="text-lg font-bold mb-2">Store and share your files</h3>
-        <p class="text-white">
+      <div class="bg-gray-200 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
+        <div class="text-3xl font-extrabold mb-2">Store and share your files</div>
+        <p class="font-normal text-gray-500">
           Securely store and manage your files, and easily share them with
           others when needed.
+        </p>
+      </div>
+      <div class="bg-gray-200 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
+        <div class="text-3xl font-extrabold mb-2">
+          Access your passwords from anywhere
+        </div>
+        <p class="font-normal text-gray-500">
+          Sync your passwords across all devices and platforms for seamless
+          access.
         </p>
       </div>
     </div>
   </div>
 
-  <div class="py-16 flex flex-col space-y-5">
-    <h2 class="text-2xl font-bold mb-4 text-center">Testimonials</h2>
+  <div class="flex flex-col space-y-5">
+    <div class="text-2xl font-bold mb-4 text-center">Testimonials</div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-      <div
-        class="bg-slate-500 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4"
-      >
-        <p class="">
+      <div class="bg-gray-200 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4">
+        <p class="font-normal text-gray-500">
           "This password manager has been a game-changer for me. I no longer
           have to worry about remembering multiple passwords!"
         </p>
@@ -291,12 +187,10 @@
           <span class="text-yellow-500">&#9733;</span>
           <span class="text-yellow-500">&#9734;</span>
         </div>
-        <p class="">- John Doe</p>
+        <p class="font-normal text-gray-500">- John Doe</p>
       </div>
-      <div
-        class="bg-slate-500 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4"
-      >
-        <p class="">
+      <div class="bg-gray-200 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4">
+        <p class="font-normal text-gray-500">
           "I was skeptical at first, but this password manager has exceeded my
           expectations. The security features are top-notch!"
         </p>
@@ -307,12 +201,10 @@
           <span class="text-yellow-500">&#9733;</span>
           <span class="text-yellow-500">&#9733;</span>
         </div>
-        <p class="">- Jane Smith</p>
+        <p class="font-normal text-gray-500">- Jane Smith</p>
       </div>
-      <div
-        class="bg-slate-500 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4"
-      >
-        <p class="">
+      <div class="bg-gray-200 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4">
+        <p class="font-normal text-gray-500">
           "Easy to use and effective. Best decision I made for my online
           security!"
         </p>
@@ -322,12 +214,10 @@
           <span class="text-yellow-500">&#9733;</span>
           <span class="text-yellow-500">&#9734;</span>
         </div>
-        <p class="">- Sarah Johnson</p>
+        <p class="font-normal text-gray-500">- Sarah Johnson</p>
       </div>
-      <div
-        class="bg-slate-500 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4"
-      >
-        <p class="">
+      <div class="bg-gray-200 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4">
+        <p class="font-normal text-gray-500">
           "Fantastic tool! I feel much safer knowing my passwords are secure."
         </p>
         <div class="flex items-center mb-2">
@@ -336,18 +226,16 @@
           <span class="text-yellow-500">&#9733;</span>
         </div>
 
-        <p class="">- Michael Brown</p>
+        <p class="font-normal text-gray-500">- Michael Brown</p>
       </div>
-      <div
-        class="bg-slate-500 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4"
-      >
-        <p class="">"Highly recommended! Simplifies my digital life."</p>
+      <div class="bg-gray-200 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4">
+        <p class="font-normal text-gray-500">"Highly recommended! Simplifies my digital life."</p>
         <div class="flex items-center mb-2">
           <span class="text-yellow-500">&#9733;</span>
           <span class="text-yellow-500">&#9733;</span>
           <span class="text-yellow-500">&#9733;</span>
         </div>
-        <p class="">- Emily Davis</p>
+        <p class="font-normal text-gray-500">- Emily Davis</p>
       </div>
     </div>
   </div>

@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Cookie&family=Playfair+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Odibee+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&display=swap');
 @import 'material-icons/iconfont/material-icons.css';
 @tailwind base;
 @tailwind components;
@@ -7,14 +8,9 @@
 *{
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-size: small;
-  font-family: "Noto Serif", serif;
-  font-optical-sizing: auto;
-  font-weight: 700;
+  font-family: "Concert One", sans-serif;
+  font-weight: 400;
   font-style: normal;
-  font-variation-settings:
-    "wdth" 62.5;
 }
 
 ::ng-deep mdc-dialog--closing .mat-mdc-dialog-surface {

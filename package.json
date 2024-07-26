@@ -28,9 +28,11 @@
     "generate-password": "^1.7.1",
     "material-icons": "^1.13.12",
     "preline": "^2.3.0",
+    "random-words": "^2.0.1",
     "rxjs": "~7.8.0",
     "uuid": "^10.0.0",
-    "zone.js": "~0.14.3"
+    "zone.js": "~0.14.3",
+    "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^18.0.2",
@@ -39,6 +41,7 @@
     "@types/crypto-js": "^4.2.2",
     "@types/jasmine": "~5.1.0",
     "@types/uuid": "^9.0.8",
+    "@types/zxcvbn": "^4.4.4",
     "autoprefixer": "^10.4.19",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",

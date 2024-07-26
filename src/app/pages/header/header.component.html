@@ -21,8 +21,22 @@
     </span>
       }
       @else {
-      <a routerLink="/auth/signup" class=" px-6 py-3">Get Started</a>
-      <a routerLink="/auth/login" class=" px-6 py-3">Log In</a>
+        <span class="flex items-center space-x-4">
+          <a mat-flat-button type="button" [matMenuTriggerFor]="menu">products</a>
+<mat-menu #menu="matMenu">
+  <button  routerLink="/generator" mat-menu-item>Password Generator</button>
+  <button  routerLink="/passowrd-checker" mat-menu-item>Password Checker</button>
+  <button  routerLink="/passwords" mat-menu-item>Password Vault</button>
+  <button  routerLink="/password" mat-menu-item>Dashboard</button>
+  <button  routerLink="/file" mat-menu-item>File Storage</button>
+</mat-menu>
+
+          
+          <a mat-flat-button routerLink="/plan-pricing">Plan and Pricing</a>
+          <a mat-flat-button routerLink="/auth/signup">Get Started</a>
+          <a mat-flat-button routerLink="/auth/login">Log In</a>
+
+        </span>
       }
   </div>
 </nav>
