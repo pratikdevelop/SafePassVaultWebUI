@@ -20,4 +20,8 @@ export const route : Routes =[
         canActivate: [authGuard], // Protect the admin route
         loadComponent:()=>import("../pages/profile/profile.component").then((m)=>m.ProfileComponent)
     },
+    {
+        path:"plan-pricing",
+        loadComponent:()=> import('../pages/pricing-page/pricing-page.component').then(m=>m.PricingPageComponent)
+    }
 ]
