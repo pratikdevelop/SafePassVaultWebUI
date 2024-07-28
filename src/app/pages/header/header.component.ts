@@ -10,11 +10,12 @@ import { PasswordFormComponent } from '../password/dialog/password-form/password
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { OrganizationComponent } from '../organization/organization.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatSnackBarModule, RouterModule, FormsModule, MatButtonModule, MatIconModule, MatMenuModule, ReactiveFormsModule, MatInputModule],
+  imports: [MatSnackBarModule, RouterModule, FormsModule, MatButtonModule, CommonModule, MatIconModule, MatMenuModule, ReactiveFormsModule, MatInputModule],
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit {
@@ -67,9 +68,7 @@ export class HeaderComponent implements OnInit {
     this.filter_by = type;
   }
 
-  filterPasswords(): void {
-    const filterValueLower = this.filterValue.toLowerCase().trim();
-  }
+
   createOrganization(): void {
     this.dialog.open(OrganizationComponent, {
       height:"370px",

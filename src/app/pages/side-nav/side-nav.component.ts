@@ -9,11 +9,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { Passwords } from '../password/password.component';
 import { PasswordService } from '../../services/password.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-side-nav',
   standalone: true,
-  imports: [MatListModule, MatButtonModule,MatIconModule, MatMenuModule,MatSnackBarModule],
+  imports: [MatListModule, MatButtonModule,MatIconModule, MatMenuModule,MatSnackBarModule, MatInputModule, FormsModule, ReactiveFormsModule],
   templateUrl: './side-nav.component.html',
 })
 export class SideNavComponent {

@@ -1,0 +1,470 @@
+    <!-- <h2 class="text-3xl font-bold mb-4">Choose the Plan That Fits Your Needs</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  
+      Free Plan
+      <div class="bg-card text-card-foreground p-6 rounded-lg shadow-lg">
+        <h3 class="text-xl font-semibold mb-2">Free Plan</h3>
+        <p class="text-lg mb-4">Price: $0/month</p>
+        <ul class="text-left mb-4">
+          <li class="flex items-center mb-2">
+            <img src="https://openui.fly.dev/openui/30.svg?text=🔒" alt="secure-data-sharing" class="mr-2" />
+            Basic Secure Data Sharing
+          </li>
+          <li class="flex items-center mb-2">
+            <img src="https://openui.fly.dev/openui/30.svg?text=💾" alt="storage" class="mr-2" />
+            500 MB Storage
+          </li>
+          <li class="flex items-center mb-2">
+            <img src="https://openui.fly.dev/openui/30.svg?text=📦" alt="notes" class="mr-2" />
+            Basic Notes
+          </li>
+          <li class="flex items-center mb-2">
+            <img src="https://openui.fly.dev/openui/30.svg?text=👥" alt="organization" class="mr-2" />
+            1 Organization
+          </li>
+          <li class="flex items-center mb-2">
+            <img src="https://openui.fly.dev/openui/30.svg?text=📧" alt="user-invite" class="mr-2" />
+            5 User Invitations
+          </li>
+          <li class="flex items-center mb-2">
+            <img src="https://openui.fly.dev/openui/30.svg?text=🔑" alt="password-share" class="mr-2" />
+            5 Password Shares
+          </li>
+        </ul>
+        <button routerLink="/auth/signup?planType=free"  mat-flat-button class="bg-primary text-primary-foreground py-2 px-4 rounded-md hover:bg-primary/80">Get Started</button>
+      </div>
+  
+      Teams Plan
+      <div class="bg-card text-card-foreground p-6 rounded-lg shadow-lg">
+        <h3 class="text-xl font-semibold mb-2">Teams Plan</h3>
+        <p class="text-lg mb-4">Price: $4/user/month</p>
+        <ul class="text-left mb-4">
+          <li class="flex items-center mb-2">
+            <img src="https://openui.fly.dev/openui/30.svg?text=🔒" alt="secure-data-sharing" class="mr-2" />
+            Secure Data Sharing
+          </li>
+          <li class="flex items-center mb-2">
+            <img src="https://openui.fly.dev/openui/30.svg?text=💾" alt="storage" class="mr-2" />
+            5 GB Storage
+          </li>
+          <li class="flex items-center mb-2">
+            <img src="https://openui.fly.dev/openui/30.svg?text=📦" alt="notes" class="mr-2" />
+            Advanced Notes
+          </li>
+          <li class="flex items-center mb-2">
+            <img src="https://openui.fly.dev/openui/30.svg?text=👥" alt="organization" class="mr-2" />
+            5 Organizations
+          </li>
+          <li class="flex items-center mb-2">
+            <img src="https://openui.fly.dev/openui/30.svg?text=📧" alt="user-invite" class="mr-2" />
+            50 User Invitations
+          </li>
+          <li class="flex items-center mb-2">
+            <img src="https://openui.fly.dev/openui/30.svg?text=🔑" alt="password-share" class="mr-2" />
+            50 Password Shares
+          </li>
+          <li class="flex items-center mb-2">
+            <img src="https://openui.fly.dev/openui/30.svg?text=📜" alt="event-log" class="mr-2" />
+            Event Log Monitoring
+          </li>
+          <li class="flex items-center mb-2">
+            <img src="https://openui.fly.dev/openui/30.svg?text=🔗" alt="directory-integration" class="mr-2" />
+            Directory Integration
+          </li>
+        </ul>
+        <button routerLink="/auth/signup?planType=free"  mat-flat-button class="bg-primary text-primary-foreground py-2 px-4 rounded-md hover:bg-primary/80">Start a Trial</button>
+      </div>
+  
+      Enterprise Plan
+      <div class="bg-card text-card-foreground p-6 rounded-lg shadow-lg">
+        <h3 class="text-xl font-semibold mb-2">Enterprise Plan</h3>
+        <p class="text-lg mb-4">Price: $6/user/month</p>
+        <ul class="text-left mb-4">
+          <li class="flex items-center mb-2">
+            <img src="https://openui.fly.dev/openui/30.svg?text=🔒" alt="secure-data-sharing" class="mr-2" />
+            Advanced Secure Data Sharing
+          </li>
+          <li class="flex items-center mb-2">
+            <img src="https://openui.fly.dev/openui/30.svg?text=💾" alt="storage" class="mr-2" />
+            10 GB Storage
+          </li>
+          <li class="flex items-center mb-2">
+            <img src="https://openui.fly.dev/openui/30.svg?text=📦" alt="notes" class="mr-2" />
+            Premium Notes
+          </li>
+          <li class="flex items-center mb-2">
+            <img src="https://openui.fly.dev/openui/30.svg?text=👥" alt="organization" class="mr-2" />
+            Unlimited Organizations
+          </li>
+          <li class="flex items-center mb-2">
+            <img src="https://openui.fly.dev/openui/30.svg?text=📧" alt="user-invite" class="mr-2" />
+            Unlimited User Invitations
+          </li>
+          <li class="flex items-center mb-2">
+            <img src="https://openui.fly.dev/openui/30.svg?text=🔑" alt="password-share" class="mr-2" />
+            Unlimited Password Shares
+          </li>
+          <li class="flex items-center mb-2">
+            <img src="https://openui.fly.dev/openui/30.svg?text=🔑" alt="passwordless-sso" class="mr-2" />
+            Passwordless SSO Integration
+          </li>
+          <li class="flex items-center mb-2">
+            <img src="https://openui.fly.dev/openui/30.svg?text=📑" alt="enterprise-policies" class="mr-2" />
+            Enterprise Policies
+          </li>
+          <li class="flex items-center mb-2">
+            <img src="https://openui.fly.dev/openui/30.svg?text=🔄" alt="account-recovery" class="mr-2" />
+            Account Recovery Administration
+          </li>
+        </ul>
+        <button routerLink="/auth/signup?planType=free"  mat-flat-button class="bg-primary text-primary-foreground py-2 px-4 rounded-md hover:bg-primary/80">Start a Trial</button>
+        <p class="text-center text-sm mt-4">For custom quotes, contact sales.</p>
+      </div>
+  
+    </div>
+    <p class="text-center text-sm mt-4">Pricing shown in USD and based on an annual subscription</p> -->
+
+    <!-- <div class="bg-background text-foreground flex flex-col items-center justify-center py-8">
+        <h2 class="text-3xl font-bold mb-4">Choose the Plan That Fits Your Needs</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      
+          Free Plan
+          <div class="bg-card text-card-foreground p-6 rounded-lg shadow-lg">
+            <h3 class="text-xl font-semibold mb-2">Free Plan</h3>
+            <p class="text-lg mb-4">Price: $0/month</p>
+            <ul class="text-left mb-4">
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=🔒" alt="secure-data-sharing" class="mr-2" />
+                Basic Secure Data Sharing
+              </li>
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=💾" alt="storage" class="mr-2" />
+                500 MB Storage
+              </li>
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=📦" alt="notes" class="mr-2" />
+                Basic Notes
+              </li>
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=👥" alt="organization" class="mr-2" />
+                1 Organization
+              </li>
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=📧" alt="user-invite" class="mr-2" />
+                5 User Invitations
+              </li>
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=🔑" alt="password-share" class="mr-2" />
+                5 Password Shares
+              </li>
+            </ul>
+            <button routerLink="/auth/signup?planType=free"  mat-flat-button class="bg-primary text-primary-foreground py-2 px-4 rounded-md hover:bg-primary/80">Get Started</button>
+          </div>
+      
+          Basic Plan
+          <div class="bg-card text-card-foreground p-6 rounded-lg shadow-lg">
+            <h3 class="text-xl font-semibold mb-2">Basic Plan</h3>
+            <p class="text-lg mb-4">Price: $1/month</p>
+            <ul class="text-left mb-4">
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=🔒" alt="secure-data-sharing" class="mr-2" />
+                Enhanced Secure Data Sharing
+              </li>
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=💾" alt="storage" class="mr-2" />
+                1 GB Storage
+              </li>
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=📦" alt="notes" class="mr-2" />
+                Advanced Notes
+              </li>
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=👥" alt="organization" class="mr-2" />
+                2 Organizations
+              </li>
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=📧" alt="user-invite" class="mr-2" />
+                15 User Invitations
+              </li>
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=🔑" alt="password-share" class="mr-2" />
+                15 Password Shares
+              </li>
+            </ul>
+            <button routerLink="/auth/signup?planType=free"  mat-flat-button class="bg-primary text-primary-foreground py-2 px-4 rounded-md hover:bg-primary/80">Get Started</button>
+          </div>
+      
+          Premium Plan
+          <div class="bg-card text-card-foreground p-6 rounded-lg shadow-lg">
+            <h3 class="text-xl font-semibold mb-2">Premium Plan</h3>
+            <p class="text-lg mb-4">Price: $10/year</p>
+            <ul class="text-left mb-4">
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=🔒" alt="secure-data-sharing" class="mr-2" />
+                Premium Secure Data Sharing
+              </li>
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=💾" alt="storage" class="mr-2" />
+                2 GB Storage
+              </li>
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=📦" alt="notes" class="mr-2" />
+                Premium Notes
+              </li>
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=👥" alt="organization" class="mr-2" />
+                5 Organizations
+              </li>
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=📧" alt="user-invite" class="mr-2" />
+                50 User Invitations
+              </li>
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=🔑" alt="password-share" class="mr-2" />
+                50 Password Shares
+              </li>
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=🔑" alt="emergency-access" class="mr-2" />
+                Emergency Access
+              </li>
+            </ul>
+            <button routerLink="/auth/signup?planType=free"  mat-flat-button class="bg-primary text-primary-foreground py-2 px-4 rounded-md hover:bg-primary/80">Get Started</button>
+          </div>
+      
+          Business Plan
+          <div class="bg-card text-card-foreground p-6 rounded-lg shadow-lg">
+            <h3 class="text-xl font-semibold mb-2">Business Plan</h3>
+            <p class="text-lg mb-4">Price: $4/user/month</p>
+            <ul class="text-left mb-4">
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=🔒" alt="secure-data-sharing" class="mr-2" />
+                Secure Data Sharing
+              </li>
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=💾" alt="storage" class="mr-2" />
+                5 GB Storage
+              </li>
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=📦" alt="notes" class="mr-2" />
+                Advanced Notes
+              </li>
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=👥" alt="organization" class="mr-2" />
+                10 Organizations
+              </li>
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=📧" alt="user-invite" class="mr-2" />
+                100 User Invitations
+              </li>
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=🔑" alt="password-share" class="mr-2" />
+                100 Password Shares
+              </li>
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=📜" alt="event-log" class="mr-2" />
+                Event Log Monitoring
+              </li>
+              <li class="flex items-center mb-2">
+                <img src="https://openui.fly.dev/openui/30.svg?text=🔗" alt="directory-integration" class="mr-2" />
+                Directory Integration
+              </li>
+            </ul>
+            <button routerLink="/auth/signup?planType=free"  mat-flat-button class="bg-primary text-primary-foreground py-2 px-4 rounded-md hover:bg-primary/80">Start a Trial</button>
+          </div>
+      
+        </div>
+      </div> -->
+
+      
+            
+                <!-- Basic Plan -->
+                <!-- <div class="bg-card text-card-foreground p-6 rounded-lg shadow-lg">
+                  <h3 class="text-xl font-semibold mb-2">Basic Plan</h3>
+                  <p class="text-lg mb-4">Price: $5/month</p>
+                  <ul class="text-left mb-4">
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=🔒" alt="secure-data-sharing" class="mr-2" />
+                      Enhanced Secure Data Sharing
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=💾" alt="storage" class="mr-2" />
+                      1 GB Storage
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=📦" alt="notes" class="mr-2" />
+                      Advanced Notes
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=👥" alt="organization" class="mr-2" />
+                      2 Organizations
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=📧" alt="user-invite" class="mr-2" />
+                      15 User Invitations
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=🔑" alt="password-share" class="mr-2" />
+                      15 Password Shares
+                    </li>
+                  </ul>
+                  <button routerLink="/auth/signup?planType=basic"  mat-flat-button class="bg-primary text-primary-foreground py-2 px-4 rounded-md hover:bg-primary/80">Get Started</button>
+                </div> -->
+            
+                <!-- Premium Plan -->
+                <!-- <div class="bg-card text-card-foreground p-6 rounded-lg shadow-lg">
+                  <h3 class="text-xl font-semibold mb-2">Premium Plan</h3>
+                  <p class="text-lg mb-4">Price: $10/month</p>
+                  <ul class="text-left mb-4">
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=🔒" alt="secure-data-sharing" class="mr-2" />
+                      Premium Secure Data Sharing
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=💾" alt="storage" class="mr-2" />
+                      2 GB Storage
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=📦" alt="notes" class="mr-2" />
+                      Premium Notes
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=👥" alt="organization" class="mr-2" />
+                      5 Organizations
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=📧" alt="user-invite" class="mr-2" />
+                      50 User Invitations
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=🔑" alt="password-share" class="mr-2" />
+                      50 Password Shares
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=🔑" alt="emergency-access" class="mr-2" />
+                      Emergency Access
+                    </li>
+                  </ul>
+                  <button routerLink="/auth/signup?planType=premium"  mat-flat-button class="bg-primary text-primary-foreground py-2 px-4 rounded-md hover:bg-primary/80">Get Started</button>
+                </div> -->
+                <!-- Teams Plan -->
+                <!-- <div class="bg-card text-card-foreground p-6 rounded-lg shadow-lg">
+                  <h3 class="text-xl font-semibold mb-2">Teams Plan</h3>
+                  <p class="text-lg mb-4">Price: $4/user/month</p>
+                  <ul class="text-left mb-4">
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=🔒" alt="secure-data-sharing" class="mr-2" />
+                      Secure Data Sharing
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=💾" alt="storage" class="mr-2" />
+                      5 GB Storage
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=📦" alt="notes" class="mr-2" />
+                      Advanced Notes
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=👥" alt="organization" class="mr-2" />
+                      10 Organizations
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=📧" alt="user-invite" class="mr-2" />
+                      100 User Invitations
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=🔑" alt="password-share" class="mr-2" />
+                      100 Password Shares
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=📜" alt="event-log" class="mr-2" />
+                      Event Log Monitoring
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=🔗" alt="directory-integration" class="mr-2" />
+                      Directory Integration
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=🔑" alt="api-access" class="mr-2" />
+                      API Access
+                    </li>
+                  </ul>
+                  <button routerLink="/auth/signup?planType=team"  mat-flat-button class="bg-primary text-primary-foreground py-2 px-4 rounded-md hover:bg-primary/80">Start a Trial</button>
+                </div> -->
+                <!-- Enterprise Plan -->
+                <!-- <div class="bg-card text-card-foreground p-6 rounded-lg shadow-lg">
+                  <h3 class="text-xl font-semibold mb-2">Enterprise Plan</h3>
+                  <p class="text-lg mb-4">Price: $6/user/month</p>
+                  <ul class="text-left mb-4">
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=🔒" alt="secure-data-sharing" class="mr-2" />
+                      Enterprise Policies
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=🔐" alt="passwordless-sso" class="mr-2" />
+                      Passwordless SSO Integration
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=🔄" class="mr-2" alt="account-recovery" />
+                      Account Recovery Administration
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=⚙️" alt="self-host" class="mr-2" />
+                      Self-host Option
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=🎁" alt="families-plan" class="mr-2" />
+                      Free Families Plan for All Users
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=🔑" alt="secure-data-sharing" class="mr-2" />
+                      Enhanced Secure Data Sharing
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=💾" alt="storage" class="mr-2" />
+                      10 GB Storage
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=📦" alt="notes" class="mr-2" />
+                      Premium Notes
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=👥" alt="organization" class="mr-2" />
+                      Unlimited Organizations
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=📧" alt="user-invite" class="mr-2" />
+                      Unlimited User Invitations
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=🔑" alt="password-share" class="mr-2" />
+                      Unlimited Password Shares
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=📜" alt="event-log" class="mr-2" />
+                      Event Log Monitoring
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=🔗" alt="directory-integration" class="mr-2" />
+                      Directory Integration
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=🔑" alt="api-access" class="mr-2" />
+                      API Access
+                    </li>
+                    <li class="flex items-center mb-2">
+                      <img src="https://openui.fly.dev/openui/30.svg?text=🔄" alt="custom-roles" class="mr-2" />
+                      Custom Roles
+                    </li>
+                  </ul>
+                  <button routerLink="/auth/signup?planType=bussiness"  mat-flat-button class="bg-primary text-primary-foreground py-2 px-4 rounded-md hover:bg-primary/80">Start a Trial</button>
+                </div> -->
+      
+
+
+          <!-- <span class="flex flex-wrap items-center space-x-2">
+            Plan Type :
+            <mat-radio-group aria-label="" [(ngModel)]="planType">
+              <mat-radio-button [value]="1">Personal</mat-radio-button>
+              <mat-radio-button [value]="2">Bussiness</mat-radio-button>
+            </mat-radio-group>
+          </span> -->

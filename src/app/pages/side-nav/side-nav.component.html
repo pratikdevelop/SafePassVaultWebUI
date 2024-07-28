@@ -1,4 +1,7 @@
 <div class="flex relative p-3 shadow-2xl border w-full space-x-3 items-center justify-between">
+    
+    <input matInput type="text" placeholder="Search the password" [(ngModel)]="filterValue" (change)="filterPasswords()"
+      class="p-3 w-5/12 border shadow-xl bg-white rounded" />
     <div class="flex items-center ml-auto space-x-5">
         <button (click)="openPasswordFormDialog()" [matMenuTriggerFor]="addAction" mat-raised-button>
             Add
