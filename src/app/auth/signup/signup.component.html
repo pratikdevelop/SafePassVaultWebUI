@@ -1,193 +1,220 @@
 <!-- Main Container -->
-<div class=" h-[100vh]  w-full flex items-center justify-between p-5">
+<div class="w-full flex items-center justify-between p-5">
   <!-- Login Card Content Will Go Here -->
-  <div class="w-3/6 flex justify-center items-center">
-      <!-- Form -->
-      <form id="signupForm" class="space-y-8" [formGroup]="signupForm">
-        <!-- Logo or Branding -->
-        <div class="text-center text-3xl">
-          Create Your Account
-        </div>
-        <!-- Email Input -->
-        <div>
-          <input type="name" id="name" formControlName="name" placeholder="Your name"
-            class="appearance-none rounded-full relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white focus:outline-none focus:ring-purple-50"
-            required>
-          @if(signupForm.get('name')?.hasError('required') && signupForm.get('name')?.touched) {
-          <small class="text-red-600 font-semibold">Name is required.</small>
-          } @if(signupForm.get('name')?.hasError('min') && signupForm.get('name')?.touched) {
-          <small class="text-red-600 font-semibold">Name must be at least 3 characters.</small>
-          }
-        </div>
-        <div>
-          <input type="email" id="email" formControlName="email" placeholder="Your email"
-            class="appearance-none rounded-full relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white focus:outline-none focus:ring-purple-50"
-            required>
+  <div class="w-3/6 flex flex-col">
+    <mat-stepper orientation="vertical" [linear]="'true'" #stepper>
+      <!-- Step 1: User Information -->
+      <mat-step [stepControl]="signupForm">
+        <form [formGroup]="signupForm" class="flex flex-col space-y-6">
+          <ng-template matStepLabel>Fill out your details</ng-template>
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Your name" formControlName="name" required>
+            <mat-error *ngIf="signupForm.get('name')?.hasError('required') && signupForm.get('name')?.touched">
+              Name is required
+            </mat-error>
+            <mat-error *ngIf="signupForm.get('name')?.hasError('minlength') && signupForm.get('name')?.touched">
+              Name must be at least 3 characters
+            </mat-error>
+          </mat-form-field>
 
-          @if(signupForm.get('email')?.hasError('required') && signupForm.get('email')?.touched) {
-          <small class="text-red-600 font-semibold">Email is required.</small>
-          } @if(signupForm.get('email')?.hasError('email') && signupForm.get('email')?.touched) {
-          <small class="text-red-600 font-semibold">Please enter a valid email address.</small>
-          }
-        </div>
-        <div>
-          <input type="phone" id="phone" formControlName="phone" placeholder="Your phone"
-            class="appearance-none rounded-full relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-50"
-            required>
-          @if(signupForm.get('phone')?.hasError('required') && signupForm.get('phone')?.touched) {
-          <small class="text-red-600 font-semibold">Phone number is required.</small>
-          } @if(signupForm.get('phone')?.hasError('pattern') && signupForm.get('phone')?.touched) {
-          <small class="text-red-600 font-semibold">Please enter a valid 10-digit phone number.</small>
-          }
-        </div>
-        <div>
-          <input type="text" formControlName="organization"  placeholder="organization name (optional)"
-          class="appearance-none rounded-full relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white focus:outline-none focus:ring-purple-50"
-          >
-        </div>
-        <div>
-          <input type="password" id="hs-strong-password-with-indicator-and-hint" formControlName="password"
-            placeholder="Your Password"
-            class="appearance-none rounded-full relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-white focus:outline-none focus:ring-purple-50"
-            required>
-            <span class="ml-auto text-sm font-bold text-blue-700"  (click)="generatePassword()"> generate password</span>
-          <div id="hs-strong-password" data-hs-strong-password='{
-                "target": "#hs-strong-password-with-indicator-and-hint",
-                "hints": "#hs-strong-password-hints",
-                "stripClasses": "hs-strong-password:opacity-100 hs-strong-password-accepted:bg-teal-500 h-2 flex-auto rounded-full bg-blue-500 opacity-50 mx-1"
-              }' class="flex mt-2 -mx-1"></div>
-        </div>
-        <div id="hs-strong-password-hints" class="mb-3">
-          <div>
-            <span class="text-sm text-white">Level:</span>
-            <span
-              data-hs-strong-password-hints-weakness-text='["Empty", "Weak", "Medium", "Strong", "Very Strong", "Super Strong"]'
-              class="text-sm font-semibold text-white"></span>
-          </div>
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Your email" formControlName="email" required>
+            <mat-error *ngIf="signupForm.get('email')?.hasError('required') && signupForm.get('email')?.touched">
+              Email is required
+            </mat-error>
+            <mat-error *ngIf="signupForm.get('email')?.hasError('email') && signupForm.get('email')?.touched">
+              Please enter a valid email address
+            </mat-error>
+          </mat-form-field>
 
-          <h4 class="my-2 text-sm font-semibold text-white">
-            Your password must contain:
-          </h4>
-
-          <ul class="space-y-1 text-sm text-white">
-            <li data-hs-strong-password-hints-rule-text="min-length"
-              class="hs-strong-password-active:text-teal-500 flex items-center gap-x-2">
-              <span class="hidden" data-check="">
-                <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </span>
-              <span data-uncheck="">
-                <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="M18 6 6 18"></path>
-                  <path d="m6 6 12 12"></path>
-                </svg>
-              </span>
-              Minimum number of characters is 6.
-            </li>
-            <li data-hs-strong-password-hints-rule-text="lowercase"
-              class="hs-strong-password-active:text-teal-500 flex items-center gap-x-2">
-              <span class="hidden" data-check="">
-                <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </span>
-              <span data-uncheck="">
-                <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="M18 6 6 18"></path>
-                  <path d="m6 6 12 12"></path>
-                </svg>
-              </span>
-              Should contain lowercase.
-            </li>
-            <li data-hs-strong-password-hints-rule-text="uppercase"
-              class="hs-strong-password-active:text-teal-500 flex items-center gap-x-2">
-              <span class="hidden" data-check="">
-                <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </span>
-              <span data-uncheck="">
-                <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="M18 6 6 18"></path>
-                  <path d="m6 6 12 12"></path>
-                </svg>
-              </span>
-              Should contain uppercase.
-            </li>
-            <li data-hs-strong-password-hints-rule-text="numbers"
-              class="hs-strong-password-active:text-teal-500 flex items-center gap-x-2">
-              <span class="hidden" data-check="">
-                <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </span>
-              <span data-uncheck="">
-                <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="M18 6 6 18"></path>
-                  <path d="m6 6 12 12"></path>
-                </svg>
-              </span>
-              Should contain numbers.
-            </li>
-            <li data-hs-strong-password-hints-rule-text="special-characters"
-              class="hs-strong-password-active:text-teal-500 flex items-center gap-x-2">
-              <span class="hidden" data-check="">
-                <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"></polyline>
-                </svg>
-              </span>
-              <span data-uncheck="">
-                <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <path d="M18 6 6 18"></path>
-                  <path d="m6 6 12 12"></path>
-                </svg>
-              </span>
-              Should contain special characters.
-            </li>
-          </ul>
-        </div>
-        <div class="flex flex-col space-y-6">
-          <div class="text-right">
-            already have account? <a routerLink="/auth/login" class="text-sm text-blue-700 hover:text-blue-900 ">logn now</a>
-          </div>
-          <!-- Submit Button -->
-          <button (click)="onSubmit()"
-            mat-flat-button 
-            color="primary">
-              Signup now
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Your phone" formControlName="phone" required>
+            <mat-error *ngIf="signupForm.get('phone')?.hasError('required') && signupForm.get('phone')?.touched">
+              Phone number is required
+            </mat-error>
+            <mat-error *ngIf="signupForm.get('phone')?.hasError('pattern') && signupForm.get('phone')?.touched">
+              Please enter a valid 10-digit phone number
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <input matInput [type]="hide() ? 'password' : 'text'" id="hs-strong-password-with-indicator-and-hint"
+              formControlName="password" placeholder="Your Password" required>
+            <button mat-icon-button type="button" matSuffix (click)="clickEvent($event)"
+              [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()">
+              <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <button mat-icon-button type="button" matSuffix (click)="generatePassword()"
+            >
+            <mat-icon>filter</mat-icon>
           </button>
 
+
+            <mat-error *ngIf="signupForm.get('password')?.hasError('required') && signupForm.get('password')?.touched">
+              Password is required
+            </mat-error>
+          </mat-form-field>
+          <div class="flex flex-col">
+            <mat-progress-bar
+            class="example-margin"
+            [value]="value">
+        </mat-progress-bar>
+          </div>
+          <span class="text-sm font-bold">Password Strength:
+            <span [ngClass]="{
+                            'text-red-500': strength === 0 || strength === 1,
+                            'text-yellow-500': strength === 2,
+                            'text-green-500': strength === 3,
+                            'text-blue-500': strength === 4
+                          }">
+              {{ getPasswordStrengthLabel(strength) }}
+            </span>
+          </span>
+
+          <div>
+            <button mat-button matStepperNext >Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <!-- Step 2: Billing Information -->
+      <mat-step [stepControl]="billingForm">
+        <form [formGroup]="billingForm" class="flex flex-col space-y-6">
+          <ng-template matStepLabel>Billing Information</ng-template>
+
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="billingAddress" placeholder="Your billing address" required>
+            <mat-error
+              *ngIf="billingForm.get('billingAddress')?.hasError('required') && billingForm.get('billingAddress')?.touched">
+              Billing address is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="city" placeholder="City" required>
+            <mat-error *ngIf="billingForm.get('city')?.hasError('required') && billingForm.get('city')?.touched">
+              City is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="state" placeholder="State/Province" required>
+            <mat-error *ngIf="billingForm.get('state')?.hasError('required') && billingForm.get('state')?.touched">
+              State/Province is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="postalCode" placeholder="Postal Code" required>
+            <mat-error
+              *ngIf="billingForm.get('postalCode')?.hasError('required') && billingForm.get('postalCode')?.touched">
+              Postal Code is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <input matInput formControlName="country" placeholder="Country" required>
+            <mat-error *ngIf="billingForm.get('country')?.hasError('required') && billingForm.get('country')?.touched">
+              Country is required
+            </mat-error>
+          </mat-form-field>
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <!-- Step 3: Payment Information -->
+      <mat-step [stepControl]="paymentForm" *ngIf="isPaidPlan">
+        <form [formGroup]="paymentForm" class="flex flex-col space-y-6">
+          <ng-template matStepLabel>Payment Information</ng-template>
+
+          <mat-form-field appearance="outline">
+            <mat-select formControlName="paymentMethod" required>
+              <mat-option value="creditCard">Credit/Debit Card</mat-option>
+              <mat-option value="paypal">PayPal</mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="paymentForm.get('paymentMethod')?.hasError('required') && paymentForm.get('paymentMethod')?.touched">
+              Payment method is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" *ngIf="paymentForm.get('paymentMethod')?.value === 'creditCard'">
+            <input matInput formControlName="cardNumber" placeholder="Card Number" required>
+            <mat-error
+              *ngIf="paymentForm.get('cardNumber')?.hasError('required') && paymentForm.get('cardNumber')?.touched">
+              Card number is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" *ngIf="paymentForm.get('paymentMethod')?.value === 'creditCard'">
+            <input matInput formControlName="expiryDate" placeholder="MM/YY" required>
+            <mat-error
+              *ngIf="paymentForm.get('expiryDate')?.hasError('required') && paymentForm.get('expiryDate')?.touched">
+              Expiration date is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" *ngIf="paymentForm.get('paymentMethod')?.value === 'creditCard'">
+            <input matInput formControlName="cvv" placeholder="CVV" required>
+            <mat-error *ngIf="paymentForm.get('cvv')?.hasError('required') && paymentForm.get('cvv')?.touched">
+              CVV is required
+            </mat-error>
+          </mat-form-field>
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <!-- Step 4: Confirmation -->
+      <mat-step>
+        <ng-template matStepLabel>Confirmation</ng-template>
+        <p>Please confirm your details:</p>
+        <div>
+          <p><strong>Name:</strong> {{signupForm.value.name}}</p>
+          <p><strong>Email:</strong> {{signupForm.value.email}}</p>
+          <p><strong>Phone:</strong> {{signupForm.value.phone}}</p>
+          <p><strong>Billing Address:</strong> {{billingForm.value.billingAddress}}</p>
+          <p><strong>City:</strong> {{billingForm.value.city}}</p>
+          <p><strong>State/Province:</strong> {{billingForm.value.state}}</p>
+          <p><strong>Postal Code:</strong> {{billingForm.value.postalCode}}</p>
+          <p><strong>Country:</strong> {{billingForm.value.country}}</p>
+          <div *ngIf="isPaidPlan">
+            <p><strong>Payment Method:</strong> {{paymentForm.value.paymentMethod}}</p>
+            <p><strong>Card Number:</strong> {{paymentForm.value.cardNumber}}</p>
+            <p><strong>Expiry Date:</strong> {{paymentForm.value.expiryDate}}</p>
+            <p><strong>CVV:</strong> {{paymentForm.value.cvv}}</p>
+          </div>
         </div>
-      </form>
-      <!-- Forgot Password Link -->
-  </div>
-  <div class="w-3/6 h-full flex flex-col justify-center items-center text-center p-12  "
-    style="background-image: url('https://flowbite.s3.amazonaws.com/blocks/marketing-ui/authentication/illustration.svg'); background-repeat: no-repeat; background-size: cover;">
-    <h1 class="text-4xl ">Welcome to Our Password manager app</h1>
-    <span class="text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos ducimus dolorem quibusdam
-      doloribus dolore, nesciunt cumque ab quia. Facere eaque soluta provident voluptatem odio laborum est facilis
-      exercitationem, beatae nisi!</span>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="onSubmit()">Confirm & Register</button>
+        </div>
+      </mat-step>
+
+      <!-- Step 5: Done -->
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done.</p>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+
+    </mat-stepper>
   </div>
 
+  <div class="w-full md:w-3/6 text-center flex flex-col justify-center items-center" style="height: 100vh; background-image: url('https://flowbite.s3.amazonaws.com/blocks/marketing-ui/authentication/illustration.svg'); background-repeat: no-repeat; background-size: cover;">
+    <div class="text-2xl md:text-4xl font-extrabold mb-4">Welcome to Our PassKeeper</div>
+    <span class="text-center text-sm md:text-base px-4 md:px-0">
+      Manage your passwords securely and efficiently with our app. Store, organize, and access your passwords with ease. Our robust features ensure that your credentials are safe and accessible whenever you need them.
+    </span>
+  </div>
+  
 </div>
