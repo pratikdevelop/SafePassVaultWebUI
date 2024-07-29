@@ -1,18 +1,68 @@
-<nav aria-label="Global" class="flex items-center pb-10 justify-between w-full text-dark">
-    <span class="font-bold text-2xl"> Personal Details </span>
-    <button mat-flat-button="" color="primary">Edit Profile</button>
+<nav aria-label="Global" class="flex items-center  justify-between w-full text-primary-foreground bg-background shadow-lg p-3">
+  <span class="font-bold text-3xl text-accent">Personal Information</span>
+  <button mat-flat-button class="" (click)="editProfile()">Edit Profile</button>
 </nav>
-<div id="profile" class="relative flex items-center justify-between w-full">
-    <div class="flex justify-between items-start">
-        <div class="flex flex-col mb-4">
-            <h2 class="text-lg font-bold text-dark">{{user.name}}</h2>
-            <h6 class="font-bold">Role: {{user.role}}</h6>
-            <h6 class="font-bold">Email: {{user.email}}</h6>
-            <h6 class="font-bold">Phone: {{user.phone}}</h6>
-            <h6 class="font-bold">Created at: {{user.createdAt}}</h6>
-        </div>
+<div id="profile" class="relative flex flex-col lg:flex-row items-center justify-between w-full p-8 bg-card rounded-lg shadow-xl transition-transform transform">
+  <div class="flex flex-col mb-4 lg:mr-4">
+    <h2 class="text-2xl font-bold text-accent uppercase">{{user?.name}}</h2>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
+      <div>
+        <h6 class="font-semibold text-muted">Role:</h6>
+        <p class="text-primary uppercase">{{user?.role}}</p>
+      </div>
+      <div>
+        <h6 class="font-semibold text-muted">Email:</h6>
+        <p class="text-primary">{{user?.email}}</p>
+      </div>
+      <div>
+        <h6 class="font-semibold text-muted">Phone:</h6>
+        <p class="text-primary">+{{user?.phone}}</p>
+      </div>
+      <div>
+        <h6 class="font-semibold text-muted">Created at:</h6>
+        <p class="text-primary">{{user?.createdAt |date:"short"}}</p>
+      </div>
+      <div>
+        <h6 class="font-semibold text-muted">Billing Address:</h6>
+        <p class="text-primary">{{user?.billingAddress}} {{user?.city}}</p>
+      </div>
+      <div>
+        <h6 class="font-semibold text-muted">City:</h6>
+        <p class="text-primary">{{user?.city}}</p>
+      </div>
+      <div>
+        <h6 class="font-semibold text-muted">State:</h6>
+        <p class="text-primary">{{user?.state}}</p>
+      </div>
+      <div>
+        <h6 class="font-semibold text-muted">Postal Code:</h6>
+        <p class="text-primary">{{user?.postalCode}}</p>
+      </div>
+      <div>
+        <h6 class="font-semibold text-muted">Country:</h6>
+        <p class="text-primary">{{user?.country}}</p>
+      </div>
+      <!-- <div>
+        <h6 class="font-semibold text-muted">Payment Method:</h6>
+        <p class="text-primary"></p>
+      </div>
+      <div>
+        <h6 class="font-semibold text-muted">Card Number:</h6>
+        <p class="text-primary">**** **** **** 1234</p>
+      </div>
+      <div>
+        <h6 class="font-semibold text-muted">Expiry Date:</h6>
+        <p class="text-primary">12/24</p>
+      </div>
+      <div>
+        <h6 class="font-semibold text-muted">CVV:</h6>
+        <p class="text-primary">123</p>
+      </div> -->
     </div>
-        <img
-            src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEABsbGxscGx4hIR4qLSgtKj04MzM4PV1CR0JHQl2NWGdYWGdYjX2Xe3N7l33gsJycsOD/2c7Z//////////////8BGxsbGxwbHiEhHiotKC0qPTgzMzg9XUJHQkdCXY1YZ1hYZ1iNfZd7c3uXfeCwnJyw4P/Zztn////////////////CABEIANQA1AMBIgACEQEDEQH/xAAZAAEBAQEBAQAAAAAAAAAAAAAABAMCAQX/2gAIAQEAAAAA+oAAAAAAAAAAAAAAA67eceAAANaNAxn4AACrcAlwAAK9gAlwAA2rAAg5ABf0ABjIAGloADz54Ab1AAEPAAopAAI8gBRSAAQ8ADS0AA+cAC/oADGQAG9QAEPAAFmoATTgAPa9QCacAANqOwzmzAAAd9++Z8gAA21yy8DrbrHMAGlfQz4e99jOTkA2rAAHMfAHdwAAOYfAXdgAATzBpaAAA8g8FW4AABHk/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/aAAoCAhADEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/xAAuEAACAQEHAwEHBQAAAAAAAAABAgMAERIhMDFAYSBBURMEIjIzQlKBEBRgcZH/2gAIAQEAAT8A/jgVm0U0IZPFehJxRikH00QRqNqkTNrgKWJF7dTQqdMDToya7KOILi2uVJDZiumwiju4nXMlju+8NM6FLTeOgzSAcDTrcYjNRbqgZ062rb4zIhbIvGOeRaCMz2f4mPGwkFkjjnL9n+vYTfNfLgOLDjYSG2R/7y4TZIOcM8mwE5qsGUHOmaxLPObC9hunOke+xPbtnRyXxYdcyaS33R+c8Eg2io5Q+BwOVJN2X/dkkxGDYildW0PU0qL3tNPIz8DxtRI66MaE78V67eBRnfgUXZtWOzWFjrhQgTmmgYaY0QRqOoKzaAmlg+4/gU0CnQkU0TryM2OIvwKVFQYDoIB1FGJD9Negnk1+3X7jQgTk0I0GijpeJW4NMhQ2HKiivYnTYsoYWGnQobDkRpfbga7N1DLZRBBIPXGlxQO/faTro3VEt5x4GO1ItBFEEEg9MHwsedtN8w/r/8QAFBEBAAAAAAAAAAAAAAAAAAAAcP/aAAgBAgEBPwBE/8QAFBEBAAAAAAAAAAAAAAAAAAAAcP/aAAgBAwEBPwBE/9k="
-            alt="Profile Picture" class="rounded-full">
+  </div>
+  <img
+    src="https://placehold.co/150"
+    alt="Profile Picture"
+    class="rounded-full w-28 h-28 lg:w-36 lg:h-36 border-4 border-accent shadow-lg transition-transform transform hover:scale-110 mt-4 lg:mt-0"
+  />
 </div>

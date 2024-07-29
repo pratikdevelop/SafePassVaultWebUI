@@ -1,27 +1,37 @@
-<div class="relative flex w-full h-[90vh]">
-  <ul class="flex flex-col h-full space-y-8 p-8 w-3/12">
-    <li><a (click)="setTab(0)" type="button" class=" active:bg-gray-500 cursor-pointer text-center font-bold uppercase text-base ">Personal Details</a></li>
-    <li><a (click)="setTab(1)" type="button" class=" active:bg-gray-500 cursor-pointer text-center font-bold uppercase text-base">Security Token</a></li>
-    <li><a (click)="setTab(2)" type="button" class=" active:bg-gray-500 cursor-pointer text-center font-bold uppercase text-base">Change Password</a></li>
-    <li><a (click)="setTab(3)" type="button" class=" active:bg-gray-500 cursor-pointer text-center font-bold uppercase text-base">Email Notification</a></li>
-    <li><a (click)="setTab(4)" type="button" class=" active:bg-gray-500 cursor-pointer text-center font-bold uppercase text-base">MFA Authentication</a></li>
-    <li><a (click)="setTab(5)" type="button" class=" active:bg-gray-500 cursor-pointer text-center font-bold uppercase text-base">Role Permissions</a></li>
-  </ul>
-  <div class="flex flex-col w-9/12 border-l-2 px-16 py-2 space-y-6">
-  @switch(tab) {
-    @case (0){
-    <app-user-profile/>    
-   }
-    @case (1) {
-      <app-security/>
-    }
-    @case (2) {
-      <app-password-change/>
-    }
-    @default {
-      <p>gg</p>
-    }
-  }
-  </div>
+<mat-sidenav-container class="example-container">
+  <!-- Sidenav -->
+  <mat-sidenav #sidenav mode="side" [opened]="isSidebarOpen" class="example-sidenav">
+    <mat-nav-list>
+      <a mat-list-item (click)="setTab(0);">Personal Details</a>
+      <a mat-list-item (click)="setTab(1);">Security Token</a>
+      <a mat-list-item (click)="setTab(2);">Change Password</a>
+      <a mat-list-item (click)="setTab(3);">Email Notification</a>
+      <a mat-list-item (click)="setTab(4);">MFA Authentication</a>
+      <a mat-list-item (click)="setTab(5);">Role Permissions</a>
+    </mat-nav-list>
+  </mat-sidenav>
 
-</div>
+  <!-- Main content -->
+  <mat-sidenav-content class="p-4">
+    @switch(tab) {
+      @case (0){
+      <app-user-profile/>    
+     }
+      @case (1) {
+        <app-security/>
+      }
+      @case (2) {
+        <app-password-change/>
+      }
+      @case (3) {
+        <app-notification/>
+      }
+      @case (4)  {
+        <app-mfa-setting/>
+      }
+      @default {
+        <p>gg</p>
+      }
+    }
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,8 +1,11 @@
-    <nav class="flex flex-col p-5 w-full text-dark" aria-label="Global">
-    <h6> Security Questions</h6>
-      <p class="text-gray-700 font-normal">Set up questions for password recovery (optional).</p>
-    </nav>
 
+    <nav aria-label="Global" class="flex items-center  justify-between w-full text-primary-foreground bg-background shadow-lg p-3">
+        <span class="flex flex-col space-y-2">
+            <span class="font-bold text-3xl text-accent"> Security Questions</span>
+            <p class="text-gray-700 font-normal">Set up questions for password recovery (optional).</p>
+        </span>
+        <button mat-flat-button type="submit">Save Changes</button>
+      </nav>
     <form method="post" [formGroup]="securityForm" class="flex flex-col w-full space-y-6 p-5">
         <mat-form-field appearance="fill">
             <mat-label>Question 1</mat-label>
@@ -30,5 +33,4 @@
             <input matInput type="text" formControlName="securityAnswer2">
         </mat-form-field>
 
-        <button mat-flat-button color="primary" type="submit">Save Changes</button>
     </form>

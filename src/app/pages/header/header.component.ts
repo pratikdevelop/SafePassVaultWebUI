@@ -17,6 +17,32 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [MatSnackBarModule, RouterModule, FormsModule, MatButtonModule, CommonModule, MatIconModule, MatMenuModule, ReactiveFormsModule, MatInputModule],
   templateUrl: './header.component.html',
+  styles:` @media (min-width: 768px) {
+    .menu-button {
+      display: none;
+    }
+  }
+
+  /* Hide complete menu on smaller screens */
+  @media (max-width: 767px) {
+    .menu-content {
+      display: none;
+    }
+  }
+
+  /* Show complete menu on larger screens */
+  @media (min-width: 768px) {
+    .menu-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    .menu-item {
+      margin: 5px 0;
+    }
+  }
+`
 })
 export class HeaderComponent implements OnInit {
   token = localStorage.getItem('token')?.toString();

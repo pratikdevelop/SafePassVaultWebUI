@@ -1,0 +1,44 @@
+<nav aria-label="Global"
+    class="flex items-center  justify-between w-full text-primary-foreground bg-background shadow-lg rounded-md p-3">
+    <div class="text-primary-foreground flex flex-col space-y-2">
+        <div class="text-xl font-extrabold text-accent">MFA Authentication Settings</div>
+        <p class="text-muted">Manage your multi-factor authentication settings.</p>
+    </div>
+    <button mat-flat-button type="submit">Save Changes</button>
+
+</nav>
+<form [formGroup]="mfaForm" (ngSubmit)="onSubmit()" class="flex flex-col space-y-6">
+    <mat-form-field>
+        <mat-label>Enable MFA</mat-label>
+        <mat-slide-toggle formControlName="mfaEnabled" color="primary">
+            Enable MFA
+        </mat-slide-toggle>
+    </mat-form-field>
+
+    <div *ngIf="mfaForm.get('mfaEnabled')?.value">
+        <mat-form-field>
+            <mat-label>Select MFA Method</mat-label>
+            <mat-select formControlName="mfaMethod">
+                <mat-option value="totp">Time-Based One-Time Password (TOTP)</mat-option>
+                <mat-option value="sms">SMS Authentication</mat-option>
+                <mat-option value="email">Email Authentication</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="mfaForm.get('mfaMethod')?.value === 'totp'">
+            <mat-label>Enter TOTP Secret</mat-label>
+            <input matInput formControlName="totpSecret" placeholder="Enter your TOTP secret">
+        </mat-form-field>
+
+        <mat-form-field *ngIf="mfaForm.get('mfaMethod')?.value === 'sms'">
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="smsPhoneNumber" placeholder="Enter your phone number">
+        </mat-form-field>
+
+        <mat-form-field *ngIf="mfaForm.get('mfaMethod')?.value === 'email'">
+            <mat-label>Email Address</mat-label>
+            <input matInput formControlName="emailAddress" placeholder="Enter your email address">
+        </mat-form-field>
+    </div>
+
+</form>
