@@ -11,12 +11,21 @@ import { PasswordService } from '../../services/password.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-side-nav',
   standalone: true,
-  imports: [MatListModule, MatButtonModule,MatIconModule, MatMenuModule,MatSnackBarModule, MatInputModule, FormsModule, ReactiveFormsModule],
+  imports: [MatListModule, MatButtonModule,MatIconModule, MatMenuModule,MatSnackBarModule, FormsModule, ReactiveFormsModule, MatInputModule, FormsModule, MatSidenavModule],
   templateUrl: './side-nav.component.html',
+  styles:`
+  ::ng-deep .mdc-notched-outline {
+    height:0 !important;
+  }
+  ::ng-deep .mdc-text-field--no-label{
+    display: flex  !important;
+    align-items: center  !important;
+  }`
 })
 export class SideNavComponent {
   dialog = inject(MatDialog)
@@ -62,4 +71,9 @@ export class SideNavComponent {
   createOrganization(): void {
     this.dialog.open(OrganizationComponent)
   }
+
+  openAddNoteForm(): void {
+
+  }
+  opencardAddForm():  void {}
 }

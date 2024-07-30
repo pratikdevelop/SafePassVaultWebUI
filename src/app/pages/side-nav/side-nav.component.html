@@ -1,31 +1,30 @@
-<div class="flex relative p-3 shadow-2xl border w-full space-x-3 items-center justify-between">
-    
-    <input matInput type="text" placeholder="Search the password" [(ngModel)]="filterValue" (change)="filterPasswords()"
-      class="p-3 w-5/12 border shadow-xl bg-white rounded" />
-    <div class="flex items-center ml-auto space-x-5">
-        <button (click)="openPasswordFormDialog()" [matMenuTriggerFor]="addAction" mat-raised-button>
-            Add
-        </button>
-        <mat-menu #addAction="matMenu">
-            <button mat-menu-item (click)="setFilter('modified')">new Password</button>
-            <button mat-menu-item (click)="setFilter('favoutites')">new Cart</button>
-            <button mat-menu-item (click)="setFilter('shared')">note</button>
-        </mat-menu>
-        <a type="button" [matMenuTriggerFor]="filterAction" mat-raised-button color="primary">Filter by</a>
-        <mat-menu #filterAction="matMenu">
-            <button mat-menu-item (click)="setFilter('modified')">Latest Modified</button>
-            <button mat-menu-item (click)="setFilter('favoutites')">favourites</button>
-            <button mat-menu-item (click)="setFilter('shared')">Shared With Me</button>
-            <button mat-menu-item (click)="setFilter('create')">created BY Me</button>
-        </mat-menu>
-        <button mat-icon [matMenuTriggerFor]="mainAction"><mat-icon>settings</mat-icon>
-        </button>
-        <mat-menu #mainAction="matMenu">
-            <button mat-menu-item (click)="performAction('delete')">Delete</button>
-            <button mat-menu-item (click)="performAction('add_favorites')">Add to favourites</button>
-            <button mat-menu-item (click)="performAction('share')">Share</button>
-            <button mat-menu-item (click)="performAction('export')">Export</button>
-        </mat-menu>
-    </div>
 
-</div>
+        <div class="border-r-1 h-full flex flex-col items-center text-white">
+            <button mat-menu-item  [matMenuTriggerFor]="addAction">
+                <mat-icon style="color: gray !important;">add_circle_outline</mat-icon>
+            </button>
+            <mat-menu #addAction="matMenu">
+                <button mat-menu-item (click)="openPasswordFormDialog()">New Password</button>
+                <button mat-menu-item (click)="opencardAddForm()">New Cart</button>
+                <button mat-menu-item (click)="openAddNoteForm">Note</button>
+            </mat-menu>
+            <button mat-menu-item [matMenuTriggerFor]="filterAction">
+                <mat-icon>filter_list</mat-icon>
+            </button>
+            <mat-menu #filterAction="matMenu">
+                <button mat-menu-item (click)="setFilter('modified')">Latest Modified</button>
+                <button mat-menu-item (click)="setFilter('favourites')">Favourites</button>
+                <button mat-menu-item (click)="setFilter('shared')">Shared With Me</button>
+                <button mat-menu-item (click)="setFilter('create')">Created By Me</button>
+            </mat-menu>
+            <button mat-menu-item [matMenuTriggerFor]="mainAction">
+                <mat-icon>settings</mat-icon>
+            </button>
+            <mat-menu #mainAction="matMenu">
+                <button mat-menu-item (click)="performAction('delete')">Delete</button>
+                <button mat-menu-item (click)="performAction('add_favorites')">Add to Favourites</button>
+                <button mat-menu-item (click)="performAction('share')">Share</button>
+                <button mat-menu-item (click)="performAction('export')">Export</button>
+            </mat-menu>
+        </div>
+        

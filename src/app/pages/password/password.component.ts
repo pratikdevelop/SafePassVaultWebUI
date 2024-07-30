@@ -23,6 +23,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 export interface Passwords {
   '_id': string
@@ -47,7 +50,10 @@ export interface Passwords {
     MatTooltipModule,
     CommonModule,
     MatMenuModule,
-    MatChipsModule
+    MatChipsModule,
+    MatSidenavModule,
+    MatButtonModule,
+    MatFormFieldModule, MatInputModule, ReactiveFormsModule, FormsModule
   ],
   providers: [{ provide: 'Window', useValue: window }],
   templateUrl: './password.component.html',
@@ -222,6 +228,11 @@ export class PasswordComponent {
           // Handle error, e.g., display error message
         }
       );
+  }
+
+  viewPassword(id:string): void {
+    console.log("ff");
+    
   }
 }
 
