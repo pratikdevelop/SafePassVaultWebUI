@@ -1,0 +1,27 @@
+.permissions-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .role-section {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  
+  .permissions-form-group {
+    margin-bottom: 20px;
+  }
+  
+  mat-slide-toggle {
+    display: block;
+    margin: 10px 0;
+  }
+  
+  .submit-button {
+    text-align: right;
+  }
+  

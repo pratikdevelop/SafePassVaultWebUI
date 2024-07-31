@@ -1,9 +1,13 @@
 <!-- Main Container -->
 <div class="w-full flex items-center justify-between p-5">
   <!-- Login Card Content Will Go Here -->
-  <div class="w-3/6 flex flex-col">
+  <div class="w-3/6 flex flex-col space-y-6">
+    <div class="flex items-center justify-between">
+      <span class="text-3xl font-extrabold"> Create Account</span>
+      <span>Already have an account? <a routerLink="/auth/login">login </a> </span>
+
+    </div>
     <mat-stepper orientation="vertical" [linear]="'true'" #stepper>
-      <!-- Step 1: User Information -->
       <mat-step [stepControl]="signupForm">
         <form [formGroup]="signupForm" class="flex flex-col space-y-6">
           <ng-template matStepLabel>Fill out your details</ng-template>
