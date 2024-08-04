@@ -4,7 +4,7 @@
             <span class="font-bold text-3xl text-accent"> Security Questions</span>
             <p class="text-gray-700 font-normal">Set up questions for password recovery (optional).</p>
         </span>
-        <button mat-flat-button type="submit">Save Changes</button>
+        <button mat-flat-button type="submit" (click)="onSubmit()">Save Changes</button>
       </nav>
     <form method="post" [formGroup]="securityForm" class="flex flex-col w-full space-y-6 p-5">
         <mat-form-field appearance="fill">

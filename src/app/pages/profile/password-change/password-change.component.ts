@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-password-change',
@@ -16,6 +17,7 @@ export class PasswordChangeComponent implements OnInit {
     newPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
     confirmNewPassword: new FormControl('', [Validators.required])
   });
+  authService = inject(AuthService)
 
   constructor() { }
 
@@ -37,8 +39,14 @@ export class PasswordChangeComponent implements OnInit {
 
   onSubmit(): void {
     if (this.passwordChangeForm.valid) {
-      // Call API to change password
-      console.log('Password changed successfully!');
+      const { currentPassword, newPassword } = this.passwordChangeForm.value;
+
+      this.authService.passwordReset(currentPassword, newPassword).subscribe(
+        () => {
+          console.log('Password changed successfully!');
+        },
+        (error: any) => console.error('Error changing password', error)
+      );
     } else {
       console.log('Please fill in all required fields');
     }

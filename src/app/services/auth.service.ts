@@ -92,8 +92,6 @@ export class AuthService {
   }
 
   getProfile(): Observable<any> {
-
-
     return this.http.get(`${this.apiUrl}/profile`)
       .pipe(
         switchMap(response => {
@@ -119,6 +117,9 @@ export class AuthService {
           return throwError(error);
         })
       );
+  }
+  passwordReset(currentPassword: string, newPassword: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/change-password`, { currentPassword, newPassword });
   }
 
   resendCode(email: string) : Observable<any> {
