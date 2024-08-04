@@ -1,30 +1,58 @@
-
-        <div class="border-r-1 h-full flex flex-col items-center text-white">
-            <button mat-menu-item  [matMenuTriggerFor]="addAction">
-                <mat-icon style="color: gray !important;">add_circle_outline</mat-icon>
-            </button>
-            <mat-menu #addAction="matMenu">
-                <button mat-menu-item (click)="openPasswordFormDialog()">New Password</button>
-                <button mat-menu-item (click)="opencardAddForm()">New Cart</button>
-                <button mat-menu-item (click)="openAddNoteForm">Note</button>
-            </mat-menu>
-            <button mat-menu-item [matMenuTriggerFor]="filterAction">
-                <mat-icon>filter_list</mat-icon>
-            </button>
-            <mat-menu #filterAction="matMenu">
-                <button mat-menu-item (click)="setFilter('modified')">Latest Modified</button>
-                <button mat-menu-item (click)="setFilter('favourites')">Favourites</button>
-                <button mat-menu-item (click)="setFilter('shared')">Shared With Me</button>
-                <button mat-menu-item (click)="setFilter('create')">Created By Me</button>
-            </mat-menu>
-            <button mat-menu-item [matMenuTriggerFor]="mainAction">
-                <mat-icon>settings</mat-icon>
-            </button>
-            <mat-menu #mainAction="matMenu">
-                <button mat-menu-item (click)="performAction('delete')">Delete</button>
-                <button mat-menu-item (click)="performAction('add_favorites')">Add to Favourites</button>
-                <button mat-menu-item (click)="performAction('share')">Share</button>
-                <button mat-menu-item (click)="performAction('export')">Export</button>
-            </mat-menu>
-        </div>
-        
+<div class="border-r-1 h-full flex flex-col items-center text-white space-y-4">
+    <!-- Add New Items -->
+    <div class="w-full flex flex-col items-start p-2">
+      <button mat-button [matMenuTriggerFor]="addMenu">
+        <mat-icon style="color: gray !important;">add_circle_outline</mat-icon>
+        Add
+      </button>
+      <mat-menu #addMenu="matMenu">
+        <button mat-menu-item (click)="openPasswordFormDialog()">New Password</button>
+        <button mat-menu-item (click)="opencardAddForm()">New Card</button>
+        <button mat-menu-item (click)="openAddNoteForm()">New Note</button>
+        <button mat-menu-item (click)="openIdProofForm()">New ID Proof</button>
+      </mat-menu>
+    </div>
+  
+    <!-- Filter Options -->
+    <div class="w-full flex flex-col items-start p-2">
+      <button mat-button [matMenuTriggerFor]="filterMenu">
+        <mat-icon>filter_list</mat-icon>
+        Filter By
+      </button>
+      <mat-menu #filterMenu="matMenu">
+        <button mat-menu-item (click)="setFilter('modified')">Latest Modified</button>
+        <button mat-menu-item (click)="setFilter('favourites')">Favourites</button>
+        <button mat-menu-item (click)="setFilter('shared')">Shared With Me</button>
+        <button mat-menu-item (click)="setFilter('create')">Created By Me</button>
+      </mat-menu>
+    </div>
+  
+    <!-- Main Actions -->
+    <div class="w-full flex flex-col items-start p-2">
+      <button mat-button [matMenuTriggerFor]="actionMenu">
+        <mat-icon>settings</mat-icon>
+        Actions
+      </button>
+      <mat-menu #actionMenu="matMenu">
+        <button mat-menu-item (click)="performAction('delete')">Delete</button>
+        <button mat-menu-item (click)="performAction('add_favorites')">Add to Favourites</button>
+        <button mat-menu-item (click)="performAction('share')">Share</button>
+        <button mat-menu-item (click)="performAction('export')">Export</button>
+      </mat-menu>
+    </div>
+  
+    <!-- Listing Type Options -->
+    <div class="w-full flex flex-col items-start p-2">
+      <button mat-button [matMenuTriggerFor]="listingMenu">
+        <mat-icon>view_list</mat-icon>
+        Listing Type
+      </button>
+      <mat-menu #listingMenu="matMenu">
+        <button mat-menu-item (click)="setListingType('passwords')">Passwords</button>
+        <button mat-menu-item (click)="setListingType('notes')">Notes</button>
+        <button mat-menu-item (click)="setListingType('cards')">Cards</button>
+        <button mat-menu-item (click)="setListingType('idproofs')">ID Proofs</button>
+      </mat-menu>
+    </div>
+  </div>
+  

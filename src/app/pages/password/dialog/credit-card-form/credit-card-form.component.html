@@ -1,0 +1,46 @@
+<mat-toolbar color="primary">
+    <h2 mat-dialog-title> Add Credit Card </h2>
+  </mat-toolbar>
+  <mat-dialog-content class="mat-typography p-6">
+    <form [formGroup]="creditCardForm" class="flex flex-col space-y-6">
+      <mat-form-field>
+        <mat-label>Card Type</mat-label>
+        <mat-select formControlName="cardType" required>
+          <mat-option value="Visa">Visa</mat-option>
+          <mat-option value="MasterCard">MasterCard</mat-option>
+          <mat-option value="American Express">American Express</mat-option>
+          <mat-option value="Discover">Discover</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Card Holder Name</mat-label>
+        <input matInput formControlName="cardHolderName" required>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Card Number</mat-label>
+        <input matInput formControlName="cardNumber" required>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Expiry Date</mat-label>
+        <input matInput formControlName="expiryDate" required>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>CVV</mat-label>
+        <input matInput formControlName="CVV" required>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Billing Address</mat-label>
+        <textarea matInput formControlName="billingAddress" required></textarea>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!creditCardForm.valid">Save Credit Card</button>
+  </mat-dialog-actions>
+  

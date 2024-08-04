@@ -1,0 +1,14 @@
+
+    
+    <div class="bg-background text-primary-foreground  flex items-center justify-center">
+        <div class="bg-card max-w-md w-full p-6 rounded-lg shadow-lg transform transition-transform  border border-accent">
+            <div class="text-4xl font-extrabold text-accent mb-2 uppercase">{{data.note.title}}</div>
+            <p class="text-lg text-muted-foreground mb-4 italic">{{data.note.content}}.</p>
+            <div class="flex items-center justify-between text-sm text-muted mb-4">
+                <span class="bg-primary text-primary-foreground px-3 py-1 rounded-full shadow-md">Created: {{data.note.createdAt| date:"short"}} </span> 
+                <span class="bg-secondary text-secondary-foreground px-3 py-1 rounded-full shadow-md">Updated: {{data.note.updatedAt | date:"short"}} </span>
+            </div>
+            <p class="text-sm text-muted-foreground">Owner: <span class="font-semibold text-accent">{{data.note.ownerName}}</span></p>
+        </div>
+    </div>
+    

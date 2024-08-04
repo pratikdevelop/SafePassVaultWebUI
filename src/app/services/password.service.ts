@@ -18,14 +18,8 @@ export class PasswordService {
   getPasswords(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl)
       .pipe(
-        switchMap((response: any[]) => {
-          // Validate response data structure (optional)
-          if (!Array.isArray(response) || !response.every((item) => item.password && item.key)) {
-            return throwError(new Error('Invalid password data format'));
-          }
-  
-          // Decrypt passwords securely
-          const decryptedPasswords = response.map((res) => {
+        switchMap((response: any) => {
+          const decryptedPasswords = response.data.map((res: { password: string | CryptoJS.lib.CipherParams; key: string | CryptoJS.lib.WordArray; }) => {
             try {
               const decryptedPassword = CryptoJS.AES.decrypt(res.password, res.key).toString(CryptoJS.enc.Utf8);
               return { ...res, password: decryptedPassword };
@@ -123,5 +117,15 @@ export class PasswordService {
 
   addTag(payload: any): Observable<any> {
     return this.http.post<any>(`${environment.api_url}/tags/tag`, payload);
+  }
+
+  createNote(note: any): Observable<any> {
+    return this.http.post(this.apiUrl, note);
+  }
+  createIdProof(idProof: any): Observable<any> {
+    return this.http.post(this.apiUrl, idProof);
+  }
+  createCreditCard(creditCard: any): Observable<any> {
+    return this.http.post(this.apiUrl, creditCard);
   }
 }

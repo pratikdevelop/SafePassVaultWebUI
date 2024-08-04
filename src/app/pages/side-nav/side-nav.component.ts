@@ -6,17 +6,19 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { Passwords } from '../password/password.component';
 import { PasswordService } from '../../services/password.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { NotesFormComponent } from '../password/dialog/notes/notes-form.component';
+import { CreditCardFormComponent } from '../password/dialog/credit-card-form/credit-card-form.component';
+import { IdproofformComponent } from '../password/dialog/idproofform/idproofform.component';
 
 @Component({
   selector: 'app-side-nav',
   standalone: true,
-  imports: [MatListModule, MatButtonModule,MatIconModule, MatMenuModule,MatSnackBarModule, FormsModule, ReactiveFormsModule, MatInputModule, FormsModule, MatSidenavModule],
+  imports: [MatListModule, MatButtonModule,MatIconModule, MatMenuModule,MatSnackBarModule, FormsModule, ReactiveFormsModule, MatInputModule, FormsModule, MatSidenavModule, MatListModule],
   templateUrl: './side-nav.component.html',
   styles:`
   ::ng-deep .mdc-notched-outline {
@@ -36,8 +38,9 @@ export class SideNavComponent {
   filter_by: string = "";
   action: string = ''
   @Input()
-  passwordIds!: Passwords[];
+  passwordIds!: string[];
   @Output() updatePasswordsTable = new EventEmitter<any>();
+  @Output() updateListingType = new EventEmitter<any>();
   openPasswordFormDialog(): void {
     const dialog = this.dialog.open(PasswordFormComponent, {
       width: '1400px',
@@ -51,8 +54,7 @@ export class SideNavComponent {
   performAction(vlaue: string): void {
     switch(vlaue) {
       case 'delete':
-        const ids = this.passwordIds?.map((password)=>{return password._id})
-        this.service.deleteMultiplePasswords(ids ?? ['']).subscribe((response)=>{
+        this.service.deleteMultiplePasswords(this.passwordIds ?? ['']).subscribe((response)=>{
           this.snackbar.open('Password deleted Successfully', 'close', {duration:2000})
           this.updatePasswordsTable.emit();
 
@@ -65,6 +67,7 @@ export class SideNavComponent {
 
   filterPasswords(): void {
     const filterValueLower = this.filterValue.toLowerCase().trim();
+    this.updatePasswordsTable.emit(filterValueLower);
 
   }
 
@@ -72,8 +75,38 @@ export class SideNavComponent {
     this.dialog.open(OrganizationComponent)
   }
 
-  openAddNoteForm(): void {
-
+  setListingType(listingType: string):  void {
+    this.updateListingType.emit(listingType);
   }
-  opencardAddForm():  void {}
+
+  openAddNoteForm(): void {
+    const dialog = this.dialog.open(NotesFormComponent, {
+      width: '1400px',
+    })
+    dialog.afterClosed().subscribe((response)=>{
+      if(response) {
+        this.updatePasswordsTable.emit();
+      }
+    })
+  }
+  openIdProofForm(): void {
+    const dialog = this.dialog.open(IdproofformComponent, {
+      width: '1400px',
+    })
+    dialog.afterClosed().subscribe((response)=>{
+      if(response) {
+        this.updatePasswordsTable.emit();
+      }
+    })
+  }
+  opencardAddForm():  void {
+    const dialog = this.dialog.open(CreditCardFormComponent, {
+      width: '1400px',
+    })
+    dialog.afterClosed().subscribe((response)=>{
+      if(response) {
+        this.updatePasswordsTable.emit();
+      }
+    })
+  }
 }

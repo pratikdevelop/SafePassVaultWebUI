@@ -13,7 +13,7 @@ export const route : Routes =[
     {
         path: 'passwords',
         canActivate: [authGuard], // Protect the admin route
-        loadComponent:()=>import("../pages/password/password.component").then((m)=>m.PasswordComponent)
+        loadComponent:()=>import("../pages/password/dashboard.component").then((m)=>m.DashboardComponent)
     },
     {
         path: 'profile',

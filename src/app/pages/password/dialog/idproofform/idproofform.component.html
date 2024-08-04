@@ -1,0 +1,47 @@
+
+  
+
+
+  <mat-toolbar color="primary">
+    <h2 mat-dialog-title>Add Password</h2>
+  </mat-toolbar>
+  <mat-dialog-content class="mat-typography p-6">
+    <form [formGroup]="idProofForm"   class="flex flex-col space-y-6">
+        <mat-form-field>
+          <mat-label>ID Type</mat-label>
+          <mat-select formControlName="idType" required>
+            <mat-option *ngFor="let type of idTypes" [value]="type">
+              {{ type }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      
+        <mat-form-field>
+          <mat-label>ID Number</mat-label>
+          <input matInput formControlName="idNumber" required>
+          <mat-hint *ngIf="idProofForm.get('idType')?.value === 'AadharCard'">12 digit Aadhar number</mat-hint>
+          <mat-hint *ngIf="idProofForm.get('idType')?.value === 'PANCard'">Format: ABCDE1234F</mat-hint>
+        </mat-form-field>
+      
+        <mat-form-field>
+          <mat-label>Issue Date</mat-label>
+          <input matInput formControlName="issueDate" type="date">
+        </mat-form-field>
+      
+        <mat-form-field>
+          <mat-label>Expiry Date</mat-label>
+          <input matInput formControlName="expiryDate" type="date">
+        </mat-form-field>
+      
+        <mat-form-field>
+          <mat-label>Document Image URL</mat-label>
+          <input matInput formControlName="documentImageUrl">
+        </mat-form-field>
+      
+      </form>
+      
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-raised-button color="primary" type="submit" (click)="onSubmit()" [disabled]="!idProofForm.valid">Save ID Proof</button>
+</mat-dialog-actions>
