@@ -1,0 +1,82 @@
+<mat-sidenav-container class="h-[100vh] flex-auto overflow-hidden">
+  <mat-sidenav
+    #drawer
+    [mode]="mode"
+    class="w-12 bg-slate-900 text-white responsive-element sm:w-16 md:w-20 lg:w-24"
+  >
+    <app-side-nav></app-side-nav>
+  </mat-sidenav>
+  <mat-sidenav-content class="flex flex-col flex-auto">
+    <div
+      class="flex  w-full p-4  flex-wrap items-center justify-between relative space-x-4 bg-slate-900 text-white"
+    >
+      <mat-form-field
+        appearance="outline"
+        class="flex-auto h-[7vh] bg-white  md:w-4/12 lg:w-3/12"
+      >
+        <input matInput type="text" placeholder="Search the password" aria-label="Search the password"/>
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+      <div class="flex sm:items-center space-x-3 w-6/12 md:w-4/12 lg:w-3/12 sm:justify-end">
+        <!-- Add Menu -->
+        <div class="flex flex-col items-start p-2">
+          <button mat-raised-button [matMenuTriggerFor]="addMenu" aria-label="Add new item">
+            <mat-icon class="icon-gray">add_circle_outline</mat-icon>
+            Add
+          </button>
+          <mat-menu #addMenu="matMenu">
+            <button mat-menu-item (click)="openPasswordFormDialog()">
+              New Password
+            </button>
+            <button mat-menu-item (click)="opencardAddForm()">New Card</button>
+            <button mat-menu-item (click)="openAddNoteForm()">New Note</button>
+            <button mat-menu-item (click)="openIdProofForm()">New ID Proof</button>
+          </mat-menu>
+        </div>
+
+        <!-- Listing Menu -->
+        <div class="flex flex-col items-start p-2">
+          <button mat-raised-button [matMenuTriggerFor]="listingMenu" aria-label="Select listing type">
+            <mat-icon>view_list</mat-icon>
+            Listing Type
+          </button>
+          <mat-menu #listingMenu="matMenu">
+            <a mat-menu-item routerLink="/dashboard/passwords">Passwords</a>
+            <a mat-menu-item routerLink="/dashboard/notes">Notes</a>
+            <a mat-menu-item routerLink="/dashboard/card">Cards</a>
+            <a mat-menu-item routerLink="/dashboard/Proof">ID Proofs</a>
+          </mat-menu>
+        </div>
+
+        <!-- Filter Menu -->
+        <div class="flex flex-col items-start p-2">
+          <button mat-raised-button [matMenuTriggerFor]="filterMenu" aria-label="Filter options">
+            <mat-icon>filter_list</mat-icon>
+            Filter By
+          </button>
+          <mat-menu #filterMenu="matMenu">
+            <button mat-menu-item (click)="setFilter('modified')">Latest Modified</button>
+            <button mat-menu-item (click)="setFilter('favourites')">Favourites</button>
+            <button mat-menu-item (click)="setFilter('shared')">Shared With Me</button>
+            <button mat-menu-item (click)="setFilter('create')">Created By Me</button>
+          </mat-menu>
+        </div>
+
+        <!-- Actions Menu -->
+        <div class="flex flex-col items-start p-2">
+          <button mat-raised-button [matMenuTriggerFor]="actionMenu" aria-label="Actions menu">
+            <mat-icon>settings</mat-icon>
+            Actions
+          </button>
+          <mat-menu #actionMenu="matMenu">
+            <button mat-menu-item (click)="performAction('delete')">Delete</button>
+            <button mat-menu-item (click)="performAction('add_favorites')">Add to Favourites</button>
+            <button mat-menu-item (click)="performAction('share')">Share</button>
+            <button mat-menu-item (click)="performAction('export')">Export</button>
+          </mat-menu>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav-content>
+  <router-outlet></router-outlet>
+</mat-sidenav-container>

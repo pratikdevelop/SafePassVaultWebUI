@@ -1,5 +1,16 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -12,41 +23,79 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import zxcvbn from 'zxcvbn';
-import { ProgressBarMode, MatProgressBarModule } from '@angular/material/progress-bar';
+import {
+  ProgressBarMode,
+  MatProgressBarModule,
+} from '@angular/material/progress-bar';
+import { SecurityQuestionService } from '../../services/security-question.service';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, MatSnackBarModule, RouterModule, MatButtonModule, MatStepperModule, MatFormFieldModule, CommonModule, MatSelectModule, MatOptionModule, MatInputModule, MatIconModule, MatProgressBarModule],
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    MatSnackBarModule,
+    RouterModule,
+    MatButtonModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    CommonModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatInputModule,
+    MatIconModule,
+    MatProgressBarModule,
+  ],
   templateUrl: './signup.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignupComponent {
   isPaidPlan: boolean = false;
-  snackbar = inject(MatSnackBar)
-  router = inject(Router)
+  snackbar = inject(MatSnackBar);
+  router = inject(Router);
   route = inject(ActivatedRoute);
-  authService = inject(AuthService)
+  authService = inject(AuthService);
+  securityQuestionService = inject(SecurityQuestionService)
   signupForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    phone: new FormControl('', [Validators.required, Validators.pattern("[0-9]{10}")]),
-    password: new FormControl('', [Validators.required, this.passwordValidator]),
+    phone: new FormControl('', [
+      Validators.required,
+      Validators.pattern('[0-9]{10}'),
+    ]),
+    password: new FormControl('', [
+      Validators.required,
+      this.passwordValidator,
+    ]),
   });
   billingForm = new FormGroup({
     billingAddress: new FormControl('', Validators.required),
     city: new FormControl('', Validators.required),
     state: new FormControl('', Validators.required),
     postalCode: new FormControl('', Validators.required),
-    country: new FormControl('', Validators.required)
+    country: new FormControl('', Validators.required),
   });
 
-  value = 0
+  value = 0;
   paymentForm = new FormGroup({
     paymentMethod: new FormControl('', Validators.required),
     cardNumber: new FormControl('', Validators.required),
     expiryDate: new FormControl('', Validators.required),
-    cvv: new FormControl('', Validators.required)
+    cvv: new FormControl('', Validators.required),
+  });
+
+  // Initialize OTP Form
+  OTPForm = new FormGroup({
+    confirmationCode: new FormControl('', Validators.required),
+  });
+
+  // Initialize Security Questions Form
+  securityForm = new FormGroup({
+    securityQuestion1: new FormControl(''),
+    securityAnswer1: new FormControl(''),
+    securityQuestion2: new FormControl(''),
+    securityAnswer2: new FormControl(''),
   });
   hide = signal(true);
   strength: number = 0;
@@ -59,45 +108,109 @@ export class SignupComponent {
       const result = zxcvbn(password);
       this.strength = result.score;
       this.value = (this.strength / 4) * 100;
-    })
+    });
+
+    this.route.queryParams.subscribe((params: any) => {
+      this.isPaidPlan =(params['plan'] && params.plan !== 'free');
+    });
   }
   onSubmit() {
-    const userDetails = {
-      ...this.signupForm.value,
-      ...this.billingForm.value,
-      ...this.paymentForm.value
-    };
-    this.authService.signup(userDetails)
-      .subscribe(
-        response => {
-          // Handle successful signup (e.g., redirect to login page, show success message)
-          localStorage.setItem("email", this.signupForm.value.email)
-          this.router.navigateByUrl("/auth/email-confirmation")
-          console.log('Signup successful:', response);
-
-          this.signupForm.reset(); // Reset form after successful signup
-          this.snackbar.open("Signup successful", "close", {
-            duration: 3000
-          })
+    if (
+      this.signupForm.valid &&
+      this.billingForm.valid &&
+      (!this.isPaidPlan || this.paymentForm.valid)
+    ) {
+      const userDetails = {
+        ...this.signupForm.value,
+        ...this.billingForm.value,
+        ...this.paymentForm.value,
+      };
+      this.authService.signup(userDetails).subscribe(
+        (response:any) => {
+          this.snackbar.open('user refgistered, The email confimation is send in your mail', 'close', {
+            duration: 3000,
+          });
         },
-        error => {
+        (error) => {
           console.error('Error during signup:', error);
-          this.snackbar.open("An error occurred during signup. Please try again.", "close", {
-            duration: 3000
-          })
+          this.snackbar.open(
+            'An error occurred during signup. Please try again.',
+            'close',
+            {
+              duration: 3000,
+            }
+          );
         }
       );
+    }
   }
 
+  verifyEmail(): void {
+    const payload = {
+      email: this.signupForm.get('email')?.value, 
+      confirmationCode:this.OTPForm.value.confirmationCode
+    }
+    this.authService.emailVerification(payload).subscribe(
+      (response) => {
+        localStorage.setItem('token', response.token);
+        this.snackbar.open('Email Verified, Add the security question or Skip these Step', 'close', {
+          duration: 3000,
+        });
+      },
+      (eror: any) => {
+        console.error('error', eror);
+      }
+    );
+  }
+
+
+  addSecurityQuestion(): void {
+    if (this.securityForm.valid) {
+      const formValues = this.securityForm.value;
+
+      // Prepare the securityQuestions array from form values
+      const securityQuestions = [
+        {
+          question: formValues.securityQuestion1,
+          answer: formValues.securityAnswer1
+        },
+        {
+          question: formValues.securityQuestion2,
+          answer: formValues.securityAnswer2
+        }
+      ];
+
+      // Call API to update security questions and answers
+      this.securityQuestionService.createSecurityQuestion(securityQuestions).subscribe(
+        () => {
+          this.snackbar.open('Security questions updated successfully!', 'close', {
+            duration: 3000,
+          });
+          this.router.navigateByUrl('/passwords')
+        },
+        (error: any) => console.error('Error updating security questions', error)
+      );
+    } else {
+      console.log('Please fill in all required fields');
+    }
+  }
   generatePassword(): void {
-    const passwords = Array(10).fill("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@-#$").map(function (x) { return x[Math.floor(Math.random() * x.length)] }).join('');
-    this.signupForm.get("password")?.setValue(passwords)
+    const passwords = Array(10)
+      .fill(
+        '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@-#$'
+      )
+      .map(function (x) {
+        return x[Math.floor(Math.random() * x.length)];
+      })
+      .join('');
+    this.signupForm.get('password')?.setValue(passwords);
     const result = zxcvbn(passwords);
     this.strength = result.score;
     this.value = (this.strength / 4) * 100;
   }
   passwordValidator(control: FormControl): { [s: string]: boolean } | null {
-    const passwordValidation = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w\s]).{6,}$/;
+    const passwordValidation =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w\s]).{6,}$/;
     const password = control.value;
     if (password && !passwordValidation.test(password)) {
       return { invalidPassword: true };
@@ -120,6 +233,4 @@ export class SignupComponent {
         return '';
     }
   }
-
-
 }

@@ -19,7 +19,7 @@ export const authRoutes: Routes = [
     },
     {
         path: 'signup',
-        loadComponent:()=>import("./signup/signup.component").then((m)=>m.SignupComponent)
+        loadComponent:()=>import("./signup/signup.component").then((m)=>m.SignupComponent),
     },
 ]
 

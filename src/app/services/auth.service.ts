@@ -20,7 +20,6 @@ export class AuthService {
         }),
         catchError((error: any) => {
           console.error('Error fetching passwords:', error);
-          // Optionally handle the error differently based on your needs
           return throwError(error);
         })
       );

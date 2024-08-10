@@ -1,0 +1,68 @@
+<div class="bg-background text-foreground flex flex-col items-center justify-center py-8">
+
+  <div class="bg-background text-foreground flex flex-col items-center justify-center py-8">
+    <h2 class="text-3xl font-bold mb-4">Choose the Plan That Fits Your Needs</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      @for( Plan of planTypes; track Plan.id) {
+      <div class="bg-card text-card-foreground p-6 rounded-lg shadow-lg">
+        <h3 class="text-xl font-semibold mb-2">{{Plan.title}}</h3>
+        <p class="text-lg mb-4">Price: {{Plan.price}}</p>
+        <ul class="text-left mb-4">
+          @for(fature of Plan.features; track fature.icon) {
+          <li class="flex items-center mb-2">
+            <img src="https://openui.fly.dev/openui/30.svg?text={{fature.icon}}" alt="secure-data-sharing"
+              class="mr-2" />
+            {{fature.text}}
+          </li>
+          }
+        </ul>
+        <button routerLink={{Plan.buttonLink}} [queryParams]="Plan.queryParams" mat-flat-button>{{Plan.buttonText}}</button>
+      </div>
+      }
+    </div>
+  </div>
+
+</div>
+
+<!-- Core Features Section -->
+<div class="bg-background text-foreground flex flex-col items-center justify-center py-8">
+  <h2 class="text-3xl font-bold mb-4">Core Features Included in Every Account</h2>
+  <div class="text-left grid grid-cols-3 mb-4 max-w-3xl">
+    <span class="flex items-center mb-2">
+      Open source security
+    </span>
+    <span class="flex items-center mb-2">
+      Zero-knowledge encryption
+    </span>
+    <span class="flex items-center mb-2">
+      unlimited devices, unlimited passwords
+    </span>
+    <span class="flex items-center mb-2">
+      Browser, Mobile, Desktop apps
+    </span>
+    <span class="flex items-center mb-2">
+      Passkey management and usage
+    </span>
+    <span class="flex items-center mb-2">
+      Store notes, credit cards, identities
+    </span>
+    <span class="flex items-center mb-2">
+      Free sharing with another user
+    </span>
+    <span class="flex items-center mb-2">
+      Bitwarden Send
+    </span>
+    <span class="flex items-center mb-2">
+      Username and password generator
+    </span>
+    <span class="flex items-center mb-2">
+      Email aspanas integration
+    </span>
+    <span class="flex items-center mb-2">
+      Advanced two-step login
+    </span>
+    <span class="flex items-center mb-2">
+      Encrypted export
+    </span>
+  </div>
+</div>

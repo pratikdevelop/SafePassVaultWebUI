@@ -1,13 +1,13 @@
 <!-- Main Container -->
-<div class="w-full flex items-center justify-between p-5">
-  <!-- Login Card Content Will Go Here -->
-  <div class="w-3/6 flex flex-col space-y-6">
+<div class="w-full flex  flex-col items-center justify-center h-[100vh] p-5">
+  <!-- Signup Card Content -->
+  <div class="flex flex-col space-y-6">
     <div class="flex items-center justify-between">
-      <span class="text-3xl font-extrabold"> Create Account</span>
-      <span>Already have an account? <a routerLink="/auth/login">login </a> </span>
-
+      <span class="text-3xl font-extrabold"> Start Your Password Journey</span>
+      <!-- <span>Already have an account? <a routerLink="/auth/login">login</a></span> -->
     </div>
-    <mat-stepper orientation="vertical" [linear]="'true'" #stepper>
+    <mat-stepper orientation="horizontal" [linear]="true" #stepper>
+      <!-- Step 1: User Details -->
       <mat-step [stepControl]="signupForm">
         <form [formGroup]="signupForm" class="flex flex-col space-y-6">
           <ng-template matStepLabel>Fill out your details</ng-template>
@@ -78,7 +78,7 @@
             <button mat-button matStepperNext >Next</button>
           </div>
         </form>
-      </mat-step>
+        </mat-step>
 
       <!-- Step 2: Billing Information -->
       <mat-step [stepControl]="billingForm">
@@ -175,7 +175,7 @@
         </form>
       </mat-step>
 
-      <!-- Step 4: Confirmation -->
+      Step 4: Confirmation
       <mat-step>
         <ng-template matStepLabel>Confirmation</ng-template>
         <p>Please confirm your details:</p>
@@ -197,28 +197,79 @@
         </div>
         <div>
           <button mat-button matStepperPrevious>Back</button>
-          <button mat-button (click)="onSubmit()">Confirm & Register</button>
+          <button mat-button  matStepperNext (click)="onSubmit()">Confirm & Register</button>
         </div>
       </mat-step>
 
-      <!-- Step 5: Done -->
+      <!-- Step 4: OTP Confirmation -->
       <mat-step>
+        <ng-template matStepLabel>OTP Confirmation</ng-template>
+        <form id="otp-form" [formGroup]="OTPForm">
+          <div class="flex items-center justify-center gap-3">
+            <input type="text"
+                class="w-full text-center text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                formControlName="confirmationCode" />
+          </div>
+        </form>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button type="button" matStepperNext (click)="verifyEmail()"
+          class="w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-indigo-500 px-3.5 py-2.5 text-sm font-medium shadow-sm shadow-indigo-950/10 hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-300 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors duration-150">Verify Account</button>
+        </div>
+      </mat-step>
+
+      <!-- Step 5: Security Questions (Optional) -->
+      <mat-step>
+        <ng-template matStepLabel>Security Questions (Optional)</ng-template>
+        <nav aria-label="Global" class="flex items-center justify-between w-full text-primary-foreground bg-background shadow-lg p-3">
+          <span class="flex flex-col space-y-2">
+            <span class="font-bold text-3xl text-accent">Security Questions</span>
+            <p class="text-gray-700 font-normal">Set up questions for password recovery (optional).</p>
+          </span>
+          <button mat-flat-button type="submit" (click)="onSubmit()">Save Changes</button>
+        </nav>
+        <form method="post" [formGroup]="securityForm" class="flex flex-col w-full space-y-6 p-5">
+          <mat-form-field appearance="fill">
+            <mat-label>Question 1</mat-label>
+            <mat-select formControlName="securityQuestion1">
+              <mat-option value="What is your mother's maiden name?">What is your mother's maiden name?</mat-option>
+              <mat-option value="What is your favorite pet's name?">What is your favorite pet's name?</mat-option>
+              <mat-option value="What is your childhood nickname?">What is your childhood nickname?</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Answer 1</mat-label>
+            <input matInput type="text" formControlName="securityAnswer1">
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Question 2</mat-label>
+            <mat-select formControlName="securityQuestion2">
+              <mat-option value="What is your favorite food?">What is your favorite food?</mat-option>
+              <mat-option value="What is your favorite travel destination?">What is your favorite travel destination?</mat-option>
+              <mat-option value="What is your favorite hobby?">What is your favorite hobby?</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Answer 2</mat-label>
+            <input matInput type="text" formControlName="securityAnswer2">
+          </mat-form-field>
+        </form>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button [routerLink]="'/passwords'">Skip</button>
+          <button mat-button (click)="addSecurityQuestion()">add Questions</button>
+        </div>
+      </mat-step>
+      <!-- Step 7: Done -->
+      <!-- <mat-step>
         <ng-template matStepLabel>Done</ng-template>
         <p>You are now done.</p>
         <div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button (click)="stepper.reset()">Reset</button>
         </div>
-      </mat-step>
+      </mat-step> -->
 
     </mat-stepper>
   </div>
-
-  <div class="w-full md:w-3/6 text-center flex flex-col justify-center items-center" style="height: 100vh; background-image: url('https://flowbite.s3.amazonaws.com/blocks/marketing-ui/authentication/illustration.svg'); background-repeat: no-repeat; background-size: cover;">
-    <div class="text-2xl md:text-4xl font-extrabold mb-4">Welcome to Our PassKeeper</div>
-    <span class="text-center text-sm md:text-base px-4 md:px-0">
-      Manage your passwords securely and efficiently with our app. Store, organize, and access your passwords with ease. Our robust features ensure that your credentials are safe and accessible whenever you need them.
-    </span>
-  </div>
-  
 </div>

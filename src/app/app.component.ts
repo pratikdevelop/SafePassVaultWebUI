@@ -1,10 +1,11 @@
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { inject } from '@angular/core';
-import { HeaderComponent } from './pages/header/header.component';
+import { HeaderComponent } from './dashboard/pages/header/header.component';
 import { Router, NavigationEnd } from '@angular/router';
 
 import { IStaticMethods } from 'preline/preline';
+import { AuthService } from './services/auth.service';
 declare global {
   interface Window {
     HSStaticMethods: IStaticMethods;
@@ -21,6 +22,7 @@ declare global {
 })
 export class AppComponent implements OnInit {
   token = localStorage.getItem("token");
+  authService= inject(AuthService)
   hideHeader: boolean = false;
   router = inject(Router);
   
@@ -33,5 +35,10 @@ export class AppComponent implements OnInit {
         }, 100);
       }
     });
+    if (this.token) {
+      this.authService.getProfile().subscribe((res) => {
+        console.log(res);
+      })
+    }
   }
 }
