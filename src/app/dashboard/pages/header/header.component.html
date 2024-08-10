@@ -1,4 +1,5 @@
-<nav class="flex flex-col items-center bg-gray-900 p-5 py-2 justify-between space-y-2 text-white relative" aria-label="Global">
+<!-- <nav class="flex flex-col items-center bg-gray-900 p-5 py-2 justify-between space-y-2 text-white relative" aria-label="Global">
+
   <div class="flex justify-between w-full">
     <a routerLink="/" class="text-4xl">PassKeeper</a>
     <button mat-icon-button [matMenuTriggerFor]="mainMenu" class="menu-button">
@@ -85,7 +86,7 @@
       <mat-icon>lock_open</mat-icon>
       Password Generator
     </button>
-    <button mat-menu-item routerLink="/password-checker">
+    <button mat-menu-item routerLink="/password-strength">
       <mat-icon>check_circle</mat-icon>
       Password Checker
     </button>
@@ -102,4 +103,264 @@
       File Storage
     </button>
   </mat-menu>
-</nav>
+</nav> -->
+
+
+<!-- <nav class="flex flex-col items-center bg-gray-900 p-5 py-2 justify-between space-y-2 text-white relative" aria-label="Global">
+  <div class="flex justify-between w-full">
+    <a routerLink="/" class="text-4xl">PassKeeper</a>
+    <button mat-icon-button [matMenuTriggerFor]="mainMenu" class="menu-button hidden lg:block">
+      <mat-icon>menu</mat-icon>
+    </button>
+    Add a separate navigation menu for larger screens
+    <div class="hidden lg:flex items-center space-x-3">
+      <a mat-raised-button routerLink="/generator">
+        <mat-icon>lock_open</mat-icon>
+        Password Generator
+      </a>
+      <a mat-raised-button routerLink="/password-strength">
+        <mat-icon>check_circle</mat-icon>
+        Password Checker
+      </a>
+      <a mat-raised-button routerLink="/passwords">
+        <mat-icon>lock</mat-icon>
+        Password Vault
+      </a>
+      <a mat-raised-button routerLink="/dashboard">
+        <mat-icon>dashboard</mat-icon>
+        Dashboard
+      </a>
+      <a mat-raised-button routerLink="/file">
+        <mat-icon>file_copy</mat-icon>
+        File Storage
+      </a>
+    </div>
+  </div>
+
+  <div class="menu-content">
+    <span *ngIf="token" class="flex items-center space-x-4 ml-auto">
+      <a mat-raised-button class="menu-item" *ngIf="userProfile && userProfile?.role === 'admin'" routerLink="">
+        <mat-icon>admin_panel_settings</mat-icon>
+        Administration
+      </a>
+      <a mat-raised-button class="menu-item" routerLink="/profile">
+        <mat-icon>person</mat-icon>
+        Profile
+      </a>
+      <button mat-raised-button class="menu-item" (click)="logout()">
+        <mat-icon>power_settings_new</mat-icon>
+        Logout
+      </button>
+    </span>
+
+    <ng-container *ngIf="!token">
+      <span class="flex items-center space-x-4 ml-auto">
+        <a class="menu-item" mat-raised-button routerLink="/plan-pricing">
+          <mat-icon>attach_money</mat-icon>
+          Plan and Pricing
+        </a>
+        <a class="menu-item" mat-raised-button routerLink="/auth/signup">
+          <mat-icon>person_add</mat-icon>
+          Get Started
+        </a>
+        <a class="menu-item" mat-raised-button routerLink="/auth/login">
+          <mat-icon>login</mat-icon>
+          Log In
+        </a>
+      </span>
+    </ng-container>
+  </div>
+
+  <mat-menu #mainMenu="matMenu">
+    <ng-container *ngIf="token">
+      <a mat-menu-item *ngIf="userProfile && userProfile?.role === 'admin'" routerLink="">
+        <mat-icon>admin_panel_settings</mat-icon>
+        Administration
+      </a>
+      <a mat-menu-item routerLink="/profile">
+        <mat-icon>person</mat-icon>
+        Profile
+      </a>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>power_settings_new</mat-icon>
+        Logout
+      </button>
+    </ng-container>
+
+    <ng-container *ngIf="!token">
+      <button mat-menu-item [matMenuTriggerFor]="productsMenu">
+        <mat-icon>list</mat-icon>
+        Products
+      </button>
+      <button mat-menu-item routerLink="/plan-pricing">
+        <mat-icon>attach_money</mat-icon>
+        Plan and Pricing
+      </button>
+      <button mat-menu-item routerLink="/auth/signup">
+        <mat-icon>person_add</mat-icon>
+        Get Started
+      </button>
+      <button mat-menu-item routerLink="/auth/login">
+        <mat-icon>login</mat-icon>
+        Log In
+      </button>
+    </ng-container>
+  </mat-menu>
+
+  <mat-menu #productsMenu="matMenu">
+    <button mat-menu-item routerLink="/generator">
+      <mat-icon>lock_open</mat-icon>
+      Password Generator
+    </button>
+    <button mat-menu-item routerLink="/password-strength">
+      <mat-icon>check_circle</mat-icon>
+      Password Checker
+    </button>
+    <button mat-menu-item routerLink="/passwords">
+      <mat-icon>lock</mat-icon>
+      Password Vault
+    </button>
+    <button mat-menu-item routerLink="/dashboard">
+      <mat-icon>dashboard</mat-icon>
+      Dashboard
+    </button>
+    <button mat-menu-item routerLink="/file">
+      <mat-icon>file_copy</mat-icon>
+        File Storage
+      </button>
+    </mat-menu>
+  </nav> -->
+
+
+  <nav class="flex flex-col items-center bg-gray-900 p-5 py-2 justify-between space-y-2 text-white relative" aria-label="Global">
+    <div class="flex justify-between w-full">
+      <a routerLink="/" class="text-4xl">PassKeeper</a>
+      <button mat-icon-button [matMenuTriggerFor]="mainMenu" class="menu-button hidden lg:block">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <!-- Add a separate navigation menu for larger screens -->
+      <div class="hidden lg:flex justify-between w-full">
+        <a mat-raised-button routerLink="/generator">
+          <mat-icon>lock_open</mat-icon>
+          Password Generator
+        </a>
+        <a mat-raised-button routerLink="/password-strength">
+          <mat-icon>check_circle</mat-icon>
+          Password Checker
+        </a>
+        <a mat-raised-button routerLink="/passwords">
+          <mat-icon>lock</mat-icon>
+          Password Vault
+        </a>
+        <a mat-raised-button routerLink="/dashboard">
+          <mat-icon>dashboard</mat-icon>
+          Dashboard
+        </a>
+        <a mat-raised-button routerLink="/file">
+          <mat-icon>file_copy</mat-icon>
+          File Storage
+        </a>
+        <a mat-raised-button href="https://laptop.passkeeper.com" target="_blank">
+          <mat-icon>laptop</mat-icon>
+          Laptop
+        </a>
+      </div>
+    </div>
+  
+    <div class="menu-content">
+      <span *ngIf="token" class="flex items-center space-x-4 ml-auto">
+        <a mat-raised-button class="menu-item" *ngIf="userProfile && userProfile?.role === 'admin'" routerLink="">
+          <mat-icon>admin_panel_settings</mat-icon>
+          Administration
+        </a>
+        <a mat-raised-button class="menu-item" routerLink="/profile">
+          <mat-icon>person</mat-icon>
+          Profile
+        </a>
+        <button mat-raised-button class="menu-item" (click)="logout()">
+          <mat-icon>power_settings_new</mat-icon>
+          Logout
+        </button>
+      </span>
+  
+      <ng-container *ngIf="!token">
+        <span class="flex items-center space-x-4 ml-auto">
+          <a class="menu-item" mat-raised-button routerLink="/plan-pricing">
+            <mat-icon>attach_money</mat-icon>
+            Plan and Pricing
+          </a>
+          <a class="menu-item" mat-raised-button routerLink="/auth/signup">
+            <mat-icon>person_add</mat-icon>
+            Get Started
+          </a>
+          <a class="menu-item" mat-raised-button routerLink="/auth/login">
+            <mat-icon>login</mat-icon>
+            Log In
+          </a>
+        </span>
+      </ng-container>
+    </div>
+  
+    <mat-menu #mainMenu="matMenu">
+      <ng-container *ngIf="token">
+        <a mat-menu-item *ngIf="userProfile && userProfile?.role === 'admin'" routerLink="">
+          <mat-icon>admin_panel_settings</mat-icon>
+          Administration
+        </a>
+        <a mat-menu-item routerLink="/profile">
+          <mat-icon>person</mat-icon>
+          Profile
+        </a>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>power_settings_new</mat-icon>
+          Logout
+        </button>
+      </ng-container>
+  
+      <ng-container *ngIf="!token">
+        <button mat-menu-item [matMenuTriggerFor]="productsMenu">
+          <mat-icon>list</mat-icon>
+          Products
+        </button>
+        <button mat-menu-item routerLink="/plan-pricing">
+          <mat-icon>attach_money</mat-icon>
+          Plan and Pricing
+        </button>
+        <button mat-menu-item routerLink="/auth/signup">
+          <mat-icon>person_add</mat-icon>
+          Get Started
+        </button>
+        <button mat-menu-item routerLink="/auth/login">
+          <mat-icon>login</mat-icon>
+          Log In
+        </button>
+      </ng-container>
+    </mat-menu>
+  
+    <mat-menu #productsMenu="matMenu">
+      <button mat-menu-item routerLink="/generator">
+        <mat-icon>lock_open</mat-icon>
+        Password Generator
+      </button>
+      <button mat-menu-item routerLink="/password-strength">
+        <mat-icon>check_circle</mat-icon>
+        Password Checker
+      </button>
+      <button mat-menu-item routerLink="/passwords">
+        <mat-icon>lock</mat-icon>
+        Password Vault
+      </button>
+      <button mat-menu-item routerLink="/dashboard">
+        <mat-icon>dashboard</mat-icon>
+        Dashboard
+      </button>
+      <button mat-menu-item routerLink="/file">
+        <mat-icon>file_copy</mat-icon>
+        File Storage
+      </button>
+      <button mat-menu-item href="https://laptop.passkeeper.com" target="_blank">
+        <mat-icon>laptop</mat-icon>
+        Laptop
+      </button>
+    </mat-menu>
+  </nav>

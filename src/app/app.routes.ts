@@ -20,5 +20,13 @@ export const routes: Routes = [
           import('../../src/app/dashboard/pages/pricing-page/pricing-page.component').then(
             (m) => m.PricingPageComponent
           ),
-      },
+    },
+    {
+        path: 'password-strength',
+        loadComponent: () =>
+          import('../../src/app/password-strength/password-strength.component').then(
+            (m) => m.PasswordStrengthComponent
+          ),
+    },
 ];
+

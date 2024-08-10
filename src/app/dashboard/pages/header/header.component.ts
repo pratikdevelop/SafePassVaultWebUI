@@ -69,7 +69,7 @@ export class HeaderComponent implements OnInit {
         () => {
           localStorage.removeItem('token');
           this.snackbar.open('Logout successful', 'close'); // Assuming snackbar implementation
-          this.router.navigateByUrl('/auth/login'); // Assuming router implementation     
+          this.router.navigateByUrl('/'); // Assuming router implementation     
         },
         error => {
           console.error('Error logging out:', error);
