@@ -42,11 +42,6 @@
         (click)="setTab(4)"
         >MFA Authentication</a
       >
-      <a
-        class="px-4 py-2 text-white block text-center cursor-pointer"
-        (click)="setTab(5)"
-        >Role Permissions</a
-      >
     </div>
   </mat-sidenav>
 
@@ -62,8 +57,6 @@
     <app-notification />
     } @case (4) {
     <app-mfa-setting />
-    } @default {
-    <app-roles-permissions />
     } }
   </mat-sidenav-content>
 </mat-sidenav-container>

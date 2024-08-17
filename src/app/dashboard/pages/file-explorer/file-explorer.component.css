@@ -1,0 +1,19 @@
+
+
+.file-list {
+    margin-top: 20px;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.file-item mat-icon {
+    margin-right: 10px;
+}
+
+.file-item button {
+    margin-left: auto;
+}

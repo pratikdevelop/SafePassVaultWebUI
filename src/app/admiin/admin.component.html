@@ -1,0 +1,43 @@
+<mat-sidenav-container class="relative flex flex-uot h-[90vh]">
+    <!-- Sidenav -->
+    <mat-sidenav
+      #sidenav
+      mode="side"
+      [opened]="'true'"
+      class="sm: sidenav.closee()"
+      style="
+        width: 15rem !important;
+        padding: 2rem 0 !important;
+        background-color: rgb(37, 36, 44);
+        color: white !important;
+        border-radius: 0% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        column-gap: 3rem !important;
+      "
+    >
+      <div class="flex flex-col space-y-2">
+        <a
+        routerLink="/admin/users"
+          class="px-4 py-2 text-white block  cursor-pointer"
+          >users</a
+        >
+        <a
+            routerLink="/admin/organizations"
+          class="px-4 py-2 text-white block  cursor-pointer"
+          >Organizations</a
+        >
+        <a
+            routerLink="/admin/roles"
+          class="px-4 py-2 text-white block  cursor-pointer"
+          >Roles and Permissions</a
+        >
+      </div>
+    </mat-sidenav>
+  
+    <!-- Main content -->
+    <mat-sidenav-content class="p-4">
+     <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  

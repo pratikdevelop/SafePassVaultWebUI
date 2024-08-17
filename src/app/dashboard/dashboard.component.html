@@ -1,24 +1,24 @@
 <mat-sidenav-container class="h-[100vh] flex-auto overflow-hidden">
   <mat-sidenav
     #drawer
+    opened
     [mode]="mode"
-    class="w-12 bg-slate-900 text-white responsive-element sm:w-16 md:w-20 lg:w-24"
+    style="border-radius: 0% !important; width: 15% !important;"
   >
     <app-side-nav></app-side-nav>
   </mat-sidenav>
   <mat-sidenav-content class="flex flex-col flex-auto">
-    <div
+    <!-- <div
       class="flex  w-full p-4  flex-wrap items-center justify-between relative space-x-4 bg-slate-900 text-white"
     >
       <mat-form-field
         appearance="outline"
-        class="flex-auto h-[7vh] bg-white  md:w-4/12 lg:w-3/12"
+        class=" h-[7vh] bg-white sm:w-6/12"
       >
         <input matInput type="text" placeholder="Search the password" aria-label="Search the password"/>
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
       <div class="flex sm:items-center space-x-3 w-6/12 md:w-4/12 lg:w-3/12 sm:justify-end">
-        <!-- Add Menu -->
         <div class="flex flex-col items-start p-2">
           <button mat-raised-button [matMenuTriggerFor]="addMenu" aria-label="Add new item">
             <mat-icon class="icon-gray">add_circle_outline</mat-icon>
@@ -34,7 +34,6 @@
           </mat-menu>
         </div>
 
-        <!-- Listing Menu -->
         <div class="flex flex-col items-start p-2">
           <button mat-raised-button [matMenuTriggerFor]="listingMenu" aria-label="Select listing type">
             <mat-icon>view_list</mat-icon>
@@ -45,10 +44,10 @@
             <a mat-menu-item routerLink="/dashboard/notes">Notes</a>
             <a mat-menu-item routerLink="/dashboard/card">Cards</a>
             <a mat-menu-item routerLink="/dashboard/Proof">ID Proofs</a>
+            <a mat-menu-item routerLink="/dashboard/file">file storage</a>
           </mat-menu>
         </div>
 
-        <!-- Filter Menu -->
         <div class="flex flex-col items-start p-2">
           <button mat-raised-button [matMenuTriggerFor]="filterMenu" aria-label="Filter options">
             <mat-icon>filter_list</mat-icon>
@@ -62,7 +61,6 @@
           </mat-menu>
         </div>
 
-        <!-- Actions Menu -->
         <div class="flex flex-col items-start p-2">
           <button mat-raised-button [matMenuTriggerFor]="actionMenu" aria-label="Actions menu">
             <mat-icon>settings</mat-icon>
@@ -76,7 +74,7 @@
           </mat-menu>
         </div>
       </div>
-    </div>
+    </div> -->
+    <router-outlet></router-outlet>
   </mat-sidenav-content>
-  <router-outlet></router-outlet>
 </mat-sidenav-container>

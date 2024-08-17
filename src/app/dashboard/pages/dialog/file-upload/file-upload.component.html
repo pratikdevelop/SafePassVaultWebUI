@@ -1,0 +1,63 @@
+<mat-toolbar color="primary">
+  <h2 mat-dialog-title> Upload File</h2>
+</mat-toolbar>
+<mat-dialog-content class="mat-typography p-6">
+  <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" class="flex flex-col space-y-4">
+    <mat-form-field >
+      <mat-label>File matInput</mat-label>
+      <button mat-icon-button matPrefix (click)="f_input.click()">
+        <mat-icon>attach_file</mat-icon>
+      </button>
+      <input type="text" readonly matInput />
+      <input
+        type="file"
+        multiple
+        hidden
+        #f_input
+        (change)="onFileChange(f_input.files)"
+      />
+      <mat-error>this field is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field >
+      <mat-label>Folder ID</mat-label>
+      <input matInput formControlName="folderId" />
+    </mat-form-field>
+    <mat-form-field  class="shared-with-field">
+      <mat-chip-grid #chipGrid aria-label="Fruit selection">
+        @for (tag of uploadForm.value.sharedWith; track $index) { @if(tag) {
+        <mat-chip-row [removable]="true" (removed)="removeUserOrFolder(tag)">
+          {{ tag }}
+          <mat-icon matChipRemove *ngIf="true">cancel</mat-icon>
+        </mat-chip-row>
+        } }
+      </mat-chip-grid>
+      <input
+        placeholder="Shared With"
+        formControlName="sharedWith"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipGrid"
+      />
+      <mat-autocomplete
+        #auto="matAutocomplete"
+        (optionSelected)="selected($event)"
+      >
+        <mat-option
+          *ngFor="let option of filteredUsers | async"
+          [value]="option"
+        >
+          {{ option }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <div class="flex items-center justify-between">
+
+    <mat-checkbox formControlName="encrypted">Encrypted</mat-checkbox>
+    <mat-checkbox formControlName="offlineAccess">Offline Access</mat-checkbox>
+    </div>
+    <div class="flex items-center justify-between">
+      <button mat-raised-button color="primary" type="submit">Upload</button>
+      <button mat-raised-button type="button" mat-dialog-close="true">Cancel</button>
+    </div>
+  </form>
+</mat-dialog-content>

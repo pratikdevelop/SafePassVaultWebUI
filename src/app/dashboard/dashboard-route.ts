@@ -7,13 +7,7 @@ export const dashboardRoutes: Routes = [
     loadComponent: () =>
       import('./dashboard.component').then((m) => m.DashboardComponent),
     children: [
-      {
-        path: 'generator',
-        loadComponent: () =>
-          import('./pages/password-genrator/password-genrator.component').then(
-            (m) => m.PasswordGenratorComponent
-          ),
-      },
+      
       {
         path: 'passwords',
         canActivate: [authGuard], // Protect the admin route
@@ -28,6 +22,14 @@ export const dashboardRoutes: Routes = [
         loadComponent: () =>
           import('./pages/profile/profile.component').then(
             (m) => m.ProfileComponent
+          ),
+      },
+      {
+        path: 'file',
+        canActivate: [authGuard], // Protect the admin route
+        loadComponent: () =>
+          import('./pages/file-explorer/file-explorer.component').then(
+            (m) => m.FileExplorerComponent
           ),
       },
     ],

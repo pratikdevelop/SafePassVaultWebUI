@@ -2,10 +2,6 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
-  EventEmitter,
-  Input,
-  Output,
-  Inject,
   inject,
 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -16,19 +12,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatListModule } from '@angular/material/list';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialog } from '@angular/material/dialog';
 import { PasswordService } from '../../../services/password.service';
 import { PasswordFormComponent } from '../dialog/password-form/password-form.component';
-import { OrganizationComponent } from '../organization/organization.component';
-import { NotesFormComponent } from '../dialog/notes/notes-form.component';
-import { CreditCardFormComponent } from '../dialog/credit-card-form/credit-card-form.component';
-import { IdproofformComponent } from '../dialog/idproofform/idproofform.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { catchError, tap } from 'rxjs';
 import { Passwords } from '../../dashboard.component';

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PasswordFormComponent } from '../../dashboard/pages/dialog/password-form/password-form.component';
-import { OrganizationComponent } from '../../dashboard/pages/organization/organization.component';
+import { OrganizationComponent } from '../../admiin/dialog/organization/organization.component';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,11 +14,12 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { NotesFormComponent } from '../../dashboard/pages/dialog/notes/notes-form.component';
 import { CreditCardFormComponent } from '../../dashboard/pages/dialog/credit-card-form/credit-card-form.component';
 import { IdproofformComponent } from '../../dashboard/pages/dialog/idproofform/idproofform.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-side-nav',
   standalone: true,
-  imports: [MatListModule, MatButtonModule,MatIconModule, MatMenuModule,MatSnackBarModule, FormsModule, ReactiveFormsModule, MatInputModule, FormsModule, MatSidenavModule, MatListModule],
+  imports: [MatListModule, RouterModule, MatButtonModule,MatIconModule, MatMenuModule,MatSnackBarModule, FormsModule, ReactiveFormsModule, MatInputModule, FormsModule, MatSidenavModule, MatListModule],
   templateUrl: './side-nav.component.html',
   styles:`
   ::ng-deep .mdc-notched-outline {

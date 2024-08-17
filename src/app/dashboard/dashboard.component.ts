@@ -16,7 +16,7 @@ import { RouterModule } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { OrganizationComponent } from './pages/organization/organization.component';
+import { OrganizationComponent } from '../admiin/dialog/organization/organization.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CreditCardFormComponent } from './pages/dialog/credit-card-form/credit-card-form.component';
 import { IdproofformComponent } from './pages/dialog/idproofform/idproofform.component';
@@ -53,16 +53,6 @@ export interface Passwords {
     MatDialogModule
   ],
   templateUrl: './dashboard.component.html',
-  styles: `.responsive-element {
-    width: 10% !important;
-    border-radius: 0% !important;
-  }
-
-  @media screen and (max-width: 600px) {
-    .responsive-element {
-      width: 40% !important;
-    }
-  }`,
 })
 export class DashboardComponent {
   @ViewChild('drawer') drawer: MatDrawer | undefined;
@@ -99,24 +89,24 @@ export class DashboardComponent {
       });
   }
   applyBreakpointAction(query: string): void {
-    if (
-      query === Breakpoints.Handset ||
-      query === Breakpoints.Tablet ||
-      query === Breakpoints.HandsetPortrait ||
-      query === Breakpoints.HandsetLandscape ||
-      query === Breakpoints.TabletPortrait ||
-      query === Breakpoints.TabletLandscape
-    ) {
-      this.mode = 'over';
-      this.drawer?.toggle();
-    } else if (
-      query === Breakpoints.Web ||
-      query === Breakpoints.WebPortrait ||
-      query === Breakpoints.WebLandscape
-    ) {
-      this.mode = 'side';
-      this.drawer?.open();
-    }
+    // if (
+    //   query === Breakpoints.Handset ||
+    //   query === Breakpoints.Tablet ||
+    //   query === Breakpoints.HandsetPortrait ||
+    //   query === Breakpoints.HandsetLandscape ||
+    //   query === Breakpoints.TabletPortrait ||
+    //   query === Breakpoints.TabletLandscape
+    // ) {
+    //   this.mode = 'over';
+    //   this.drawer?.toggle();
+    // } else if (
+    //   query === Breakpoints.Web ||
+    //   query === Breakpoints.WebPortrait ||
+    //   query === Breakpoints.WebLandscape
+    // ) {
+    //   this.mode = 'side';
+    //   this.drawer?.open();
+    // }
   }
 
   updateListingType(listingType: string): void {

@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { PasswordFormComponent } from '../dialog/password-form/password-form.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
-import { OrganizationComponent } from '../organization/organization.component';
+import { OrganizationComponent } from '../../../admiin/dialog/organization/organization.component';
 import { CommonModule } from '@angular/common';
 
 @Component({

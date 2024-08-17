@@ -7,12 +7,11 @@ import { MatListModule } from '@angular/material/list';
 import { NotificationComponent } from './notification/notification.component';
 import { MfaSettingComponent } from './mfa-setting/mfa-setting.component';
 import { MatButtonModule } from '@angular/material/button';
-import { RolesPermissionsComponent } from '../admiin/roles-permissions/roles-permissions.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [SecurityComponent, PasswordChangeComponent, UserProfileComponent, MatSidenavModule, MatListModule, NotificationComponent, MfaSettingComponent, MatButtonModule, RolesPermissionsComponent
+  imports: [SecurityComponent, PasswordChangeComponent, UserProfileComponent, MatSidenavModule, MatListModule, NotificationComponent, MfaSettingComponent, MatButtonModule
   ],
   templateUrl: './profile.component.html',
 })
