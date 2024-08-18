@@ -41,7 +41,6 @@ import { Passwords } from '../../dashboard.component';
     MatSortModule,
     MatTooltipModule,
   ],
-  providers: [{ provide: 'Window', useValue: window }],
   templateUrl: './password.component.html',
   styleUrls: ['./password.component.css'],
 })
@@ -67,7 +66,6 @@ export class PasswordComponent {
     'action',
   ];
   readonly dialog = inject(MatDialog);
-  readonly window = inject(Window);
   isLoading: boolean = true;
   filterValue: string = '';
   selection = new SelectionModel<Passwords>(true, []);
@@ -119,7 +117,6 @@ export class PasswordComponent {
       searchParams.set('username', password.username);
       searchParams.set('password', password.password);
       urlObject.search = searchParams.toString();
-      this.window.open(urlObject.toString(), '_blank');
     } catch (error) {
       console.error('Error opening website:', error);
     }
@@ -223,5 +220,12 @@ export class PasswordComponent {
 
   viewPassword(id: string): void {
     console.log('ff');
+  }
+  setFilter(fileId: string): void {
+    // Implement preview functionality
+  }
+
+  performAction(fileId: string): void {
+    // Implement share functionality
   }
 }

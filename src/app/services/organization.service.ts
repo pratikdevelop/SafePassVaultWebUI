@@ -19,16 +19,16 @@ export class OrganizationService {
     return this.http.get(`${this.apiUrl}/auth/organizations`);
   }
 
-  sendInvitation(organizationId: string, recipientId: string) {
-    return this.http.post(`${this.apiUrl}/auth/organizations/${organizationId}/invitations`, { recipientId });
+  sendInvitation(organizationId: string,  userForm: any) {
+    return this.http.post(`${this.apiUrl}/auth/organizations/${organizationId}/invitations`, userForm );
   }
 
-  getInvitations(userId: string) {
-    return this.http.get(`${this.apiUrl}/auth/users/${userId}/invitations`);
+  getInvitations() {
+    return this.http.get(`${this.apiUrl}/auth/users`);
   }
 
-  updateInvitationStatus(invitationId: string, status: string) {
-    return this.http.patch(`${this.apiUrl}/auth/invitations/${invitationId}`, { status });
+  updateInvitationStatus(invitationId: string, passowrd: string, email: string) {
+   return this.http.post(`${this.apiUrl}/auth/accept-invitation`, { invitationId: invitationId, passowrd, email })
   }
 
 }

@@ -52,7 +52,7 @@ export class AuthService {
   }
 
   verifYResetRequest(id: string, token: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/verify-reset-link?id=${id}&toekn=${token}`,).pipe(tap((response: any) => {
+    return this.http.get<any>(`${this.apiUrl}/verify-reset-link?id=${id}&token=${token}`,).pipe(tap((response: any) => {
       return of(response)
     }),
       catchError((error: any) => {

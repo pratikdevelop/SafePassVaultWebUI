@@ -17,6 +17,32 @@ export const dashboardRoutes: Routes = [
           ),
       },
       {
+        path: 'notes',
+        canActivate: [authGuard], // Protect the admin route
+        loadComponent: () =>
+          import('./pages/notes/notes.component').then(
+            (m) => m.NotesComponent
+          ),
+      },
+      {
+        path: 'card',
+        canActivate: [authGuard], // Protect the admin route
+        loadComponent: () =>
+          import('./pages/card/card.component').then(
+            (m) => m.CardComponent
+          ),
+      },
+      {
+        path: 'Proof',
+        canActivate: [authGuard], // Protect the admin route
+        loadComponent: () =>
+          import('./pages/id-proof/id-proof.component').then(
+            (m) => m.IdProofComponent
+
+          )
+
+      },
+      {
         path: 'profile',
         canActivate: [authGuard], // Protect the admin route
         loadComponent: () =>

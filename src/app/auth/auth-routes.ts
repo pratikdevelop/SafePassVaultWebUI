@@ -21,5 +21,10 @@ export const authRoutes: Routes = [
         path: 'signup',
         loadComponent:()=>import("./signup/signup.component").then((m)=>m.SignupComponent),
     },
+    {
+        path: 'accept-invitation',
+        loadComponent:()=>import("./invitation-accept/invitation-accept.component").then((m)=> 
+            m.InvitationAcceptComponent),
+        },
 ]
 

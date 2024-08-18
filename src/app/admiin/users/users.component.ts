@@ -1,24 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { UserFormComponent } from '../dialog/user-form/user-form.component';
+import { MatDialog } from '@angular/material/dialog';
+import { OrganizationService } from '../../services/organization.service';
 
-export interface UserData {
-  name: string;
-  email: string;
-  phone: string;
-  invitation: string;
-  created: Date;
-}
-
-const USERS: UserData[] = [
-  { name: 'John Doe', email: 'john.doe@example.com', phone: '123-456-7890', invitation: 'Pending', created: new Date() },
-  { name: 'Jane Smith', email: 'jane.smith@example.com', phone: '098-765-4321', invitation: 'Accepted', created: new Date() },
-  // Add more user data as needed
-];
 @Component({
   selector: 'app-users',
   standalone: true,
@@ -29,15 +19,22 @@ const USERS: UserData[] = [
 export class UsersComponent {
 
   displayedColumns: string[] = ['name', 'email', 'phone', 'invitation', 'action', 'created'];
-  dataSource = new MatTableDataSource<UserData>(USERS);
-
+  dataSource = new MatTableDataSource<any>();
+  dialog = inject(MatDialog)
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
+  organizationService = inject(OrganizationService)
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.organizationService.getInvitations().subscribe((res: any)=>{
+      console.log('res', res);
+      
+      this.dataSource.data = res
+    })
+    
   }
 
   applyFilter(event: Event) {
@@ -50,14 +47,14 @@ export class UsersComponent {
   }
 
   openUsersDialog(): void {
-    throw new Error('Method not implemented.');
+   const dialogRef = this.dialog.open(UserFormComponent)
     }
-  onEdit(user: UserData) {
+  onEdit(user: any) {
     console.log('Edit user:', user);
     // Implement edit functionality
   }
 
-  onDelete(user: UserData) {
+  onDelete(user: any) {
     console.log('Delete user:', user);
     // Implement delete functionality
   }

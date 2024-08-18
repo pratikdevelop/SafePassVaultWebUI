@@ -18,6 +18,7 @@ import { CommonModule } from '@angular/common';
     MatExpansionModule,
     FormsModule,
     CommonModule
+  
   ],
   templateUrl: './password-strength.component.html',
   styleUrls: ['./password-strength.component.css']
@@ -28,6 +29,8 @@ export class PasswordStrengthComponent {
 
   checkPassword() {
     const score = this.calculatePasswordStrength(this.password);
+    console.log('score', score);
+    
     this.passwordStrength = this.getStrengthMessage(score);
   }
 
@@ -62,10 +65,8 @@ export class PasswordStrengthComponent {
         return { score: 60, message: 'Medium' };
       case 4:
         return { score: 80, message: 'Strong' };
-      case 5:
-        return { score: 100, message: 'Very Strong' };
       default:
-        return { score: 0, message: 'Invalid' };
+        return { score: 100, message: 'Very Strong' };
     }
   }
 }
