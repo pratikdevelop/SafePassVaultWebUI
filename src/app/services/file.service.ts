@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,13 +10,20 @@ export class FileService {
 
   constructor(private http: HttpClient) {}
 
+  searchFolders(searchTerm: string): Observable<any> {
+    let params = new HttpParams()
+      .set('searchTerm', searchTerm)
+
+    return this.http.get(`${this.apiUrl}/folders/search`, { params });
+  }
+  
   // Fetch files and folders
   getFilesAndFolders(folderId: string): Observable<any> {
     return this.http.get(`${this.apiUrl}`);
   }
 
   // Create a new folder
-  createFolder(name: string, parentId: string): Observable<any> {
+  createFolder(name: string, parentId = null): Observable<any> {
     return this.http.post(`${this.apiUrl}/folder`, { name, parentId });
   }
 
