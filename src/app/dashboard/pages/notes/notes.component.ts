@@ -12,16 +12,26 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatChipsModule } from '@angular/material/chips';
 import { CommonModule } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 
 @Component({
   selector: 'app-notes',
   standalone: true,
-  imports: [MatTableModule, MatSortModule, MatButtonModule, MatIconModule, MatMenuModule, MatCheckboxModule, MatDialogModule, MatChipsModule, CommonModule],
+  imports: [MatTableModule, MatSortModule,MatFormFieldModule, MatInputModule,  MatButtonModule, MatIconModule, MatMenuModule, MatCheckboxModule, MatDialogModule, MatChipsModule, CommonModule],
   templateUrl: './notes.component.html',
   styleUrl: './notes.component.css'
 })
 export class NotesComponent {
+performAction(arg0: string) {
+throw new Error('Method not implemented.');
+}
+setFilter(arg0: string) {
+throw new Error('Method not implemented.');
+}
+
+
 
   notes: any[] = []; // Use a Subject to manage password updates
   passwordIds= [];
@@ -149,6 +159,12 @@ export class NotesComponent {
     this.dialog.open(ViewNoteCompoent, {
       data: {note}
     })    
+  }
+  openNotesDialog(note: any): void {
+    this.dialog.open(NotesFormComponent, {
+      data: {note},
+      width: '400px'
+      })
   }
 
 }

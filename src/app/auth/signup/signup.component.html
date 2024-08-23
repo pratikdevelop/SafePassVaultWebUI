@@ -1,84 +1,157 @@
 <!-- Main Container -->
-<div class="w-full flex  flex-col items-center justify-center h-[100vh] p-5">
+<div class="w-full flex flex-col items-center justify-center h-[100vh] p-5">
   <!-- Signup Card Content -->
   <div class="flex flex-col space-y-6">
     <div class="flex items-center justify-between">
-      <span class="text-3xl font-extrabold"> Start Your Password Journey</span>
-      <!-- <span>Already have an account? <a routerLink="/auth/login">login</a></span> -->
+      <span class="text-3xl font-extrabold">Start Your Password Journey</span>
     </div>
+
     <mat-stepper orientation="horizontal" [linear]="true" #stepper>
       <!-- Step 1: User Details -->
       <mat-step [stepControl]="signupForm">
         <form [formGroup]="signupForm" class="flex flex-col space-y-6">
           <ng-template matStepLabel>Fill out your details</ng-template>
+
           <mat-form-field appearance="outline">
-            <input matInput placeholder="Your name" formControlName="name" required>
-            <mat-error *ngIf="signupForm.get('name')?.hasError('required') && signupForm.get('name')?.touched">
+            <input
+              matInput
+              placeholder="Your name"
+              formControlName="name"
+              required
+            />
+            <mat-error
+              *ngIf="
+                signupForm.get('name')?.hasError('required') &&
+                signupForm.get('name')?.touched
+              "
+            >
               Name is required
             </mat-error>
-            <mat-error *ngIf="signupForm.get('name')?.hasError('minlength') && signupForm.get('name')?.touched">
+            <mat-error
+              *ngIf="
+                signupForm.get('name')?.hasError('minlength') &&
+                signupForm.get('name')?.touched
+              "
+            >
               Name must be at least 3 characters
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <input matInput placeholder="Your email" formControlName="email" required>
-            <mat-error *ngIf="signupForm.get('email')?.hasError('required') && signupForm.get('email')?.touched">
+            <input
+              matInput
+              placeholder="Your email"
+              formControlName="email"
+              required
+            />
+            <mat-error
+              *ngIf="
+                signupForm.get('email')?.hasError('required') &&
+                signupForm.get('email')?.touched
+              "
+            >
               Email is required
             </mat-error>
-            <mat-error *ngIf="signupForm.get('email')?.hasError('email') && signupForm.get('email')?.touched">
+            <mat-error
+              *ngIf="
+                signupForm.get('email')?.hasError('email') &&
+                signupForm.get('email')?.touched
+              "
+            >
               Please enter a valid email address
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <input matInput placeholder="Your phone" formControlName="phone" required>
-            <mat-error *ngIf="signupForm.get('phone')?.hasError('required') && signupForm.get('phone')?.touched">
+            <input
+              matInput
+              placeholder="Your phone"
+              formControlName="phone"
+              required
+            />
+            <mat-error
+              *ngIf="
+                signupForm.get('phone')?.hasError('required') &&
+                signupForm.get('phone')?.touched
+              "
+            >
               Phone number is required
             </mat-error>
-            <mat-error *ngIf="signupForm.get('phone')?.hasError('pattern') && signupForm.get('phone')?.touched">
+            <mat-error
+              *ngIf="
+                signupForm.get('phone')?.hasError('pattern') &&
+                signupForm.get('phone')?.touched
+              "
+            >
               Please enter a valid 10-digit phone number
             </mat-error>
           </mat-form-field>
+
           <mat-form-field appearance="outline">
-            <input matInput [type]="hide() ? 'password' : 'text'" id="hs-strong-password-with-indicator-and-hint"
-              formControlName="password" placeholder="Your Password" required>
-            <button mat-icon-button type="button" matSuffix (click)="clickEvent($event)"
-              [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()">
-              <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
-            <button mat-icon-button type="button" matSuffix (click)="generatePassword()"
+            <input
+              matInput
+              [type]="hide() ? 'password' : 'text'"
+              id="hs-strong-password-with-indicator-and-hint"
+              formControlName="password"
+              placeholder="Your Password"
+              required
+            />
+            <button
+              mat-icon-button
+              type="button"
+              matSuffix
+              (click)="clickEvent($event)"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide()"
             >
-            <mat-icon>filter</mat-icon>
-          </button>
-
-
-            <mat-error *ngIf="signupForm.get('password')?.hasError('required') && signupForm.get('password')?.touched">
+              <mat-icon>{{
+                hide() ? "visibility_off" : "visibility"
+              }}</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              type="button"
+              matSuffix
+              (click)="generatePassword()"
+            >
+              <mat-icon>filter</mat-icon>
+            </button>
+            <mat-error
+              *ngIf="
+                signupForm.get('password')?.hasError('required') &&
+                signupForm.get('password')?.touched
+              "
+            >
               Password is required
             </mat-error>
           </mat-form-field>
+
           <div class="flex flex-col">
             <mat-progress-bar
-            class="example-margin"
-            [value]="value">
-        </mat-progress-bar>
+              class="example-margin"
+              [value]="value"
+            ></mat-progress-bar>
           </div>
-          <span class="text-sm font-bold">Password Strength:
-            <span [ngClass]="{
-                            'text-red-500': strength === 0 || strength === 1,
-                            'text-yellow-500': strength === 2,
-                            'text-green-500': strength === 3,
-                            'text-blue-500': strength === 4
-                          }">
+
+          <span class="text-sm font-bold">
+            Password Strength:
+            <span
+              [ngClass]="{
+                'text-red-500': strength === 0 || strength === 1,
+                'text-yellow-500': strength === 2,
+                'text-green-500': strength === 3,
+                'text-blue-500': strength === 4
+              }"
+            >
               {{ getPasswordStrengthLabel(strength) }}
             </span>
           </span>
 
           <div>
-            <button mat-button matStepperNext >Next</button>
+            <button mat-button matStepperNext>Next</button>
           </div>
         </form>
-        </mat-step>
+      </mat-step>
 
       <!-- Step 2: Billing Information -->
       <mat-step [stepControl]="billingForm">
@@ -86,41 +159,91 @@
           <ng-template matStepLabel>Billing Information</ng-template>
 
           <mat-form-field appearance="outline">
-            <input matInput formControlName="billingAddress" placeholder="Your billing address" required>
+            <input
+              matInput
+              formControlName="billingAddress"
+              placeholder="Your billing address"
+              required
+            />
             <mat-error
-              *ngIf="billingForm.get('billingAddress')?.hasError('required') && billingForm.get('billingAddress')?.touched">
+              *ngIf="
+                billingForm.get('billingAddress')?.hasError('required') &&
+                billingForm.get('billingAddress')?.touched
+              "
+            >
               Billing address is required
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <input matInput formControlName="city" placeholder="City" required>
-            <mat-error *ngIf="billingForm.get('city')?.hasError('required') && billingForm.get('city')?.touched">
+            <input
+              matInput
+              formControlName="city"
+              placeholder="City"
+              required
+            />
+            <mat-error
+              *ngIf="
+                billingForm.get('city')?.hasError('required') &&
+                billingForm.get('city')?.touched
+              "
+            >
               City is required
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <input matInput formControlName="state" placeholder="State/Province" required>
-            <mat-error *ngIf="billingForm.get('state')?.hasError('required') && billingForm.get('state')?.touched">
+            <input
+              matInput
+              formControlName="state"
+              placeholder="State/Province"
+              required
+            />
+            <mat-error
+              *ngIf="
+                billingForm.get('state')?.hasError('required') &&
+                billingForm.get('state')?.touched
+              "
+            >
               State/Province is required
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <input matInput formControlName="postalCode" placeholder="Postal Code" required>
+            <input
+              matInput
+              formControlName="postalCode"
+              placeholder="Postal Code"
+              required
+            />
             <mat-error
-              *ngIf="billingForm.get('postalCode')?.hasError('required') && billingForm.get('postalCode')?.touched">
+              *ngIf="
+                billingForm.get('postalCode')?.hasError('required') &&
+                billingForm.get('postalCode')?.touched
+              "
+            >
               Postal Code is required
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <input matInput formControlName="country" placeholder="Country" required>
-            <mat-error *ngIf="billingForm.get('country')?.hasError('required') && billingForm.get('country')?.touched">
+            <input
+              matInput
+              formControlName="country"
+              placeholder="Country"
+              required
+            />
+            <mat-error
+              *ngIf="
+                billingForm.get('country')?.hasError('required') &&
+                billingForm.get('country')?.touched
+              "
+            >
               Country is required
             </mat-error>
           </mat-form-field>
+
+
 
           <div>
             <button mat-button matStepperPrevious>Back</button>
@@ -129,6 +252,7 @@
         </form>
       </mat-step>
 
+      <!-- Step 3: Payment Information -->
       <!-- Step 3: Payment Information -->
       <mat-step [stepControl]="paymentForm" *ngIf="isPaidPlan">
         <form [formGroup]="paymentForm" class="flex flex-col space-y-6">
@@ -140,34 +264,94 @@
               <mat-option value="paypal">PayPal</mat-option>
             </mat-select>
             <mat-error
-              *ngIf="paymentForm.get('paymentMethod')?.hasError('required') && paymentForm.get('paymentMethod')?.touched">
+              *ngIf="
+                paymentForm.get('paymentMethod')?.hasError('required') &&
+                paymentForm.get('paymentMethod')?.touched
+              "
+            >
               Payment method is required
             </mat-error>
           </mat-form-field>
 
-          <mat-form-field appearance="outline" *ngIf="paymentForm.get('paymentMethod')?.value === 'creditCard'">
-            <input matInput formControlName="cardNumber" placeholder="Card Number" required>
+          <mat-form-field
+            appearance="outline"
+            *ngIf="paymentForm.get('paymentMethod')?.value === 'creditCard'"
+          >
+            <input
+              matInput
+              formControlName="cardNumber"
+              placeholder="Card Number"
+              required
+            />
             <mat-error
-              *ngIf="paymentForm.get('cardNumber')?.hasError('required') && paymentForm.get('cardNumber')?.touched">
+              *ngIf="
+                paymentForm.get('cardNumber')?.hasError('required') &&
+                paymentForm.get('cardNumber')?.touched
+              "
+            >
               Card number is required
             </mat-error>
-          </mat-form-field>
-
-          <mat-form-field appearance="outline" *ngIf="paymentForm.get('paymentMethod')?.value === 'creditCard'">
-            <input matInput formControlName="expiryDate" placeholder="MM/YY" required>
             <mat-error
-              *ngIf="paymentForm.get('expiryDate')?.hasError('required') && paymentForm.get('expiryDate')?.touched">
-              Expiration date is required
+              *ngIf="
+                paymentForm.get('cardNumber')?.hasError('pattern') &&
+                paymentForm.get('cardNumber')?.touched
+              "
+            >
+              Card number must be between 13 and 19 digits
             </mat-error>
           </mat-form-field>
-
           <mat-form-field appearance="outline" *ngIf="paymentForm.get('paymentMethod')?.value === 'creditCard'">
             <input matInput formControlName="cvv" placeholder="CVV" required>
             <mat-error *ngIf="paymentForm.get('cvv')?.hasError('required') && paymentForm.get('cvv')?.touched">
               CVV is required
             </mat-error>
+            <mat-error *ngIf="paymentForm.get('cvv')?.hasError('pattern') && paymentForm.get('cvv')?.touched">
+              CVV must be 3 or 4 digits
+            </mat-error>
           </mat-form-field>
 
+          <mat-form-field appearance="outline" *ngIf="paymentForm.get('paymentMethod')?.value === 'creditCard'">
+            <input
+              matInput
+              [matDatepicker]="picker"
+              formControlName="expiryDate"
+              placeholder="MM/YY"
+              (dateChange)="onDateChange($event)"
+              (dateInput)="onDateChange($event)"
+              [ngClass]="{'invalid-date': expiryDateInvalid}"
+            />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="expiryDateInvalid">Expiration date must be in MM/YY format</mat-error>
+            <mat-error
+              *ngIf="
+                paymentForm.get('expiryDate')?.hasError('required') &&
+                paymentForm.get('expiryDate')?.touched
+              "
+            >
+              Expiration date is required
+            </mat-error>
+          </mat-form-field>
+        
+          <div *ngIf="paymentForm.value.planType === 'teams'">
+            <mat-slider
+              min="1"
+              max="100"
+              step="1"
+              value="paymentForm.value.numberOfUsers"
+              (change)="onUserCountChange($event)"
+              thumbLabel
+            >
+              <input
+                matSliderThumb
+                formControlName="numberOfUsers"
+                [(ngModel)]="value"
+                #slider
+              />
+            </mat-slider>
+            <p>Number of Users: {{ paymentForm.value.numberOfUsers }}</p>
+            <p>Price: {{ calculatePrice() | currency }}</p>
+          </div>
           <div>
             <button mat-button matStepperPrevious>Back</button>
             <button mat-button matStepperNext>Next</button>
@@ -175,101 +359,42 @@
         </form>
       </mat-step>
 
-      Step 4: Confirmation
+      <!-- Step 4: Confirmation -->
       <mat-step>
         <ng-template matStepLabel>Confirmation</ng-template>
         <p>Please confirm your details:</p>
         <div>
-          <p><strong>Name:</strong> {{signupForm.value.name}}</p>
-          <p><strong>Email:</strong> {{signupForm.value.email}}</p>
-          <p><strong>Phone:</strong> {{signupForm.value.phone}}</p>
-          <p><strong>Billing Address:</strong> {{billingForm.value.billingAddress}}</p>
-          <p><strong>City:</strong> {{billingForm.value.city}}</p>
-          <p><strong>State/Province:</strong> {{billingForm.value.state}}</p>
-          <p><strong>Postal Code:</strong> {{billingForm.value.postalCode}}</p>
-          <p><strong>Country:</strong> {{billingForm.value.country}}</p>
-          <div *ngIf="isPaidPlan">
-            <p><strong>Payment Method:</strong> {{paymentForm.value.paymentMethod}}</p>
-            <p><strong>Card Number:</strong> {{paymentForm.value.cardNumber}}</p>
-            <p><strong>Expiry Date:</strong> {{paymentForm.value.expiryDate}}</p>
-            <p><strong>CVV:</strong> {{paymentForm.value.cvv}}</p>
-          </div>
+          <p><strong>Name:</strong> {{ signupForm.value.name }}</p>
+          <p><strong>Email:</strong> {{ signupForm.value.email }}</p>
+          <p><strong>Phone:</strong> {{ signupForm.value.phone }}</p>
+          <p>
+            <strong>Billing Address:</strong>
+            {{ billingForm.value.billingAddress }}
+          </p>
+          <p><strong>City:</strong> {{ billingForm.value.city }}</p>
+          <p><strong>State/Province:</strong> {{ billingForm.value.state }}</p>
+          <p>
+            <strong>Postal Code:</strong> {{ billingForm.value.postalCode }}
+          </p>
+          <p><strong>Country:</strong> {{ billingForm.value.country }}</p>
+          <p *ngIf="isPaidPlan">
+            <strong>Payment Method:</strong>
+            {{ paymentForm.value.paymentMethod }}
+          </p>
+          <p
+            *ngIf="
+              isPaidPlan && paymentForm.value.paymentMethod === 'creditCard'
+            "
+          >
+            <strong>Card Number:</strong> {{ paymentForm.value.cardNumber }}
+          </p>
         </div>
+
         <div>
           <button mat-button matStepperPrevious>Back</button>
-          <button mat-button  matStepperNext (click)="onSubmit()">Confirm & Register</button>
+          <button mat-button (click)="onSubmit()">Submit</button>
         </div>
       </mat-step>
-
-      <!-- Step 4: OTP Confirmation -->
-      <mat-step>
-        <ng-template matStepLabel>OTP Confirmation</ng-template>
-        <form id="otp-form" [formGroup]="OTPForm">
-          <div class="flex items-center justify-center gap-3">
-            <input type="text"
-                class="w-full text-center text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
-                formControlName="confirmationCode" />
-          </div>
-        </form>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button type="button" matStepperNext (click)="verifyEmail()"
-          class="w-full inline-flex justify-center whitespace-nowrap rounded-lg bg-indigo-500 px-3.5 py-2.5 text-sm font-medium shadow-sm shadow-indigo-950/10 hover:bg-indigo-600 focus:outline-none focus:ring focus:ring-indigo-300 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors duration-150">Verify Account</button>
-        </div>
-      </mat-step>
-
-      <!-- Step 5: Security Questions (Optional) -->
-      <mat-step>
-        <ng-template matStepLabel>Security Questions (Optional)</ng-template>
-        <nav aria-label="Global" class="flex items-center justify-between w-full text-primary-foreground bg-background shadow-lg p-3">
-          <span class="flex flex-col space-y-2">
-            <span class="font-bold text-3xl text-accent">Security Questions</span>
-            <p class="text-gray-700 font-normal">Set up questions for password recovery (optional).</p>
-          </span>
-          <button mat-flat-button type="submit" (click)="onSubmit()">Save Changes</button>
-        </nav>
-        <form method="post" [formGroup]="securityForm" class="flex flex-col w-full space-y-6 p-5">
-          <mat-form-field appearance="fill">
-            <mat-label>Question 1</mat-label>
-            <mat-select formControlName="securityQuestion1">
-              <mat-option value="What is your mother's maiden name?">What is your mother's maiden name?</mat-option>
-              <mat-option value="What is your favorite pet's name?">What is your favorite pet's name?</mat-option>
-              <mat-option value="What is your childhood nickname?">What is your childhood nickname?</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Answer 1</mat-label>
-            <input matInput type="text" formControlName="securityAnswer1">
-          </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Question 2</mat-label>
-            <mat-select formControlName="securityQuestion2">
-              <mat-option value="What is your favorite food?">What is your favorite food?</mat-option>
-              <mat-option value="What is your favorite travel destination?">What is your favorite travel destination?</mat-option>
-              <mat-option value="What is your favorite hobby?">What is your favorite hobby?</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Answer 2</mat-label>
-            <input matInput type="text" formControlName="securityAnswer2">
-          </mat-form-field>
-        </form>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button [routerLink]="'/passwords'">Skip</button>
-          <button mat-button (click)="addSecurityQuestion()">add Questions</button>
-        </div>
-      </mat-step>
-      <!-- Step 7: Done -->
-      <!-- <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-        <p>You are now done.</p>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button (click)="stepper.reset()">Reset</button>
-        </div>
-      </mat-step> -->
-
     </mat-stepper>
   </div>
 </div>
