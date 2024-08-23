@@ -1,24 +1,27 @@
+<!-- pricing.component.html -->
 <div class="bg-background text-foreground flex flex-col items-center justify-center py-8">
 
+  <!-- Toggle Switch -->
+  <mat-button-toggle-group name="billingCycle" (change)="toggleBillingCycle($event.value)" aria-label="Billing Cycle">
+    <mat-button-toggle value="monthly" [checked]="!isYearly">Monthly</mat-button-toggle>
+    <mat-button-toggle value="yearly" [checked]="isYearly">Yearly</mat-button-toggle>
+  </mat-button-toggle-group>
+
+  <!-- Pricing Plans -->
   <div class="bg-background text-foreground flex flex-col items-center justify-center py-8">
     <h2 class="text-3xl font-bold mb-4">Choose the Plan That Fits Your Needs</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      @for( Plan of planTypes; track Plan.id) {
-      <div class="bg-card text-card-foreground p-6 rounded-lg shadow-lg">
-        <h3 class="text-xl font-semibold mb-2">{{Plan.title}}</h3>
-        <p class="text-lg mb-4">Price: {{Plan.price}}</p>
+      <div *ngFor="let plan of plans" class="bg-card text-card-foreground p-6 rounded-lg shadow-lg">
+        <h3 class="text-xl font-semibold mb-2">{{plan.title}}</h3>
+        <p class="text-lg mb-4">Price: {{plan.price}}</p>
         <ul class="text-left mb-4">
-          @for(fature of Plan.features; track fature.icon) {
-          <li class="flex items-center mb-2">
-            <img src="https://openui.fly.dev/openui/30.svg?text={{fature.icon}}" alt="secure-data-sharing"
-              class="mr-2" />
-            {{fature.text}}
+          <li *ngFor="let feature of plan.features" class="flex items-center mb-2">
+            <img src="https://openui.fly.dev/openui/30.svg?text={{feature.icon}}" alt="secure-data-sharing" class="mr-2" />
+            {{feature.text}}
           </li>
-          }
         </ul>
-        <button routerLink={{Plan.buttonLink}} [queryParams]="Plan.queryParams" mat-flat-button>{{Plan.buttonText}}</button>
+        <button [routerLink]="plan.buttonLink" [queryParams]="plan.queryParams" mat-flat-button>{{plan.buttonText}}</button>
       </div>
-      }
     </div>
   </div>
 
@@ -28,41 +31,17 @@
 <div class="bg-background text-foreground flex flex-col items-center justify-center py-8">
   <h2 class="text-3xl font-bold mb-4">Core Features Included in Every Account</h2>
   <div class="text-left grid grid-cols-3 mb-4 max-w-3xl">
-    <span class="flex items-center mb-2">
-      Open source security
-    </span>
-    <span class="flex items-center mb-2">
-      Zero-knowledge encryption
-    </span>
-    <span class="flex items-center mb-2">
-      unlimited devices, unlimited passwords
-    </span>
-    <span class="flex items-center mb-2">
-      Browser, Mobile, Desktop apps
-    </span>
-    <span class="flex items-center mb-2">
-      Passkey management and usage
-    </span>
-    <span class="flex items-center mb-2">
-      Store notes, credit cards, identities
-    </span>
-    <span class="flex items-center mb-2">
-      Free sharing with another user
-    </span>
-    <span class="flex items-center mb-2">
-      Bitwarden Send
-    </span>
-    <span class="flex items-center mb-2">
-      Username and password generator
-    </span>
-    <span class="flex items-center mb-2">
-      Email aspanas integration
-    </span>
-    <span class="flex items-center mb-2">
-      Advanced two-step login
-    </span>
-    <span class="flex items-center mb-2">
-      Encrypted export
-    </span>
+    <span class="flex items-center mb-2">Open source security</span>
+    <span class="flex items-center mb-2">Zero-knowledge encryption</span>
+    <span class="flex items-center mb-2">Unlimited devices, unlimited passwords</span>
+    <span class="flex items-center mb-2">Browser, Mobile, Desktop apps</span>
+    <span class="flex items-center mb-2">Passkey management and usage</span>
+    <span class="flex items-center mb-2">Store notes, credit cards, identities</span>
+    <span class="flex items-center mb-2">Free sharing with another user</span>
+    <span class="flex items-center mb-2">Bitwarden Send</span>
+    <span class="flex items-center mb-2">Username and password generator</span>
+    <span class="flex items-center mb-2">Email aspanas integration</span>
+    <span class="flex items-center mb-2">Advanced two-step login</span>
+    <span class="flex items-center mb-2">Encrypted export</span>
   </div>
 </div>

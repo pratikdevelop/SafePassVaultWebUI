@@ -79,6 +79,7 @@ export class SignupComponent {
 
   value = 0;
   paymentForm = new FormGroup({
+    planType: new FormControl(''),
     paymentMethod: new FormControl('', Validators.required),
     cardNumber: new FormControl('', Validators.required),
     expiryDate: new FormControl('', Validators.required),
@@ -112,6 +113,7 @@ export class SignupComponent {
 
     this.route.queryParams.subscribe((params: any) => {
       this.isPaidPlan =(params['plan'] && params.plan !== 'free');
+      this.paymentForm.get('planType')?.setValue(params.plan);
     });
   }
   onSubmit() {
@@ -125,23 +127,25 @@ export class SignupComponent {
         ...this.billingForm.value,
         ...this.paymentForm.value,
       };
-      this.authService.signup(userDetails).subscribe(
-        (response:any) => {
-          this.snackbar.open('user refgistered, The email confimation is send in your mail', 'close', {
-            duration: 3000,
-          });
-        },
-        (error) => {
-          console.error('Error during signup:', error);
-          this.snackbar.open(
-            'An error occurred during signup. Please try again.',
-            'close',
-            {
-              duration: 3000,
-            }
-          );
-        }
-      );
+      console.log('userDetails', userDetails);
+      
+      // this.authService.signup(userDetails).subscribe(
+      //   (response:any) => {
+      //     this.snackbar.open('user refgistered, The email confimation is send in your mail', 'close', {
+      //       duration: 3000,
+      //     });
+      //   },
+      //   (error) => {
+      //     console.error('Error during signup:', error);
+      //     this.snackbar.open(
+      //       'An error occurred during signup. Please try again.',
+      //       'close',
+      //       {
+      //         duration: 3000,
+      //       }
+      //     );
+      //   }
+      // );
     }
   }
 

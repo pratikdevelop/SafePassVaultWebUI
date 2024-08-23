@@ -4,9 +4,9 @@
         <div class="text-xl font-extrabold text-accent">MFA Authentication Settings</div>
         <p class="text-muted">Manage your multi-factor authentication settings.</p>
     </div>
-    <button mat-flat-button type="submit">Save Changes</button>
+    <button mat-flat-button type="submit" (click)="onSubmit()">Save Changes</button>
 </nav>
-<form [formGroup]="mfaForm" (ngSubmit)="onSubmit()" class="flex flex-col space-y-6 p-3">
+<form [formGroup]="mfaForm"  class="flex flex-col space-y-6 p-3">
     <mat-slide-toggle formControlName="mfaEnabled" color="primary" (change)="toggleMFA($event.checked)">
         Enable MFA
     </mat-slide-toggle>
@@ -18,10 +18,10 @@
                 <mat-option value="totp">Time-Based One-Time Password (TOTP)</mat-option>
                 <mat-option value="sms">SMS Authentication</mat-option>
                 <mat-option value="email">Email Authentication</mat-option>
-                <mat-option value="duo">Duo Authentication</mat-option>
+                <!-- <mat-option value="duo">Duo Authentication</mat-option>
                 <mat-option value="fingerprint">Fingerprint Authentication</mat-option>
-                <mat-option value="face">Face Recognition Authentication</mat-option>
-                <mat-option value="securityKey">Security Key (FIDO2/U2F)</mat-option>
+                <mat-option value="face">Face Recognition Authentication</mat-option> -->
+                <!-- <mat-option value="securityKey">Security Key (FIDO2/U2F)</mat-option> -->
             </mat-select>
         </mat-form-field>
 
@@ -40,7 +40,7 @@
             <input matInput formControlName="emailAddress" placeholder="Enter your email address">
         </mat-form-field>
 
-        <div *ngIf="mfaForm.get('mfaMethod')?.value === 'duo'" class="setup-instructions">
+        <!-- <div *ngIf="mfaForm.get('mfaMethod')?.value === 'duo'" class="setup-instructions">
             <h3>Duo Authentication Setup</h3>
             <p>Follow these steps to set up Duo Authentication:</p>
             <ol>
@@ -87,6 +87,6 @@
                 <li>Perform any necessary actions on the security key, such as pressing a button or touching the device.</li>
                 <li>Verify the setup by testing the security key with your application.</li>
             </ol>
-        </div>
+        </div> -->
     </div>
 </form>
