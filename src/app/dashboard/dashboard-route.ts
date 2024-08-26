@@ -42,14 +42,7 @@ export const dashboardRoutes: Routes = [
           )
 
       },
-      {
-        path: 'profile',
-        canActivate: [authGuard], // Protect the admin route
-        loadComponent: () =>
-          import('./pages/profile/profile.component').then(
-            (m) => m.ProfileComponent
-          ),
-      },
+      
       {
         path: 'file',
         canActivate: [authGuard], // Protect the admin route

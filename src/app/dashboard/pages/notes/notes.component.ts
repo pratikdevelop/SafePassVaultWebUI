@@ -43,7 +43,7 @@ throw new Error('Method not implemented.');
     'title',
     'content',
     'created_by',
-    'tags',
+    // 'tags',
     'favourite',
     'update_at',
     'action'

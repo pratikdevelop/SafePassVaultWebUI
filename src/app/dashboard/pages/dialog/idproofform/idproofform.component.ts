@@ -33,7 +33,9 @@ export class IdproofformComponent {
       idNumber: ['', Validators.required],
       issueDate: [''],
       expiryDate: [''],
-      documentImageUrl: ['']
+      documentImageUrl: [''],
+      issuedBy: ['', Validators.required]
+
     });
 
     this.onIdTypeChange();

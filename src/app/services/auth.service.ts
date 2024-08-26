@@ -16,6 +16,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
+ 
   private apiUrl: string = `${environment.api_url}/auth`;
   constructor(private http: HttpClient) {}
   private _userProfileSubject = new BehaviorSubject<any | null>(null);
@@ -48,7 +49,7 @@ export class AuthService {
   }
 
   resetPassword(email: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/reset-password`, { email }).pipe(
+    return this.http.post<any>(`${this.apiUrl}/reset-password`,{email}).pipe(
       tap((response: any) => {
         return of(response);
       }),
@@ -165,5 +166,8 @@ export class AuthService {
         return throwError(error);
       })
     );
+  }
+  getUsers() : Observable<any>{
+    return this.http.get(`${this.apiUrl}/users`);
   }
 }

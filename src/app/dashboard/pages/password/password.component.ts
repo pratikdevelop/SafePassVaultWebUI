@@ -22,6 +22,7 @@ import { PasswordFormComponent } from '../dialog/password-form/password-form.com
 import { SelectionModel } from '@angular/cdk/collections';
 import { catchError, tap } from 'rxjs';
 import { Passwords } from '../../dashboard.component';
+import { ShareDialogComponent } from '../../../component/share-dialog/share-dialog.component';
 
 @Component({
   selector: 'app-password',
@@ -55,13 +56,13 @@ export class PasswordComponent {
   passwordService = inject(PasswordService);
   displayedColumns: string[] = [
     'select',
+    'favourite',
     '_id',
     'name',
     'website',
     'username',
     'password',
     'tags',
-    'favourite',
     'update_at',
     'action',
   ];
@@ -158,13 +159,17 @@ export class PasswordComponent {
     return item?._id;
   }
 
-  sharePassword(passwordId: string) {
-    this.passwordService.sharePassword(passwordId).subscribe(
-      (response) => {},
-      (error) => {
-        console.error('Error generating share link:', error);
+  sharePassword(passwordId?: string): void {
+    const items = passwordId ??  this.selection.selected.map((pass)=>{
+      return pass._id
+     }).join(',');
+    console.log('id', items);
+   this.dialog.open(ShareDialogComponent, {
+    width: '500px',
+    data: {
+      items, itemType: 'password'
       }
-    );
+   })
   }
 
   openPasswordFormDialog(password: any): void {
@@ -204,8 +209,13 @@ export class PasswordComponent {
     }`;
   }
 
-  updateFavourites(passwordId: string): void {
-    this.passwordService.addToFavorites(passwordId).subscribe(
+  updateFavourites(passwordId?: string): void {
+    const ids = passwordId ??  this.selection.selected.map((pass)=>{
+      return pass._id
+     }).join(',');
+    console.log('id', ids);
+    
+    this.passwordService.addToFavorites(ids).subscribe(
       (response) => {
         console.log('Password added to favorites successfully', response);
         this.getPasswords();
@@ -228,4 +238,5 @@ export class PasswordComponent {
   performAction(fileId: string): void {
     // Implement share functionality
   }
+
 }

@@ -12,7 +12,7 @@ import {
 } from '@angular/material/sidenav';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -63,8 +63,11 @@ export class DashboardComponent {
   listingType: string = 'notes';
   filter_by!: string;
   filterValue: any;
+  activateRouter = inject(Router)
   constructor() {}
   ngOnInit(): void {
+    console.log('aa', this.activateRouter.url);
+    
     this.breakpointObserver
       .observe([
         Breakpoints.Handset,
@@ -78,8 +81,6 @@ export class DashboardComponent {
         Breakpoints.WebLandscape,
       ])
       .subscribe((result) => {
-        console.log('Breakpoint result: ', result);
-
         // Iterate through the breakpoints and take action based on the matches
         for (const query of Object.keys(result.breakpoints)) {
           if (result.breakpoints[query]) {

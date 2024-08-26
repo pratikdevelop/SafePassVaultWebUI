@@ -27,6 +27,14 @@ export const routes: Routes = [
         path:"auth",
         loadChildren: ()=> import('./auth/auth-routes').then((m)=> m.authRoutes)
     },
+    {
+      path: 'profile',
+      canActivate: [authGuard], // Protect the admin route
+      loadComponent: () =>
+        import('./dashboard/pages/profile/profile.component').then(
+          (m) => m.ProfileComponent
+        ),
+    },
     
     {
         path: 'plan-pricing',

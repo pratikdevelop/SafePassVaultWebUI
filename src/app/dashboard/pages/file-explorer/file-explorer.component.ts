@@ -1,4 +1,4 @@
-import { Component, OnInit, Pipe, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, Pipe, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { FileService } from '../../../services/file.service'; // Import your file service here
@@ -37,7 +37,8 @@ throw new Error('Method not implemented.');
 }
   displayedColumns: string[] = ['filename', 'size','uploadedAt',  'actions'];
   dataSource!: any[]
-  private fileService = inject(FileService); // Use Angular's inject method to access service
+  private fileService = inject(FileService);
+  private changeDetectorRef = inject(ChangeDetectorRef)
 
   constructor(private dialog: MatDialog) {}
 
@@ -48,6 +49,7 @@ throw new Error('Method not implemented.');
   loadFiles(): void {
     this.fileService.getFilesAndFolders('').subscribe(files => {
       this.dataSource = files;
+      this.changeDetectorRef.detectChanges();
     });
   }
 

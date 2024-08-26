@@ -1,39 +1,26 @@
 <div class="file-explorer">
-  <div
-  class="flex w-full p-4 items-center justify-between relative space-x-4 bg-slate-900 text-white"
->
-  <mat-form-field
-    appearance="outline"
-    class="h-[10vh] bg-white w-6/12"
-  >
-    <input matInput type="text" placeholder="Search the password" aria-label="Search the password"/>
-    <mat-icon matSuffix>search</mat-icon>
-  </mat-form-field>
-  <div class="flex sm:items-center space-x-3 w-6/12  sm:justify-end">
+
+  <nav aria-label="Global" class="flex items-center  justify-between w-full text-primary-foreground bg-slate-800 shadow-lg p-3">
+    <span class="text-3xl font-bold uppercase text-white"> 
+      <i class="fas fa-file-explorer"></i> File Explorer
+      </span>
+    <div class="flex sm:items-center space-x-3 w-6/12  sm:justify-end">
+  <!-- Add Menu -->
+  <input matInput type="text" placeholder="Search the password" aria-label="Search the password" 
+  class="w-6/12 py-2 px-3 border-2 border-slate-900 text-gray-500"/>
     <!-- Add Menu -->
     <div class="flex flex-col items-start p-2">
       <button mat-icon (click)="openFileDialog()" aria-label="Add new item">
-        <mat-icon class="icon-gray">add_circle_outline</mat-icon>
+        <mat-icon class="text-slate-50">add_circle_outline</mat-icon>
       </button>
      
     </div>
     <!-- Filter Menu -->
-    <div class="flex flex-col items-start p-2">
-      <button mat-icon [matMenuTriggerFor]="filterMenu" aria-label="Filter options">
-        <mat-icon>filter_list</mat-icon>
-      </button>
-      <mat-menu #filterMenu="matMenu">
-        <button mat-menu-item (click)="setFilter('modified')">Latest Modified</button>
-        <button mat-menu-item (click)="setFilter('favourites')">Favourites</button>
-        <button mat-menu-item (click)="setFilter('shared')">Shared With Me</button>
-        <button mat-menu-item (click)="setFilter('create')">Created By Me</button>
-      </mat-menu>
-    </div>
 
     <!-- Actions Menu -->
     <div class="flex flex-col items-start p-2">
       <button mat-icon [matMenuTriggerFor]="actionMenu" aria-label="Actions menu">
-        <mat-icon>settings</mat-icon>
+        <mat-icon class="text-slate-50">settings</mat-icon>
       </button>
       <mat-menu #actionMenu="matMenu">
         <button mat-menu-item (click)="performAction('delete')">Delete</button>
@@ -43,7 +30,8 @@
       </mat-menu>
     </div>
   </div>
-</div>
+</nav>
+   
   <!-- Mat Table Section -->
   <div class="file-table">
     <table mat-table [dataSource]="dataSource" matSort>

@@ -1,0 +1,37 @@
+<mat-toolbar color="primary">
+    <h2 mat-dialog-title>Share {{ data.itemType }}</h2>
+  </mat-toolbar>
+<div mat-dialog-content>
+    <form  [formGroup]="shareForm" class="flex flex-col space-y-6 p-6">
+        <mat-form-field>
+          <mat-label>Search Users</mat-label>
+          <input matInput formControlName="users" [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+            <mat-option *ngFor="let user of filteredUsers" [value]="user.recipient">
+              {{ user. recipient.name }}
+
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      
+        <mat-chip-grid>
+          <mat-chip *ngFor="let user of selectedUsers" (removed)="removeUser(user)">
+            {{ user.name }}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-grid>
+      
+        <mat-form-field >
+            <mat-label>Permissions</mat-label>
+            <mat-select formControlName="permissions" multiple>
+              <mat-option *ngFor="let permission of availablePermissions" [value]="permission">
+                {{ permission }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="close()">Cancel</button>
+  <button mat-raised-button (click)="share()">Share</button>
+</div>

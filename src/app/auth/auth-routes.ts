@@ -26,5 +26,9 @@ export const authRoutes: Routes = [
         loadComponent:()=>import("./invitation-accept/invitation-accept.component").then((m)=> 
             m.InvitationAcceptComponent),
         },
+    {
+        path: 'change-password',
+        loadComponent:()=>import("./password-change/password-change.component").then((m)=>m.PasswordChangeComponent)
+    }
 ]
 

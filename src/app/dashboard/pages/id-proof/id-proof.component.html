@@ -1,1 +1,96 @@
-<p>id-proof works!</p>
+
+    <nav aria-label="Global" class="flex items-center  justify-between w-full text-primary-foreground bg-slate-800 shadow-lg p-3">
+        <span class="text-3xl font-bold uppercase text-white"> Passwords </span>
+        <div class="flex sm:items-center space-x-3 w-6/12  sm:justify-end">
+      <!-- Add Menu -->
+      <input matInput type="text" placeholder="Search the password" aria-label="Search the password" 
+      class="w-6/12 py-2 px-3 border-2 border-slate-900 text-gray-500"/>
+        <!-- Add Menu -->
+        <div class="flex flex-col items-start p-2">
+          <button mat-icon (click)="openIdProofFormDialog(null)" aria-label="Add new item">
+            <mat-icon class="text-slate-50">add_circle_outline</mat-icon>
+          </button>
+         
+        </div>
+        <!-- Filter Menu -->
+    
+        <!-- Actions Menu -->
+        <div class="flex flex-col items-start p-2">
+          <button mat-icon [matMenuTriggerFor]="actionMenu" aria-label="Actions menu">
+            <mat-icon class="text-slate-50">settings</mat-icon>
+          </button>
+          <mat-menu #actionMenu="matMenu">
+            <button mat-menu-item (click)="performAction('delete')">Delete</button>
+            <button mat-menu-item (click)="performAction('add_favorites')">Add to Favourites</button>
+            <button mat-menu-item (click)="performAction('share')">Share</button>
+            <button mat-menu-item (click)="performAction('export')">Export</button>
+          </mat-menu>
+        </div>
+      </div>
+    </nav>
+    <div class="mat-elevation-z8 relative flex-auto overflow-auto">
+    
+      
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      
+          <!-- ID Type Column -->
+          <ng-container matColumnDef="idType">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>ID Type</th>
+            <td mat-cell *matCellDef="let element">{{ element.idType }}</td>
+          </ng-container>
+      
+          <!-- ID Number Column -->
+          <ng-container matColumnDef="idNumber">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>ID Number</th>
+            <td mat-cell *matCellDef="let element">{{ element.idNumber }}</td>
+          </ng-container>
+      
+          <!-- Issued By Column -->
+          <ng-container matColumnDef="issuedBy">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Issued By</th>
+            <td mat-cell *matCellDef="let element">{{ element.issuedBy }}</td>
+          </ng-container>
+      
+          <!-- Issue Date Column -->
+          <ng-container matColumnDef="issueDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Issue Date</th>
+            <td mat-cell *matCellDef="let element">{{ element.issueDate | date }}</td>
+          </ng-container>
+      
+          <!-- Expiry Date Column -->
+          <ng-container matColumnDef="expiryDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Expiry Date</th>
+            <td mat-cell *matCellDef="let element">{{ element.expiryDate | date }}</td>
+          </ng-container>
+      
+          <!-- Created At Column -->
+          <ng-container matColumnDef="createdAt">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Created Date</th>
+            <td mat-cell *matCellDef="let element">{{ element.createdAt | date }}</td>
+          </ng-container>
+      
+          <!-- Created By Column -->
+          <ng-container matColumnDef="createdBy">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Created By</th>
+            <td mat-cell *matCellDef="let element">{{ element.userId?.name }}</td>
+          </ng-container>
+      
+          <!-- Actions Column -->
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-button>Edit</button>
+              <button mat-button>Delete</button>
+            </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      
+        </table>
+      
+        <mat-paginator  [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+
+
+  

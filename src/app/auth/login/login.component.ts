@@ -57,12 +57,12 @@ export class LoginComponent implements OnInit {
         } else {
           localStorage.setItem('token', response.token);
           this.snackbar.open('Login successful', 'close'); // Assuming snackbar implementation
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/dashboard/passwords']);
         }
        
       }, error => {
         console.error('Error logging in:', error);
-        this.snackbar.open('Login failed: ' + error.message, 'close');
+        this.snackbar.open('Login failed: ' + error.error.message, 'close');
 
       })
     }
