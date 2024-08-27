@@ -1,0 +1,48 @@
+
+<div
+  class="h-[100vh] relative w-full flex flex-auto items-center justify-center overflow-hidden"
+>
+  
+<form [formGroup]="mfaForm" class="flex flex-col space-y-6 w-2/4 p-20 bg-slate-50 shadow-md border">
+    <div class="text-center text-4xl mb-8">
+    MFA Verification
+  </div>
+
+  <mat-form-field class="w-full" appearance="outline" *ngIf="mfaMethod === 'totp'">
+    <input matInput formControlName="totpCode" placeholder="Enter your TOTP code" required />
+    <mat-error *ngIf="mfaForm.get('totpCode')?.invalid">
+      TOTP code is required
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="w-full" appearance="outline" *ngIf="mfaMethod === 'sms'">
+    <input matInput formControlName="smsCode" placeholder="Enter the SMS code" required />
+    <mat-error *ngIf="mfaForm.get('smsCode')?.invalid">
+      SMS code is required
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="w-full" appearance="outline" *ngIf="mfaMethod === 'email'">
+    <input matInput formControlName="emailCode" placeholder="Enter the email code" required />
+    <mat-error *ngIf="mfaForm.get('emailCode')?.invalid">
+      Email code is required
+    </mat-error>
+  </mat-form-field>
+
+  <div class="flex items-center justify-center">
+
+        <!-- Submit Button -->
+        <button
+        type="button"
+        class="py-3 w-full text-white font-bold"
+        [ngClass]="{'bg-indigo-700': !mfaForm.invalid, 'bg-gray-400': mfaForm.invalid}"
+        [disabled]="mfaForm.invalid"
+        (click)="onMfaSubmit()"
+      >
+        verify Login
+      </button>
+      
+   
+  </div>
+  </form>
+</div>

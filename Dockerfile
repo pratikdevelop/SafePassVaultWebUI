@@ -1,7 +1,8 @@
 # Step 1: Build the Angular application
-FROM node:latest
+FROM node:latest AS builder
 
 WORKDIR /app
+RUN pwd # Logs the current directory
 
 # Install dependencies
 COPY package.json package-lock.json ./
@@ -9,6 +10,8 @@ RUN npm install
 
 # Copy the rest of the application code
 COPY . .
+RUN pwd # Logs the current directory
+RUN ls -la # Lists all files and directories in the current directory
 
 # Build the Angular application
 RUN npm run build --prod
@@ -17,7 +20,7 @@ RUN npm run build --prod
 FROM nginx:alpine
 
 # Copy the build output to the Nginx html directory
-COPY --from=build /app/dist/password-app-ui /usr/share/nginx/html
+COPY --from=builder /app/dist/password-app/browser /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80

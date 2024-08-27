@@ -136,9 +136,12 @@ export class PasswordComponent {
     this.changedetect.detectChanges();
   }
 
-  delete(id: string): void {
+  deletePasswords(id?:string): void {
+    const ids = id ?? this.selection.selected.map((pass)=>{
+      return pass._id
+     }).join(',')
     this.passwordService
-      .deletePassword(id)
+      .deletePassword(ids)
       .pipe(
         tap(() => {
           this.getPasswords();
@@ -231,12 +234,24 @@ export class PasswordComponent {
   viewPassword(id: string): void {
     console.log('ff');
   }
-  setFilter(fileId: string): void {
+  exportPassword(): void {
+    const ids = this.selection.selected.map((pass)=>{
+      return pass._id
+     }).join(',');
+    this.passwordService.exportPasswordsAsCsv(ids).subscribe((blob: Blob)=>{
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'passwords.csv';
+      a.click();
+    })
     // Implement preview functionality
   }
 
   performAction(fileId: string): void {
     // Implement share functionality
   }
+
+
 
 }

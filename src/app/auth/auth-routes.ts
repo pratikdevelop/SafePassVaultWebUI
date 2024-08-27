@@ -29,6 +29,11 @@ export const authRoutes: Routes = [
     {
         path: 'change-password',
         loadComponent:()=>import("./password-change/password-change.component").then((m)=>m.PasswordChangeComponent)
+    },
+    {
+        path: 'mfa-verification',
+        loadComponent:()=>import("./mfa-verification/mfa-verification.component").then((m
+            )=>m.MfaVerificationComponent)
     }
 ]
 

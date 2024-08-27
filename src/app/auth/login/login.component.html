@@ -1,130 +1,110 @@
 <!-- Main Container -->
-<div class="h-[100vh] relative w-full flex flex-auto items-center overflow-hidden">
+<div
+  class="h-[100vh] relative w-full flex flex-auto items-center overflow-hidden"
+>
   <!-- Login Card Content -->
-  <div class="w-full sm:w-3/6 flex justify-center items-center flex-auto bg-white h-[100vh]">
+  <div
+    class="w-full sm:w-3/6 flex justify-center items-center flex-auto bg-white h-[100vh]"
+  >
     <!-- Form -->
     <div class="p-8">
-      <form [formGroup]="loginForm" class="flex flex-col space-y-6"
-      >
+      <form [formGroup]="loginForm" class="flex flex-col space-y-6">
         <!-- Login Step -->
-         <ng-container *ngIf="!showMfaStep"> 
-           <div class="text-center text-4xl mb-8">
-             Login with your account
-           </div>
-   
-           <!-- Email Input -->
-           <mat-form-field class="w-full" appearance="outline">
-             <input matInput formControlName="username" placeholder="Enter your username" required />
-             <mat-error *ngIf="loginForm.get('username')?.invalid">
-               Username is required
-             </mat-error>
-           </mat-form-field>
-   
-           <!-- Password Input -->
-           <mat-form-field class="w-full" appearance="outline">
-             <input matInput formControlName="password" placeholder="Enter your password" [type]="hide() ? 'password' : 'text'" />
-             <button mat-icon-button matSuffix (click)="clickEvent($event)" [attr.aria-label]="'Hide password'"
-               [attr.aria-pressed]="hide()">
-               <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
-             </button>
-           </mat-form-field>
+        <div class="text-center text-4xl mb-8">Login with your account</div>
 
-         </ng-container>
+        <!-- Email Input -->
+        <mat-form-field class="w-full" appearance="outline">
+          <input
+            matInput
+            formControlName="username"
+            placeholder="Enter your username"
+            required
+          />
+          <mat-error *ngIf="loginForm.get('username')?.invalid">
+            Username is required
+          </mat-error>
+        </mat-form-field>
 
-        <!-- MFA Step -->
-        <div *ngIf="showMfaStep">
-          <div class="text-center text-4xl mb-8">
-            MFA Verification
-          </div>
-
-          <mat-form-field class="w-full" appearance="outline" *ngIf="mfaMethod === 'totp'">
-            <input matInput formControlName="totpCode" placeholder="Enter your TOTP code" required />
-            <mat-error *ngIf="mfaForm.get('totpCode')?.invalid">
-              TOTP code is required
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field class="w-full" appearance="outline" *ngIf="mfaMethod === 'sms'">
-            <input matInput formControlName="smsCode" placeholder="Enter the SMS code" required />
-            <mat-error *ngIf="mfaForm.get('smsCode')?.invalid">
-              SMS code is required
-            </mat-error>
-          </mat-form-field>
-
-          <mat-form-field class="w-full" appearance="outline" *ngIf="mfaMethod === 'email'">
-            <input matInput formControlName="emailCode" placeholder="Enter the email code" required />
-            <mat-error *ngIf="mfaForm.get('emailCode')?.invalid">
-              Email code is required
-            </mat-error>
-          </mat-form-field>
-
-          <div class="flex items-center justify-center">
-            <button mat-raised-button color="primary" type="submit" [disabled]="mfaForm.invalid">
-              Verify MFA
-            </button>
-          </div>
-        </div>
+        <!-- Password Input -->
+        <mat-form-field class="w-full" appearance="outline">
+          <input
+            matInput
+            formControlName="password"
+            placeholder="Enter your password"
+            [type]="hide() ? 'password' : 'text'"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="clickEvent($event)"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide()"
+          >
+            <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+        </mat-form-field>
 
         <!-- Other Form Elements -->
-        <div *ngIf="!showMfaStep" class="flex flex-col space-y-4">
+        <div class="flex flex-col space-y-4">
           <div class="flex items-center justify-center">
-
             <span>
-             Don't have an account yet? <a routerLink="/auth/signup" class="text-sm text-blue-700 hover:text-blue-900 ">signup
-               now</a>
+              Don't have an account yet?
+              <a
+                routerLink="/auth/signup"
+                class="text-sm text-blue-700 hover:text-blue-900"
+                >signup now</a
+              >
             </span>
-           </div>
-           <!-- Submit Button -->
-           <button
-           type="button"
-           class="py-3 w-full text-white font-bold"
-           [ngClass]="{'bg-indigo-700': !loginForm.invalid, 'bg-gray-400': loginForm.invalid}"
-           [disabled]="loginForm.invalid"
-           (click)="onSubmit()"
-         >
-           Login Now
-         </button>
-         
-           <div class="flex items-center justify-center">
-   
-             <span>
-               Forgot your password? 
-           <a routerLink="/auth/reset-password" class="text-sm text-blue-700 hover:text-blue-900 ">Forgot Password?</a>
-   
-             </span>
-   
-   
-   
-         </div>
-         </div>
-         <div *ngIf="showMfaStep" class="flex flex-col space-y-4">
+          </div>
+          <!-- Submit Button -->
+          <button
+            type="button"
+            class="py-3 w-full text-white font-bold"
+            [ngClass]="{
+              'bg-indigo-700': !loginForm.invalid,
+              'bg-gray-400': loginForm.invalid
+            }"
+            [disabled]="loginForm.invalid"
+            (click)="onSubmit()"
+          >
+            Login Now
+          </button>
 
-           <!-- Submit Button -->
-           <button
-           type="button"
-           class="py-3 w-full text-white font-bold"
-           [ngClass]="{'bg-indigo-700': !mfaForm.invalid, 'bg-gray-400': mfaForm.invalid}"
-           [disabled]="mfaForm.invalid"
-           (click)="onMfaSubmit()"
-         >
-           verify Login
-         </button>
-         
-      
-         </div>
-       
+          <div class="flex items-center justify-center">
+            <span>
+              Forgot your password?
+              <a
+                routerLink="/auth/reset-password"
+                class="text-sm text-blue-700 hover:text-blue-900"
+                >Forgot Password?</a
+              >
+            </span>
+          </div>
+        </div>
       </form>
     </div>
   </div>
 
   <!-- Background Image and Welcome Text -->
-  <div class="hidden sm:w-3/6 h-full sm:flex sm:flex-col justify-center items-center text-center p-12"
-    style="background-image: url('https://images.pexels.com/photos/1486974/pexels-photo-1486974.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'); background-repeat: no-repeat; background-size: cover;">
+  <div
+    class="hidden sm:w-3/6 h-full sm:flex sm:flex-col justify-center items-center text-center p-12"
+    style="
+      background-image: url('https://images.pexels.com/photos/1486974/pexels-photo-1486974.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+      background-repeat: no-repeat;
+      background-size: cover;
+    "
+  >
     <div class="text-6xl font-bold uppercase">Welcome to Our PassKeeper</div>
     <span class="text-center leading-6">
-      Welcome to PassKeeper, your all-in-one solution for secure and efficient password management. But that's not all—we go beyond just passwords. With PassKeeper, you can securely store files, important documents, and other sensitive information, all in one place.
-      Whether it's your passwords, ID proofs, or essential files, PassKeeper ensures that everything is protected with top-tier security. Our user-friendly interface makes managing your digital life easier and more organized. Experience seamless storage, secure access, and peace of mind with PassKeeper.
-      Join us and take control of your digital security today!
+      Welcome to PassKeeper, your all-in-one solution for secure and efficient
+      password management. But that's not all—we go beyond just passwords. With
+      PassKeeper, you can securely store files, important documents, and other
+      sensitive information, all in one place. Whether it's your passwords, ID
+      proofs, or essential files, PassKeeper ensures that everything is
+      protected with top-tier security. Our user-friendly interface makes
+      managing your digital life easier and more organized. Experience seamless
+      storage, secure access, and peace of mind with PassKeeper. Join us and
+      take control of your digital security today!
     </span>
   </div>
 </div>

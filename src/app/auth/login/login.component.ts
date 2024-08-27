@@ -49,11 +49,9 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.auth.login(this.loginForm.value).subscribe((response) => {
         if (response.mfaRequired) {
-          this.showMfaStep = true;
-          this.mfaMethod = response.mfaMethod; // Retrieve MFA method from response
-          // Manually move to the MFA step
-          const stepper = document.querySelector('mat-vertical-stepper') as any;
-          stepper.selectedIndex = 1; // Move to the MFA step
+          this.mfaMethod = response.mfaMethod; 
+          this.router.navigateByUrl(`/auth/mfa-verification?mfaMethod=${response.mfaMethod}&email=${this.loginForm.value.username}`)
+
         } else {
           localStorage.setItem('token', response.token);
           this.snackbar.open('Login successful', 'close'); // Assuming snackbar implementation
@@ -67,25 +65,4 @@ export class LoginComponent implements OnInit {
       })
     }
   }
-
-
-  onMfaSubmit() {
-    if (this.mfaForm.valid) {
-      const mfaData = {
-        method: this.mfaMethod,
-        ...this.mfaForm.value
-      };
-
-      this.auth.verifyMFA(mfaData).subscribe(response => {
-        if (response.success) {
-          this.router.navigate(['/dashboard']);
-        } else {
-          console.error('MFA verification failed');
-        }
-      }, error => {
-        console.error('MFA verification error', error);
-      });
-    }
-  }
-
 }

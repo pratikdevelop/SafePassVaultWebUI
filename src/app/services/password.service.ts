@@ -5,6 +5,8 @@ import { catchError, switchMap } from 'rxjs/operators';
 import { AES } from 'crypto-js';
 import CryptoJS from 'crypto-js';
 import { environment } from '../../environments/environment';
+import { saveAs } from 'file-saver'; // Install file-saver using npm
+
 
 @Injectable({
   providedIn: 'root'
@@ -127,5 +129,8 @@ export class PasswordService {
   }
   createCreditCard(creditCard: any): Observable<any> {
     return this.http.post(this.apiUrl, creditCard);
+  }
+  exportPasswordsAsCsv(ids: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/export?ids=${ids}`, { responseType: 'blob' });
   }
 }
