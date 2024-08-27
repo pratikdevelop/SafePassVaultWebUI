@@ -23,6 +23,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { catchError, tap } from 'rxjs';
 import { Passwords } from '../../dashboard.component';
 import { ShareDialogComponent } from '../../../component/share-dialog/share-dialog.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { ViewPasswordComponent } from '../../../component/view-password/view-password.component';
 
 @Component({
   selector: 'app-password',
@@ -31,6 +33,7 @@ import { ShareDialogComponent } from '../../../component/share-dialog/share-dial
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    ViewPasswordComponent,
     MatButtonModule,
     MatCheckboxModule,
     MatChipsModule,
@@ -41,6 +44,7 @@ import { ShareDialogComponent } from '../../../component/share-dialog/share-dial
     MatTableModule,
     MatSortModule,
     MatTooltipModule,
+    MatSidenavModule
   ],
   templateUrl: './password.component.html',
   styleUrls: ['./password.component.css'],
@@ -70,6 +74,8 @@ export class PasswordComponent {
   isLoading: boolean = true;
   filterValue: string = '';
   selection = new SelectionModel<Passwords>(true, []);
+  password: any;
+  isOpened= false;
 
   constructor() {
     this.passwordService.filteredPasswords$.subscribe(
@@ -231,8 +237,10 @@ export class PasswordComponent {
     );
   }
 
-  viewPassword(id: string): void {
-    console.log('ff');
+  viewPassword(password: any): void {
+    console.log(password);
+   this.password = password
+    this.isOpened = true
   }
   exportPassword(): void {
     const ids = this.selection.selected.map((pass)=>{
