@@ -43,6 +43,7 @@
               placeholder="Your email"
               formControlName="email"
               required
+              type="email"
             />
             <mat-error
               *ngIf="
@@ -65,6 +66,7 @@
           <mat-form-field appearance="outline">
             <input
               matInput
+              type="number"
               placeholder="Your phone"
               formControlName="phone"
               required
@@ -258,7 +260,7 @@
         <form [formGroup]="paymentForm" class="flex flex-col space-y-6">
           <ng-template matStepLabel>Payment Information</ng-template>
 
-          <mat-form-field appearance="outline">
+          <!-- <mat-form-field appearance="outline">
             <mat-select formControlName="paymentMethod" required>
               <mat-option value="creditCard">Credit/Debit Card</mat-option>
               <mat-option value="paypal">PayPal</mat-option>
@@ -271,37 +273,36 @@
             >
               Payment method is required
             </mat-error>
-          </mat-form-field>
+          </mat-form-field> -->
 
-          <mat-form-field
-            appearance="outline"
-            *ngIf="paymentForm.get('paymentMethod')?.value === 'creditCard'"
-          >
+          <mat-form-field appearance="outline" >
             <input
               matInput
               formControlName="cardNumber"
               placeholder="Card Number"
               required
+              type="text"
+              pattern="[0-9]*"  
+              maxlength="19"    
             />
-            <mat-error
-              *ngIf="
-                paymentForm.get('cardNumber')?.hasError('required') &&
-                paymentForm.get('cardNumber')?.touched
-              "
-            >
+            <mat-error *ngIf="paymentForm.get('cardNumber')?.hasError('required') && paymentForm.get('cardNumber')?.touched">
               Card number is required
             </mat-error>
-            <mat-error
-              *ngIf="
-                paymentForm.get('cardNumber')?.hasError('pattern') &&
-                paymentForm.get('cardNumber')?.touched
-              "
-            >
+            <mat-error *ngIf="paymentForm.get('cardNumber')?.hasError('pattern') && paymentForm.get('cardNumber')?.touched">
               Card number must be between 13 and 19 digits
             </mat-error>
           </mat-form-field>
-          <mat-form-field appearance="outline" *ngIf="paymentForm.get('paymentMethod')?.value === 'creditCard'">
-            <input matInput formControlName="cvv" placeholder="CVV" required>
+          
+          <mat-form-field appearance="outline">
+            <input
+              matInput
+              formControlName="cvv"
+              placeholder="CVV"
+              required
+              type="text"
+              pattern="[0-9]*"  
+              maxlength="4"   
+            />
             <mat-error *ngIf="paymentForm.get('cvv')?.hasError('required') && paymentForm.get('cvv')?.touched">
               CVV is required
             </mat-error>
@@ -309,29 +310,51 @@
               CVV must be 3 or 4 digits
             </mat-error>
           </mat-form-field>
-
-          <mat-form-field appearance="outline" *ngIf="paymentForm.get('paymentMethod')?.value === 'creditCard'">
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Expiry Month</mat-label>
             <input
               matInput
-              [matDatepicker]="picker"
-              formControlName="expiryDate"
-              placeholder="MM/YY"
-              (dateChange)="onDateChange($event)"
-              (dateInput)="onDateChange($event)"
-              [ngClass]="{'invalid-date': expiryDateInvalid}"
+              formControlName="expiryMonth"
+              placeholder="MM"
+              type="number"
+              min="1"
+              max="12"
+              (input)="validateExpiryDate()"
+              required
             />
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="expiryDateInvalid">Expiration date must be in MM/YY format</mat-error>
-            <mat-error
-              *ngIf="
-                paymentForm.get('expiryDate')?.hasError('required') &&
-                paymentForm.get('expiryDate')?.touched
-              "
-            >
-              Expiration date is required
+            <mat-error *ngIf="paymentForm.get('expiryMonth')?.hasError('required') && paymentForm.get('expiryMonth')?.touched">
+              Expiry month is required
+            </mat-error>
+            <mat-error *ngIf="paymentForm.get('expiryMonth')?.hasError('min') || paymentForm.get('expiryMonth')?.hasError('max')">
+              Month must be between 01 and 12
             </mat-error>
           </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Expiry Year</mat-label>
+            <input
+              matInput
+              formControlName="expiryYear"
+              placeholder="YY"
+              type="number"
+              min="0"
+              max="99"
+              (input)="validateExpiryDate()"
+              required
+            />
+            <mat-error *ngIf="paymentForm.get('expiryYear')?.hasError('required') && paymentForm.get('expiryYear')?.touched">
+              Expiry year is required
+            </mat-error>
+            <mat-error *ngIf="paymentForm.get('expiryYear')?.hasError('min') || paymentForm.get('expiryYear')?.hasError('max')">
+              Year must be between 00 and 99
+            </mat-error>
+          </mat-form-field>
+          
+          <mat-error *ngIf="expiryDateInvalid">
+            Expiration date must be valid and not in the past
+          </mat-error>
+          
         
           <div *ngIf="paymentForm.value.planType === 'teams'">
             <mat-slider
@@ -377,16 +400,7 @@
             <strong>Postal Code:</strong> {{ billingForm.value.postalCode }}
           </p>
           <p><strong>Country:</strong> {{ billingForm.value.country }}</p>
-          <p *ngIf="isPaidPlan">
-            <strong>Payment Method:</strong>
-            {{ paymentForm.value.paymentMethod }}
-          </p>
-          <p
-            *ngIf="
-              isPaidPlan && paymentForm.value.paymentMethod === 'creditCard'
-            "
-          >
-            <strong>Card Number:</strong> {{ paymentForm.value.cardNumber }}
+         <p>          <strong>Card Number:</strong> {{ paymentForm.value.cardNumber }}
           </p>
         </div>
 

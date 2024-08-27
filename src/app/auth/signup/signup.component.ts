@@ -90,9 +90,9 @@ export class SignupComponent {
   value = 0;
   paymentForm = new FormGroup({
     planType: new FormControl(''),
-    paymentMethod: new FormControl('', Validators.required),
+    expiryMonth: new FormControl('', [Validators.required, Validators.min(1), Validators.max(12)]),
+    expiryYear: new FormControl('', [Validators.required, Validators.min(0), Validators.max(99)]),
     cardNumber: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{13,19}$')]),
-    expiryDate: new FormControl('', [Validators.required, Validators.pattern('^(0[1-9]|1[0-2])\/(\\d{2})$')]),
     cvv: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{3,4}$')]),
     numberOfUsers: new FormControl(1)
   });
@@ -216,20 +216,26 @@ export class SignupComponent {
     
     this.paymentForm.controls.numberOfUsers.setValue(event.target.value);
   }
-  onDateChange(event: MatDatepickerInputEvent<Date>): void {
-    const date = event.value;
-    if (date) {
-      const month = ('0' + (date.getMonth() + 1)).slice(-2); // MM
-      const year = date.getFullYear().toString().slice(-2); // YY
-      const formattedDate = `${month}/${year}`;
-      this.paymentForm.get('expiryDate')?.setValue(formattedDate, { emitEvent: false });
-      this.expiryDateInvalid = false; // Reset error state
-    } else {
-      this.expiryDateInvalid = true; // Handle invalid date
-    }
-    this.paymentForm.get('expiryDate')?.updateValueAndValidity();
-  }
+  validateExpiryDate(): void {
+    const month = this.paymentForm.get('expiryMonth')?.value;
+    const year = this.paymentForm.get('expiryYear')?.value;
 
+    if (month && year) {
+      const currentYear = new Date().getFullYear() % 100; // Get last two digits of the current year
+      const currentMonth = new Date().getMonth() + 1; // Months are zero-based
+      const expiryYear = parseInt(year, 10);
+      const expiryMonth = parseInt(month, 10);
+
+      this.expiryDateInvalid = 
+        (expiryYear < currentYear) ||
+        (expiryYear === currentYear && expiryMonth < currentMonth) ||
+        expiryMonth < 1 || expiryMonth > 12;
+    } else {
+      this.expiryDateInvalid = true; // Handle invalid or incomplete date
+    }
+
+    this.paymentForm.updateValueAndValidity();
+  }
   calculatePrice(): number {
     // Implement your pricing logic here based on numUsers
     const basePrice = 10; // Example base price

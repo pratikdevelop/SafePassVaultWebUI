@@ -170,4 +170,15 @@ export class AuthService {
   getUsers() : Observable<any>{
     return this.http.get(`${this.apiUrl}/users`);
   }
+
+  getPlans(): Observable<any>{
+    return this.http.get(`${this.apiUrl}/plans`).pipe(
+      map((response) => {
+        return response;
+        }),
+        catchError((error) => {
+          return throwError(error);
+          })
+          );
+  }
 }
