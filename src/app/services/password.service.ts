@@ -133,4 +133,8 @@ export class PasswordService {
   exportPasswordsAsCsv(ids: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/export?ids=${ids}`, { responseType: 'blob' });
   }
+  addTagToPassword(passwordId: string, tagName: string): Observable <any>{
+    const body = { passwordId, tagName };
+    return this.http.post(`${this.apiUrl}/add-tag`, body);
+  }
 }
