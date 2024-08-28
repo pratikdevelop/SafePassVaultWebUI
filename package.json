@@ -1,13 +1,40 @@
 {
   "name": "password-app",
   "version": "0.0.0",
+  "main": "index.js",
+  "description": "Your Password Management Application",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve && ng build --base-href ./ && electron .",
-    "electron-start": "ng build --base-href ./ && electron .",
+    "start": "ng serve",
+    "start-forke": "electron-forge start",
+    "electron": "ng build  --base-href ./ && electron .",
     "build": "ng build",
+    "build:electron": "ng build --base-href ./ && electron-builder",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "postinstall": "electron-builder install-app-deps",
+    "test": "ng test",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "build": {
+    "appId": "com.passkeeper.passwordapp",
+    "productName": "PasswordApp",
+    "files": [
+      "dist/password-app/browser/",
+      "index.js",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "build"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
   },
   "private": true,
   "dependencies": {
@@ -25,6 +52,7 @@
     "axios": "^1.7.2",
     "check-password-strength": "^2.0.10",
     "crypto-js": "^4.2.0",
+    "electron-squirrel-startup": "^1.0.1",
     "file-saver": "^2.0.5",
     "generate-password": "^1.7.1",
     "material-icons": "^1.13.12",
@@ -39,12 +67,22 @@
     "@angular-devkit/build-angular": "^18.0.2",
     "@angular/cli": "^18.0.2",
     "@angular/compiler-cli": "^18.0.0",
+    "@electron-forge/cli": "^7.4.0",
+    "@electron-forge/maker-deb": "^7.4.0",
+    "@electron-forge/maker-rpm": "^7.4.0",
+    "@electron-forge/maker-squirrel": "^7.4.0",
+    "@electron-forge/maker-zip": "^7.4.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.4.0",
+    "@electron-forge/plugin-fuses": "^7.4.0",
+    "@electron/fuses": "^1.8.0",
     "@types/crypto-js": "^4.2.2",
     "@types/file-saver": "^2.0.7",
     "@types/jasmine": "~5.1.0",
     "@types/uuid": "^9.0.8",
     "@types/zxcvbn": "^4.4.4",
     "autoprefixer": "^10.4.19",
+    "electron": "^32.0.1",
+    "electron-reload": "^2.0.0-alpha.1",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",

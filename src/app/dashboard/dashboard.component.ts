@@ -66,7 +66,6 @@ export class DashboardComponent {
   activateRouter = inject(Router)
   constructor() {}
   ngOnInit(): void {
-    console.log('aa', this.activateRouter.url);
     
     this.breakpointObserver
       .observe([

@@ -16,27 +16,24 @@
             "outputPath": "dist/password-app",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-  {
-    "glob": "**/*",
-    "input": "public"
-  },
-  {
-    "glob": "manifest.json",
-    "input": "" 
-  }
-],
+              {
+                "glob": "**/*",
+                "input": "public"
+              },
+              {
+                "glob": "manifest.json",
+                "input": ""
+              }
+            ],
 
             "styles": [
               "@angular/material/prebuilt-themes/azure-blue.css",
               "src/styles.css"
             ],
-            "scripts": [              "node_modules/preline/preline.js"
-          ]
+            "scripts": ["node_modules/preline/preline.js"]
           },
           "configurations": {
             "production": {
@@ -64,6 +61,14 @@
                   "with": "src/environments/environment.development.ts"
                 }
               ]
+            },
+            "electron": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.electron.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -86,10 +91,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "assets": [
               {

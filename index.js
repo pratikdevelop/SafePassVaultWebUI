@@ -1,15 +1,23 @@
 const {app, BrowserWindow} = require('electron')
     const url = require("url");
     const path = require("path");
-
+    if (process.env.NODE_ENV === 'development') {
+      require('electron-reload')(path.join(__dirname, '/dist/password-app'), {
+        electron: require(`${__dirname}/node_modules/electron`)
+      });
+    }
+    
     let mainWindow
+
 
     function createWindow () {
       mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
         webPreferences: {
-          nodeIntegration: true
+          nodeIntegration: true,
+          contextIsolation: false,
+          devTools: false, 
         }
       })
 
