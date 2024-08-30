@@ -12,25 +12,11 @@ import {
 } from '@angular/material/sidenav';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { OrganizationComponent } from '../admiin/dialog/organization/organization.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { CreditCardFormComponent } from './pages/dialog/credit-card-form/credit-card-form.component';
-import { IdproofformComponent } from './pages/dialog/idproofform/idproofform.component';
-import { NotesFormComponent } from './pages/dialog/notes/notes-form.component';
-import { PasswordFormComponent } from './pages/dialog/password-form/password-form.component';
-
-export interface Passwords {
-  _id: string;
-  name: string;
-  website: string;
-  username: string;
-  password: string;
-  update_at: string;
-}
 
 @Component({
   selector: 'app-dashbloard',
@@ -109,75 +95,4 @@ export class DashboardComponent {
     // }
   }
 
-  updateListingType(listingType: string): void {
-    this.listingType = listingType;
-  }
-
-  trackById(index: number, item: any): number {
-    return item?._id; // assuming your Password object has an 'id' property
-  }
-
-  performAction(vlaue: string): void {
-    switch (vlaue) {
-      case 'delete':
-        // this.passwordService
-        //   ?.deleteMultiplePasswords(this.passwordIds ?? [''])
-        //   .subscribe((response) => {
-        //     this.snackbar.open('Password deleted Successfully', 'close', {
-        //       duration: 2000,
-        //     });
-        //   });
-    }
-  }
-  setFilter(type: string): void {
-    this.filter_by = type;
-  }
-
-  filterPasswords(): void {
-    const filterValueLower = this.filterValue.toLowerCase().trim();
-  }
-
-  createOrganization(): void {
-    this.dialog.open(OrganizationComponent);
-  }
-
-  setListingType(listingType: string): void {}
-
-  openAddNoteForm(): void {
-    const dialog = this.dialog.open(NotesFormComponent, {
-      width: '1400px',
-    });
-    dialog.afterClosed().subscribe((response) => {
-      if (response) {
-      }
-    });
-  }
-  openIdProofForm(): void {
-    const dialog = this.dialog.open(IdproofformComponent, {
-      width: '1400px',
-    });
-    dialog.afterClosed().subscribe((response) => {
-      if (response) {
-      }
-    });
-  }
-  opencardAddForm(): void {
-    const dialog = this.dialog.open(CreditCardFormComponent, {
-      width: '1400px',
-    });
-    dialog.afterClosed().subscribe((response) => {
-      if (response) {
-      }
-    });
-  }
-
-  openPasswordFormDialog(): void {
-    this.dialog
-      .open(PasswordFormComponent, {
-        width: '2000px',
-      })
-      .afterClosed()
-      .subscribe((res) => {
-      });
-  }
 }

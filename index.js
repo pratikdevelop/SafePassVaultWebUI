@@ -17,7 +17,7 @@ const {app, BrowserWindow} = require('electron')
         webPreferences: {
           nodeIntegration: true,
           contextIsolation: false,
-          devTools: false, 
+          devTools: true, 
         }
       })
 
