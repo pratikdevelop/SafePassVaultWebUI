@@ -12,7 +12,6 @@
     "build": "ng build",
     "build:electron": "ng build --base-href ./ && electron-builder",
     "watch": "ng build --watch --configuration development",
-    "postinstall": "electron-builder install-app-deps",
     "test": "ng test",
     "package": "electron-forge package",
     "make": "electron-forge make"
@@ -60,6 +59,7 @@
     "axios": "^1.7.2",
     "check-password-strength": "^2.0.10",
     "crypto-js": "^4.2.0",
+    "electron-builder": "^24.13.3",
     "electron-squirrel-startup": "^1.0.1",
     "file-saver": "^2.0.5",
     "generate-password": "^1.7.1",
