@@ -21,7 +21,6 @@ import { PasswordService } from '../../../services/password.service';
 import { PasswordFormComponent } from '../dialog/password-form/password-form.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { catchError, tap } from 'rxjs';
-import { Passwords } from '../../dashboard.component';
 import { ShareDialogComponent } from '../../../component/share-dialog/share-dialog.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ViewPasswordComponent } from '../../../component/view-password/view-password.component';
@@ -73,7 +72,7 @@ export class PasswordComponent {
   readonly dialog = inject(MatDialog);
   isLoading: boolean = true;
   filterValue: string = '';
-  selection = new SelectionModel<Passwords>(true, []);
+  selection = new SelectionModel<any>(true, []);
   password: any;
   isOpened= false;
 
@@ -209,7 +208,7 @@ export class PasswordComponent {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: Passwords): string {
+  checkboxLabel(row?: any): string {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
