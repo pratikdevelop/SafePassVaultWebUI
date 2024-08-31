@@ -4,7 +4,6 @@ import { authGuard } from "../auth.guard";
 export const authRoutes: Routes = [
     {
         path: 'email-confirmation',
-        canActivate: [authGuard], // Protect the admin route
         loadComponent:()=>import("./confirmation/confirmation.component").then((m)=>m.ConfirmationComponent)
     },
     {

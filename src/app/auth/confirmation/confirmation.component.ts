@@ -26,7 +26,7 @@ export class ConfirmationComponent implements OnInit {
     if (this.OTPForm.invalid) return;
     this.service.emailVerification(this.OTPForm.value).subscribe(response => {
       localStorage.setItem("token", response.token)
-        this.route.navigateByUrl("/")
+        this.route.navigateByUrl("/dashboard/passwords")
     }, 
     (eror: any)=>{
       console.error("error", eror);

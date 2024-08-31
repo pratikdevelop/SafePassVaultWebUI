@@ -17,8 +17,15 @@ export class PasswordService {
 
 
   constructor(private http: HttpClient) { }
-  getPasswords(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl)
+  getPasswords(_search?: string): Observable<any[]> {
+    console.log('pp', _search);
+    
+    const params = new HttpParams();
+    if (_search) {
+      params.set('search', _search);
+      }    
+    return this.http.get<any[]>(`${this.apiUrl}?search=${_search}`
+    )
       .pipe(
         switchMap((response: any) => {
           const decryptedPasswords = response.data.map((res: { password: string | CryptoJS.lib.CipherParams; key: string | CryptoJS.lib.WordArray; }) => {
@@ -135,6 +142,15 @@ export class PasswordService {
   }
   addTagToPassword(passwordId: string, tagName: string): Observable <any>{
     const body = { passwordId, tagName };
-    return this.http.post(`${this.apiUrl}/add-tag`, body);
+    return this.http.post(`${this.apiUrl}/add-tag`, body)
+  }
+  postComment(passwordId: string, content: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/${passwordId}/comments`, {content})
+    .pipe(
+      catchError((error: any) => {
+        console.error('Error deleting password:', error);
+        throw error; // Re-throw the error to prevent silent failures
+      })
+    );
   }
 }

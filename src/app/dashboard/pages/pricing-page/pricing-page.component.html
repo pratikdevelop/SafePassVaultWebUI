@@ -18,9 +18,15 @@
           </ul>
           <!-- Buttons -->
           <div class="flex flex-col space-y-2">
-            <button [routerLink]="plan.buttonLink" [queryParams]="plan.queryParams" mat-flat-button>{{plan.buttonText}}</button>
-            <button *ngIf="plan.hasTrial" [routerLink]="plan.trialLink" [queryParams]="plan.trialQueryParams" mat-stroked-button>Start 7-Day Trial</button>
-          </div>
+            <div class="flex flex-col space-y-2">
+              <button mat-flat-button (click)="navigateToPlan(plan.buttonLink, plan.queryParams, plan.id)">
+                {{plan.buttonText}}
+              </button>
+              <button *ngIf="plan.hasTrial" mat-stroked-button (click)="navigateToTrial(plan.trialLink, plan.trialQueryParams, plan.id)">
+                Start 7-Day Trial
+              </button>
+            </div>
+                      </div>
           
       </div>
 

@@ -3,11 +3,12 @@ import { ChangeDetectorRef, Component, EventEmitter, inject, Input, OnChanges, O
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { PasswordService } from '../../services/password.service';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-view-password',
   standalone: true,
-  imports: [MatFormFieldModule, ReactiveFormsModule, FormsModule,CommonModule],
+  imports: [MatFormFieldModule, ReactiveFormsModule, FormsModule,CommonModule, MatExpansionModule],
   templateUrl: './view-password.component.html',
   styleUrl: './view-password.component.css'
 })
@@ -33,11 +34,27 @@ export class ViewPasswordComponent implements OnChanges {
     if (this.newComment.trim()) {
       const newComment: any = {
         text: this.newComment,
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
+        userId: 'John Doe',
       };
-      this.commentAdded.emit(newComment);
-      this.newComment = '';
-    }
+      this.passwordService.postComment(this.password._id, this.newComment)
+      .subscribe(
+        response => {
+          console.log('Comment added successfully', response);
+          if (!this.password.comments) {
+            this.password.comments = [];
+          } 
+          this.password.comments.push(newComment);
+          // Handle successful response (e.g., update UI)
+          this.commentAdded.emit(newComment);
+          this.newComment = '';
+        },
+        error => {
+          console.error('Error adding comment', error);
+          // Handle error response
+        }
+      );
+  }
   }
 
   addTag() {

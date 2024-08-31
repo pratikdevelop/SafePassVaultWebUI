@@ -26,14 +26,13 @@ export class LayoutComponent implements OnInit {
   ngOnInit(): void {
     const token = localStorage.getItem('token');
 
-    if (this.router.url === '/' && !token) {
+    if (this.router.url === '/' && !token && environment.isElectron) {
       // No token and user is at root, redirect to login page
       this.router.navigateByUrl("/auth/login");
     } else if (this.router.url === '/' && token) {
       // User is authenticated and at root, redirect to dashboard
       this.router.navigateByUrl("/dashboard/passwords");
     } else if (environment.isElectron && !token) {
-      // If the app is running in Electron and no token, force redirect to login
       this.router.navigateByUrl("/auth/login");
     } else if (environment.isElectron && token) {
       // If the app is running in Electron and the user is authenticated, ensure they're on the dashboard

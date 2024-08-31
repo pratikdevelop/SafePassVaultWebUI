@@ -245,8 +245,6 @@
             </mat-error>
           </mat-form-field>
 
-
-
           <div>
             <button mat-button matStepperPrevious>Back</button>
             <button mat-button matStepperNext>Next</button>
@@ -255,108 +253,15 @@
       </mat-step>
 
       <!-- Step 3: Payment Information -->
-      <!-- Step 3: Payment Information -->
       <mat-step [stepControl]="paymentForm" *ngIf="isPaidPlan">
         <form [formGroup]="paymentForm" class="flex flex-col space-y-6">
           <ng-template matStepLabel>Payment Information</ng-template>
 
-          <!-- <mat-form-field appearance="outline">
-            <mat-select formControlName="paymentMethod" required>
-              <mat-option value="creditCard">Credit/Debit Card</mat-option>
-              <mat-option value="paypal">PayPal</mat-option>
-            </mat-select>
-            <mat-error
-              *ngIf="
-                paymentForm.get('paymentMethod')?.hasError('required') &&
-                paymentForm.get('paymentMethod')?.touched
-              "
-            >
-              Payment method is required
-            </mat-error>
-          </mat-form-field> -->
+          <!-- Card Input -->
+          <div id="card-element" class="w-full">
 
-          <mat-form-field appearance="outline" >
-            <input
-              matInput
-              formControlName="cardNumber"
-              placeholder="Card Number"
-              required
-              type="text"
-              pattern="[0-9]*"  
-              maxlength="19"    
-            />
-            <mat-error *ngIf="paymentForm.get('cardNumber')?.hasError('required') && paymentForm.get('cardNumber')?.touched">
-              Card number is required
-            </mat-error>
-            <mat-error *ngIf="paymentForm.get('cardNumber')?.hasError('pattern') && paymentForm.get('cardNumber')?.touched">
-              Card number must be between 13 and 19 digits
-            </mat-error>
-          </mat-form-field>
-          
-          <mat-form-field appearance="outline">
-            <input
-              matInput
-              formControlName="cvv"
-              placeholder="CVV"
-              required
-              type="text"
-              pattern="[0-9]*"  
-              maxlength="4"   
-            />
-            <mat-error *ngIf="paymentForm.get('cvv')?.hasError('required') && paymentForm.get('cvv')?.touched">
-              CVV is required
-            </mat-error>
-            <mat-error *ngIf="paymentForm.get('cvv')?.hasError('pattern') && paymentForm.get('cvv')?.touched">
-              CVV must be 3 or 4 digits
-            </mat-error>
-          </mat-form-field>
-          
-          <mat-form-field appearance="outline">
-            <mat-label>Expiry Month</mat-label>
-            <input
-              matInput
-              formControlName="expiryMonth"
-              placeholder="MM"
-              type="number"
-              min="1"
-              max="12"
-              (input)="validateExpiryDate()"
-              required
-            />
-            <mat-error *ngIf="paymentForm.get('expiryMonth')?.hasError('required') && paymentForm.get('expiryMonth')?.touched">
-              Expiry month is required
-            </mat-error>
-            <mat-error *ngIf="paymentForm.get('expiryMonth')?.hasError('min') || paymentForm.get('expiryMonth')?.hasError('max')">
-              Month must be between 01 and 12
-            </mat-error>
-          </mat-form-field>
-          
-          <mat-form-field appearance="outline">
-            <mat-label>Expiry Year</mat-label>
-            <input
-              matInput
-              formControlName="expiryYear"
-              placeholder="YY"
-              type="number"
-              min="0"
-              max="99"
-              (input)="validateExpiryDate()"
-              required
-            />
-            <mat-error *ngIf="paymentForm.get('expiryYear')?.hasError('required') && paymentForm.get('expiryYear')?.touched">
-              Expiry year is required
-            </mat-error>
-            <mat-error *ngIf="paymentForm.get('expiryYear')?.hasError('min') || paymentForm.get('expiryYear')?.hasError('max')">
-              Year must be between 00 and 99
-            </mat-error>
-          </mat-form-field>
-          
-          <mat-error *ngIf="expiryDateInvalid">
-            Expiration date must be valid and not in the past
-          </mat-error>
-          
-        
-          <div *ngIf="paymentForm.value.planType === 'teams'">
+          </div>
+  <div *ngIf="paymentForm.value.planType === 'teams'">
             <mat-slider
               min="1"
               max="100"
@@ -375,9 +280,11 @@
             <p>Number of Users: {{ paymentForm.value.numberOfUsers }}</p>
             <p>Price: {{ calculatePrice() | currency }}</p>
           </div>
+
+
           <div>
             <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
+            <button mat-button matStepperNext (click)="createToken()">Next</button>
           </div>
         </form>
       </mat-step>
@@ -400,8 +307,9 @@
             <strong>Postal Code:</strong> {{ billingForm.value.postalCode }}
           </p>
           <p><strong>Country:</strong> {{ billingForm.value.country }}</p>
-         <p>          <strong>Card Number:</strong> {{ paymentForm.value.cardNumber }}
-          </p>
+          <!-- <p>
+            <strong>Card Number:</strong> {{ paymentForm.value.cardNumber }}
+          </p> -->
         </div>
 
         <div>

@@ -31,7 +31,8 @@ import { SecurityQuestionService } from '../../services/security-question.servic
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
-
+import { NgxStripeModule, StripeService } from 'ngx-stripe';
+import { loadStripe, Stripe, StripeCardElement, StripeElements, StripeElementsOptions } from '@stripe/stripe-js';
 
 @Component({
   selector: 'app-signup',
@@ -54,6 +55,7 @@ import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/
     MatDatepickerModule,
     MatNativeDateModule,
     MatProgressBarModule,
+    NgxStripeModule
   ],
   templateUrl: './signup.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -65,6 +67,7 @@ export class SignupComponent {
   route = inject(ActivatedRoute);
   authService = inject(AuthService);
   securityQuestionService = inject(SecurityQuestionService);
+  stripeService = inject(StripeService);
 
   signupForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -85,15 +88,13 @@ export class SignupComponent {
     state: new FormControl('', Validators.required),
     postalCode: new FormControl('', Validators.required),
     country: new FormControl('', Validators.required),
+
   });
 
   value = 0;
   paymentForm = new FormGroup({
     planType: new FormControl(''),
-    expiryMonth: new FormControl('', [Validators.required, Validators.min(1), Validators.max(12)]),
-    expiryYear: new FormControl('', [Validators.required, Validators.min(0), Validators.max(99)]),
-    cardNumber: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{13,19}$')]),
-    cvv: new FormControl('', [Validators.required, Validators.pattern('^[0-9]{3,4}$')]),
+    planId: new FormControl(''),
     numberOfUsers: new FormControl(1)
   });
 
@@ -113,6 +114,24 @@ export class SignupComponent {
   hide = signal(true);
   strength: number = 0;
   expiryDateInvalid!: boolean;
+  stripe: Stripe | null = null;
+  elements: StripeElements | undefined = undefined;
+  cardElement!: StripeCardElement;
+
+  constructor() {
+    this.integrateStripe();
+  }
+
+  async integrateStripe(): Promise<void> {
+    try {
+      this.stripe = await loadStripe('pk_test_51PrEnfAE6VGXmCKJI927mwY0Ws03UDVaV19lG0UwrRG70re2SyIqxgKEsYfjsNFXnfKsVIemRpeCFDKkT3hroeCh001ivYn2hO');
+      this.elements = this.stripe?.elements();
+      this.cardElement = this.elements!.create('card');
+      this.cardElement.mount('#card-element');
+    } catch (error) {
+      console.error('Error loading Stripe:', error);
+    }
+  }
 
   clickEvent(event: MouseEvent) {
     this.hide.set(!this.hide());
@@ -127,10 +146,15 @@ export class SignupComponent {
     });
 
     this.route.queryParams.subscribe((params: any) => {
-      this.isPaidPlan = (params['plan'] && params.plan !== 'free');
+      this.isPaidPlan = params['plan'] && params.plan !== 'free';
       this.paymentForm.get('planType')?.setValue(params.plan);
 
-      // Handle the action parameter
+      // Assuming planId is part of the query params
+      const planId = params['planId'];
+      if (planId) {
+        this.paymentForm.get('planId')?.setValue(planId);
+      }
+
       if (params.action === 'trial') {
         this.handleTrialSignup();
       } else if (params.action === 'purchase') {
@@ -140,15 +164,60 @@ export class SignupComponent {
   }
 
   handleTrialSignup(): void {
-    // Logic for handling trial signups
     console.log('User is signing up for a trial.');
-    // You may skip the payment form validation or customize it for trials
   }
 
   handlePurchaseSignup(): void {
-    // Logic for handling direct purchase signups
     console.log('User is signing up for a paid plan.');
-    // Ensure all payment details are required
+  }
+
+  async createToken(): Promise<void> {
+    if (this.stripe && this.cardElement) {
+      const tokenResult = await this.stripe.createToken(this.cardElement);
+
+      if (tokenResult.error) {
+        console.error(tokenResult.error.message);
+        // Handle error (show error message to user, etc.)
+        this.snackbar.open('Error creating payment token. Please try again.', 'close', { duration: 3000 });
+      } else {
+        const token = tokenResult.token;
+        console.log('Token created successfully:', token);
+        // Send the token to your backend
+        this.sendTokenToBackend(token.id);
+      }
+    } else {
+      console.error('Stripe or form is not valid');
+    }
+  }
+
+  sendTokenToBackend(token: string): void {
+    const userDetails = {
+      ...this.signupForm.value,
+      ...this.billingForm.value,
+      ...this.paymentForm.value,
+      token,
+      planId: this.route.snapshot.queryParams['planId'] // Add planId here
+    };
+
+    this.authService.signup(userDetails).subscribe(
+      (response: any) => {
+        this.snackbar.open('User registered. A confirmation email has been sent.', 'close', {
+          duration: 3000,
+        });
+        localStorage.setItem('email', this.signupForm.value.email)
+        this.router.navigateByUrl('/auth/email-confirmation'); // Redirect after successful signup
+      },
+      (error) => {
+        console.error('Error during signup:', error);
+        this.snackbar.open(
+          'An error occurred during signup. Please try again.',
+          'close',
+          {
+            duration: 3000,
+          }
+        );
+      }
+    );
   }
 
   onSubmit() {
@@ -157,122 +226,52 @@ export class SignupComponent {
       this.billingForm.valid &&
       (!this.isPaidPlan || this.paymentForm.valid)
     ) {
-      const userDetails = {
-        ...this.signupForm.value,
-        ...this.billingForm.value,
-        ...this.paymentForm.value,
-      };
-
       if (this.isPaidPlan && this.route.snapshot.queryParams['action'] === 'purchase') {
-        // Logic for direct purchase
-        console.log('Processing purchase:', userDetails);
+        this.createToken(); // Create token and send it to backend
       } else if (this.route.snapshot.queryParams['action'] === 'trial') {
-        // Logic for trial sign-up
-        console.log('Processing trial signup:', userDetails);
+        this.handleTrialSignup(); // Handle trial signup
       }
-
-      // Send userDetails to the backend
-      this.authService.signup(userDetails).subscribe(
-        (response: any) => {
-          this.snackbar.open('User registered. A confirmation email has been sent.', 'close', {
-            duration: 3000,
-          });
-          // Navigate to next step or dashboard
-        },
-        (error) => {
-          console.error('Error during signup:', error);
-          this.snackbar.open(
-            'An error occurred during signup. Please try again.',
-            'close',
-            {
-              duration: 3000,
-            }
-          );
-        }
-      );
     }
   }
 
-  verifyEmail(): void {
-    const payload = {
-      email: this.signupForm.get('email')?.value,
-      confirmationCode: this.OTPForm.value.confirmationCode,
-    };
-    this.authService.emailVerification(payload).subscribe(
-      (response) => {
-        localStorage.setItem('token', response.token);
-        this.snackbar.open('Email Verified, Add the security question or Skip these Step', 'close', {
-          duration: 3000,
-        });
-      },
-      (error: any) => {
-        console.error('error', error);
-      }
-    );
-  }
+  // verifyEmail(): void {
+  //   const payload = {
+  //     email: this.signupForm.get('email')?.value,
+  //     confirmationCode: this.OTPForm.value.confirmationCode,
+  //   };
+  //   this.authService.emailVerification(payload).subscribe(
+  //     (response) => {
+  //       localStorage.setItem('token', response.token);
+  //       this.snackbar.open('Email Verified, Add the security question or Skip this Step', 'close', {
+  //         duration: 3000,
+  //       });
+  //     },
+  //     (error: any) => {
+  //       console.error('error', error);
+  //     }
+  //   );
+  // }
 
   onUserCountChange(event: any): void {
-    console.log('eveent', event);
-    
     this.paymentForm.controls.numberOfUsers.setValue(event.target.value);
   }
-  validateExpiryDate(): void {
-    const month = this.paymentForm.get('expiryMonth')?.value;
-    const year = this.paymentForm.get('expiryYear')?.value;
 
-    if (month && year) {
-      const currentYear = new Date().getFullYear() % 100; // Get last two digits of the current year
-      const currentMonth = new Date().getMonth() + 1; // Months are zero-based
-      const expiryYear = parseInt(year, 10);
-      const expiryMonth = parseInt(month, 10);
-
-      this.expiryDateInvalid = 
-        (expiryYear < currentYear) ||
-        (expiryYear === currentYear && expiryMonth < currentMonth) ||
-        expiryMonth < 1 || expiryMonth > 12;
-    } else {
-      this.expiryDateInvalid = true; // Handle invalid or incomplete date
+  passwordValidator(control: FormControl): { [key: string]: boolean } | null {
+    const password = control.value;
+    if (!password) {
+      return null;
     }
 
-    this.paymentForm.updateValueAndValidity();
-  }
-  calculatePrice(): number {
-    // Implement your pricing logic here based on numUsers
-    const basePrice = 10; // Example base price
-    const users = this.paymentForm.value?.numberOfUsers ?? 1
-    return basePrice * users
-  }
-  addSecurityQuestion(): void {
-    if (this.securityForm.valid) {
-      const formValues = this.securityForm.value;
-
-      // Prepare the securityQuestions array from form values
-      const securityQuestions = [
-        {
-          question: formValues.securityQuestion1,
-          answer: formValues.securityAnswer1,
-        },
-        {
-          question: formValues.securityQuestion2,
-          answer: formValues.securityAnswer2,
-        },
-      ];
-
-      // Call API to update security questions and answers
-      this.securityQuestionService.createSecurityQuestion(securityQuestions).subscribe(
-        () => {
-          this.snackbar.open('Security questions updated successfully!', 'close', {
-            duration: 3000,
-          });
-          this.router.navigateByUrl('/passwords');
-        },
-        (error: any) => console.error('Error updating security questions', error)
-      );
-    } else {
-      console.log('Please fill in all required fields');
-    }
+    // Define your password validation logic here
+    // For example, check if password length is at least 8 characters
+    const isValid = password.length >= 8;
+    return isValid ? null : { invalidPassword: true };
   }
 
+  getPasswordStrength(): number {
+    return this.value;
+  }
+  
   generatePassword(): void {
     const passwords = Array(10)
       .fill(
@@ -286,16 +285,6 @@ export class SignupComponent {
     const result = zxcvbn(passwords);
     this.strength = result.score;
     this.value = (this.strength / 4) * 100;
-  }
-
-  passwordValidator(control: FormControl): { [s: string]: boolean } | null {
-    const passwordValidation =
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w\s]).{6,}$/;
-    const password = control.value;
-    if (password && !passwordValidation.test(password)) {
-      return { invalidPassword: true };
-    }
-    return null;
   }
 
   getPasswordStrengthLabel(strength: number): string {
@@ -312,5 +301,11 @@ export class SignupComponent {
       default:
         return '';
     }
+  }
+  calculatePrice(): number {
+    // Implement your pricing logic here based on numUsers
+    const basePrice = 10; // Example base price
+    const users = this.paymentForm.value?.numberOfUsers ?? 1
+    return basePrice * users
   }
 }

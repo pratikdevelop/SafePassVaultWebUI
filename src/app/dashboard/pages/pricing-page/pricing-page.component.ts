@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { AuthService } from '../../../services/auth.service';
 
@@ -28,7 +28,7 @@ export class PricingPageComponent implements OnInit {
   planLoading = true;
   planTypes: any[] = [];
   detectorRef = inject(ChangeDetectorRef);
-
+  router = inject(Router)
   service = inject(AuthService);
   selectedInterval: string = 'month';
 
@@ -49,5 +49,17 @@ export class PricingPageComponent implements OnInit {
   }
   toggleInterval(interval: string) {
     this.selectedInterval = interval;
+  }
+
+  navigateToPlan(buttonLink: string, queryParams: any, planId: string): void {
+    // Add the plan ID to the query parameters
+    const updatedQueryParams = { ...queryParams, planId };
+    this.router.navigate([buttonLink], { queryParams: updatedQueryParams });
+  }
+
+  navigateToTrial(trialLink: string, trialQueryParams: any, planId: string): void {
+    // Add the plan ID to the query parameters
+    const updatedQueryParams = { ...trialQueryParams, planId };
+    this.router.navigate([trialLink], { queryParams: updatedQueryParams });
   }
 }

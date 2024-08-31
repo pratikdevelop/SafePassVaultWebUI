@@ -71,7 +71,7 @@ export class PasswordComponent {
   ];
   readonly dialog = inject(MatDialog);
   isLoading: boolean = true;
-  filterValue: string = '';
+  searchTerm: string = '';
   selection = new SelectionModel<any>(true, []);
   password: any;
   isOpened= false;
@@ -258,7 +258,13 @@ export class PasswordComponent {
   performAction(fileId: string): void {
     // Implement share functionality
   }
-
+  searchPassword(): void {
+    console.log('dd', this.searchTerm);
+    
+    this.passwordService.getPasswords(this.searchTerm).subscribe((response: any) => {
+      this.passwords = response;
+      });
+  }
 
 
 }
