@@ -1,29 +1,26 @@
-# Step 1: Build the Angular application
+# Stage 1: Build the Angular application
 FROM node:latest AS builder
-
 WORKDIR /app
-RUN pwd # Logs the current directory
 
-# Install dependencies
-COPY package.json package-lock.json ./
+RUN npm install -g @angular/cli
+
+COPY package*.json ./
+
 RUN npm install
 
-# Copy the rest of the application code
 COPY . .
-RUN pwd # Logs the current directory
-RUN ls -la # Lists all files and directories in the current directory
 
-# Build the Angular application
 RUN npm run build --prod
 
-# Step 2: Serve the Angular application with Nginx
+# Stage 2: Serve the application
 FROM nginx:alpine
 
-# Copy the build output to the Nginx html directory
+# Copy the built Angular application from the previous stage
 COPY --from=builder /app/dist/password-app/browser /usr/share/nginx/html
 
-# Expose port 80
+# Copy the custom nginx configuration file
+COPY nginx.conf /etc/nginx/nginx.conf
+
 EXPOSE 80
 
-# Start Nginx server
 CMD ["nginx", "-g", "daemon off;"]
