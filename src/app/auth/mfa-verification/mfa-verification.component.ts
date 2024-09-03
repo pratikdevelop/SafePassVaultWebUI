@@ -53,7 +53,10 @@ export class MfaVerificationComponent {
             duration: 2000,
             });
 
-          this.router.navigate(['/dashboard/passwords']);
+          this.auth.getProfile().subscribe((res)=>{
+         
+            this.router.navigate(['/dashboard/passwords']);
+          })
         } else {
           this.snackbar.open('MFA verification failed', 'Dismiss', {
             duration: 2000,

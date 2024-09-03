@@ -24,15 +24,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import zxcvbn from 'zxcvbn';
 import {
-  ProgressBarMode,
-  MatProgressBarModule,
+  MatProgressBarModule
 } from '@angular/material/progress-bar';
 import { SecurityQuestionService } from '../../services/security-question.service';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
-import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxStripeModule, StripeService } from 'ngx-stripe';
-import { loadStripe, Stripe, StripeCardElement, StripeElements, StripeElementsOptions } from '@stripe/stripe-js';
+import { loadStripe, Stripe, StripeCardElement, StripeElements } from '@stripe/stripe-js';
 
 @Component({
   selector: 'app-signup',
@@ -233,24 +231,6 @@ export class SignupComponent {
       }
     }
   }
-
-  // verifyEmail(): void {
-  //   const payload = {
-  //     email: this.signupForm.get('email')?.value,
-  //     confirmationCode: this.OTPForm.value.confirmationCode,
-  //   };
-  //   this.authService.emailVerification(payload).subscribe(
-  //     (response) => {
-  //       localStorage.setItem('token', response.token);
-  //       this.snackbar.open('Email Verified, Add the security question or Skip this Step', 'close', {
-  //         duration: 3000,
-  //       });
-  //     },
-  //     (error: any) => {
-  //       console.error('error', error);
-  //     }
-  //   );
-  // }
 
   onUserCountChange(event: any): void {
     this.paymentForm.controls.numberOfUsers.setValue(event.target.value);

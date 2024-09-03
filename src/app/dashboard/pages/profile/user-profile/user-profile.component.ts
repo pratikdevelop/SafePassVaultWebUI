@@ -16,6 +16,7 @@ export class UserProfileComponent {
   snackBar = inject(MatSnackBar);
   detectorRef = inject(ChangeDetectorRef)
   user: any;
+  plan: any;
   ngOnInit(): void {
     this.getProfile();
   }
@@ -23,7 +24,8 @@ export class UserProfileComponent {
   getProfile(): void {
     this.authService.getProfile().pipe(tap()).subscribe(
       profileData => {
-        this.user = profileData
+        this.user = profileData.user
+        this.plan = profileData.planDetails;
         console.log("pp", profileData);
         this.detectorRef.detectChanges();
 

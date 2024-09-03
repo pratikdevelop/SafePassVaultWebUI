@@ -1,14 +1,8 @@
 <!-- Main Container -->
 <div
-  class="h-[100vh] relative w-full flex flex-auto items-center overflow-hidden"
+  class="h-[100vh] relative w-full flex flex-auto items-center justify-center overflow-hidden"
 >
-  <!-- Login Card Content -->
-  <div
-    class="w-full sm:w-3/6 flex justify-center items-center flex-auto bg-white h-[100vh]"
-  >
-    <!-- Form -->
-    <div class="p-8">
-      <form [formGroup]="loginForm" class="flex flex-col space-y-6">
+      <form [formGroup]="loginForm" class="bg-indigo-50 p-8 shadow-2xl border flex flex-col space-y-6">
         <!-- Login Step -->
         <div class="text-center text-4xl mb-8">Login with your account</div>
 
@@ -59,14 +53,15 @@
           <!-- Submit Button -->
           <button
             type="button"
-            class="py-3 w-full text-white font-bold"
-            [ngClass]="{
-              'bg-indigo-700': !loginForm.invalid,
-              'bg-gray-400': loginForm.invalid
-            }"
-            [disabled]="loginForm.invalid"
+            mat-flat-button
+            color="primary"            
+            [disabled]="loginForm.invalid || loading"
             (click)="onSubmit()"
           >
+          Login now 
+          <mat-icon *ngIf="loading"><mat-spinner diameter="20">
+          </mat-spinner></mat-icon>
+         
             Login Now
           </button>
 
@@ -82,29 +77,4 @@
           </div>
         </div>
       </form>
-    </div>
-  </div>
-
-  <!-- Background Image and Welcome Text -->
-  <div
-    class="hidden sm:w-3/6 h-full sm:flex sm:flex-col justify-center items-center text-center p-12"
-    style="
-      background-image: url('https://images.pexels.com/photos/1486974/pexels-photo-1486974.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
-      background-repeat: no-repeat;
-      background-size: cover;
-    "
-  >
-    <div class="text-6xl font-bold uppercase">Welcome to Our PassKeeper</div>
-    <span class="text-center leading-6">
-      Welcome to PassKeeper, your all-in-one solution for secure and efficient
-      password management. But that's not all—we go beyond just passwords. With
-      PassKeeper, you can securely store files, important documents, and other
-      sensitive information, all in one place. Whether it's your passwords, ID
-      proofs, or essential files, PassKeeper ensures that everything is
-      protected with top-tier security. Our user-friendly interface makes
-      managing your digital life easier and more organized. Experience seamless
-      storage, secure access, and peace of mind with PassKeeper. Join us and
-      take control of your digital security today!
-    </span>
-  </div>
 </div>

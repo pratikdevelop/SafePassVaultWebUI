@@ -8,11 +8,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { UserFormComponent } from '../dialog/user-form/user-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import { OrganizationService } from '../../services/organization.service';
+import { AuthService } from '../../services/auth.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [MatTableModule, MatSortModule, MatIconModule, MatPaginatorModule, CommonModule, MatButtonModule],
+  imports: [MatTableModule, MatSortModule, MatIconModule, MatPaginatorModule, CommonModule, MatButtonModule, MatSnackBarModule],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css'
 })
@@ -25,6 +27,8 @@ export class UsersComponent {
   paginator!: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
   organizationService = inject(OrganizationService)
+  authService = inject(AuthService)
+  snackBar = inject(MatSnackBar);
 
   ngOnInit() {
     this.dataSource.paginator = this.paginator;
@@ -57,5 +61,17 @@ export class UsersComponent {
   onDelete(user: any) {
     console.log('Delete user:', user);
     // Implement delete functionality
+  }
+
+  resendInvitation(user: any): void {
+    console.log('Resend invitation:', user);
+    this.authService.resendInvitation(user.organization, user.recipient._id).subscribe((Response)=>{
+      console.log('Response', Response);
+      this.snackBar.open('Invitation resent successfully', 'OK', {
+        duration: 2000,
+        });
+
+    })
+    
   }
 }

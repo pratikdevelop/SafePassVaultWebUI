@@ -126,6 +126,8 @@ export class AuthService {
       .post(`${this.apiUrl}/logout`, {}, { headers }) // Some APIs might require an empty payload for logout
       .pipe(
         map((response) => {
+          // Handle successful logout response data
+          this._userProfileSubject.next(null);
           return response;
         }),
         catchError((error) => {
@@ -180,5 +182,17 @@ export class AuthService {
           return throwError(error);
           })
           );
+  }
+
+  resendInvitation(organizationId: string, recipientId: string): Observable<any>{
+    return this.http.post(`${this.apiUrl}/resend-invitation/${organizationId}/${recipientId}`, {}).pipe(
+      map((response) => {
+        return response;
+        }),
+        catchError((error) => {
+          return throwError(error);
+          })
+          
+    )
   }
 }

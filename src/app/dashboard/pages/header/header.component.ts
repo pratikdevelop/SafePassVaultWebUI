@@ -58,7 +58,9 @@ export class HeaderComponent implements OnInit {
   userProfile: any;
   ngOnInit(): void {
     this.authService.userProfile$.subscribe(user => {
-      this.userProfile = user;      
+      console.log('user', user);
+      
+      this.userProfile = user.user;      
       this.detectrRef.detectChanges()
     });
   }
@@ -68,8 +70,8 @@ export class HeaderComponent implements OnInit {
       .subscribe(
         () => {
           localStorage.removeItem('token');
-          this.snackbar.open('Logout successful', 'close'); // Assuming snackbar implementation
-          this.router.navigateByUrl('/'); // Assuming router implementation     
+          this.snackbar.open('Logout successful', 'close');
+          this.router.navigateByUrl('/'); 
         },
         error => {
           console.error('Error logging out:', error);
