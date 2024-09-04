@@ -36,13 +36,14 @@ export class NotesFormComponent {
 
   onSubmit() {
     if (this.noteForm.valid) {
-      if (this.data.note._id) {
+      if (this.data.note?._id) {
         this.noteService.updateNote(this.data.note._id, this.noteForm.value).subscribe((response:any)=>{
-          this.dialogRef.close()
+          this.dialogRef.close(true)
         })
       } else {
         this.noteService.createNote(this.noteForm.value).subscribe((response: any) => {
           console.log('Note created', response);
+          this.dialogRef.close(true)
         });
 
       }

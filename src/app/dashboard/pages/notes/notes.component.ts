@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import {  MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,25 +14,17 @@ import { CommonModule } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-notes',
   standalone: true,
-  imports: [MatTableModule, MatSortModule,MatFormFieldModule, MatInputModule,  MatButtonModule, MatIconModule, MatMenuModule, MatCheckboxModule, MatDialogModule, MatChipsModule, CommonModule],
+  imports: [MatTableModule, MatSortModule,MatFormFieldModule, ReactiveFormsModule, FormsModule, MatInputModule,  MatButtonModule, MatIconModule, MatMenuModule, MatCheckboxModule, MatDialogModule, MatChipsModule, CommonModule],
   templateUrl: './notes.component.html',
   styleUrl: './notes.component.css'
 })
-export class NotesComponent {
-performAction(arg0: string) {
-throw new Error('Method not implemented.');
-}
-setFilter(arg0: string) {
-throw new Error('Method not implemented.');
-}
-
-
-
+export class NotesComponent implements OnInit {
   notes: any[] = []; // Use a Subject to manage password updates
   passwordIds= [];
   changedetect = inject(ChangeDetectorRef);
@@ -52,15 +44,19 @@ throw new Error('Method not implemented.');
   isLoading: boolean = true;
   filterValue: string = ''; // Add filterValue property
   selection = new SelectionModel<any>(true, []);
-  constructor() {
-   this.getNotes();
+  searchTerm: any;
+  constructor() {}
+  ngOnInit(): void {
+    this.getNotes();
   }
-
   getNotes(): void {
     this.isLoading = true;
-    this.noteService.getNotes().subscribe((notes: any[]) => {
+    this.noteService.getNotes(this.searchTerm).subscribe((response: any) => {
       this.isLoading = false;
-      this.notes = notes;
+      console.log('ff', response);
+
+      
+      this.notes = response.data;
       this.changedetect.detectChanges();
     }, error => {
       this.notes = [];
@@ -70,10 +66,13 @@ throw new Error('Method not implemented.');
 
   }
 
-  delete(id: string): void {
+  deleteNotes(id?: string): void {
+    const ids = id ??  this.selection.selected.map((note)=>{
+      return note._id
+     }).join(',');
     // Delete password using an observable
     this.noteService
-      .deleteNote(id)
+      .deleteNote(ids)
       .pipe(
         tap(() => {
           this.getNotes();
@@ -94,20 +93,37 @@ throw new Error('Method not implemented.');
     return item?._id; // assuming your Password object has an 'id' property
   }
 
-  sharePassword(passwordId: string) {
-    // this.noteService.sharePassword(passwordId)
-    //   .subscribe(
-    //     (response) => {
-
-    //     },
-    //     (error) => {
-    //       console.error('Error generating share link:', error);
-    //     }
-    //   );
-
+  updateFavourites(noteId?: string): void {
+    const ids = noteId ??  this.selection.selected.map((pass)=>{
+      return pass._id
+     }).join(',');
+    console.log('id', ids);
+    
+    this.noteService.addToFavorites(ids).subscribe(
+      (response) => {
+        console.log('Password added to favorites successfully', response);
+        this.getNotes();
+        // Handle success, e.g., update UI
+      },
+      (error) => {
+        console.error('Error adding password to favorites', error);
+        // Handle error, e.g., display error message
+      }
+    );
   }
 
-
+  exportPassword(): void {
+    const ids = this.selection.selected.map((pass)=>{
+      return pass._id
+     }).join(',');
+    this.noteService.exportNotesAsCsv(ids).subscribe((blob: Blob)=>{
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'passwords.csv';
+      a.click();
+    })
+  }
   openPasswordFormDialog(note: any): void {
     this.dialog.open(NotesFormComponent, {
       width: '2000px',
@@ -140,31 +156,22 @@ throw new Error('Method not implemented.');
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row._id + 1}`;
   }
 
-  updateFavourites(passwordId: string): void {
-      // this.noteService.(passwordId)
-      // .subscribe(
-      //   (response) => {
-      //     console.log('Password added to favorites successfully', response);
-      //     this.getNotes();
-      //     // Handle success, e.g., update UI
-      //   },
-      //   (error) => {
-      //     console.error('Error adding password to favorites', error);
-      //     // Handle error, e.g., display error message
-      //   }
-      // );
-  }
-
   viewPassword(note: any): void {
     this.dialog.open(ViewNoteCompoent, {
       data: {note}
     })    
   }
   openNotesDialog(note: any): void {
-    this.dialog.open(NotesFormComponent, {
+  const dialogRef =  this.dialog.open(NotesFormComponent, {
       data: {note},
       width: '400px'
       })
+      
+  dialogRef.afterClosed().subscribe((res:any)=>{
+    if(res){
+      this.getNotes();
+      }
+  })
   }
 
 }

@@ -128,15 +128,6 @@ export class PasswordService {
     return this.http.post<any>(`${environment.api_url}/tags/tag`, payload);
   }
 
-  createNote(note: any): Observable<any> {
-    return this.http.post(this.apiUrl, note);
-  }
-  createIdProof(idProof: any): Observable<any> {
-    return this.http.post(this.apiUrl, idProof);
-  }
-  createCreditCard(creditCard: any): Observable<any> {
-    return this.http.post(this.apiUrl, creditCard);
-  }
   exportPasswordsAsCsv(ids: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/export?ids=${ids}`, { responseType: 'blob' });
   }

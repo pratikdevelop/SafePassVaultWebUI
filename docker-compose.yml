@@ -4,8 +4,8 @@ services:
   angular-app:
     build: .
     ports:
-      - "80:80"
+      - "4800:80"  # Maps host port 4800 to container port 80
     volumes:
       - .:/app
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development  # Make sure to use the correct environment if needed

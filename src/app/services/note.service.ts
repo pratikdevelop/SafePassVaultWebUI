@@ -20,8 +20,8 @@ export class NoteService {
   }
 
   // Get all note cards
-  getNotes(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl)
+  getNotes(searchTerm?: any): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}?search=${searchTerm}`)
       .pipe(catchError(this.handleError));
   }
 
@@ -43,10 +43,26 @@ export class NoteService {
       .pipe(catchError(this.handleError));
   }
 
-  
   // Error handling
   private handleError(error: any) {
     console.error('An error occurred:', error);
     return throwError('Something bad happened; please try again later.');
+  }
+
+  sharePassword(passwordId: string): Observable<{ shareLink: string }> {
+    return this.http.post<{ shareLink: string }>(`${this.apiUrl}/share/${passwordId}`,{})
+      .pipe(
+        catchError((error: any) => {
+          console.error('Error generating share link:', error);
+          throw error; // Re-throw the error to prevent silent failures
+        })
+      );
+  }
+
+  exportNotesAsCsv(ids: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/export?ids=${ids}`, { responseType: 'blob' });
+  }
+  addToFavorites(noteId: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/note/${noteId}/favorite`, {}); // Assuming no additional data is sent in the request body
   }
 }

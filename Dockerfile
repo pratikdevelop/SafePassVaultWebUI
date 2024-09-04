@@ -21,6 +21,8 @@ COPY --from=builder /app/dist/password-app/browser /usr/share/nginx/html
 # Copy the custom nginx configuration file
 COPY nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 80
+# Expose port 4800 instead of 80
+EXPOSE 4800
 
+# Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
