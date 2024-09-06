@@ -4,7 +4,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { OrganizationService } from '../../../services/organization.service';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-organization',
@@ -20,11 +20,13 @@ export class OrganizationComponent {
     organization_description: new FormControl('')
   })
   organizatioonService = inject(OrganizationService);
+  dialogRef = inject(MatDialogRef)
 
   addOrganization(): void {
     const {organization_name,organization_description } = this.organizationForm.value;
     this.organizatioonService.createOrganization(organization_name, organization_description).subscribe((res)=>{
       console.log("res", res);
+      this.dialogRef.close(true)
       
     })
   }

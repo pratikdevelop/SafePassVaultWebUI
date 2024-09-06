@@ -9,7 +9,7 @@
   <div class="menu-content flex flex-col lg:flex-row lg:space-x-4 lg:justify-end w-full lg:w-auto">
     <ng-container *ngIf="token">
       <span class="flex items-center space-x-4 ml-auto">
-        <a mat-raised-button class="menu-item" *ngIf="userProfile && userProfile?.role === 'admin'" routerLink="/admin">
+        <a mat-raised-button class="menu-item" *ngIf="userProfile && userProfile?.role === 'admin'" routerLink="/admin/users">
           <mat-icon>admin_panel_settings</mat-icon>
           Administration
         </a>

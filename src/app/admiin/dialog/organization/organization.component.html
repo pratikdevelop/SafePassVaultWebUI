@@ -3,7 +3,6 @@
   <form
     [formGroup]="organizationForm"
     class="flex flex-col space-y-10"
-    (submit)="addOrganization()"
   >
     <mat-form-field appearance="fill">
       <mat-label>Organization Name</mat-label>
@@ -23,9 +22,10 @@
   <button mat-button mat-dialog-close>Cancel</button>
 
   <button
-    mat-raised-button
+    mat-flat-button
     color="primary"
-    type="submit"
+    type="button"
+    (click)="addOrganization()"
     [disabled]="!organizationForm.valid"
   >
     Create Organization

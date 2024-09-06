@@ -60,7 +60,7 @@ export class HeaderComponent implements OnInit {
     this.authService.userProfile$.subscribe(user => {
       console.log('user', user);
       
-      this.userProfile = user.user;      
+      this.userProfile = user?.user;      
       this.detectrRef.detectChanges()
     });
   }

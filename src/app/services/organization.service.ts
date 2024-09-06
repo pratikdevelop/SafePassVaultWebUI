@@ -12,7 +12,7 @@ export class OrganizationService {
   constructor(private http: HttpClient) { }
 
   createOrganization(name: any, description: any) {
-    return this.http.post(`${this.apiUrl}/auth/organizations`, { name, description });
+    return this.http.post(`${this.apiUrl}/auth/organization`, { name, description });
   }
 
   getOrganizations() {
