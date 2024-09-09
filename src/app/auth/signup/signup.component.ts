@@ -31,6 +31,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxStripeModule, StripeService } from 'ngx-stripe';
 import { loadStripe, Stripe, StripeCardElement, StripeElements } from '@stripe/stripe-js';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-signup',
@@ -86,22 +87,19 @@ export class SignupComponent {
     state: new FormControl('', Validators.required),
     postalCode: new FormControl('', Validators.required),
     country: new FormControl('', Validators.required),
-
   });
 
   value = 0;
   paymentForm = new FormGroup({
     planType: new FormControl(''),
     planId: new FormControl(''),
-    numberOfUsers: new FormControl(1)
+    numberOfUsers: new FormControl(1),
   });
 
-  // Initialize OTP Form
   OTPForm = new FormGroup({
     confirmationCode: new FormControl('', Validators.required),
   });
 
-  // Initialize Security Questions Form
   securityForm = new FormGroup({
     securityQuestion1: new FormControl(''),
     securityAnswer1: new FormControl(''),
@@ -122,7 +120,7 @@ export class SignupComponent {
 
   async integrateStripe(): Promise<void> {
     try {
-      this.stripe = await loadStripe('pk_test_51PrEnfAE6VGXmCKJI927mwY0Ws03UDVaV19lG0UwrRG70re2SyIqxgKEsYfjsNFXnfKsVIemRpeCFDKkT3hroeCh001ivYn2hO');
+      this.stripe = await loadStripe(environment.stripe_api_key);
       this.elements = this.stripe?.elements();
       this.cardElement = this.elements!.create('card');
       this.cardElement.mount('#card-element');
@@ -147,7 +145,6 @@ export class SignupComponent {
       this.isPaidPlan = params['plan'] && params.plan !== 'free';
       this.paymentForm.get('planType')?.setValue(params.plan);
 
-      // Assuming planId is part of the query params
       const planId = params['planId'];
       if (planId) {
         this.paymentForm.get('planId')?.setValue(planId);
@@ -175,12 +172,10 @@ export class SignupComponent {
 
       if (tokenResult.error) {
         console.error(tokenResult.error.message);
-        // Handle error (show error message to user, etc.)
         this.snackbar.open('Error creating payment token. Please try again.', 'close', { duration: 3000 });
       } else {
         const token = tokenResult.token;
         console.log('Token created successfully:', token);
-        // Send the token to your backend
         this.sendTokenToBackend(token.id);
       }
     } else {
@@ -194,28 +189,40 @@ export class SignupComponent {
       ...this.billingForm.value,
       ...this.paymentForm.value,
       token,
-      planId: this.route.snapshot.queryParams['planId'] // Add planId here
+      planId: this.route.snapshot.queryParams['planId'], 
     };
 
     this.authService.signup(userDetails).subscribe(
-      (response: any) => {
-        this.snackbar.open('User registered. A confirmation email has been sent.', 'close', {
-          duration: 3000,
-        });
-        localStorage.setItem('email', this.signupForm.value.email)
-        this.router.navigateByUrl('/auth/email-confirmation'); // Redirect after successful signup
+      async (response: any) => {
+        if (response.requiresAction && response.clientSecret) {
+          // Handle 3D Secure or any further payment authentication
+          await this.handle3DSecure(response.clientSecret);
+        } else {
+          this.snackbar.open('User registered. A confirmation email has been sent.', 'close', { duration: 3000 });
+          localStorage.setItem('email', this.signupForm.value.email);
+          this.router.navigateByUrl('/auth/email-confirmation');
+        }
       },
       (error) => {
         console.error('Error during signup:', error);
-        this.snackbar.open(
-          'An error occurred during signup. Please try again.',
-          'close',
-          {
-            duration: 3000,
-          }
-        );
+        this.snackbar.open('An error occurred during signup. Please try again.', 'close', { duration: 3000 });
       }
     );
+  }
+
+  async handle3DSecure(clientSecret: string): Promise<void> {
+    const { error, paymentIntent } = await this.stripe!.confirmCardPayment(clientSecret);
+    
+    if (error) {
+      console.error('3D Secure authentication failed:', error.message);
+      this.snackbar.open('Payment authentication failed. Please try again.', 'close', { duration: 3000 });
+    } else if (paymentIntent && paymentIntent.status === 'succeeded') {
+      console.log('Payment succeeded!');
+      this.snackbar.open('Payment and signup completed successfully.', 'close', { duration: 3000 });
+      this.router.navigateByUrl('/auth/email-confirmation');
+    } else {
+      console.log('Payment failed or requires additional action.');
+    }
   }
 
   onSubmit() {
@@ -225,9 +232,9 @@ export class SignupComponent {
       (!this.isPaidPlan || this.paymentForm.valid)
     ) {
       if (this.isPaidPlan && this.route.snapshot.queryParams['action'] === 'purchase') {
-        this.createToken(); // Create token and send it to backend
+        this.createToken(); 
       } else if (this.route.snapshot.queryParams['action'] === 'trial') {
-        this.handleTrialSignup(); // Handle trial signup
+        this.handleTrialSignup(); 
       }
     }
   }
@@ -242,8 +249,6 @@ export class SignupComponent {
       return null;
     }
 
-    // Define your password validation logic here
-    // For example, check if password length is at least 8 characters
     const isValid = password.length >= 8;
     return isValid ? null : { invalidPassword: true };
   }
@@ -251,12 +256,10 @@ export class SignupComponent {
   getPasswordStrength(): number {
     return this.value;
   }
-  
+
   generatePassword(): void {
     const passwords = Array(10)
-      .fill(
-        '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@-#$'
-      )
+      .fill('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@-#$')
       .map(function (x) {
         return x[Math.floor(Math.random() * x.length)];
       })
@@ -282,10 +285,11 @@ export class SignupComponent {
         return '';
     }
   }
+
   calculatePrice(): number {
-    // Implement your pricing logic here based on numUsers
-    const basePrice = 10; // Example base price
-    const users = this.paymentForm.value?.numberOfUsers ?? 1
-    return basePrice * users
+    const basePrice = 10; 
+    const users = this.paymentForm.value?.numberOfUsers ?? 1;
+    return basePrice * users;
   }
 }
+
