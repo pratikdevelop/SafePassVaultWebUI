@@ -217,7 +217,8 @@ export class SignupComponent {
     ) {
       if (this.isPaidPlan && this.route.snapshot.queryParams['action'] === 'purchase') {
         this.getPayment(); 
-      } else if (this.route.snapshot.queryParams['action'] === 'trial') {
+      } else if (this.route.snapshot.queryParams['action'] === 'trial'  || !this.route.snapshot.queryParams['action']) {
+
         this.createUser();
       }
     }

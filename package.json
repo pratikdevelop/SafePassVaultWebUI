@@ -57,6 +57,7 @@
     "@angular/router": "^18.0.0",
     "@preline/strong-password": "^2.3.0",
     "@stripe/stripe-js": "^4.4.0",
+    "angular-uploader": "^8.41.1",
     "axios": "^1.7.2",
     "check-password-strength": "^2.0.10",
     "crypto-js": "^4.2.0",

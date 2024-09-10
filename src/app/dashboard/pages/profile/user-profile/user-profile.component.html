@@ -2,8 +2,8 @@
   <span class="font-bold text-3xl text-accent">Personal Information</span>
   <button mat-flat-button class="" (click)="editProfile()">Edit Profile</button>
 </nav>
-<div id="profile" class="flex flex-col sm:flex-row sm:items-center sm:justify-between w-full p-8 bg-card rounded-lg shadow-xl transition-transform transform">
-  <div class="flex flex-col mb-4 sm:mr-4  order-2  sm:order-none">
+<div id="profile" class="flex flex-col sm:flex-row sm:items-center sm:justify-between  p-8 bg-card mx-20 rounded-lg shadow-xl transition-transform transform">
+  <div class="flex flex-col mb-4 sm:mr-4 order-2 sm:order-none">
     <h2 class="text-2xl font-bold text-accent uppercase">{{user?.name}}</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
       <div>
@@ -48,14 +48,14 @@
       </div>
       <div>
         <h6 class="font-semibold text-muted">Plan:</h6>
-        <p class="text-primary">{{plan?.product.name}}</p>
+        <p class="text-primary">{{plan?.product.name || 'Free'}}</p>
       </div>
       <div>
         <h6 class="font-semibold text-muted">Plan Amount:</h6>
-        <p class="text-primary">{{plan?.plan.amount}} {{plan?.plan.currency}}</p>
+        <p class="text-primary">{{plan?.plan.amount || '0'}} {{plan?.plan.currency || "USD"}}</p>
       </div>
-      <div>
-        <h6 class="font-semibold text-muted">Trial End Date:</h6>
+      <div *ngIf="user?.trialEndDate">
+        <h6 class="font-semibold text-muted" >Trial End Date:</h6>
         <p class="text-primary">{{user?.trialEndDate | date:"short"}}</p>
       </div>
       <div>
@@ -64,14 +64,15 @@
       </div>
     </div>
   </div>
-  <div class="relative flex justify-center mb-4 sm:mr-4  order-1 sm:order-none">
+  <div class="relative flex flex-col mb-4 sm:mr-4 gap-y-10">
     <img
       src="https://placehold.co/150"
       alt="Profile Picture"
-      class="rounded-full relative w-28 h-28 order-1 sm:order-none sm:w-36 sm:h-36 border-4 border-accent shadow-lg transition-transform transform hover:scale-110 mt-4 lg:mt-0"
+      class="rounded-full max-h-80 w-80 border-4 border-accent shadow-lg  mt-4 lg:mt-0"
     />
-    <button mat-icon-button class="absolute inset-y-1/2" (click)="editImage()">
-      <mat-icon>edit</mat-icon>
+    <button mat-flat-button type="button" class="absolute bottom-0" (click)="onUpload()">
+      Upload photo
     </button>
   </div>
+  
 </div>
