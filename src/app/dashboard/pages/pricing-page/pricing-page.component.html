@@ -22,11 +22,11 @@
               <button mat-flat-button (click)="navigateToPlan(plan.buttonLink, plan.queryParams, plan.id)">
                 {{plan.buttonText}}
               </button>
-              <button *ngIf="plan.hasTrial" mat-stroked-button (click)="navigateToTrial(plan.trialLink, plan.trialQueryParams, plan.id)">
+              <button *ngIf="plan.hasTrial" mat-stroked-button (click)="navigateToTrial(plan.buttonLink, plan.trialQueryParams, plan.id)">
                 Start 7-Day Trial
               </button>
             </div>
-                      </div>
+          </div>
           
       </div>
 

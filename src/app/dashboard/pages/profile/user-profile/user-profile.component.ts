@@ -4,17 +4,20 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthService } from '../../../../services/auth.service';
 import { tap } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [MatButtonModule, MatSnackBarModule, CommonModule,],
+  imports: [MatButtonModule, MatSnackBarModule, CommonModule,MatIconModule, MatDialogModule],
   templateUrl: './user-profile.component.html',
 })
 export class UserProfileComponent {
-  authService = inject(AuthService)
-  snackBar = inject(MatSnackBar);
-  detectorRef = inject(ChangeDetectorRef)
+  readonly authService = inject(AuthService)
+  readonly snackBar = inject(MatSnackBar);
+  readonly detectorRef = inject(ChangeDetectorRef)
+  readonly matDialog = inject(MatDialog)
   user: any;
   plan: any;
   ngOnInit(): void {
@@ -38,4 +41,7 @@ export class UserProfileComponent {
   }
 
   editProfile(): void { }
+
+  editImage() {
+    }
 }

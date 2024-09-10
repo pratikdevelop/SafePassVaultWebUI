@@ -1,0 +1,28 @@
+<div class="max-w-md mx-auto p-4 mt-10 bg-white rounded-lg shadow-md">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-lg font-bold">Card Details</h2>
+      <button mat-icon-button  mat-dialog-close="true">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="divide-y divide-gray-200">
+      <div class="py-4">
+        <p class="text-gray-600">Card Type: {{ card.cardType }}</p>
+      </div>
+      <div class="py-4">
+        <p class="text-gray-600">Card Number: {{ card.cardNumber }}</p>
+      </div>
+      <div class="py-4">
+        <p class="text-gray-600">Card Holder Name: {{ card.cardHolderName }}</p>
+      </div>
+      <div class="py-4">
+        <p class="text-gray-600">Expiry Date: {{ card.expiryDate | date }}</p>
+      </div>
+      <div class="py-4">
+        <p class="text-gray-600">CVV: {{ card.CVV }}</p>
+      </div>
+      <div class="py-4">
+        <p class="text-gray-600">Billing Address: {{ card.billingAddress }}</p>
+      </div>
+    </div>
+  </div>

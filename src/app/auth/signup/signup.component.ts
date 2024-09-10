@@ -30,8 +30,9 @@ import { SecurityQuestionService } from '../../services/security-question.servic
 import { MatSliderModule } from '@angular/material/slider';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxStripeModule, StripeService } from 'ngx-stripe';
-import { loadStripe, Stripe, StripeCardElement, StripeElements } from '@stripe/stripe-js';
+import { loadStripe, Stripe, StripeCardElement, StripeElements, Token } from '@stripe/stripe-js';
 import { environment } from '../../../environments/environment';
+import { PlanService } from '../../services/plan.service';
 
 @Component({
   selector: 'app-signup',
@@ -61,12 +62,14 @@ import { environment } from '../../../environments/environment';
 })
 export class SignupComponent {
   isPaidPlan: boolean = false;
-  snackbar = inject(MatSnackBar);
-  router = inject(Router);
-  route = inject(ActivatedRoute);
-  authService = inject(AuthService);
-  securityQuestionService = inject(SecurityQuestionService);
-  stripeService = inject(StripeService);
+  readonly snackbar = inject(MatSnackBar);
+  readonly router = inject(Router);
+  readonly route = inject(ActivatedRoute);
+  readonly authService = inject(AuthService);
+  readonly securityQuestionService = inject(SecurityQuestionService);
+  readonly stripeService = inject(StripeService);
+  readonly planService = inject(PlanService);
+  token!: Token;
 
   signupForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -94,6 +97,7 @@ export class SignupComponent {
     planType: new FormControl(''),
     planId: new FormControl(''),
     numberOfUsers: new FormControl(1),
+    plan_action: new FormControl(''),
   });
 
   OTPForm = new FormGroup({
@@ -122,6 +126,7 @@ export class SignupComponent {
     try {
       this.stripe = await loadStripe(environment.stripe_api_key);
       this.elements = this.stripe?.elements();
+  
       this.cardElement = this.elements!.create('card');
       this.cardElement.mount('#card-element');
     } catch (error) {
@@ -149,21 +154,8 @@ export class SignupComponent {
       if (planId) {
         this.paymentForm.get('planId')?.setValue(planId);
       }
-
-      if (params.action === 'trial') {
-        this.handleTrialSignup();
-      } else if (params.action === 'purchase') {
-        this.handlePurchaseSignup();
-      }
+      this.paymentForm.get('plan_action')?.setValue(params.action)
     });
-  }
-
-  handleTrialSignup(): void {
-    console.log('User is signing up for a trial.');
-  }
-
-  handlePurchaseSignup(): void {
-    console.log('User is signing up for a paid plan.');
   }
 
   async createToken(): Promise<void> {
@@ -174,33 +166,25 @@ export class SignupComponent {
         console.error(tokenResult.error.message);
         this.snackbar.open('Error creating payment token. Please try again.', 'close', { duration: 3000 });
       } else {
-        const token = tokenResult.token;
-        console.log('Token created successfully:', token);
-        this.sendTokenToBackend(token.id);
+        this.token = tokenResult.token;
       }
     } else {
       console.error('Stripe or form is not valid');
     }
   }
-
-  sendTokenToBackend(token: string): void {
-    const userDetails = {
-      ...this.signupForm.value,
-      ...this.billingForm.value,
-      ...this.paymentForm.value,
-      token,
+  getPayment(): void {
+    const planDetails = {
+      token: this.token,
       planId: this.route.snapshot.queryParams['planId'], 
     };
 
-    this.authService.signup(userDetails).subscribe(
+    this.planService.createPlan(planDetails).subscribe(
       async (response: any) => {
         if (response.requiresAction && response.clientSecret) {
           // Handle 3D Secure or any further payment authentication
           await this.handle3DSecure(response.clientSecret);
         } else {
-          this.snackbar.open('User registered. A confirmation email has been sent.', 'close', { duration: 3000 });
-          localStorage.setItem('email', this.signupForm.value.email);
-          this.router.navigateByUrl('/auth/email-confirmation');
+         
         }
       },
       (error) => {
@@ -232,12 +216,13 @@ export class SignupComponent {
       (!this.isPaidPlan || this.paymentForm.valid)
     ) {
       if (this.isPaidPlan && this.route.snapshot.queryParams['action'] === 'purchase') {
-        this.createToken(); 
+        this.getPayment(); 
       } else if (this.route.snapshot.queryParams['action'] === 'trial') {
-        this.handleTrialSignup(); 
+        this.createUser();
       }
     }
   }
+
 
   onUserCountChange(event: any): void {
     this.paymentForm.controls.numberOfUsers.setValue(event.target.value);
@@ -290,6 +275,27 @@ export class SignupComponent {
     const basePrice = 10; 
     const users = this.paymentForm.value?.numberOfUsers ?? 1;
     return basePrice * users;
+  }
+
+  createUser(): void {
+    const userDetails = {
+      ...this.signupForm.value,
+      ...this.billingForm.value,
+      ...this.paymentForm.value,
+      ... this.token
+    }
+    this.authService.signup(userDetails).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.snackbar.open('User registered. A confirmation email has been sent.', 'close', { duration: 3000 });
+        localStorage.setItem('email', this.signupForm.value.email);
+        this.router.navigateByUrl('/auth/email-confirmation');
+        },
+        error: (error) => {
+          console.error(error);
+          }
+
+    })
   }
 }
 

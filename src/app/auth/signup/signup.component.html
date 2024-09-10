@@ -71,6 +71,9 @@
               formControlName="phone"
               required
             />
+            <mat-hint>
+              Please enter a valid 10-digit phone number
+            </mat-hint>
             <mat-error
               *ngIf="
                 signupForm.get('phone')?.hasError('required') &&
@@ -127,6 +130,9 @@
               Password is required
             </mat-error>
           </mat-form-field>
+          <mat-hint>
+            Password must be contain numbers, alphabets and special charactes 
+          </mat-hint>
 
           <div class="flex flex-col">
             <mat-progress-bar
@@ -150,7 +156,7 @@
           </span>
 
           <div>
-            <button mat-button matStepperNext>Next</button>
+            <button mat-flat-button matStepperNext>Next</button>
           </div>
         </form>
       </mat-step>
@@ -246,8 +252,8 @@
           </mat-form-field>
 
           <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
+            <button mat-flat-button matStepperPrevious>Back</button>
+            <button mat-flat-button matStepperNext>Next</button>
           </div>
         </form>
       </mat-step>
@@ -261,7 +267,7 @@
           <div id="card-element" class="w-full">
 
           </div>
-  <div *ngIf="paymentForm.value.planType === 'teams'">
+        <div *ngIf="paymentForm.value.planType === 'teams'">
             <mat-slider
               min="1"
               max="100"
@@ -273,7 +279,6 @@
               <input
                 matSliderThumb
                 formControlName="numberOfUsers"
-                [(ngModel)]="value"
                 #slider
               />
             </mat-slider>
@@ -283,8 +288,8 @@
 
 
           <div>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext (click)="createToken()">Next</button>
+            <button mat-flat-button matStepperPrevious>Back</button>
+            <button mat-flat-button matStepperNext (click)="createToken()">Next</button>
           </div>
         </form>
       </mat-step>
@@ -313,8 +318,8 @@
         </div>
 
         <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button (click)="onSubmit()">Submit</button>
+          <button mat-flat-button matStepperPrevious>Back</button>
+          <button mat-flat-button (click)="onSubmit()">Submit</button>
         </div>
       </mat-step>
     </mat-stepper>

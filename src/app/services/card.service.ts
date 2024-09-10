@@ -43,6 +43,13 @@ export class CardService {
       .pipe(catchError(this.handleError));
   }
 
+  exportCardsASCsv(ids: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/export?ids=${ids}`, { responseType: 'blob' });
+  }
+  addToFavorites(cardIds: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/card/${cardIds}/favorite`, {}); // Assuming no additional data is sent in the request body
+  }
+
   // Error handling
   private handleError(error: any) {
     console.error('An error occurred:', error);

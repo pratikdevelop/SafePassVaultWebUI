@@ -2,7 +2,7 @@
   <span class="font-bold text-3xl text-accent">Personal Information</span>
   <button mat-flat-button class="" (click)="editProfile()">Edit Profile</button>
 </nav>
-<div id="profile" class="relative flex flex-col sm:flex-row sm:items-center sm:justify-between w-full p-8 bg-card rounded-lg shadow-xl transition-transform transform">
+<div id="profile" class="flex flex-col sm:flex-row sm:items-center sm:justify-between w-full p-8 bg-card rounded-lg shadow-xl transition-transform transform">
   <div class="flex flex-col mb-4 sm:mr-4  order-2  sm:order-none">
     <h2 class="text-2xl font-bold text-accent uppercase">{{user?.name}}</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
@@ -20,7 +20,7 @@
       </div>
       <div>
         <h6 class="font-semibold text-muted">Created at:</h6>
-        <p class="text-primary">{{user?.createdAt |date:"short"}}</p>
+        <p class="text-primary">{{user?.createdAt | date:"short"}}</p>
       </div>
       <div>
         <h6 class="font-semibold text-muted">Billing Address:</h6>
@@ -42,27 +42,36 @@
         <h6 class="font-semibold text-muted">Country:</h6>
         <p class="text-primary">{{user?.country}}</p>
       </div>
-      <!-- <div>
-        <h6 class="font-semibold text-muted">Payment Method:</h6>
-        <p class="text-primary"></p>
+      <div>
+        <h6 class="font-semibold text-muted">Organization:</h6>
+        <p class="text-primary">{{user?.organization[0].name}}</p>
       </div>
       <div>
-        <h6 class="font-semibold text-muted">Card Number:</h6>
-        <p class="text-primary">**** **** **** 1234</p>
+        <h6 class="font-semibold text-muted">Plan:</h6>
+        <p class="text-primary">{{plan?.product.name}}</p>
       </div>
       <div>
-        <h6 class="font-semibold text-muted">Expiry Date:</h6>
-        <p class="text-primary">12/24</p>
+        <h6 class="font-semibold text-muted">Plan Amount:</h6>
+        <p class="text-primary">{{plan?.plan.amount}} {{plan?.plan.currency}}</p>
       </div>
       <div>
-        <h6 class="font-semibold text-muted">CVV:</h6>
-        <p class="text-primary">123</p>
-      </div> -->
+        <h6 class="font-semibold text-muted">Trial End Date:</h6>
+        <p class="text-primary">{{user?.trialEndDate | date:"short"}}</p>
+      </div>
+      <div>
+        <h6 class="font-semibold text-muted">MFA Status:</h6>
+        <p class="text-primary">{{user?.mfaEnabled ? 'Enabled' : 'Disabled'}}</p>
+      </div>
     </div>
   </div>
-  <img
-    src="https://placehold.co/150"
-    alt="Profile Picture"
-    class="rounded-full  w-28 h-28 order-1 sm:order-none sm:w-36 sm:h-36 border-4 border-accent shadow-lg transition-transform transform hover:scale-110 mt-4 lg:mt-0"
-  />
+  <div class="relative flex justify-center mb-4 sm:mr-4  order-1 sm:order-none">
+    <img
+      src="https://placehold.co/150"
+      alt="Profile Picture"
+      class="rounded-full relative w-28 h-28 order-1 sm:order-none sm:w-36 sm:h-36 border-4 border-accent shadow-lg transition-transform transform hover:scale-110 mt-4 lg:mt-0"
+    />
+    <button mat-icon-button class="absolute inset-y-1/2" (click)="editImage()">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </div>
 </div>

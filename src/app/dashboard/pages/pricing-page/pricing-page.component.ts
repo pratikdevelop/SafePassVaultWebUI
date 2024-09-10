@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { Router, RouterModule } from '@angular/router';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { AuthService } from '../../../services/auth.service';
+import { PlanService } from '../../../services/plan.service';
 
 @Component({
   selector: 'app-pricing-page',
@@ -29,14 +29,13 @@ export class PricingPageComponent implements OnInit {
   planTypes: any[] = [];
   detectorRef = inject(ChangeDetectorRef);
   router = inject(Router)
-  service = inject(AuthService);
+  service = inject(PlanService);
   selectedInterval: string = 'month';
 
   ngOnInit(): void {
     this.planLoading = true;
-    this.service.getPlans().subscribe(
+    this.service.getStipePlans().subscribe(
       (plans) => {
-        console.log('plans', plans.plans);
 
         this.planTypes = plans.plans;
         this.planLoading = true;
@@ -53,12 +52,19 @@ export class PricingPageComponent implements OnInit {
 
   navigateToPlan(buttonLink: string, queryParams: any, planId: string): void {
     // Add the plan ID to the query parameters
+    console.log(buttonLink);
+    console.log(queryParams);
+    console.log(planId);
+    
     const updatedQueryParams = { ...queryParams, planId };
     this.router.navigate([buttonLink], { queryParams: updatedQueryParams });
   }
 
   navigateToTrial(trialLink: string, trialQueryParams: any, planId: string): void {
     // Add the plan ID to the query parameters
+    console.log(trialLink);
+    console.log(trialQueryParams);
+    console.log(planId);
     const updatedQueryParams = { ...trialQueryParams, planId };
     this.router.navigate([trialLink], { queryParams: updatedQueryParams });
   }
