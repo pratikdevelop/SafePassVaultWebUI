@@ -58,10 +58,9 @@
             [disabled]="loginForm.invalid || loading"
             (click)="onSubmit()"
           >
-          Login now 
-          <mat-icon *ngIf="loading"><mat-spinner diameter="20">
+          <mat-icon *ngIf="loading">
+          <mat-spinner diameter="20">
           </mat-spinner></mat-icon>
-         
             Login Now
           </button>
 

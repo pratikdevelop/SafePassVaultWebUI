@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -18,10 +18,11 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
   templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit {
-  snackbar = inject(MatSnackBar)
-  router = inject(Router)
-  route = inject(ActivatedRoute);
-  auth = inject(AuthService)
+  readonly snackbar = inject(MatSnackBar)
+  readonly router = inject(Router)
+  readonly route = inject(ActivatedRoute);
+  readonly changeDetectorRef = inject(ChangeDetectorRef)
+  readonly auth = inject(AuthService)
   hide = signal(true);
   loading = false;
   loginForm: FormGroup = new FormGroup({
@@ -59,7 +60,7 @@ export class LoginComponent implements OnInit {
     this.hide.set(!this.hide());
     event.stopPropagation();
   }
-  onSubmit() {
+  onSubmit(): void  {
     if (this.loginForm.valid) {
       this.loading = true;
       this.auth.login(this.loginForm.value).subscribe((response) => {
@@ -68,17 +69,23 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl(`/auth/mfa-verification?mfaMethod=${response.mfaMethod}&email=${this.loginForm.value.username}`)
 
         } else {
+          localStorage.setItem('token', response.token);
           this.auth.getProfile().subscribe((response)=>{
-            localStorage.setItem('token', response.token);
-            this.snackbar.open('Login successful', 'close'); // Assuming snackbar implementation
+            this.snackbar.open('Login successful', 'close', {
+              duration: 2000,
+            }); // Assuming snackbar implementation
             this.router.navigate(['/dashboard/passwords']);
           })
         }
         this.loading = false;
+        this.changeDetectorRef.detectChanges()
+      
        
       }, error => {
         this.loading = false;
         console.error('Error logging in:', error);
+        this.changeDetectorRef.detectChanges()
+
         this.snackbar.open('Login failed: ' + error.error.message, 'close');
 
       })

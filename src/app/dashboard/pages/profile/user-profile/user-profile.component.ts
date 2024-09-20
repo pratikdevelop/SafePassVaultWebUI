@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { NgOptimizedImage } from '@angular/common'
 import { EditProfileComponent } from './dailog/edit-profile/edit-profile.component';
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-user-profile',
   standalone: true,
@@ -20,13 +21,14 @@ import { EditProfileComponent } from './dailog/edit-profile/edit-profile.compone
   templateUrl: './user-profile.component.html',
 })
 export class UserProfileComponent {
-onUpload() {
-throw new Error('Method not implemented.');
-}
+  selectedImageUrl: any;
   readonly authService = inject(AuthService)
   readonly snackBar = inject(MatSnackBar);
   readonly detectorRef = inject(ChangeDetectorRef)
   readonly matDialog = inject(MatDialog)
+  readonly  sanitizer = inject(DomSanitizer)
+  selectedFile: File | null = null;
+
   user: any;
   plan: any;
   ngOnInit(): void {
@@ -61,4 +63,46 @@ throw new Error('Method not implemented.');
         }
     })
    }
+    // Handle file selection
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+
+      // Optional: Create a preview URL for the selected image
+      const objectUrl = URL.createObjectURL(file);
+      this.selectedImageUrl = this.sanitizer.bypassSecurityTrustUrl(objectUrl); // Safe preview URL
+
+      this.snackBar.open('File selected: ' + file.name, 'close', {
+        duration: 2000
+      });
+    }
+  }
+  onUpload(): void {
+    if (this.selectedFile) {
+      const formData = new FormData();
+      formData.append('image', this.selectedFile);
+
+      // Example: Upload the image to an API endpoint
+      // this.http.post('https://your-api-endpoint.com/upload', formData).subscribe(
+      //   (response) => {
+      //     this.snackbar.open('Image uploaded successfully', 'close', {
+      //       duration: 2000
+      //     });
+      //     // Optionally reset selected file and image preview
+      //     this.selectedFile = null;
+      //     this.selectedImageUrl = null;
+      //   },
+      //   (error) => {
+      //     this.snackbar.open('Image upload failed: ' + error.message, 'close', {
+      //       duration: 2000
+      //     });
+      //   }
+      // );
+    } else {
+      this.snackBar.open('Please select a file first', 'close', {
+        duration: 2000
+      });
+    }
+  }
 }

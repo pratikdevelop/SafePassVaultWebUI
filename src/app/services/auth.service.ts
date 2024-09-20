@@ -195,4 +195,8 @@ export class AuthService {
           
     )
   }
+
+  updatePRofile(profile: any) {
+    
+  }
 }
