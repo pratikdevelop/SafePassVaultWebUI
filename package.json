@@ -66,6 +66,7 @@
     "file-saver": "^2.0.5",
     "generate-password": "^1.7.1",
     "material-icons": "^1.13.12",
+    "ngx-paypal": "^11.0.0",
     "ngx-stripe": "^18.1.0",
     "preline": "^2.3.0",
     "random-words": "^2.0.1",

@@ -10,7 +10,7 @@
       <!-- Step 1: User Details -->
       <mat-step [stepControl]="signupForm">
         <form [formGroup]="signupForm" class="flex flex-col space-y-6">
-          <ng-template matStepLabel>Fill out your details</ng-template>
+          <ng-template matStepLabel>Personal Information </ng-template>
 
           <mat-form-field appearance="outline">
             <input
@@ -164,7 +164,7 @@
       <!-- Step 2: Billing Information -->
       <mat-step [stepControl]="billingForm">
         <form [formGroup]="billingForm" class="flex flex-col space-y-6">
-          <ng-template matStepLabel>Billing Information</ng-template>
+          <ng-template matStepLabel>address details</ng-template>
 
           <mat-form-field appearance="outline">
             <input
@@ -253,7 +253,7 @@
 
           <div>
             <button mat-flat-button matStepperPrevious>Back</button>
-            <button mat-flat-button matStepperNext>Next</button>
+            <button mat-flat-button matStepperNext (click)="onSubmit()">Next</button>
           </div>
         </form>
       </mat-step>
@@ -262,12 +262,12 @@
       <mat-step [stepControl]="paymentForm" *ngIf="isPaidPlan">
         <form [formGroup]="paymentForm" class="flex flex-col space-y-6">
           <ng-template matStepLabel>Payment Information</ng-template>
+      
+          <!-- PayPal Button -->
+          <ngx-paypal [config]="payPalConfig"></ngx-paypal>
 
-          <!-- Card Input -->
-          <div id="card-element" class="w-full">
-
-          </div>
-        <div *ngIf="paymentForm.value.planType === 'teams'">
+      
+          <!-- <div *ngIf="paymentForm.value.planType === 'teams'">
             <mat-slider
               min="1"
               max="100"
@@ -285,17 +285,16 @@
             <p>Number of Users: {{ paymentForm.value.numberOfUsers }}</p>
             <p>Price: {{ calculatePrice() | currency }}</p>
           </div>
-
-
+       -->
           <div>
             <button mat-flat-button matStepperPrevious>Back</button>
-            <button mat-flat-button matStepperNext (click)="createToken()">Next</button>
+            <button mat-flat-button [disabled]="!paymentForm.valid">Next</button>
           </div>
         </form>
       </mat-step>
-
+      
       <!-- Step 4: Confirmation -->
-      <mat-step>
+      <!-- <mat-step>
         <ng-template matStepLabel>Confirmation</ng-template>
         <p>Please confirm your details:</p>
         <div>
@@ -312,16 +311,13 @@
             <strong>Postal Code:</strong> {{ billingForm.value.postalCode }}
           </p>
           <p><strong>Country:</strong> {{ billingForm.value.country }}</p>
-          <!-- <p>
-            <strong>Card Number:</strong> {{ paymentForm.value.cardNumber }}
-          </p> -->
         </div>
 
         <div>
           <button mat-flat-button matStepperPrevious>Back</button>
           <button mat-flat-button (click)="onSubmit()">Submit</button>
         </div>
-      </mat-step>
+      </mat-step> -->
     </mat-stepper>
   </div>
 </div>
