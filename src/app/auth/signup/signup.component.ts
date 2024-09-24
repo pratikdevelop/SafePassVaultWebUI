@@ -5,6 +5,7 @@ import {
   signal,
 } from '@angular/core';
 import {
+  FormBuilder,
   FormControl,
   FormGroup,
   FormsModule,
@@ -14,30 +15,27 @@ import {
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { PlanService } from '../../services/plan.service';
+import { SecurityQuestionService } from '../../services/security-question.service';
+import zxcvbn from 'zxcvbn';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatStepperModule } from '@angular/material/stepper';
-import * as common from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
-import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import zxcvbn from 'zxcvbn';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { SecurityQuestionService } from '../../services/security-question.service';
-import { MatSliderModule } from '@angular/material/slider';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { NgxPayPalModule } from 'ngx-paypal';
+import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
+import { MatSliderModule } from '@angular/material/slider';
 import {
-    IPayPalConfig,
-    ICreateOrderRequest 
+  NgxPayPalModule,
+  IPayPalConfig,
+  ICreateOrderRequest,
 } from 'ngx-paypal';
-
-
-import {
-  Token
-} from '@stripe/stripe-js';
-import { PlanService } from '../../services/plan.service';
+import { Token } from '@stripe/stripe-js';
+import { CommonModule } from '@angular/common';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-signup',
@@ -48,19 +46,19 @@ import { PlanService } from '../../services/plan.service';
     MatSnackBarModule,
     RouterModule,
     MatButtonModule,
+    CommonModule,
     MatStepperModule,
-    MatFormFieldModule,
-    common.CommonModule,
-    MatSelectModule,
     MatOptionModule,
+    MatFormFieldModule,
+    MatSelectModule,
     MatInputModule,
     MatIconModule,
-    MatSelectModule,
+    MatProgressBarModule,
+    NgxPayPalModule,
+    HttpClientModule,
     MatSliderModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatProgressBarModule,
-    NgxPayPalModule
   ],
   templateUrl: './signup.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -71,9 +69,11 @@ export class SignupComponent {
   readonly router = inject(Router);
   readonly route = inject(ActivatedRoute);
   readonly authService = inject(AuthService);
-  readonly securityQuestionService = inject(SecurityQuestionService);
   readonly planService = inject(PlanService);
-  token!: Token;
+  readonly securityQuestionService = inject(SecurityQuestionService);
+  readonly http = inject(HttpClient);
+  readonly formBuilder = inject(FormBuilder);
+
   plan = [
     {
       id: 'null',
@@ -411,18 +411,19 @@ export class SignupComponent {
     },
   ];
 
-  signupForm: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    phone: new FormControl('', [
-      Validators.required,
-      Validators.pattern('[0-9]{10}'),
-    ]),
-    password: new FormControl('', [
-      Validators.required,
-      this.passwordValidator,
-    ]),
-  });
+  strength: number = 0;
+  value = 0;
+  hide = signal(true);
+  showSuccess = false;
+  showCancel = false;
+  showError = false;
+  userId!: string;
+  selectedPlan: any;
+
+  public payPalConfig?: IPayPalConfig;
+
+  // Form Controls
+  signupForm: FormGroup;
 
   billingForm = new FormGroup({
     billingAddress: new FormControl('', Validators.required),
@@ -432,7 +433,6 @@ export class SignupComponent {
     country: new FormControl('', Validators.required),
   });
 
-  value = 0;
   paymentForm = new FormGroup({
     planType: new FormControl(''),
     planId: new FormControl(''),
@@ -449,27 +449,27 @@ export class SignupComponent {
     securityQuestion2: new FormControl(''),
     securityAnswer2: new FormControl(''),
   });
-  public payPalConfig ? : IPayPalConfig;
-  hide = signal(true);
-  strength: number = 0;
-  expiryDateInvalid!: boolean;
-  selectedPlan: any;
-  showSuccess: boolean = false;
-  showCancel: boolean = false;
-  showError: boolean = false;
-
+  constructor() {
+    this.signupForm = this.formBuilder.group({
+      name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      phone: new FormControl('', [
+        Validators.required,
+        Validators.pattern('[0-9]{10}'),
+      ]),
+      password: new FormControl('', [
+        Validators.required,
+        this.passwordValidator.bind(this),
+      ]),
+    });
+  }
   clickEvent(event: MouseEvent) {
     this.hide.set(!this.hide());
     event.stopPropagation();
   }
 
   ngOnInit(): void {
-    this.signupForm.get('password')?.valueChanges.subscribe((password) => {
-      const result = zxcvbn(password);
-      this.strength = result.score;
-      this.value = (this.strength / 4) * 100;
-    });
-
+    this.initPasswordStrengthWatcher();
     this.route.queryParams.subscribe((params: any) => {
       this.isPaidPlan = params['plan'] && params.plan !== 'free';
       this.paymentForm.get('planType')?.setValue(params.plan);
@@ -477,129 +477,182 @@ export class SignupComponent {
       const planId = params['planId'];
       if (planId) {
         this.paymentForm.get('planId')?.setValue(planId);
-        this.selectPlan(planId)
+        this.selectPlan(planId);
       }
       this.paymentForm.get('plan_action')?.setValue(params.action);
-      this.initConfig();
     });
   }
+
   private initConfig(): void {
     this.payPalConfig = {
-        currency: 'USD',
+      currency: 'USD',
         clientId: 'AXBL_2Bz7P3ArXfpL-gwlNjeXwz38eiNCrvTfrUA5efGicHbISs-ZHAW7c3q7iNzwQAFxD3HQczoXIKA',
-        createOrderOnClient: (data) => < ICreateOrderRequest > {
-            intent: 'CAPTURE',
-            purchase_units: [{
-                amount: {
-                    currency_code: this.selectedPlan.currency,
-                    value: this.selectedPlan.amount,
-                    breakdown: {
-                        item_total: {
-                            currency_code: 'USD',
-                            value: this.selectedPlan.amount
-                        }
-                    }
-                },
-                items: [{
-                    name: this.selectedPlan.title,
-                    quantity: '1',
-                    category: 'DIGITAL_GOODS',
-                    unit_amount: {
-                        currency_code: 'USD',
-                        value: this.selectedPlan.amount,
-                    },
-                }]
-            }]
-        },
-        advanced: {
-            commit: 'true'
-        },
-        style: {
-            label: 'paypal',
-            layout: 'vertical'
-        },
-        onApprove: (data, actions) => {
-            console.log('onApprove - transaction was approved, but not authorized', data, actions);
-            actions.order.get().then((details: any) => {
-                console.log('onApprove - you can get full order details inside onApprove: ', details);
-            });
-
-        },
-        onClientAuthorization: (data) => {
-            console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
-            this.showSuccess = true;
-        },
-        onCancel: (data, actions) => {
-            console.log('OnCancel', data, actions);
-            this.showCancel = true;
-
-        },
-        onError: err => {
-            console.log('OnError', err);
-            this.showError = true;
-        },
-        onClick: (data, actions) => {
-            console.log('onClick', data, actions);
-            this.resetStatus();
-        }
+        createOrderOnClient: (data) => <ICreateOrderRequest> {
+        intent: 'CAPTURE',
+        purchase_units: [{
+          amount: {
+            currency_code: 'USD',
+            value: this.selectedPlan.amount,
+            breakdown: {
+              item_total: {
+                currency_code: 'USD',
+                value: this.selectedPlan.amount,
+              },
+            },
+          },
+          items: [{
+            name: this.selectedPlan.title,
+            quantity: '1',
+            category: 'DIGITAL_GOODS',
+            unit_amount: {
+              currency_code: 'USD',
+              value: this.selectedPlan.amount,
+            },
+          }],
+        }],
+        billing_cycles: this.getBillingCycles(), // Dynamic billing based on user's choice
+      },
+      advanced: {
+        commit: 'true',
+      },
+      style: {
+        label: 'paypal',
+        layout: 'vertical',
+      },
+      onApprove: (data, actions) => {
+        actions.order.get().then((details: any) => {
+          this.createSubscription(details);
+        });
+      },
+      onClientAuthorization: (data) => {
+        this.showSuccess = true;
+      },
+      onCancel: (data) => {
+        this.showCancel = true;
+      },
+      onError: (err) => {
+        this.showError = true;
+        console.error('PayPal error:', err);
+      },
+      onClick: () => this.resetStatus(),
     };
-}
-  resetStatus() {
-    console.log('.,mfdlk');
-    
+  }
+  
+  
+  // Dynamic Billing Cycles Function
+  private getBillingCycles(): any[] {
+    if (this.paymentForm.value.plan_action === 'trial') {
+      // 7-day free trial
+      return [
+        {
+          frequency: {
+            interval_unit: 'DAY',
+            interval_count: 7, // 7-day trial period
+          },
+          tenure_type: 'TRIAL',
+          sequence: 1,
+          total_cycles: 1, // Only 1 trial cycle of 7 days
+          pricing_scheme: {
+            fixed_price: {
+              value: '0', // Free for trial period
+              currency_code: 'USD',
+            },
+          },
+        },
+        {
+          frequency: {
+            interval_unit: this.selectedPlan.interval,
+            interval_count: 1, // Monthly subscription after the trial
+          },
+          tenure_type: 'REGULAR',
+          sequence: 2,
+          total_cycles: 0,
+          pricing_scheme: {
+            fixed_price: {
+              value: this.selectedPlan.amount,
+              currency_code: 'USD',
+            },
+          },
+        },
+      ];
+    } else {
+      return [
+        {
+          frequency: {
+            interval_unit:  this.selectedPlan.interval,
+            interval_count: 1, // Monthly subscription
+          },
+          tenure_type: 'REGULAR',
+          sequence: 1,
+          total_cycles: 0, // Unlimited cycles
+          pricing_scheme: {
+            fixed_price: {
+              value: this.selectedPlan.amount,
+              currency_code: 'USD',
+            },
+          },
+        },
+      ];
+    }
+  }
+  
+  private resetStatus(): void {
+    this.showSuccess = false;
+    this.showCancel = false;
+    this.showError = false;
   }
 
-  selectPlan(planId?: string): void {
-
-    this.selectedPlan = this.plan.find((plan)=>{
-      return plan.id === planId
-    }); // Set the selected plan
-    this.paymentForm.patchValue({ planType: this.selectedPlan }); // Update the form value
+  selectPlan(planId: string): void {
+    this.selectedPlan = this.plan.find((plan) => plan.id === planId);
+    this.paymentForm.patchValue({ planType: this.selectedPlan });
     console.log('Selected Plan:', this.selectedPlan);
   }
 
+  createSubscription(orderDetails: any): void {
+    const subscriptionData = {
+      userId: this.userId,
+      plan: this.paymentForm.value.planType,
+      paypalOrderId: orderDetails.id,
+    };
 
-  // createSubscription(orderDetails: any): void {
-  //   const subscriptionData = {
-  //     userId: 'USER_ID_HERE', // Replace with actual user ID
-  //     plan: this.paymentForm.value.planType,
-  //     paypalOrderId: orderDetails.id,
-  //   };
+    this.planService.createPlan(subscriptionData).subscribe({
+      next: (response: any) =>  {
+        this.authService.resendCode(this.signupForm.value.email).subscribe({
+          next: (res: any) => {
+            this.snackbar.open(
+              'Subscription created successfully. The email verification code  has been sent to your email. Please check your inbox.',
+              'close',
+              { duration: 3000 }
+            );
+            localStorage.setItem(
+              'email',
+              this.signupForm.value.email?.toString()
+            );
+            this.router.navigateByUrl('/auth/email-confirmation');
+          }
+        })
+      },
+      error: (error: any) =>
+        console.error('Error creating subscription:', error),
+    });
+  }
 
-  //   this.http.post('/api/create-subscription', subscriptionData).subscribe(
-  //     (response: any) => {
-  //       console.log('Subscription created:', response);
-  //       // Handle success, update UI or redirect as necessary
-  //     },
-  //     (error: any) => {
-  //       console.error('Error creating subscription:', error);
-  //     }
-  //   );
-  // }
+  onSubmit(): void {
+    this.initConfig();
 
-  onSubmit() {
     if (
       this.signupForm.valid &&
       this.billingForm.valid &&
       (!this.isPaidPlan || this.paymentForm.valid)
     ) {
       this.createUser();
+    } else {
+      this.snackbar.open('Please fill in all required fields', 'close', {
+        duration: 3000,
+      });
+      7;
     }
   }
-  loadPayPalSDK() {
-    throw new Error('Method not implemented.');
-  }
-
-  passwordValidator(control: FormControl): { [key: string]: boolean } | null {
-    const password = control.value;
-    if (!password) {
-      return null;
-    }
-
-    const isValid = password.length >= 8;
-    return isValid ? null : { invalidPassword: true };
-  }
-
   getPasswordStrength(): number {
     return this.value;
   }
@@ -640,22 +693,42 @@ export class SignupComponent {
       ...this.signupForm.value,
       ...this.billingForm.value,
       ...this.paymentForm.value,
-      ...this.token,
     };
     this.authService.signup(userDetails).subscribe({
-      next: (response) => {
-        // console.log(response);
-        // this.snackbar.open(
-        //   'User registered. A confirmation email has been sent.',
-        //   'close',
-        //   { duration: 3000 }
-        // );
-        // localStorage.setItem('email', this.signupForm.value.email);
-        // this.router.navigateByUrl('/auth/email-confirmation');
+      next: (response: any) => {
+        console.log('ff', response);
+        
+        this.userId = response.userId;
+        if (!this.isPaidPlan) {
+          this.snackbar.open(
+            'User registered. A confirmation email has been sent.',
+            'close',
+            { duration: 3000 }
+          );
+          localStorage.setItem(
+            'email',
+            this.signupForm.value.email?.toString()
+          );
+          this.router.navigateByUrl('/auth/email-confirmation');
+        }
       },
-      error: (error) => {
-        console.error(error);
-      },
+      error: (error: any) =>
+        this.snackbar.open(error.message, 'close', { duration: 3000 }),
+    });
+  }
+
+  private passwordValidator(
+    control: FormControl
+  ): { [key: string]: any } | null {
+    const result = zxcvbn(control.value);
+    this.strength = (result.score + 1) * 20; // Strength percentage
+    return result.score < 3 ? { weakPassword: true } : null;
+  }
+
+  private initPasswordStrengthWatcher(): void {
+    this.signupForm.get('password')?.valueChanges.subscribe((password) => {
+      const result = zxcvbn(password);
+      this.strength = (result.score + 1) * 20; // Update password strength bar
     });
   }
 }

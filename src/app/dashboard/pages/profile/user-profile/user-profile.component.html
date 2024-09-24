@@ -48,12 +48,12 @@
       </div>
       <div>
         <h6 class="font-semibold text-muted">Plan:</h6>
-        <p class="text-primary">{{plan?.product.name || 'Free'}}</p>
+        <p class="text-primary">{{plan?.plan || 'Free'}}</p>
       </div>
-      <div>
+      <!-- <div>
         <h6 class="font-semibold text-muted">Plan Amount:</h6>
         <p class="text-primary">{{plan?.plan.amount || '0'}} {{plan?.plan.currency || "USD"}}</p>
-      </div>
+      </div> -->
       <div *ngIf="user?.trialEndDate">
         <h6 class="font-semibold text-muted" >Trial End Date:</h6>
         <p class="text-primary">{{user?.trialEndDate | date:"short"}}</p>

@@ -34,7 +34,7 @@ export class PricingPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.planLoading = true;
-    this.service.getStipePlans().subscribe(
+    this.service.getStripePlans().subscribe(
       (plans) => {
 
         this.planTypes = plans.plans;
