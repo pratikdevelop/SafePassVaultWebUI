@@ -7,6 +7,10 @@ export const routes: Routes = [
        loadComponent:()=>import('./layout/layout.component').then(m=>m.LayoutComponent)
     },
     {
+      path: 'download',
+     loadComponent:()=>import('./component/download/download.component').then(m=>m.DownloadComponent)
+  },
+    {
       path: 'generator',
       loadComponent: () =>
         import('./dashboard/pages/password-genrator/password-genrator.component').then(

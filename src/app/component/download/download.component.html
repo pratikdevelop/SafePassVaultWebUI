@@ -1,0 +1,78 @@
+<div class="min-h-screen bg-gray-100 p-8">
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
+      
+      <!-- Title -->
+      <h1 class="text-2xl font-bold text-gray-700 mb-4">Download YourApp</h1>
+  
+      <!-- GitHub Info -->
+      <div class="mb-6 flex items-center space-x-2">
+        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" class="w-8 h-8">
+        <a href="https://github.com/pratikdevelop/password-app-ui/releases" class="text-sm text-blue-500 hover:text-blue-700">
+          View releases on GitHub
+        </a>
+      </div>
+  
+      <!-- Platform Selection -->
+      <div class="mb-6">
+        <label class="block mb-2 text-gray-600">Select your platform:</label>
+        <select [(ngModel)]="selectedPlatform" class="w-full border border-gray-300 rounded-lg p-2 focus:ring focus:ring-green-300">
+          <option value="windows">Windows</option>
+          <option value="linux">Linux</option>
+          <option value="ubuntu">Ubuntu</option>
+          <option value="macos">macOS</option>
+          <option value="docker">Docker</option>
+        </select>
+      </div>
+  
+      <!-- Windows Download Section -->
+      <div *ngIf="selectedPlatform === 'windows'" class="p-4 bg-gray-50 rounded-lg">
+        <h2 class="text-xl font-semibold text-gray-700">Download for Windows</h2>
+        <p class="text-gray-600 mt-2">Click the button below to download the Windows installer:</p>
+        <a href="https://github.com/pratikdevelop/password-app-ui/releases/tag/windowsv0.1.0" target="_blank"
+           class="inline-block mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+          Download Windows Installer
+        </a>
+      </div>
+  
+      <!-- Linux Download Section -->
+      <div *ngIf="selectedPlatform === 'linux'" class="p-4 bg-gray-50 rounded-lg">
+        <h2 class="text-xl font-semibold text-gray-700">Download for Linux</h2>
+        <p class="text-gray-600 mt-2">Run the following command to install YourApp on Linux:</p>
+        <pre class="bg-gray-800 text-white p-3 rounded mt-2">
+  sudo wget https://github.com/pratikdevelop/password-app-ui/releases/download/0.2.0/linux-installer.sh -O linux-installer.sh && sudo chmod +x linux-installer.sh && sudo ./linux-installer.sh
+        </pre>
+      </div>
+  
+      <!-- Ubuntu Download Section -->
+      <div *ngIf="selectedPlatform === 'ubuntu'" class="p-4 bg-gray-50 rounded-lg">
+        <h2 class="text-xl font-semibold text-gray-700">Download for Ubuntu</h2>
+        <p class="text-gray-600 mt-2">Run the following command to install YourApp on Ubuntu:</p>
+        <pre class="bg-gray-800 text-white p-3 rounded mt-2">
+  sudo add-apt-repository ppa:yourapp/ppa && sudo apt-get update && sudo apt-get install yourapp
+        </pre>
+      </div>
+  
+      <!-- macOS Download Section -->
+      <div *ngIf="selectedPlatform === 'macos'" class="p-4 bg-gray-50 rounded-lg">
+        <h2 class="text-xl font-semibold text-gray-700">Download for macOS</h2>
+        <p class="text-gray-600 mt-2">Click the button below to download the macOS installer:</p>
+        <a href="https://github.com/pratikdevelop/password-app-ui/releases/tag/0.2.0" target="_blank"
+           class="inline-block mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+          Download macOS Installer
+        </a>
+      </div>
+  
+      <!-- Docker Section -->
+      <div *ngIf="selectedPlatform === 'docker'" class="p-4 bg-gray-50 rounded-lg">
+        <h2 class="text-xl font-semibold text-gray-700">Run with Docker</h2>
+        <p class="text-gray-600 mt-2">Run the following command to pull and run YourApp using Docker:</p>
+        <pre class="bg-gray-800 text-white p-3 rounded mt-2">
+  docker pull pratikdevelop/password-app-ui:latest
+  docker run -d -p 8080:8080 pratikdevelop/password-app-ui
+        </pre>
+        <p class="text-gray-600 mt-2">Ensure Docker is installed on your system. Visit <a href="https://docs.docker.com/get-docker/" target="_blank" class="text-blue-500 hover:text-blue-700">Docker Docs</a> for installation instructions.</p>
+      </div>
+  
+    </div>
+  </div>
+  
