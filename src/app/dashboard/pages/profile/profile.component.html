@@ -2,7 +2,7 @@
   <!-- Sidenav -->
   <mat-sidenav
     #sidenav
-    mode="side"
+    [mode]="mode"
     [opened]="isSidebarOpen"
     class="sm: sidenav.closee()"
     style="
@@ -48,7 +48,7 @@
   <!-- Main content -->
   <mat-sidenav-content class="p-4">
     @switch(tab) { @case (0){
-    <app-user-profile />
+    <app-user-profile (toggleSideNav) = 'toggleSidebar()' />
     } @case (1) {
     <app-security />
     } @case (2) {

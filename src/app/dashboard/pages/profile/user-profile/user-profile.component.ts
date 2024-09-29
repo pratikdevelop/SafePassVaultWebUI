@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, inject, Output } from '@angular/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthService } from '../../../../services/auth.service';
 import { tap } from 'rxjs';
@@ -15,7 +15,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   selector: 'app-user-profile',
   standalone: true,
   imports: [MatButtonModule, MatSnackBarModule, CommonModule,MatIconModule, MatDialogModule, NgOptimizedImage,
-    UploaderModule // <-- Add the Uploader module here.
+    UploaderModule, MatIconModule // <-- Add the Uploader module here.
 
   ],
   templateUrl: './user-profile.component.html',
@@ -28,6 +28,7 @@ export class UserProfileComponent {
   readonly matDialog = inject(MatDialog)
   readonly  sanitizer = inject(DomSanitizer)
   selectedFile: File | null = null;
+  @Output() toggleSideNav = new EventEmitter<any>;
 
   user: any;
   plan: any;
@@ -35,6 +36,9 @@ export class UserProfileComponent {
     this.getProfile();
   }
 
+  toggleSideBar(): void {
+    this.toggleSideNav.emit()
+  }
   getProfile(): void {
     this.authService.getProfile().pipe(tap()).subscribe(
       profileData => {

@@ -1,8 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Odibee+Sans&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Concert+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pragati+Narrow:wght@400;700&display=swap');
 @import 'material-icons/iconfont/material-icons.css';
-@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Rasa:wght@300&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -57,11 +54,9 @@
 *{
   margin: 0;
   padding: 0;
-  font-family: "Rasa", serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-  box-sizing: border-box;
+  font-family: "Pragati Narrow", sans-serif;
+  font-weight: 700;
+  font-style: normal; 
 }
 
 ::ng-deep mdc-dialog--closing .mat-mdc-dialog-surface {

@@ -1,14 +1,15 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AuthService } from '../../../../services/auth.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-password-change',
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormFieldModule, FormsModule, MatButtonModule, MatInputModule],
+  imports: [ReactiveFormsModule, MatFormFieldModule, FormsModule, MatButtonModule, MatInputModule, MatIconModule],
   templateUrl: './password-change.component.html',
 })
 export class PasswordChangeComponent implements OnInit {
@@ -18,7 +19,7 @@ export class PasswordChangeComponent implements OnInit {
     confirmNewPassword: new FormControl('', [Validators.required])
   });
   authService = inject(AuthService)
-
+  @Output() toggleSideNav = new EventEmitter<any>() 
   constructor() { }
 
   ngOnInit(): void {
@@ -51,4 +52,5 @@ export class PasswordChangeComponent implements OnInit {
       console.log('Please fill in all required fields');
     }
   }
+  // toggele
 }

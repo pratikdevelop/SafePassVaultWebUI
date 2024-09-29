@@ -7,6 +7,10 @@ export const routes: Routes = [
        loadComponent:()=>import('./layout/layout.component').then(m=>m.LayoutComponent)
     },
     {
+      path: 'privacy-policy',
+     loadComponent:()=>import('./component/privacy-policy/privacy-policy.component').then(m=>m.PrivacyPolicyComponent)
+  },
+    {
       path: 'download',
      loadComponent:()=>import('./component/download/download.component').then(m=>m.DownloadComponent)
   },
