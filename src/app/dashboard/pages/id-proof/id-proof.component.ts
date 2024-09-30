@@ -9,6 +9,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
+import { CommonService } from '../../../services/common.service';
 export interface IdProof {
   _id: string;
   idType: string;
@@ -42,6 +43,7 @@ export class IdProofComponent implements OnInit {
     'actions'
   ];
   dataSource!: MatTableDataSource<IdProof>;
+  readonly commonService = inject(CommonService)
   constructor(private proofIdService: ProofIdService, private cdr: ChangeDetectorRef,
     private dialog: MatDialog)
    { }
@@ -66,5 +68,9 @@ throw new Error('Method not implemented.');
       this.dataSource = new MatTableDataSource(response.proofIds);
       this.changeDetetorRef.detectChanges()
     })
+  }
+
+  toggleSideBar(): void {
+    this.commonService.toggleSideBar();
   }
 }

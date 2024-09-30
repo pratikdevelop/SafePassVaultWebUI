@@ -1,9 +1,9 @@
 <nav aria-label="Global" class="flex items-center space-x-2  justify-between w-full text-primary-foreground bg-background shadow-lg p-3">
-  <div>
+  <div class="flex items-center space-x-2"> 
     <button mat-icon-button (click)="toggleSideBar()" class="menu-button lg:hidden">
       <mat-icon>menu</mat-icon>
     </button>
-    <span class="font-bold text-3xl text-accent">Personal Information</span>
+    <span class="font-bold text-xl sm:text-3xl text-accent">Personal Information</span>
   </div>
   <button mat-flat-button class="" (click)="editProfile()">Edit Profile</button>
 </nav>

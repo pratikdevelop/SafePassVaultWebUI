@@ -52,5 +52,7 @@ export class PasswordChangeComponent implements OnInit {
       console.log('Please fill in all required fields');
     }
   }
-  // toggele
+  toggleSideBar(): void {
+    this.toggleSideNav.emit();
+  }
 }

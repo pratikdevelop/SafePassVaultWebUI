@@ -17,6 +17,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { CommonService } from '../services/common.service';
 
 @Component({
   selector: 'app-dashbloard',
@@ -44,55 +45,37 @@ export class DashboardComponent {
   @ViewChild('drawer') drawer: MatDrawer | undefined;
   dialog = inject(MatDialog)
   breakpointObserver = inject(BreakpointObserver);
+  readonly commonService = inject(CommonService)
   mode: MatDrawerMode = 'side';
   selectedIds!: string[];
   listingType: string = 'notes';
   filter_by!: string;
   filterValue: any;
   activateRouter = inject(Router)
+  isSidebarOpen: boolean = true;
   constructor() {}
   ngOnInit(): void {
     
     this.breakpointObserver
       .observe([
-        Breakpoints.Handset,
-        Breakpoints.Tablet,
-        Breakpoints.Web,
-        Breakpoints.HandsetPortrait,
-        Breakpoints.HandsetLandscape,
-        Breakpoints.TabletPortrait,
-        Breakpoints.TabletLandscape,
-        Breakpoints.WebPortrait,
-        Breakpoints.WebLandscape,
+        '(max-width: 600px)'
       ])
       .subscribe((result) => {
         // Iterate through the breakpoints and take action based on the matches
-        for (const query of Object.keys(result.breakpoints)) {
-          if (result.breakpoints[query]) {
-            this.applyBreakpointAction(query);
-          }
-        }
-      });
-  }
-  applyBreakpointAction(query: string): void {
-    // if (
-    //   query === Breakpoints.Handset ||
-    //   query === Breakpoints.Tablet ||
-    //   query === Breakpoints.HandsetPortrait ||
-    //   query === Breakpoints.HandsetLandscape ||
-    //   query === Breakpoints.TabletPortrait ||
-    //   query === Breakpoints.TabletLandscape
-    // ) {
-    //   this.mode = 'over';
-    //   this.drawer?.toggle();
-    // } else if (
-    //   query === Breakpoints.Web ||
-    //   query === Breakpoints.WebPortrait ||
-    //   query === Breakpoints.WebLandscape
-    // ) {
-    //   this.mode = 'side';
-    //   this.drawer?.open();
-    // }
+          if (result.breakpoints['(max-width: 600px)']) {
+            this.isSidebarOpen = false;
+            this.mode='over'
+            } else {
+              this.isSidebarOpen = true;
+            this.mode='side'
+    
+              }
+              });
+    
+    this.commonService.sideBarOpen.subscribe((res)=>{
+      this.isSidebarOpen = res;
+    })
+  
   }
 
 }

@@ -50,13 +50,13 @@
     @switch(tab) { @case (0){
     <app-user-profile (toggleSideNav) = 'toggleSidebar()' />
     } @case (1) {
-    <app-security />
+    <app-security (toggleSideNav) = 'toggleSidebar()' />
     } @case (2) {
-    <app-password-change />
+    <app-password-change (toggleSideNav) = 'toggleSidebar()' />
     } @case (3) {
-    <app-notification />
+    <app-notification (toggleSideNav) = 'toggleSidebar()' />
     } @case (4) {
-    <app-mfa-setting />
+    <app-mfa-setting (toggleSideNav) = 'toggleSidebar()' />
     } }
   </mat-sidenav-content>
 </mat-sidenav-container>

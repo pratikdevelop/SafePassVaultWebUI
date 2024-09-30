@@ -19,6 +19,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonService } from '../../../services/common.service';
 
 @Component({
   selector: 'app-notes',
@@ -46,6 +47,7 @@ export class NotesComponent implements OnInit {
   readonly passwordIds = [];
   readonly changedetect = inject(ChangeDetectorRef);
   readonly noteService = inject(NoteService);
+  readonly commonService = inject(CommonService);
   readonly displayedColumns: string[] = [
     'select',
     '_id',
@@ -193,6 +195,10 @@ export class NotesComponent implements OnInit {
       a.download = 'passwords.csv';
       a.click();
     });
+  }
+
+  toggleSideBar(): void {
+    this.commonService.toggleSideBar()
   }
 }
 @Component({

@@ -24,6 +24,7 @@ import { catchError, tap } from 'rxjs';
 import { ShareDialogComponent } from '../../../component/share-dialog/share-dialog.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ViewPasswordComponent } from '../../../component/view-password/view-password.component';
+import { CommonService } from '../../../services/common.service';
 
 @Component({
   selector: 'app-password',
@@ -70,10 +71,11 @@ export class PasswordComponent {
     'action',
   ];
   readonly dialog = inject(MatDialog);
+  readonly commonService = inject(CommonService);
   isLoading: boolean = true;
   searchTerm: string = '';
   selection = new SelectionModel<any>(true, []);
-  password: any;
+  password: any[] = [];
   isOpened= false;
 
   constructor() {
@@ -265,6 +267,8 @@ export class PasswordComponent {
       this.passwords = response;
       });
   }
-
+  toggleSideBar(): void {
+    this.commonService.toggleSideBar();
+  }
 
 }

@@ -1,8 +1,11 @@
 
     <nav aria-label="Global" class="flex items-center  justify-between w-full text-primary-foreground bg-background shadow-lg p-3">
-        <span class="flex flex-col space-y-2">
-            <span class="font-bold text-3xl text-accent"> Security Questions</span>
-            <p class="text-gray-700 font-normal">Set up questions for password recovery (optional).</p>
+        <span class="flex items-center space-x-2">
+            <button mat-icon-button (click)="toggleSideBar()" class="menu-button lg:hidden">
+                <mat-icon>menu</mat-icon>
+              </button>
+            <span class="font-bold  text-xl sm:text-3xl text-accent"> Security Questions</span>
+
         </span>
         <button mat-flat-button type="submit" (click)="onSubmit()">Save Changes</button>
       </nav>

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, inject, output } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { SecurityQuestionService } from '../../../../services/security-question.service';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,14 +7,16 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-security',
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatCardModule, MatButtonModule, MatInputModule, MatSelectModule, MatOptionModule],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatIconModule, MatCardModule, MatButtonModule, MatInputModule, MatSelectModule, MatOptionModule],
   templateUrl: './security.component.html',
 })
 export class SecurityComponent implements OnInit {
+  @Output() toggleSideNav = new EventEmitter<any>()
   securityQuestionService = inject(SecurityQuestionService);
   securityForm = new FormGroup({
     securityQuestion1: new FormControl('', Validators.required),
@@ -72,5 +74,8 @@ export class SecurityComponent implements OnInit {
     } else {
       console.log('Please fill in all required fields');
     }
+  }
+  toggleSideBar(): void {
+    this.toggleSideNav.emit()
   }
 }

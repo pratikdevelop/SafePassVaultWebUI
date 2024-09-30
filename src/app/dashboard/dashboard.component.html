@@ -1,9 +1,14 @@
 <mat-sidenav-container class="h-[100vh] flex-auto overflow-hidden">
   <mat-sidenav
     #drawer
-    opened
-    [mode]="mode"
-    style="border-radius: 0% !important; width: 15% !important;"
+    [opened]="isSidebarOpen"    [mode]="mode"
+    style="
+    width: 15rem !important;
+    border-radius: 0% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    column-gap: 3rem !important;
+  "
   >
     <app-side-nav></app-side-nav>
   </mat-sidenav>

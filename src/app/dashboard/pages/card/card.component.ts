@@ -18,6 +18,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { catchError, tap } from 'rxjs';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
+import { CommonService } from '../../../services/common.service';
 
 @Component({
   selector: 'app-card',
@@ -44,6 +45,7 @@ export class CardComponent implements OnInit {
   readonly matDialog = inject(MatDialog);
   readonly changeDetectorRef = inject(ChangeDetectorRef);
   readonly cardSerrvice = inject(CardService);
+  readonly commonService = inject(CommonService)
   selection = new SelectionModel<any>(true, []);
   dataSource: any[] = [];
   searchTerm: string = '';
@@ -173,6 +175,9 @@ export class CardComponent implements OnInit {
 
   transform(cardNumber: string): string {
     return cardNumber.replace(/\s+/g, '').replace(/(\d{4})/g, '$1 ').trim();
+}
+toggleSideBar(): void {
+    this.commonService.toggleSideBar()
 }
 }
 

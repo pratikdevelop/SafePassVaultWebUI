@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatInputModule } from '@angular/material/input';
 import { FileUploadComponent } from '../dialog/file-upload/file-upload.component';
+import { CommonService } from '../../../services/common.service';
 
 @Component({
   selector: 'app-file-explorer',
@@ -39,6 +40,7 @@ throw new Error('Method not implemented.');
   dataSource!: any[]
   private fileService = inject(FileService);
   private changeDetectorRef = inject(ChangeDetectorRef)
+  readonly commonService = inject(CommonService) 
 
   constructor(private dialog: MatDialog) {}
 
@@ -66,6 +68,8 @@ throw new Error('Method not implemented.');
   performAction(fileId: string): void {
     // Implement share functionality
   }
-
+  toggleSideBar(): void {
+    this.commonService.toggleSideBar();
+  }
 
 }

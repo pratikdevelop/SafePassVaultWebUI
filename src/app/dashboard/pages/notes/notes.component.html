@@ -1,7 +1,12 @@
 <nav aria-label="Global" class="flex items-center  justify-between w-full text-primary-foreground bg-slate-800 shadow-lg p-3">
 
-  <span class="text-3xl font-normal uppercase text-white"> Secure Notes </span>
-  <div class="flex sm:items-center space-x-3 w-6/12  sm:justify-end">
+  <div class="flex items-center space-x-2">
+    <button mat-icon-button (click)="toggleSideBar()" class="menu-button lg:hidden">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="text-xl sm:text-3xl font-bold  text-white">Secure Notes</span>
+  </div>
+  <div class="flex sm:items-center space-x-3 sm:w-6/12  sm:justify-end">
 <!-- Add Menu -->
 
 <input matInput type="text"  (keyup)="getNotes()" placeholder="Search the password" aria-label="Search the password" 

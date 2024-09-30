@@ -28,7 +28,7 @@ export class UserProfileComponent {
   readonly matDialog = inject(MatDialog)
   readonly  sanitizer = inject(DomSanitizer)
   selectedFile: File | null = null;
-  @Output() toggleSideNav = new EventEmitter<any>;
+  @Output() toggleSideNav = new EventEmitter<any>();
 
   user: any;
   plan: any;

@@ -1,8 +1,11 @@
 <nav aria-label="Global"
     class="flex items-center justify-between w-full text-primary-foreground bg-background shadow-lg rounded-md p-3">
-    <div class="text-primary-foreground flex flex-col space-y-2">
-        <div class="text-xl font-extrabold text-accent">MFA Authentication Settings</div>
-        <p class="text-muted">Manage your multi-factor authentication settings.</p>
+    <div class="text-primary-foreground flex items-center space-x-2">
+        <button mat-icon-button (click)="toggleSideBar()" class="menu-button lg:hidden">
+            <mat-icon>menu</mat-icon>
+          </button>
+        <div class="text-xl sm:text-3xl font-bold text-accent">MFA Settings</div>
+
     </div>
     <button mat-flat-button type="submit" (click)="onSubmit()">Save Changes</button>
 </nav>

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { FormGroup, FormBuilder, ReactiveFormsModule, FormsModule, FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AuthService } from '../../../../services/auth.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-mfa-setting',
@@ -16,14 +17,14 @@ import { AuthService } from '../../../../services/auth.service';
   imports: [
     MatFormFieldModule, MatInputModule, CommonModule, MatSelectModule, 
     MatOptionModule, ReactiveFormsModule, FormsModule, MatButtonModule, 
-    MatSliderModule, MatSlideToggleModule
+    MatSliderModule, MatSlideToggleModule, MatIconModule
   ],
   templateUrl: './mfa-setting.component.html',
   styleUrls: ['./mfa-setting.component.css']
 })
 export class MfaSettingComponent {
   mfaForm: FormGroup;
-
+  @Output() toggleSideNav = new EventEmitter<any>()
   authService = inject(AuthService);
   userProfile: any;
 
@@ -136,5 +137,9 @@ export class MfaSettingComponent {
         }
       });
     }
+  }
+
+  toggleSideBar(): void {
+    this.toggleSideNav.emit()
   }
 }
