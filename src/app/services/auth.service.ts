@@ -196,7 +196,15 @@ export class AuthService {
     )
   }
 
-  updatePRofile(profile: any) {
-    
+  updateProfile(profile: any): Observable<any> {
+
+    return this.http.patch(`${this.apiUrl}/profile`, profile).pipe(
+      map((response) => {
+        return response;
+        }),
+        catchError((error) => {
+          return throwError(error);
+          })
+      )
   }
 }

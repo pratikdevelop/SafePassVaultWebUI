@@ -19,44 +19,39 @@
     <div class="flex flex-col space-y-2">
       <a
         class="px-4 py-2 text-white block text-center cursor-pointer"
-        (click)="setTab(0)"
+        (click)="setTab('personal-details')"
         >Personal Details</a
       >
       <a
         class="px-4 py-2 text-white block text-center cursor-pointer"
-        (click)="setTab(1)"
+        (click)="setTab('security')"
         >Security Token</a
       >
       <a
         class="px-4 py-2 text-white block text-center cursor-pointer"
-        (click)="setTab(2)"
+        (click)="setTab('privacy')"
         >Change Password</a
       >
       <a
         class="px-4 py-2 text-white block text-center cursor-pointer"
-        (click)="setTab(3)"
+        (click)="setTab('manage-notification')"
         >Email Notification</a
       >
       <a
         class="px-4 py-2 text-white block text-center cursor-pointer"
-        (click)="setTab(4)"
+        (click)="setTab('mfa-authentication')"
         >MFA Authentication</a
       >
+      <a
+      class="px-4 py-2 text-white block text-center cursor-pointer"
+      (click)="setTab('plan-details')"
+      > Plan And Usage</a
+    >
     </div>
   </mat-sidenav>
 
   <!-- Main content -->
   <mat-sidenav-content class="p-4">
-    @switch(tab) { @case (0){
-    <app-user-profile (toggleSideNav) = 'toggleSidebar()' />
-    } @case (1) {
-    <app-security (toggleSideNav) = 'toggleSidebar()' />
-    } @case (2) {
-    <app-password-change (toggleSideNav) = 'toggleSidebar()' />
-    } @case (3) {
-    <app-notification (toggleSideNav) = 'toggleSidebar()' />
-    } @case (4) {
-    <app-mfa-setting (toggleSideNav) = 'toggleSidebar()' />
-    } }
+   <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

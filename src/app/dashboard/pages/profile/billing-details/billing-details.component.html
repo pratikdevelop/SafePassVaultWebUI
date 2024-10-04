@@ -1,0 +1,85 @@
+<div class="mb-3 border-b"></div>
+<h2 class="mb-2 text-base font-normal">Billing summary</h2>
+
+<mat-card class="border rounded-lg flex flex-row p-3 mb-3">
+    <div class="flex-1 border-r flex flex-col justify-between pr-5">
+        <p class="font-bold mb-2">Your next payment</p>
+        <p>
+            <span class="text-2xl">$0.00</span>
+        </p>
+        <p class="text-sm text-gray-500 mb-0">
+            This amount does not include the spend on usage of metered service. View your <a mat-button color="primary" routerLink="/settings/billing/summary#usage">usage this month</a> below.
+        </p>
+    </div>
+    <div class="flex-1 pl-4">
+        <p class="text-sm text-gray-500 mb-2">
+            <a mat-button color="primary" routerLink="/settings/billing/payment_information">
+                Payment information 
+                <mat-icon aria-hidden="true" class="inline h-4 w-4 ml-1">arrow_forward</mat-icon>
+            </a>
+        </p>
+
+        <ul class="list-none">
+            <li><a mat-button class="text-sm text-blue-500" routerLink="/settings/billing/spending_limit">Manage spending limit</a></li>
+            <li><a mat-button class="text-sm text-blue-500" routerLink="/account/billing/history">View payment history</a></li>
+            <li><a mat-button class="text-sm text-blue-500" [routerLink]="['/account/upgrade']" [queryParams]="{ plan: 'free', plan_duration: 'year' }">Switch to yearly billing</a></li>
+        </ul>
+    </div>
+</mat-card>
+
+<div class="mb-4">
+    <h2 class="text-lg font-semibold">Current plan</h2>
+    
+    <div class="flex items-center mt-2">
+        <button mat-raised-button color="accent" routerLink="/settings/billing/plans" class="mr-2">
+            Compare all plans
+        </button>
+        <button mat-raised-button color="primary" routerLink="/settings/billing/plans">
+            Upgrade
+        </button>
+    </div>
+</div>
+
+<mat-card class="bg-white rounded-lg shadow mb-4 p-4">
+    <div class="flex items-center">
+        <div class="mr-3">
+            <mat-icon class="text-gray-800" aria-hidden="true">github</mat-icon>
+        </div>
+        <div class="flex-1">
+            <h3 class="text-lg">GitHub Free</h3>
+            <div class="text-sm text-gray-500">The basics for all developers</div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <ul class="list-none">
+                    <li class="mb-2 flex items-center">
+                        <mat-icon aria-hidden="true" class="text-green-500 mr-2">check_circle</mat-icon>Unlimited public/private repos
+                    </li>
+                    <li class="mb-2 flex items-center">
+                        <mat-icon aria-hidden="true" class="text-green-500 mr-2">check_circle</mat-icon>500 MB storage
+                    </li>
+                    <li class="mb-2 flex items-center">
+                        <mat-icon aria-hidden="true" class="text-green-500 mr-2">check_circle</mat-icon>Collaborators
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <ul class="list-none">
+                    <li class="mb-2 flex items-center">
+                        <mat-icon aria-hidden="true" class="text-green-500 mr-2">check_circle</mat-icon>Open source
+                    </li>
+                    <li class="mb-2 flex items-center">
+                        <mat-icon aria-hidden="true" class="text-green-500 mr-2">check_circle</mat-icon>CI/CD
+                    </li>
+                    <li class="mb-2 flex items-center">
+                        <mat-icon aria-hidden="true" class="text-green-500 mr-2">check_circle</mat-icon>Secure
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</mat-card>
