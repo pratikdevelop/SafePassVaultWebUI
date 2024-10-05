@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   Observable,
   switchMap,
@@ -16,9 +16,8 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
- 
   private apiUrl: string = `${environment.api_url}/auth`;
-  constructor(private http: HttpClient) {}
+  readonly  http = inject(HttpClient) 
   private _userProfileSubject = new BehaviorSubject<any | null>(null);
   public userProfile$: Observable<any | null> =
     this._userProfileSubject.asObservable();

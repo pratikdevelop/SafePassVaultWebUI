@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
+import { CommonService } from '../../../../services/common.service';
 
 @Component({
   selector: 'app-billing-details',
@@ -12,5 +13,8 @@ import { RouterModule } from '@angular/router';
   styleUrl: './billing-details.component.css'
 })
 export class BillingDetailsComponent {
-
+  readonly commonService = inject(CommonService)
+  toggleSideBar(): void {
+    this.commonService.toggleProfileSideBar();
+  }
 }

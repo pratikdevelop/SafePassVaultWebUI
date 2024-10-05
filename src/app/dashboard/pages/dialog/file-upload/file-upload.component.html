@@ -6,7 +6,7 @@
     <!-- File Upload Input -->
     <mat-form-field>
       <mat-label>File</mat-label>
-      <button mat-icon-button matPrefix (click)="f_input.click()">
+      <button  type="button" mat-icon-button matPrefix (click)="f_input.click()">
         <mat-icon>attach_file</mat-icon>
       </button>
       <input type="text" readonly matInput />
@@ -21,19 +21,20 @@
     </mat-form-field>
 
     <!-- Folder Selection Input -->
+
     <mat-form-field>
       <mat-label>Folder</mat-label>
-      <input type="text" matInput formControlName="folderId" [matAutocomplete]="auto"  (input)="onFolderSearch($event)" />
+      <input type="text" matInput formControlName="folderName" [matAutocomplete]="auto"  (input)="onFolderSearch($event)" />
       <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let folder of filteredFolders" [value]="folder._id">
+        <mat-option (click)="change(folder)" *ngFor="let folder of filteredFolders" [value]="folder.name">
           {{ folder.name }}
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
 
     <!-- Create Folder Button (visible when folder not found) -->
-    <button *ngIf="folderNotFound" mat-raised-button color="primary" type="button" (click)="createFolder(uploadForm.get('folderId')!.value)">
-      Create Folder "{{ uploadForm.get('folderId')!.value }}"
+    <button *ngIf="folderNotFound" mat-raised-button color="primary" type="button" (click)="createFolder(uploadForm.get('folderName')!.value)">
+      Create Folder "{{ uploadForm.get('folderName')!.value }}"
     </button>
 
     <!-- Shared With Input -->

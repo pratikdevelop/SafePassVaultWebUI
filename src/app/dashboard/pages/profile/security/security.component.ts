@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
+import { CommonService } from '../../../../services/common.service';
 
 @Component({
   selector: 'app-security',
@@ -16,7 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './security.component.html',
 })
 export class SecurityComponent implements OnInit {
-  @Output() toggleSideNav = new EventEmitter<any>()
+  readonly commonService = inject(CommonService);
   securityQuestionService = inject(SecurityQuestionService);
   securityForm = new FormGroup({
     securityQuestion1: new FormControl('', Validators.required),
@@ -24,9 +25,6 @@ export class SecurityComponent implements OnInit {
     securityQuestion2: new FormControl('', Validators.required),
     securityAnswer2: new FormControl('', Validators.required)
   });
-
-
-
   constructor() {}
 
   ngOnInit(): void {
@@ -76,6 +74,6 @@ export class SecurityComponent implements OnInit {
     }
   }
   toggleSideBar(): void {
-    this.toggleSideNav.emit()
+    this.commonService.toggleProfileSideBar();
   }
 }

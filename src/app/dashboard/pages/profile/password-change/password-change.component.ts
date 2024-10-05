@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AuthService } from '../../../../services/auth.service';
 import { MatIconModule } from '@angular/material/icon';
+import { CommonService } from '../../../../services/common.service';
 
 @Component({
   selector: 'app-password-change',
@@ -18,25 +19,10 @@ export class PasswordChangeComponent implements OnInit {
     newPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
     confirmNewPassword: new FormControl('', [Validators.required])
   });
-  authService = inject(AuthService)
-  @Output() toggleSideNav = new EventEmitter<any>() 
+  readonly authService = inject(AuthService)
+  readonly commonService = inject(CommonService)
   constructor() { }
-
-  ngOnInit(): void {
-  }
-
-  // mustMatch(controlName: string): ValidatorFn  {
-  //   return (formGroup: FormGroup) => {
-  //     const newPassword = formGroup.get(controlName);
-  //     const confirmNewPassword = formGroup.get('confirmNewPassword');
-
-  //     if (newPassword.value !== confirmNewPassword.value) {
-  //       confirmNewPassword.setErrors({ mustMatch: true });
-  //     } else {
-  //       confirmNewPassword.setErrors(null);
-  //     }
-  //   };
-  // }
+  ngOnInit(): void {}
 
   onSubmit(): void {
     if (this.passwordChangeForm.valid) {
@@ -53,6 +39,6 @@ export class PasswordChangeComponent implements OnInit {
     }
   }
   toggleSideBar(): void {
-    this.toggleSideNav.emit();
+    this.commonService.toggleProfileSideBar();
   }
 }

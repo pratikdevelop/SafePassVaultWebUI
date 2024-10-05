@@ -11,6 +11,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { NgOptimizedImage } from '@angular/common'
 import { EditProfileComponent } from './dailog/edit-profile/edit-profile.component';
 import { DomSanitizer } from '@angular/platform-browser';
+import { CommonService } from '../../../../services/common.service';
 @Component({
   selector: 'app-user-profile',
   standalone: true,
@@ -27,8 +28,9 @@ export class UserProfileComponent {
   readonly detectorRef = inject(ChangeDetectorRef)
   readonly matDialog = inject(MatDialog)
   readonly  sanitizer = inject(DomSanitizer)
+  readonly commonService = inject(CommonService);
+
   selectedFile: File | null = null;
-  @Output() toggleSideNav = new EventEmitter<any>();
 
   user: any;
   plan: any;
@@ -37,7 +39,7 @@ export class UserProfileComponent {
   }
 
   toggleSideBar(): void {
-    this.toggleSideNav.emit()
+    this.commonService.toggleProfileSideBar();
   }
   getProfile(): void {
     this.authService.getProfile().pipe(tap()).subscribe(
