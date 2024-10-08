@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
   readonly breakpointObserver = inject(BreakpointObserver);
   readonly router = inject(Router);
   readonly commonService = inject(CommonService);
+  isbreakPoints: boolean = false;
   ngOnInit(): void {
     this.commonService.profileSideBarOpen.subscribe((response) => {
       this.isSidebarOpen = response;
@@ -28,6 +29,8 @@ export class ProfileComponent implements OnInit {
       .observe(['(max-width: 600px)'])
       .subscribe((result) => {
         if (result.breakpoints['(max-width: 600px)']) {
+          this.isbreakPoints = true;
+
           this.isSidebarOpen = false;
           this.mode = 'over';
         } else {
@@ -38,8 +41,10 @@ export class ProfileComponent implements OnInit {
       });
   }
   setTab(url: string): void {
-    this.router.navigateByUrl(`/profile/${url}`);
-    this.toggleSidebar();
+    this.router.navigateByUrl(`/dashboard/profile/${url}`);
+    if(this.isbreakPoints){
+      this.toggleSidebar();
+    }
   }
 
   toggleSidebar() {

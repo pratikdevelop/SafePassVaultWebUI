@@ -7,82 +7,80 @@
   </div>
   <button mat-flat-button class="" (click)="editProfile()">Edit Profile</button>
 </nav>
-<div id="profile" class="flex flex-col sm:flex-row sm:items-center sm:justify-between  p-3 sm:p-8 bg-card sm:mx-20 rounded-lg shadow-xl transition-transform transform">
+<div id="profile" class="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-8 bg-card sm:mx-20 mt-10 shadow-xl transition-transform transform">
   <div class="flex flex-col mb-4 sm:mr-4 order-2 sm:order-none w-2/3">
     <h2 class="text-2xl font-bold text-accent uppercase">{{user?.name}}</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
       <div class="flex items-center space-x-2">
-        <h6 class="font-semibold text-muted">Role:</h6>
+        <h6 class="font-semibold text-slate-900">Role:</h6>
         <p class="text-primary uppercase">{{user?.role ?? 'admin'}}</p>
       </div>
       <div class="flex items-center space-x-2">
-        <h6 class="font-semibold text-muted">Email:</h6>
+        <h6 class="font-semibold text-slate-900">Email:</h6>
         <p class="text-primary">{{user?.email}}</p>
       </div>
       <div class="flex items-center space-x-2">
-        <h6 class="font-semibold text-muted">Phone:</h6>
+        <h6 class="font-semibold text-slate-900">Phone:</h6>
         <p class="text-primary">+{{user?.phone}}</p>
       </div>
       <div class="flex items-center space-x-2">
-        <h6 class="font-semibold text-muted">Created at:</h6>
+        <h6 class="font-semibold text-slate-900">Created at:</h6>
         <p class="text-primary">{{user?.createdAt | date:"short"}}</p>
       </div>
       <div class="flex items-center space-x-2">
-        <h6 class="font-semibold text-muted">Address:</h6>
+        <h6 class="font-semibold text-slate-900">Address:</h6>
         <p class="text-primary">{{user?.billingAddress}} {{user?.city}}</p>
       </div>
       <div class="flex items-center space-x-2">
-        <h6 class="font-semibold text-muted">City:</h6>
+        <h6 class="font-semibold text-slate-900">City:</h6>
         <p class="text-primary">{{user?.city}}</p>
       </div>
       <div class="flex items-center space-x-2">
-        <h6 class="font-semibold text-muted">State:</h6>
+        <h6 class="font-semibold text-slate-900">State:</h6>
         <p class="text-primary">{{user?.state}}</p>
       </div>
       <div class="flex items-center space-x-2">
-        <h6 class="font-semibold text-muted">Postal Code:</h6>
+        <h6 class="font-semibold text-slate-900">Postal Code:</h6>
         <p class="text-primary">{{user?.postalCode}}</p>
       </div>
       <div class="flex items-center space-x-2">
-        <h6 class="font-semibold text-muted">Country:</h6>
+        <h6 class="font-semibold text-slate-900">Country:</h6>
         <p class="text-primary">{{user?.country}}</p>
       </div>
       <div class="flex items-center space-x-2">
-        <h6 class="font-semibold text-muted">Organization:</h6>
+        <h6 class="font-semibold text-slate-900">Organization:</h6>
         <p class="text-primary">{{user?.organization[0].name}}</p>
       </div>
       <div class="flex items-center space-x-2">
-        <h6 class="font-semibold text-muted">Plan:</h6>
+        <h6 class="font-semibold text-slate-900">Plan:</h6>
         <p class="text-primary">{{plan?.plan || 'Free'}}</p>
       </div>
       <!-- class="flex items-center space-x-2" <div>
-        <h6 class="font-semibold text-muted">Plan Amount:</h6>
+        <h6 class="font-semibold text-slate-900">Plan Amount:</h6>
         <p class="text-primary">{{plan?.plan.amount || '0'}} {{plan?.plan.currency || "USD"}}</p>
       </div> -->
       <div *ngIf="user?.trialEndDate">
-        <h6 class="font-semibold text-muted" >Trial End Date:</h6>
+        <h6 class="font-semibold text-slate-900" >Trial End Date:</h6>
         <p class="text-primary">{{user?.trialEndDate | date:"short"}}</p>
       </div>
       <div class="flex items-center space-x-2">
-        <h6 class="font-semibold text-muted">MFA Status:</h6>
+        <h6 class="font-semibold text-slate-900">MFA Status:</h6>
         <p class="text-primary">{{user?.mfaEnabled ? 'Enabled' : 'Disabled'}}</p>
       </div>
     </div>
   </div>
-</div>
-  <!-- <div class="relative flex flex-col mb-4 sm:mr-4 gap-y-10">
+  <div class="relative flex flex-col mb-4 sm:mr-4 gap-y-10">
     <img
       src="https://placehold.co/150"
       alt="Profile Picture"
       class="rounded-full max-h-80 w-80 border-4 border-accent shadow-lg  mt-4 lg:mt-0"
     />
-   Hidden file input for image upload
 <input type="file" #fileInput accept="image/*" (change)="onFileSelected($event)" hidden>
 
-Upload button triggers file input
 <button mat-flat-button type="button" class="absolute bottom-0" (click)="fileInput.click()">
   Upload photo
 </button> 
 
   
-</div> !-->
+</div> 
+</div>

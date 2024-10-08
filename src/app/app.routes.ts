@@ -23,11 +23,5 @@ export const routes: Routes = [
     path: 'auth',
     loadChildren: () =>
       import('./auth/auth-routes').then((m) => m.authRoutes)
-  },
-  {
-    path: 'profile',
-    canActivate: [authGuard], // Protect the admin route
-    loadChildren: () =>
-      import('./dashboard/profile/profile-route').then((m) => m.profileRoutes)
-  },
+  }
 ];

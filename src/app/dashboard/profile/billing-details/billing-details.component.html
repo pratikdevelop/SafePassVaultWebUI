@@ -4,14 +4,14 @@
         <button mat-icon-button (click)="toggleSideBar()" class="menu-button lg:hidden">
             <mat-icon>menu</mat-icon>
           </button>
-        <div class="text-xl sm:text-3xl font-bold text-accent">Billing and Plan Details</div>
+        <div class="text-xl sm:text-3xl font-bold text-slate-900">Billing and Plan Details</div>
     </div>
     <button mat-raised-button color="primary" routerLink="/account/upgrade" [queryParams]="{ plan: 'premium', action: 'update' }">
         Update Plan
     </button>
 </nav>
 
-<mat-card class="bg-white rounded-lg shadow mb-4 p-4">
+<mat-card class="bg-white  shadow mt-4 p-4">
     <div class="flex items-center">
         <div class="mr-3">
             <mat-icon class="text-gray-800" aria-hidden="true">star</mat-icon> <!-- Using star icon for Premium Plan -->

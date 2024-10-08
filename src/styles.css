@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Pragati+Narrow:wght@400;700&display=swap');
 @import 'material-icons/iconfont/material-icons.css';
+@import url('https://fonts.googleapis.com/css2?family=Yrsa:ital,wght@0,300..700;1,300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kreon:wght@600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -54,11 +56,10 @@
 *{
   margin: 0;
   padding: 0;
-  /* font-family: "Pragati Narrow", sans-serif; */
+  font-family: "Kreon", serif;
+  font-optical-sizing: auto;
   font-weight: 600;
-  font-style:inherit; 
-  /* color: white; */
-  font-size: medium
+  font-style: normal;
 }
 
 ::ng-deep mdc-dialog--closing .mat-mdc-dialog-surface {

@@ -44,6 +44,12 @@ export const dashboardRoutes: Routes = [
             (m) => m.FileExplorerComponent
           ),
       },
+      {
+        path: 'profile',
+        canActivate: [authGuard], // Protect the admin route
+        loadChildren: () =>
+          import('./profile/profile-route').then((m) => m.profileRoutes)
+      },
     ],
   },
 ];

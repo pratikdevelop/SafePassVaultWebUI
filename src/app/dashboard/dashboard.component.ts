@@ -54,6 +54,7 @@ export class DashboardComponent {
   filterValue: any;
   activateRouter = inject(Router);
   isSidebarOpen: boolean = true;
+  isBreakPoint: boolean = false;
   constructor() {}
   ngOnInit(): void {
     this.breakpointObserver
@@ -61,16 +62,20 @@ export class DashboardComponent {
       .subscribe((result) => {
         // Iterate through the breakpoints and take action based on the matches
         if (result.breakpoints['(max-width: 600px)']) {
+          this.isBreakPoint = true;
           this.isSidebarOpen = false;
           this.mode = 'over';
         } else {
           this.isSidebarOpen = true;
+          this.isBreakPoint = false;
           this.mode = 'side';
         }
       });
-
+    
     this.commonService.sideBarOpen.subscribe((res) => {
-      this.isSidebarOpen = res;
+      if (this.isBreakPoint) {
+        this.isSidebarOpen = res;
+      }
     });
   }
 }
