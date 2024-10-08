@@ -1,0 +1,44 @@
+<nav class="flex flex-row items-center bg-gray-900 p-5 py-2 justify-between space-y-2 lg:space-y-0 lg:space-x-4 text-white relative" aria-label="Global">
+  <div class="flex justify-between w-full lg:w-auto">
+    <a routerLink="/" class="text-4xl">PassKeeper</a>
+    <button mat-icon-button [matMenuTriggerFor]="mainMenu" class="menu-button lg:hidden">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+
+  <div class="menu-content flex flex-col lg:flex-row lg:space-x-4 lg:justify-end w-full lg:w-auto">
+    <ng-container *ngIf="token">
+      <span class="flex items-center space-x-4 ml-auto">
+        <a mat-raised-button class="menu-item" *ngIf="userProfile && userProfile?.role === 'admin'" routerLink="/admin/users">
+          <mat-icon>admin_panel_settings</mat-icon>
+          Administration
+        </a>
+        <a mat-raised-button class="menu-item" routerLink="/profile">
+          <mat-icon>person</mat-icon>
+          Profile
+        </a>
+        <button mat-raised-button class="menu-item" (click)="logout()">
+          <mat-icon>power_settings_new</mat-icon>
+          Logout
+        </button>
+      </span>
+    </ng-container>
+  </div>
+
+  <mat-menu #mainMenu="matMenu">
+    <ng-container *ngIf="token">
+      <a mat-menu-item *ngIf="userProfile && userProfile?.role === 'admin'" routerLink="/admin">
+        <mat-icon>admin_panel_settings</mat-icon>
+        Administration
+      </a>
+      <a mat-menu-item routerLink="/profile">
+        <mat-icon>person</mat-icon>
+        Profile
+      </a>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>power_settings_new</mat-icon>
+        Logout
+      </button>
+    </ng-container>
+  </mat-menu>
+</nav>

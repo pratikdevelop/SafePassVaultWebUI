@@ -27,6 +27,7 @@
                 "glob": "manifest.json",
                 "input": ""
               }
+              
             ],
 
             "styles": [

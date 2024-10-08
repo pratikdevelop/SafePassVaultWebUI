@@ -18,7 +18,7 @@ import { environment } from '../../environments/environment';
 export class AuthService {
   private apiUrl: string = `${environment.api_url}/auth`;
   readonly  http = inject(HttpClient) 
-  private _userProfileSubject = new BehaviorSubject<any | null>(null);
+  public _userProfileSubject = new BehaviorSubject<any | null>(null);
   public userProfile$: Observable<any | null> =
     this._userProfileSubject.asObservable();
 

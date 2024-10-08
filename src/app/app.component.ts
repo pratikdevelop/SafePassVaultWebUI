@@ -1,8 +1,9 @@
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { inject } from '@angular/core';
-import { HeaderComponent } from './dashboard/pages/header/header.component';
+import { HeaderComponent } from './pages/header/header.component';
 import { Router, NavigationEnd } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 import { IStaticMethods } from 'preline/preline';
 import { AuthService } from './services/auth.service';
@@ -21,12 +22,16 @@ declare global {
 
 })
 export class AppComponent implements OnInit {
-  token = localStorage.getItem("token");
-  authService= inject(AuthService)
+  readonly token = localStorage.getItem("token");
+  readonly authService= inject(AuthService);
+  readonly router = inject(Router);;
+  readonly translate = inject(TranslateService);
   hideHeader: boolean = false;
-  router = inject(Router);
   
   ngOnInit(): void {
+    this.translate.addLangs(['en', 'klingon']);
+    this.translate.setDefaultLang('en');
+    this.translate.use('en');
     this.router.events.subscribe((event:  any) => {   
       this.hideHeader = event.url?.includes("/auth")
       if (event instanceof NavigationEnd) {
