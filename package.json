@@ -14,7 +14,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "publish": "electron-forge publish"
+
   },
   "build": {
     "appId": "com.passkeeper.passwordapp",
@@ -92,6 +94,7 @@
     "@electron-forge/maker-zip": "^7.4.0",
     "@electron-forge/plugin-auto-unpack-natives": "^7.4.0",
     "@electron-forge/plugin-fuses": "^7.4.0",
+    "@electron-forge/publisher-github": "^7.5.0",
     "@electron/fuses": "^1.8.0",
     "@types/crypto-js": "^4.2.2",
     "@types/file-saver": "^2.0.7",
