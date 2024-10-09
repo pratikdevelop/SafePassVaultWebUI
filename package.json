@@ -19,7 +19,7 @@
 
   },
   "build": {
-    "appId": "com.passkeeper.passwordapp",
+    "appId": "com.safepassvault.passwordapp",
     "productName": "PasswordApp",
     "files": [
       "dist/password-app/browser/",
