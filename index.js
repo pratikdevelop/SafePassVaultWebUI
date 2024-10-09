@@ -1,12 +1,14 @@
 const { app, BrowserWindow, globalShortcut } = require('electron');
 const url = require("url");
 const path = require("path");
-
+// const updateappelectron = require('update-electron-app')
 if (process.env.NODE_ENV === 'development') {
   require('electron-reload')(path.join(__dirname, '/dist/password-app'), {
     electron: require(path.join(__dirname, 'node_modules', 'electron'))
   });
 }
+
+// updateappelectron.updateElectronApp();
 
 let mainWindow;
 
@@ -17,7 +19,7 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      devTools: false,
+      devTools: true,
     }
   });
 

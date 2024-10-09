@@ -33,7 +33,6 @@ import {
   IPayPalConfig,
   ICreateOrderRequest,
 } from 'ngx-paypal';
-import { Token } from '@stripe/stripe-js';
 import { CommonModule } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
 

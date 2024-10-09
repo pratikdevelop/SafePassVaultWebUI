@@ -27,12 +27,5 @@ export class LayoutComponent implements OnInit {
   ngOnInit(): void {
     if (this.router.url === '/') {
       this.router.navigate(['/home']);
-    }
-    const token = localStorage.getItem('token');
-    if (!token && environment.isElectron) {
-      this.router.navigateByUrl('/auth/login');
-    } else if (token) {
-      this.router.navigateByUrl('/dashboard/passwords');
-    }
-  }
+    }  }
 }

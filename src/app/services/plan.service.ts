@@ -11,8 +11,8 @@ export class PlanService {
 
   constructor(private http: HttpClient) {}
 
-  // Fetch all Stripe plans
-  getStripePlans(): Observable<any> {
+  // Fetch all plans
+  getPlans(): Observable<any> {
     return this.http.get(`${this.apiUrl}`).pipe(
       map((response) => response),
       catchError(this.handleError)
