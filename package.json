@@ -16,7 +16,6 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish"
-
   },
   "build": {
     "appId": "com.safepassvault.passwordapp",
@@ -69,6 +68,7 @@
     "electron-squirrel-startup": "^1.0.1",
     "file-saver": "^2.0.5",
     "generate-password": "^1.7.1",
+    "license-report": "^6.7.0",
     "material-icons": "^1.13.12",
     "ngx-paypal": "^11.0.0",
     "path": "^0.12.7",

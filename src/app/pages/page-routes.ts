@@ -53,6 +53,10 @@ export const adminRoutes: Routes = [
                 (m) => m.ApiDocsComponent
             ),
         },
+        {
+            path: 'support',
+            loadComponent: ()=> import('../support/support.component').then((m)=>m.SupportComponent)
+        }
     ],
   },
 ];
