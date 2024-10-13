@@ -4,13 +4,8 @@ export const adminRoutes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./layout/layout.component').then((m) => m.LayoutComponent),
-    children: [
-        {
-            path: 'home',
-            loadComponent: () =>
-            import('./index/index.component').then((m) => m.IndexComponent),
-        },
+        import('./index/index.component').then((m) => m.IndexComponent)
+},
         {
             path: 'privacy-policy',
             loadComponent: () =>
@@ -57,6 +52,4 @@ export const adminRoutes: Routes = [
             path: 'support',
             loadComponent: ()=> import('../support/support.component').then((m)=>m.SupportComponent)
         }
-    ],
-  },
 ];
