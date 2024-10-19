@@ -1,0 +1,35 @@
+
+  
+  /* Customize the Swagger UI container */
+  #swagger-ui {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    color: slategrey !important;
+  }
+  
+  /* Change the font style */
+  .topbar {
+    background-color: #4A90E2;
+  }
+  
+  .topbar-wrapper {
+    color: #fff;
+  }
+  
+  /* Customize the buttons */
+  .btn {
+    background-color: #4A90E2;
+    color: #fff;
+  }
+  
+  .btn:hover {
+    background-color: #357ABD;
+  }
+  
+  /* Modify headers */
+  h1, h2, h3 {
+    font-family: 'Arial', sans-serif;
+  }
+  

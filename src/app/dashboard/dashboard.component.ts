@@ -44,15 +44,11 @@ import { HeaderComponent } from './header/header.component';
 })
 export class DashboardComponent {
   @ViewChild('drawer') drawer: MatDrawer | undefined;
-  dialog = inject(MatDialog);
-  breakpointObserver = inject(BreakpointObserver);
+  readonly dialog = inject(MatDialog);
+  readonly breakpointObserver = inject(BreakpointObserver);
   readonly commonService = inject(CommonService);
+  readonly activateRouter = inject(Router);
   mode: MatDrawerMode = 'side';
-  selectedIds!: string[];
-  listingType: string = 'notes';
-  filter_by!: string;
-  filterValue: any;
-  activateRouter = inject(Router);
   isSidebarOpen: boolean = true;
   isBreakPoint: boolean = false;
   constructor() {}
