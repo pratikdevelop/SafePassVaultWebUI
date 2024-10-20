@@ -1,86 +1,109 @@
-<nav aria-label="Global" class="flex items-center space-x-2  justify-between w-full text-primary-foreground bg-background shadow-lg p-3">
-  <div class="flex items-center space-x-2"> 
-    <button mat-icon-button (click)="toggleSideBar()" class="menu-button lg:hidden">
+<nav
+  aria-label="Global"
+  class="flex items-center space-x-2 justify-between w-full text-primary-foreground bg-background shadow-lg p-3"
+>
+  <div class="flex items-center space-x-2">
+    <button
+      mat-icon-button
+      (click)="toggleSideBar()"
+      class="menu-button lg:hidden"
+    >
       <mat-icon>menu</mat-icon>
     </button>
-    <span class="font-bold text-xl sm:text-3xl text-accent">Personal Information</span>
+    <span class="font-bold text-xl sm:text-3xl text-accent"
+      >Personal Information</span
+    >
   </div>
   <button mat-flat-button class="" (click)="editProfile()">Edit Profile</button>
 </nav>
-<div id="profile" class="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 sm:p-8 bg-card sm:mx-20 mt-10 shadow-xl transition-transform transform">
-  <div class="flex flex-col mb-4 sm:mr-4 order-2 sm:order-none w-2/3">
-    <h2 class="text-2xl font-bold text-accent uppercase">{{user?.name}}</h2>
+<div
+  id="profile"
+  class="flex flex-col md:flex-row md:items-center md:justify-between p-3 md:p-8 bg-card md:mx-20 mt-10 shadow-xl transition-transform transform"
+>
+  <div class="flex flex-col mb-4 md:mr-4 order-2 md:order-1 w-2/3">
+    <h2 class="text-2xl font-bold text-accent uppercase">{{ user?.name }}</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
       <div class="flex items-center space-x-2">
         <h6 class="font-semibold text-slate-900">Role:</h6>
-        <p class="text-primary uppercase">{{user?.role ?? 'admin'}}</p>
+        <p class="text-primary uppercase">{{ user?.role ?? "admin" }}</p>
       </div>
       <div class="flex items-center space-x-2">
         <h6 class="font-semibold text-slate-900">Email:</h6>
-        <p class="text-primary">{{user?.email}}</p>
+        <p class="text-primary">{{ user?.email }}</p>
       </div>
       <div class="flex items-center space-x-2">
         <h6 class="font-semibold text-slate-900">Phone:</h6>
-        <p class="text-primary">+{{user?.phone}}</p>
+        <p class="text-primary">+{{ user?.phone }}</p>
       </div>
       <div class="flex items-center space-x-2">
         <h6 class="font-semibold text-slate-900">Created at:</h6>
-        <p class="text-primary">{{user?.createdAt | date:"short"}}</p>
+        <p class="text-primary">{{ user?.createdAt | date : "short" }}</p>
       </div>
       <div class="flex items-center space-x-2">
         <h6 class="font-semibold text-slate-900">Address:</h6>
-        <p class="text-primary">{{user?.billingAddress}} {{user?.city}}</p>
+        <p class="text-primary">{{ user?.billingAddress }} {{ user?.city }}</p>
       </div>
       <div class="flex items-center space-x-2">
         <h6 class="font-semibold text-slate-900">City:</h6>
-        <p class="text-primary">{{user?.city}}</p>
+        <p class="text-primary">{{ user?.city }}</p>
       </div>
       <div class="flex items-center space-x-2">
         <h6 class="font-semibold text-slate-900">State:</h6>
-        <p class="text-primary">{{user?.state}}</p>
+        <p class="text-primary">{{ user?.state }}</p>
       </div>
       <div class="flex items-center space-x-2">
         <h6 class="font-semibold text-slate-900">Postal Code:</h6>
-        <p class="text-primary">{{user?.postalCode}}</p>
+        <p class="text-primary">{{ user?.postalCode }}</p>
       </div>
       <div class="flex items-center space-x-2">
         <h6 class="font-semibold text-slate-900">Country:</h6>
-        <p class="text-primary">{{user?.country}}</p>
+        <p class="text-primary">{{ user?.country }}</p>
       </div>
       <div class="flex items-center space-x-2">
         <h6 class="font-semibold text-slate-900">Organization:</h6>
-        <p class="text-primary">{{user?.organization[0].name}}</p>
+        <p class="text-primary">{{ user?.organization[0].name }}</p>
       </div>
       <div class="flex items-center space-x-2">
         <h6 class="font-semibold text-slate-900">Plan:</h6>
-        <p class="text-primary">{{plan?.plan || 'Free'}}</p>
+        <p class="text-primary">{{ plan?.plan || "Free" }}</p>
       </div>
       <!-- class="flex items-center space-x-2" <div>
         <h6 class="font-semibold text-slate-900">Plan Amount:</h6>
         <p class="text-primary">{{plan?.plan.amount || '0'}} {{plan?.plan.currency || "USD"}}</p>
       </div> -->
       <div *ngIf="user?.trialEndDate">
-        <h6 class="font-semibold text-slate-900" >Trial End Date:</h6>
-        <p class="text-primary">{{user?.trialEndDate | date:"short"}}</p>
+        <h6 class="font-semibold text-slate-900">Trial End Date:</h6>
+        <p class="text-primary">{{ user?.trialEndDate | date : "short" }}</p>
       </div>
       <div class="flex items-center space-x-2">
         <h6 class="font-semibold text-slate-900">MFA Status:</h6>
-        <p class="text-primary">{{user?.mfaEnabled ? 'Enabled' : 'Disabled'}}</p>
+        <p class="text-primary">
+          {{ user?.mfaEnabled ? "Enabled" : "Disabled" }}
+        </p>
       </div>
     </div>
   </div>
-  <div class="relative flex flex-col mb-4 sm:mr-4 gap-y-10">
+  <div class="relative flex flex-col mb-4 sm:mr-4 gap-y-10 order-1 md:order-2">
     <img
       src="https://placehold.co/150"
       alt="Profile Picture"
-      class="rounded-full max-h-80 w-80 border-4 border-accent shadow-lg  mt-4 lg:mt-0"
+      class="rounded-full max-h-80 w-80 border-4 border-accent shadow-lg mt-4 lg:mt-0"
     />
-<input type="file" #fileInput accept="image/*" (change)="onFileSelected($event)" hidden>
+    <input
+      type="file"
+      #fileInput
+      accept="image/*"
+      (change)="onFileSelected($event)"
+      hidden
+    />
 
-<button mat-flat-button type="button" class="absolute bottom-0" (click)="fileInput.click()">
-  Upload photo
-</button> 
-
-  
-</div> 
+    <button
+      mat-flat-button
+      type="button"
+      class="absolute bottom-0"
+      (click)="fileInput.click()"
+    >
+      Upload photo
+    </button>
+  </div>
 </div>
