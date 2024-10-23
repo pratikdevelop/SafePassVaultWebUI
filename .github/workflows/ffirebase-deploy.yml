@@ -15,7 +15,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # Replace with your Node.js version
+          node-version: '18'  # Ensure Node.js version is appropriate for your Angular version
 
       - name: Install Dependencies
         run: npm install
@@ -54,40 +54,49 @@ jobs:
       - name: Deploy to Firebase
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_MANAGEMENT_45 }}'
+          repoToken: ${{ secrets.GH_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MANAGEMENT_45 }}
           projectId: 'management-45'
           channelId: live
 
   publish_on_linux:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      
       - name: Install Dependencies
         run: npm install
+      
       - name: Publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}  # Ensure the token is named GH_TOKEN
         run: npm run publish
 
   publish_on_mac:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      
       - name: Install Dependencies
         run: npm install
+      
       - name: Publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}  # Same token for GitHub
         run: npm run publish
 
   publish_on_win:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      
       - name: Install Dependencies
         run: npm install
+      
       - name: Publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}  # GitHub token for authentication
         run: npm run publish
