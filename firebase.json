@@ -6,14 +6,19 @@
       "**/.*",
       "**/node_modules/**"
     ],
-    "rewrites": [{
-            "source": "/public/**",
-            "destination": "/public.html"
-        },
-        {
-            "source": "**",
-            "destination": "/index.html"
-        }
+    "rewrites": [
+      {
+        "source": "/public/**",
+        "destination": "/public.html"
+      },
+      {
+        "source": "/api/**",
+        "destination": "http://54.224.249.251/api/**"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
     ]
   }
 }
