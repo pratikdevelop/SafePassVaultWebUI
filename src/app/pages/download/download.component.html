@@ -1,78 +1,121 @@
-<div class="min-h-screen bg-gray-100 p-8">
-    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
-      
-      <!-- Title -->
-      <h1 class="text-2xl font-bold text-gray-700 mb-4">Download safepassvault</h1>
-  
-      <!-- GitHub Info -->
-      <div class="mb-6 flex items-center space-x-2">
-        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" class="w-8 h-8">
-        <a href="https://github.com/pratikdevelop/password-app-ui/releases" class="text-sm text-blue-500 hover:text-blue-700">
-          View releases on GitHub
-        </a>
-      </div>
-  
-      <!-- Platform Selection -->
-      <div class="mb-6">
-        <label class="block mb-2 text-gray-600">Select your platform:</label>
-        <select [(ngModel)]="selectedPlatform" class="w-full border border-gray-300 rounded-lg p-2 focus:ring focus:ring-green-300">
-          <option value="windows">Windows</option>
-          <option value="linux">Linux</option>
-          <option value="ubuntu">Ubuntu</option>
-          <option value="macos">macOS</option>
-          <option value="docker">Docker</option>
-        </select>
-      </div>
-  
-      <!-- Windows Download Section -->
-      <div *ngIf="selectedPlatform === 'windows'" class="p-4 bg-gray-50 rounded-lg">
-        <h2 class="text-xl font-semibold text-gray-700">Download for Windows</h2>
-        <p class="text-gray-600 mt-2">Click the button below to download the Windows installer:</p>
-        <a href="https://github.com/pratikdevelop/password-app-ui/releases/tag/windowsv0.1.0" target="_blank"
-           class="inline-block mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
-          Download Windows Installer
-        </a>
-      </div>
-  
-      <!-- Linux Download Section -->
-      <div *ngIf="selectedPlatform === 'linux'" class="p-4 bg-gray-50 rounded-lg">
-        <h2 class="text-xl font-semibold text-gray-700">Download for Linux</h2>
-        <p class="text-gray-600 mt-2">Run the following command to install YourApp on Linux:</p>
-        <pre class="bg-gray-800 text-white p-3 rounded mt-2">
-  sudo wget https://github.com/pratikdevelop/password-app-ui/releases/download/0.2.0/linux-installer.sh -O linux-installer.sh && sudo chmod +x linux-installer.sh && sudo ./linux-installer.sh
-        </pre>
-      </div>
-  
-      <!-- Ubuntu Download Section -->
-      <div *ngIf="selectedPlatform === 'ubuntu'" class="p-4 bg-gray-50 rounded-lg">
-        <h2 class="text-xl font-semibold text-gray-700">Download for Ubuntu</h2>
-        <p class="text-gray-600 mt-2">Run the following command to install YourApp on Ubuntu:</p>
-        <pre class="bg-gray-800 text-white p-3 rounded mt-2">
-  sudo add-apt-repository ppa:yourapp/ppa && sudo apt-get update && sudo apt-get install yourapp
-        </pre>
-      </div>
-  
-      <!-- macOS Download Section -->
-      <div *ngIf="selectedPlatform === 'macos'" class="p-4 bg-gray-50 rounded-lg">
-        <h2 class="text-xl font-semibold text-gray-700">Download for macOS</h2>
-        <p class="text-gray-600 mt-2">Click the button below to download the macOS installer:</p>
-        <a href="https://github.com/pratikdevelop/password-app-ui/releases/tag/0.2.0" target="_blank"
-           class="inline-block mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
-          Download macOS Installer
-        </a>
-      </div>
-  
-      <!-- Docker Section -->
-      <div *ngIf="selectedPlatform === 'docker'" class="p-4 bg-gray-50 rounded-lg">
-        <h2 class="text-xl font-semibold text-gray-700">Run with Docker</h2>
-        <p class="text-gray-600 mt-2">Run the following command to pull and run YourApp using Docker:</p>
-        <pre class="bg-gray-800 text-white p-3 rounded mt-2">
-  docker pull pratikdevelop/password-app-ui:latest
-  docker run -d -p 8080:8080 pratikdevelop/password-app-ui
-        </pre>
-        <p class="text-gray-600 mt-2">Ensure Docker is installed on your system. Visit <a href="https://docs.docker.com/get-docker/" target="_blank" class="text-blue-500 hover:text-blue-700">Docker Docs</a> for installation instructions.</p>
-      </div>
-  
-    </div>
+<div class="relative w-full rounded shadow-md flex flex-col space-y-6 px-5 py-20 md:px-20">
+    
+<!-- Title -->
+<h1 class="text-2xl font-bold text-gray-700 mb-4">Download SafePassVault</h1>
+
+<!-- Description -->
+<p class="text-gray-600 mb-4">
+  SafePassVault is a secure password management tool designed to help you store and manage your passwords safely. With end-to-end encryption and a user-friendly interface, you can ensure that your sensitive information is protected at all times. Whether you're using it for personal or professional purposes, SafePassVault offers a reliable solution for all your password management needs.
+</p>
+
+<!-- Features Section -->
+<h2 class="text-xl font-semibold text-gray-700 mb-2">Key Features:</h2>
+<ul class="list-disc list-inside mb-4 text-gray-600">
+  <li>End-to-End Encryption: Your data is encrypted from the moment you enter it until you access it.</li>
+  <li>Cross-Platform Support: Use SafePassVault on Windows, Linux, macOS, and even within Docker containers.</li>
+  <li>User-Friendly Interface: Simple and intuitive design for hassle-free navigation.</li>
+  <li>Secure Sharing: Safely share passwords with trusted users without compromising security.</li>
+  <li>Backup and Restore: Easily backup your data and restore it whenever needed.</li>
+</ul>
+
+<!-- GitHub Info -->
+<div class="mb-6 flex items-center space-x-2">
+  <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" class="w-8 h-8">
+  <a href="https://github.com/pratikdevelop/password-app-ui/releases" class="text-sm text-blue-500 hover:text-blue-700">
+    View releases on GitHub
+  </a>
+</div>
+
+<!-- Note About Latest Version -->
+<p class="text-gray-600">
+  It is highly recommended to always download the latest version of SafePassVault to take advantage of new features, performance improvements, and security patches. Check our <a href="https://github.com/pratikdevelop/password-app-ui/releases" class="text-blue-500 hover:text-blue-700" target="_blank">GitHub Releases</a> page for the most up-to-date information.
+</p>
+
+<!-- Call to Action -->
+<p class="text-gray-600 mt-4">
+  Join our growing community of users who trust SafePassVault for managing their passwords securely. If you encounter any issues or have questions, feel free to reach out through our <a href="https://github.com/pratikdevelop/password-app-ui/issues" class="text-blue-500 hover:text-blue-700" target="_blank">GitHub Issues</a> page.
+</p>
+
+
+  <!-- Platform Selection -->
+  <div class="mb-6">
+    <label class="block mb-2 text-gray-600">Select your platform:</label>
+    <select [(ngModel)]="selectedPlatform" class="w-full border border-gray-300 rounded-lg p-2 focus:ring focus:ring-green-300">
+      <option value="windows">Windows</option>
+      <option value="linux">Linux</option>
+      <option value="ubuntu">Ubuntu</option>
+      <option value="macos">macOS</option>
+      <option value="docker">Docker</option>
+    </select>
   </div>
-      
+
+  <!-- Windows Download Section -->
+  <div *ngIf="selectedPlatform === 'windows'" class="p-4 bg-gray-50 rounded-lg">
+    <h2 class="text-xl font-semibold text-gray-700">Download for Windows</h2>
+    <p class="text-gray-600 mt-2">To install SafePassVault on Windows, click the button below to download the installer:</p>
+    <a href="https://github.com/pratikdevelop/SafePassVaultWebUI/releases/download/v0.0.0/password-app-0.0.0.Setup.exe" target="_blank"
+       class="inline-block mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+      Download Windows Installer
+    </a>
+    <p class="text-gray-600 mt-2">After downloading, run the installer and follow the on-screen instructions.</p>
+  </div>
+
+  <!-- Linux Download Section -->
+  <div *ngIf="selectedPlatform === 'linux'" class="p-4 bg-gray-50 rounded-lg">
+    <h2 class="text-xl font-semibold text-gray-700">Download for Linux</h2>
+    <p class="text-gray-600 mt-2">To install SafePassVault on Linux, run the following commands:</p>
+    <pre class="bg-gray-800 text-white p-3 rounded mt-2">
+wget https://github.com/pratikdevelop/SafePassVaultWebUI/releases/download/v0.0.0/safepassvault_0.0.0_amd64.deb
+sudo dpkg -i safepassvault_0.0.0_amd64.deb
+    </pre>
+    <p class="text-gray-600 mt-2">If you encounter dependency issues, you can resolve them by running:</p>
+    <pre class="bg-gray-800 text-white p-3 rounded mt-2">
+sudo apt-get install -f
+    </pre>
+  </div>
+
+  <!-- Ubuntu Download Section -->
+  <div *ngIf="selectedPlatform === 'ubuntu'" class="p-4 bg-gray-50 rounded-lg">
+    <h2 class="text-xl font-semibold text-gray-700">Download for Ubuntu</h2>
+    <p class="text-gray-600 mt-2">To install SafePassVault on Ubuntu, run the following commands:</p>
+    <pre class="bg-gray-800 text-white p-3 rounded mt-2">
+sudo add-apt-repository ppa:yourapp/ppa && sudo apt-get update && sudo apt-get install yourapp
+    </pre>
+    <p class="text-gray-600 mt-2">Ensure your system is updated and prerequisites are installed.</p>
+  </div>
+
+  <!-- macOS Download Section -->
+  <div *ngIf="selectedPlatform === 'macos'" class="p-4 bg-gray-50 rounded-lg">
+    <h2 class="text-xl font-semibold text-gray-700">Download for macOS</h2>
+    <p class="text-gray-600 mt-2">To install SafePassVault on macOS, click the button below to download the installer:</p>
+    <a href="https://github.com/pratikdevelop/SafePassVaultWebUI/releases/download/v0.0.0/password_app.dmg" target="_blank"
+       class="inline-block mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+      Download macOS Installer
+    </a>
+    <p class="text-gray-600 mt-2">After downloading, open the `.dmg` file and drag the application to your Applications folder.</p>
+  </div>
+
+  <!-- Docker Section -->
+  <div *ngIf="selectedPlatform === 'docker'" class="p-4 bg-gray-50 rounded-lg">
+    <h2 class="text-xl font-semibold text-gray-700">Run with Docker</h2>
+    <p class="text-gray-600 mt-2">To pull and run SafePassVault using Docker, execute the following commands:</p>
+    <pre class="bg-gray-800 text-white p-3 rounded mt-2">
+docker pull pratikdevelop/password-app-ui:latest
+docker run -d -p 8080:8080 pratikdevelop/password-app-ui
+    </pre>
+    <p class="text-gray-600 mt-2">Make sure Docker is installed on your system. Visit <a href="https://docs.docker.com/get-docker/" target="_blank" class="text-blue-500 hover:text-blue-700">Docker Docs</a> for installation instructions.</p>
+  </div>
+
+  <!-- Additional Instructions Section -->
+  <div class="p-4 bg-gray-50 rounded-lg">
+    <h2 class="text-xl font-semibold text-gray-700">Additional Instructions</h2>
+    <p class="text-gray-600 mt-2">For the best experience, ensure your system meets the following requirements:</p>
+    <ul class="list-disc list-inside mt-2 text-gray-600">
+      <li>Latest version of the operating system</li>
+      <li>Internet connection for downloading dependencies</li>
+      <li>Administrator access for installation</li>
+    </ul>
+    <p class="text-gray-600 mt-4">If you face any issues during installation, please refer to our <a href="https://github.com/pratikdevelop/password-app-ui/issues" target="_blank" class="text-blue-500 hover:text-blue-700">GitHub Issues</a> page or contact our support team.</p>
+  </div>
+
+</div>

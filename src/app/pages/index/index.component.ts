@@ -6,11 +6,12 @@ import {
   RouterOutlet,
 } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-index',
   standalone: true,
-  imports: [RouterOutlet, RouterModule],
+  imports: [RouterOutlet, RouterModule, MatButtonModule],
   templateUrl: './index.component.html',
   styleUrl: './index.component.css',
 })
