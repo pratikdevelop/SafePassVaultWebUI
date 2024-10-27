@@ -21,14 +21,14 @@ export class PasswordService {
     console.log('pp', _search);
     
     const params = new HttpParams();
-    if (_search) {
+    if (_search && _search !== undefined) {
       params.set('search', _search);
       }    
-    return this.http.get<any[]>(`${this.apiUrl}?search=${_search}`
+    return this.http.get<any[]>(`${this.apiUrl}`
     )
       .pipe(
         switchMap((response: any) => {
-          const decryptedPasswords = response.data.map((res: { password: string | CryptoJS.lib.CipherParams; key: string | CryptoJS.lib.WordArray; }) => {
+          const decryptedPasswords = response.passwords.map((res: { password: string | CryptoJS.lib.CipherParams; key: string | CryptoJS.lib.WordArray; }) => {
             try {
               const decryptedPassword = CryptoJS.AES.decrypt(res.password, res.key).toString(CryptoJS.enc.Utf8);
               return { ...res, password: decryptedPassword };

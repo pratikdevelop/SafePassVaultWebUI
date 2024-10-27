@@ -1,13 +1,8 @@
-<ng-container *ngIf="!token">
-    <div class="relative flex flex-col overflow-y-auto overflow-x-hidden text-slate-900">
-        <app-header></app-header>
+    <div class="relative flex flex-col overflow-y-auto overflow-x-hidden h-[100vh] text-slate-900">
+        <app-header *ngIf="!hideHeader"></app-header>
         <div class="flex flex-col flex-auto z-2">
           <router-outlet></router-outlet>
         </div>
-        <app-footer></app-footer>
+        <!-- <app-footer *ngIf="!token && !hideHeader"></app-footer> -->
     </div>
-</ng-container>
-<ng-container *ngIf="token">
-    <router-outlet></router-outlet>
-</ng-container>
 

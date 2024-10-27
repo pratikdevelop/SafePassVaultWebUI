@@ -62,9 +62,15 @@
   font-style: normal;
 }
 
-::ng-deep mdc-dialog--closing .mat-mdc-dialog-surface {
-  border-radius: 0 !important;
+.mat-mdc-dialog-surface {
+  border-radius: o.1em !important;
 }
-
+.mat-mdc-unelevated-button,
+.mat-mdc-raised-button{
+  border-radius: 0.1rem !important;
+  font-size: medium !important;
+  font-weight: bold !important;
+  padding: .5rem 2rem !important;
+}
 
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

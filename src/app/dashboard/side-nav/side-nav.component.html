@@ -1,8 +1,125 @@
-<div class="border-r-1 h-full flex flex-col items-center text-white bg-slate-800 space-y-4 py-5">
-  <a (click)="toggleSideBar()" mat-button color="tertiary" routerLink="/dashboard/passwords" >Passwords</a>
-  <a (click)="toggleSideBar()" mat-button color="tertiary" routerLink="/dashboard/notes">Secure Notes</a>
-  <a (click)="toggleSideBar()" mat-button color="tertiary" routerLink="/dashboard/card">Cards</a>
-  <a (click)="toggleSideBar()" mat-button color="tertiary" routerLink="/dashboard/Proof">Identity</a>
-  <a (click)="toggleSideBar()" mat-button color="tertiary" routerLink="/dashboard/file">File storage</a>
-  </div>
-  
+<div class="border-r-1 h-full mt-16 flex flex-col items-center space-y-6 py-5">
+  <mat-accordion class="w-full space-y-2" hideToggle="true">
+    
+    <!-- Passwords Section -->
+    <mat-expansion-panel (opened)="sectionOpened('passwords')" [expanded]="folders.length > 0">
+      <mat-expansion-panel-header [routerLink]="['/dashboard/passwords']">
+        <mat-panel-title>
+          <mat-icon class="mr-2">lock</mat-icon>
+          Passwords
+          <button mat-icon-button class="ml-auto" (click)="openCreateFolderDialog($event, 'passwords')">
+            <mat-icon class="mr-2">create_new_folder</mat-icon>
+          </button>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      
+      <!-- Folder List for Passwords -->
+      <div *ngIf="isSectionOpen('passwords')" class="px-4">
+        <mat-list class="space-y-2">
+          <mat-list-item *ngFor="let folder of folders" class="flex items-center space-x-2" 
+            (click)="filterByFolder('passwords', folder._id)">
+            <mat-icon mat-list-icon class="mr-2">folder</mat-icon>
+            <span>{{ folder.name }}</span>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Secure Notes Section -->
+    <mat-expansion-panel (opened)="sectionOpened('notes')">
+      <mat-expansion-panel-header [routerLink]="['/dashboard/notes']">
+        <mat-panel-title>
+          <mat-icon class="mr-2">note</mat-icon>
+          Secure Notes
+          <button mat-icon-button class="ml-auto" (click)="openCreateFolderDialog($event, 'notes')">
+            <mat-icon class="mr-2">create_new_folder</mat-icon>
+          </button>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      
+      <!-- Folder List for Notes -->
+      <div *ngIf="isSectionOpen('notes')" class="px-4">
+        <mat-list>
+          <mat-list-item *ngFor="let folder of folders" 
+            (click)="filterByFolder('notes', folder.id)">
+            <mat-icon mat-list-icon>folder</mat-icon>
+            <span>{{ folder.name }}</span>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Cards Section -->
+    <mat-expansion-panel (opened)="sectionOpened('cards')">
+      <mat-expansion-panel-header [routerLink]="['/dashboard/cards']">
+        <mat-panel-title>
+          <mat-icon class="mr-2">credit_card</mat-icon>
+          Cards
+          <button mat-icon-button class="ml-auto" (click)="openCreateFolderDialog($event, 'cards')">
+            <mat-icon class="mr-2">create_new_folder</mat-icon>
+          </button>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      
+      <!-- Folder List for Cards -->
+      <div *ngIf="isSectionOpen('cards')" class="px-4">
+        <mat-list>
+          <mat-list-item *ngFor="let folder of folders" 
+            (click)="filterByFolder('cards', folder.id)">
+            <mat-icon mat-list-icon>folder</mat-icon>
+            <span>{{ folder.name }}</span>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- Identity Section -->
+    <mat-expansion-panel (opened)="sectionOpened('identity')">
+      <mat-expansion-panel-header [routerLink]="['/dashboard/identity']">
+        <mat-panel-title>
+          <mat-icon class="mr-2">account_box</mat-icon>
+          Identity
+          <button mat-icon-button class="ml-auto" (click)="openCreateFolderDialog($event, 'identity')">
+            <mat-icon class="mr-2">create_new_folder</mat-icon>
+          </button>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      
+      <!-- Folder List for Identity -->
+      <div *ngIf="isSectionOpen('identity')" class="px-4">
+        <mat-list>
+          <mat-list-item *ngFor="let folder of folders" 
+            (click)="filterByFolder('identity', folder.id)">
+            <mat-icon mat-list-icon>folder</mat-icon>
+            <span>{{ folder.name }}</span>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </mat-expansion-panel>
+
+    <!-- File Storage Section -->
+    <mat-expansion-panel (opened)="sectionOpened('file')">
+      <mat-expansion-panel-header [routerLink]="['/dashboard/file']">
+        <mat-panel-title>
+          <mat-icon class="mr-2">folder</mat-icon>
+          File Storage
+          <button mat-icon-button class="ml-auto" (click)="openCreateFolderDialog($event, 'file')">
+            <mat-icon class="mr-2">create_new_folder</mat-icon>
+          </button>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      
+      <!-- Folder List for File Storage -->
+      <div *ngIf="isSectionOpen('file')" class="px-4">
+        <mat-list>
+          <mat-list-item *ngFor="let folder of folders" 
+            (click)="filterByFolder('file', folder.id)">
+            <mat-icon mat-list-icon>folder</mat-icon>
+            <span>{{ folder.name }}</span>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </mat-expansion-panel>
+    
+  </mat-accordion>
+</div>

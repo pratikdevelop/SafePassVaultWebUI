@@ -52,7 +52,7 @@ import { CommonModule } from '@angular/common';
 `,
 })
 export class HeaderComponent implements OnInit {
-  token = localStorage.getItem('token')?.toString();
+  public readonly token = localStorage.getItem('token')?.toString();
   private readonly authService = inject(AuthService);
   private readonly snackbar = inject(MatSnackBar);
   private readonly router = inject(Router);

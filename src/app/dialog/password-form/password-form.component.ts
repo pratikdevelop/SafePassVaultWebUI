@@ -6,7 +6,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angu
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CommonModule } from '@angular/common';
-import { tap } from 'rxjs/operators';
+import { debounceTime, switchMap, tap } from 'rxjs/operators';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -16,6 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatChipsModule } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatIconModule } from '@angular/material/icon';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-password-form',
@@ -32,9 +33,11 @@ export class PasswordFormComponent implements OnInit {
     website: new FormControl('', [Validators.required, this.urlValidator()]), // Added URL validation
     username: new FormControl('', Validators.required),
     password: new FormControl('', [Validators.required, this.strongPasswordValidator()]), // Added strong password validation
-    tags: new FormControl()
+    tags: new FormControl(),
+    searchTerm: new FormControl('')
   });
-  searchTerm = model('');
+  
+  searchTermSubject: Subject<string> = new Subject<string>();
   readonly dialog = inject(MatDialog)
   readonly formbuilder = inject(FormBuilder);
   readonly passwordService = inject(PasswordService)
@@ -48,10 +51,25 @@ export class PasswordFormComponent implements OnInit {
   ngOnInit(): void {
     this.passwordForm.patchValue(this.data.password)
     const tagIds: any[] = [];
-    this.data.password.tags.forEach((tag: any) => {
+    this.data?.password?.tags.forEach((tag: any) => {
       this.tagsName.update(tagNam => [...tagNam, tag.name])
       tagIds.push(tag._id)
     });
+    this.searchTermSubject.pipe(
+      // debounceTime(300), // Delay of 300ms
+      switchMap(term => this.passwordService.searchTags(term))
+    ).subscribe(
+      (res) => {
+        this.tags = res;
+        this.isLoading = false;
+        this.detectorRef.detectChanges();
+      },
+      (error) => {
+        this.tags = [];
+        this.isLoading = false; // Ensure loading is false on error as well
+        console.error("Error fetching the Tags, Error: ", error);
+      }
+    );
     this.passwordForm.get('tags')?.setValue(tagIds);
   }
 
@@ -59,22 +77,19 @@ export class PasswordFormComponent implements OnInit {
     const tags = this.passwordForm.value.tags
     this.passwordForm.controls.tags.setValue([...tags, event.option.value._id])
     this.tagsName.update(tagname => [...tagname, event.option.viewValue])
-    this.searchTerm.set('');
+    this.passwordForm.controls.searchTerm.setValue('');
     event.option.deselect();
     this.detectorRef.detectChanges();
   }
 
   searchTags(): void {
-    if (this.searchTerm.toString().length > 0) {
-      this.isLoading = true
-      this.passwordService.searchTags(this.searchTerm.toString()).subscribe((res) => {
-        this.tags = res;
-        this.isLoading = false;
-        this.detectorRef.detectChanges();
-      }, (error) => {
-        this.tags = [];
-        console.error("Error fetching the Tags, Error: ", error);
-      });
+    const searchTerm = this.passwordForm.value.searchTerm?.trim().toLowerCase();
+    if (searchTerm) {
+      this.isLoading = true;
+      this.searchTermSubject.next(searchTerm); // Emit the current search term
+    } else {
+      this.tags = []; // Clear tags if search term is empty
+      this.isLoading = false;
     }
   }
 

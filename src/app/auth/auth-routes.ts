@@ -3,10 +3,6 @@ import { authGuard } from "../auth.guard";
 
 export const authRoutes: Routes = [
     {
-        path: 'email-confirmation',
-        loadComponent:()=>import("./confirmation/confirmation.component").then((m)=>m.ConfirmationComponent)
-    },
-    {
         path: 'login',
         loadComponent:()=>import("./login/login.component").then((m)=>m.LoginComponent)
         
