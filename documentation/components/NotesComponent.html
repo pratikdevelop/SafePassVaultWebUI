@@ -1,0 +1,1763 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>password-app documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">password-app documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  NotesComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/dashboard/notes/notes.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-notes</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>MatTableModule</code>
+                            <code>MatSortModule</code>
+                            <code>MatFormFieldModule</code>
+                            <code>ReactiveFormsModule</code>
+                            <code>FormsModule</code>
+                            <code>MatInputModule</code>
+                            <code>MatButtonModule</code>
+                            <code>MatIconModule</code>
+                            <code>MatMenuModule</code>
+                            <code>MatCheckboxModule</code>
+                            <code>MatDialogModule</code>
+                            <code>MatChipsModule</code>
+                            <code>CommonModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./notes.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./notes.component.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#changedetect" >changedetect</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#commonService" >commonService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#dialog" >dialog</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#displayedColumns" >displayedColumns</a>
+                            </li>
+                            <li>
+                                <a href="#isLoading" >isLoading</a>
+                            </li>
+                            <li>
+                                <a href="#notes" >notes</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#noteService" >noteService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#passwordIds" >passwordIds</a>
+                            </li>
+                            <li>
+                                <a href="#searchTerm" >searchTerm</a>
+                            </li>
+                            <li>
+                                <a href="#selection" >selection</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#checkboxLabel" >checkboxLabel</a>
+                            </li>
+                            <li>
+                                <a href="#deleteNotes" >deleteNotes</a>
+                            </li>
+                            <li>
+                                <a href="#exportPassword" >exportPassword</a>
+                            </li>
+                            <li>
+                                <a href="#getNotes" >getNotes</a>
+                            </li>
+                            <li>
+                                <a href="#isAllSelected" >isAllSelected</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#openNotesDialog" >openNotesDialog</a>
+                            </li>
+                            <li>
+                                <a href="#toggleAllRows" >toggleAllRows</a>
+                            </li>
+                            <li>
+                                <a href="#toggleSideBar" >toggleSideBar</a>
+                            </li>
+                            <li>
+                                <a href="#trackById" >trackById</a>
+                            </li>
+                            <li>
+                                <a href="#updateFavourites" >updateFavourites</a>
+                            </li>
+                            <li>
+                                <a href="#viewNotee" >viewNotee</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/dashboard/notes/notes.component.ts:65</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkboxLabel"></a>
+                    <span class="name">
+                        <span ><b>checkboxLabel</b></span>
+                        <a href="#checkboxLabel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>checkboxLabel(row?: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="159"
+                                    class="link-to-prism">src/app/dashboard/notes/notes.component.ts:159</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>The label for the checkbox on the passed row</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>row</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteNotes"></a>
+                    <span class="name">
+                        <span ><b>deleteNotes</b></span>
+                        <a href="#deleteNotes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteNotes(id?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="88"
+                                    class="link-to-prism">src/app/dashboard/notes/notes.component.ts:88</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportPassword"></a>
+                    <span class="name">
+                        <span ><b>exportPassword</b></span>
+                        <a href="#exportPassword"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportPassword()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="185"
+                                    class="link-to-prism">src/app/dashboard/notes/notes.component.ts:185</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getNotes"></a>
+                    <span class="name">
+                        <span ><b>getNotes</b></span>
+                        <a href="#getNotes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getNotes()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="70"
+                                    class="link-to-prism">src/app/dashboard/notes/notes.component.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isAllSelected"></a>
+                    <span class="name">
+                        <span ><b>isAllSelected</b></span>
+                        <a href="#isAllSelected"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isAllSelected()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="142"
+                                    class="link-to-prism">src/app/dashboard/notes/notes.component.ts:142</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="67"
+                                    class="link-to-prism">src/app/dashboard/notes/notes.component.ts:67</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openNotesDialog"></a>
+                    <span class="name">
+                        <span ><b>openNotesDialog</b></span>
+                        <a href="#openNotesDialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openNotesDialog(note: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="173"
+                                    class="link-to-prism">src/app/dashboard/notes/notes.component.ts:173</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>note</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleAllRows"></a>
+                    <span class="name">
+                        <span ><b>toggleAllRows</b></span>
+                        <a href="#toggleAllRows"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleAllRows()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="149"
+                                    class="link-to-prism">src/app/dashboard/notes/notes.component.ts:149</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Selects all rows if they are not all selected; otherwise clear selection.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleSideBar"></a>
+                    <span class="name">
+                        <span ><b>toggleSideBar</b></span>
+                        <a href="#toggleSideBar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleSideBar()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="200"
+                                    class="link-to-prism">src/app/dashboard/notes/notes.component.ts:200</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="trackById"></a>
+                    <span class="name">
+                        <span ><b>trackById</b></span>
+                        <a href="#trackById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>trackById(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, item: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="115"
+                                    class="link-to-prism">src/app/dashboard/notes/notes.component.ts:115</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>item</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateFavourites"></a>
+                    <span class="name">
+                        <span ><b>updateFavourites</b></span>
+                        <a href="#updateFavourites"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateFavourites(noteId?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="119"
+                                    class="link-to-prism">src/app/dashboard/notes/notes.component.ts:119</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>noteId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="viewNotee"></a>
+                    <span class="name">
+                        <span ><b>viewNotee</b></span>
+                        <a href="#viewNotee"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>viewNotee(note: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="168"
+                                    class="link-to-prism">src/app/dashboard/notes/notes.component.ts:168</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>note</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changedetect"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>changedetect</b></span>
+                        <a href="#changedetect"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ChangeDetectorRef)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/dashboard/notes/notes.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="commonService"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>commonService</b></span>
+                        <a href="#commonService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(CommonService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/dashboard/notes/notes.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dialog"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>dialog</b></span>
+                        <a href="#dialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(MatDialog)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/app/dashboard/notes/notes.component.ts:62</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="displayedColumns"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>displayedColumns</b></span>
+                        <a href="#displayedColumns"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    &#x27;select&#x27;,
+    &#x27;_id&#x27;,
+    &#x27;title&#x27;,
+    &#x27;content&#x27;,
+    &#x27;created_by&#x27;,
+    // &#x27;tags&#x27;,
+    &#x27;favourite&#x27;,
+    &#x27;update_at&#x27;,
+    &#x27;action&#x27;,
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/dashboard/notes/notes.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isLoading"></a>
+                    <span class="name">
+                        <span ><b>isLoading</b></span>
+                        <a href="#isLoading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/dashboard/notes/notes.component.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="notes"></a>
+                    <span class="name">
+                        <span ><b>notes</b></span>
+                        <a href="#notes"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/dashboard/notes/notes.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="noteService"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>noteService</b></span>
+                        <a href="#noteService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(NoteService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/dashboard/notes/notes.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="passwordIds"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>passwordIds</b></span>
+                        <a href="#passwordIds"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/dashboard/notes/notes.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchTerm"></a>
+                    <span class="name">
+                        <span ><b>searchTerm</b></span>
+                        <a href="#searchTerm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/dashboard/notes/notes.component.ts:65</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selection"></a>
+                    <span class="name">
+                        <span ><b>selection</b></span>
+                        <a href="#selection"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new SelectionModel&lt;any&gt;(true, [])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/app/dashboard/notes/notes.component.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { SelectionModel } from &#x27;@angular/cdk/collections&#x27;;
+import { ChangeDetectorRef, Component, inject, OnInit } from &#x27;@angular/core&#x27;;
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogModule,
+} from &#x27;@angular/material/dialog&#x27;;
+import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
+import { MatSortModule } from &#x27;@angular/material/sort&#x27;;
+import { MatTableModule } from &#x27;@angular/material/table&#x27;;
+import { tap, catchError } from &#x27;rxjs&#x27;;
+import { NoteService } from &#x27;../../services/note.service&#x27;;
+import { NotesFormComponent } from &#x27;../../dialog/notes/notes-form.component&#x27;;
+import { MatMenuModule } from &#x27;@angular/material/menu&#x27;;
+import { MatChipsModule } from &#x27;@angular/material/chips&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { MatCheckboxModule } from &#x27;@angular/material/checkbox&#x27;;
+import { MatFormFieldModule } from &#x27;@angular/material/form-field&#x27;;
+import { MatInputModule } from &#x27;@angular/material/input&#x27;;
+import { FormsModule, ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
+import { CommonService } from &#x27;../../services/common.service&#x27;;
+
+@Component({
+  selector: &#x27;app-notes&#x27;,
+  standalone: true,
+  imports: [
+    MatTableModule,
+    MatSortModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatChipsModule,
+    CommonModule,
+  ],
+  templateUrl: &#x27;./notes.component.html&#x27;,
+  styleUrl: &#x27;./notes.component.css&#x27;,
+})
+export class NotesComponent implements OnInit {
+  notes: any[] &#x3D; []; // Use a Subject to manage password updates
+  readonly passwordIds &#x3D; [];
+  readonly changedetect &#x3D; inject(ChangeDetectorRef);
+  readonly noteService &#x3D; inject(NoteService);
+  readonly commonService &#x3D; inject(CommonService);
+  readonly displayedColumns: string[] &#x3D; [
+    &#x27;select&#x27;,
+    &#x27;_id&#x27;,
+    &#x27;title&#x27;,
+    &#x27;content&#x27;,
+    &#x27;created_by&#x27;,
+    // &#x27;tags&#x27;,
+    &#x27;favourite&#x27;,
+    &#x27;update_at&#x27;,
+    &#x27;action&#x27;,
+  ];
+  readonly dialog &#x3D; inject(MatDialog);
+  isLoading: boolean &#x3D; true;
+  selection &#x3D; new SelectionModel&lt;any&gt;(true, []);
+  searchTerm: string &#x3D; &#x27;&#x27;;
+  constructor() {}
+  ngOnInit(): void {
+    this.getNotes();
+  }
+  getNotes(): void {
+    this.isLoading &#x3D; true;
+    this.noteService.getNotes(this.searchTerm).subscribe(
+      (response: any) &#x3D;&gt; {
+        this.isLoading &#x3D; false;
+        console.log(&#x27;ff&#x27;, response);
+
+        this.notes &#x3D; response.data;
+        this.changedetect.detectChanges();
+      },
+      (error) &#x3D;&gt; {
+        this.notes &#x3D; [];
+        this.isLoading &#x3D; false;
+        this.changedetect.detectChanges();
+      }
+    );
+  }
+
+  deleteNotes(id?: string): void {
+    const ids &#x3D;
+      id ??
+      this.selection.selected
+        .map((note) &#x3D;&gt; {
+          return note._id;
+        })
+        .join(&#x27;,&#x27;);
+    // Delete password using an observable
+    this.noteService
+      .deleteNote(ids)
+      .pipe(
+        tap(() &#x3D;&gt; {
+          this.getNotes();
+        }),
+        catchError((error: any) &#x3D;&gt; {
+          console.error(&#x27;err&#x27;, error);
+          throw error; // re-throw the error to prevent silent failures
+        })
+      )
+      .subscribe({
+        complete: () &#x3D;&gt; {
+          this.changedetect.detectChanges();
+        },
+      });
+  }
+
+  trackById(index: number, item: any): number {
+    return item?._id; // assuming your Password object has an &#x27;id&#x27; property
+  }
+
+  updateFavourites(noteId?: string): void {
+    const ids &#x3D;
+      noteId ??
+      this.selection.selected
+        .map((pass) &#x3D;&gt; {
+          return pass._id;
+        })
+        .join(&#x27;,&#x27;);
+    console.log(&#x27;id&#x27;, ids);
+
+    this.noteService.addToFavorites(ids).subscribe(
+      (response) &#x3D;&gt; {
+        console.log(&#x27;Password added to favorites successfully&#x27;, response);
+        this.getNotes();
+        // Handle success, e.g., update UI
+      },
+      (error) &#x3D;&gt; {
+        console.error(&#x27;Error adding password to favorites&#x27;, error);
+        // Handle error, e.g., display error message
+      }
+    );
+  }
+
+  isAllSelected() {
+    const numSelected &#x3D; this.selection.selected.length;
+    const numRows &#x3D; this.notes.length;
+    return numSelected &#x3D;&#x3D;&#x3D; numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  toggleAllRows() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+
+    this.selection.select(...this.notes);
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: any): string {
+    if (!row) {
+      return &#x60;${this.isAllSelected() ? &#x27;deselect&#x27; : &#x27;select&#x27;} all&#x60;;
+    }
+    return &#x60;${this.selection.isSelected(row) ? &#x27;deselect&#x27; : &#x27;select&#x27;} row ${
+      row._id + 1
+    }&#x60;;
+  }
+
+  viewNotee(note: any): void {
+    this.dialog.open(ViewNoteCompoent, {
+      data: { note },
+    });
+  }
+  openNotesDialog(note: any): void {
+    const dialogRef &#x3D; this.dialog.open(NotesFormComponent, {
+      data: { note },
+      width: &#x27;400px&#x27;,
+    });
+
+    dialogRef.afterClosed().subscribe((res: any) &#x3D;&gt; {
+      if (res) {
+        this.getNotes();
+      }
+    });
+  }
+  exportPassword(): void {
+    const ids &#x3D; this.selection.selected
+      .map((pass) &#x3D;&gt; {
+        return pass._id;
+      })
+      .join(&#x27;,&#x27;);
+    this.noteService.exportNotesAsCsv(ids).subscribe((blob: Blob) &#x3D;&gt; {
+      const url &#x3D; URL.createObjectURL(blob);
+      const a &#x3D; document.createElement(&#x27;a&#x27;);
+      a.href &#x3D; url;
+      a.download &#x3D; &#x27;passwords.csv&#x27;;
+      a.click();
+    });
+  }
+
+  toggleSideBar(): void {
+    this.commonService.toggleSideBar()
+  }
+}
+@Component({
+  selector: &#x27;app-view-note&#x27;,
+  templateUrl: &#x27;./view-note.html&#x27;,
+  standalone: true,
+  imports: [MatButtonModule, MatDialogModule, CommonModule],
+})
+export class ViewNoteCompoent {
+  readonly data &#x3D; inject&lt;any&gt;(MAT_DIALOG_DATA);
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;nav aria-label&#x3D;&quot;Global&quot; class&#x3D;&quot;flex items-center  justify-between w-full text-primary-foreground bg-slate-800 shadow-lg p-3&quot;&gt;
+
+  &lt;div class&#x3D;&quot;flex items-center space-x-2&quot;&gt;
+    &lt;button mat-icon-button (click)&#x3D;&quot;toggleSideBar()&quot; class&#x3D;&quot;menu-button lg:hidden&quot;&gt;
+      &lt;mat-icon&gt;menu&lt;/mat-icon&gt;
+    &lt;/button&gt;
+    &lt;span class&#x3D;&quot;text-xl sm:text-3xl font-bold  text-white&quot;&gt;Secure Notes&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class&#x3D;&quot;flex sm:items-center space-x-3 sm:w-6/12  sm:justify-end&quot;&gt;
+&lt;!-- Add Menu --&gt;
+
+&lt;input matInput type&#x3D;&quot;text&quot;  (keyup)&#x3D;&quot;getNotes()&quot; placeholder&#x3D;&quot;Search the password&quot; aria-label&#x3D;&quot;Search the password&quot; 
+class&#x3D;&quot;w-6/12 py-2 px-3 border-2 border-slate-900 text-gray-500&quot; [(ngModel)]&#x3D;&quot;searchTerm&quot;
+/&gt;
+  &lt;!-- Add Menu --&gt;
+  &lt;div class&#x3D;&quot;flex flex-col items-start p-2&quot;&gt;
+    &lt;button mat-icon (click)&#x3D;&quot;openNotesDialog(null)&quot; aria-label&#x3D;&quot;Add new item&quot;&gt;
+      &lt;mat-icon class&#x3D;&quot;text-slate-50&quot;&gt;add_circle_outline&lt;/mat-icon&gt;
+    &lt;/button&gt;
+   
+  &lt;/div&gt;
+ 
+
+  &lt;!-- Actions Menu --&gt;
+  &lt;div class&#x3D;&quot;flex flex-col items-start p-2&quot;&gt;
+    &lt;button mat-icon [matMenuTriggerFor]&#x3D;&quot;actionMenu&quot; aria-label&#x3D;&quot;Actions menu&quot;&gt;
+      &lt;mat-icon class&#x3D;&quot;text-slate-50&quot;&gt;settings&lt;/mat-icon&gt;
+    &lt;/button&gt;
+    &lt;mat-menu #actionMenu&#x3D;&quot;matMenu&quot;&gt;
+      &lt;button mat-menu-item (click)&#x3D;&quot;deleteNotes()&quot;&gt;Delete&lt;/button&gt;
+      &lt;button mat-menu-item (click)&#x3D;&quot;updateFavourites()&quot;&gt;Add to Favourites&lt;/button&gt;
+      &lt;button mat-menu-item (click)&#x3D;&quot;exportPassword()&quot;&gt;Export&lt;/button&gt;
+    &lt;/mat-menu&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;/nav&gt;
+
+&lt;ng-container *ngIf&#x3D;&quot;notes.length &gt; 0; else noDataTemplate&quot;&gt;
+    &lt;table mat-table class&#x3D;&quot;mat-elevation-z8&quot; [dataSource]&#x3D;&quot;notes&quot; [trackBy]&#x3D;&quot;trackById&quot;&gt;
+      &lt;ng-container matColumnDef&#x3D;&quot;select&quot;&gt;
+        &lt;th mat-header-cell *matHeaderCellDef&gt;
+          &lt;mat-checkbox (change)&#x3D;&quot;$event ? toggleAllRows() : null&quot; [checked]&#x3D;&quot;selection.hasValue() &amp;&amp; isAllSelected()&quot;
+            [indeterminate]&#x3D;&quot;selection.hasValue() &amp;&amp; !isAllSelected()&quot; [aria-label]&#x3D;&quot;checkboxLabel()&quot;&gt;
+          &lt;/mat-checkbox&gt;
+        &lt;/th&gt;
+        &lt;td mat-cell *matCellDef&#x3D;&quot;let row&quot;&gt;
+          &lt;mat-checkbox (click)&#x3D;&quot;$event.stopPropagation()&quot; (change)&#x3D;&quot;$event ? selection.toggle(row) : null&quot;
+            [checked]&#x3D;&quot;selection.isSelected(row)&quot; [aria-label]&#x3D;&quot;checkboxLabel(row)&quot;&gt;
+          &lt;/mat-checkbox&gt;
+        &lt;/td&gt;
+      &lt;/ng-container&gt;
+      
+      &lt;ng-container matColumnDef&#x3D;&quot;favourite&quot;&gt;
+        &lt;th mat-header-cell *matHeaderCellDef&gt;
+          &lt;span&gt;Favourites&lt;/span&gt;
+        &lt;/th&gt;
+        &lt;td mat-cell *matCellDef&#x3D;&quot;let element&quot;&gt;
+          &lt;button mat-menu-item matTooltip&#x3D;&quot;Add to favourites&quot; color&#x3D;&quot;accent&quot; (click)&#x3D;&quot;updateFavourites(element._id)&quot;&gt;
+            
+            &lt;mat-icon [ngStyle]&#x3D;&quot;{ &#x27;color&#x27;: element.isFavorite ? &#x27;#F59E0B&#x27; : &#x27;#4B5563&#x27;}&quot;&gt;star&lt;/mat-icon&gt;
+          &lt;/button&gt;
+        &lt;/td&gt;
+      &lt;/ng-container&gt;
+
+      &lt;ng-container matColumnDef&#x3D;&quot;_id&quot;&gt;
+        &lt;th mat-header-cell *matHeaderCellDef&gt;Id&lt;/th&gt;
+        &lt;td mat-cell *matCellDef&#x3D;&quot;let element; let i &#x3D; index;&quot;&gt;{{ i + 1 }}&lt;/td&gt;
+      &lt;/ng-container&gt;
+
+      &lt;ng-container matColumnDef&#x3D;&quot;title&quot;&gt;
+        &lt;th mat-header-cell *matHeaderCellDef&gt;title&lt;/th&gt;
+        &lt;td mat-cell *matCellDef&#x3D;&quot;let element&quot;&gt;{{ element.title }}&lt;/td&gt;
+      &lt;/ng-container&gt;
+
+      &lt;ng-container matColumnDef&#x3D;&quot;content&quot;&gt;
+        &lt;th mat-header-cell *matHeaderCellDef&gt;content&lt;/th&gt;
+        &lt;td mat-cell *matCellDef&#x3D;&quot;let element&quot;&gt;{{ element.content }}&lt;/td&gt;
+      &lt;/ng-container&gt;
+
+      &lt;ng-container matColumnDef&#x3D;&quot;created_by&quot;&gt;
+        &lt;th mat-header-cell *matHeaderCellDef&gt;Created by&lt;/th&gt;
+        &lt;td mat-cell *matCellDef&#x3D;&quot;let element&quot;&gt;{{ element.ownerName }}&lt;/td&gt;
+      &lt;/ng-container&gt;
+
+      &lt;ng-container matColumnDef&#x3D;&quot;update_at&quot;&gt;
+        &lt;th mat-header-cell *matHeaderCellDef&gt;Update Date&lt;/th&gt;
+        &lt;td mat-cell *matCellDef&#x3D;&quot;let element&quot;&gt;{{ element.updatedAt | date: &#x27;short&#x27; }}&lt;/td&gt;
+      &lt;/ng-container&gt;
+
+      &lt;!-- &lt;ng-container matColumnDef&#x3D;&quot;tags&quot;&gt;
+        &lt;th mat-header-cell *matHeaderCellDef&gt;Tags&lt;/th&gt;
+        &lt;td mat-cell *matCellDef&#x3D;&quot;let element&quot;&gt;
+          &lt;mat-chip-grid #chipGrid aria-label&#x3D;&quot;Tag selection&quot;&gt;
+            &lt;mat-chip-row *ngFor&#x3D;&quot;let tag of element.tags;&quot;&gt;
+              {{ tag.name }}
+            &lt;/mat-chip-row&gt;
+          &lt;/mat-chip-grid&gt;
+        &lt;/td&gt;
+      &lt;/ng-container&gt; --&gt;
+
+      &lt;ng-container matColumnDef&#x3D;&quot;action&quot;&gt;
+        &lt;th mat-header-cell *matHeaderCellDef&gt;Action&lt;/th&gt;
+        &lt;td mat-cell *matCellDef&#x3D;&quot;let element&quot; class&#x3D;&quot;space-x-4&quot;&gt;
+
+
+            &lt;button mat-mini-fab matTooltip&#x3D;&quot;Edit password&quot; (click)&#x3D;&quot;openNotesDialog(element)&quot;&gt;
+              &lt;mat-icon class&#x3D;&quot;text-blue-500&quot;&gt;edit&lt;/mat-icon&gt;
+            &lt;/button&gt;
+            &lt;button mat-mini-fab matTooltip&#x3D;&quot;Delete password&quot; (click)&#x3D;&quot;deleteNotes(element._id)&quot;&gt;
+              &lt;mat-icon color&#x3D;&quot;warn&quot; class&#x3D;&quot;text-red-600&quot;&gt;delete&lt;/mat-icon&gt;
+              &lt;!-- &lt;span&gt;Delete password&lt;/span&gt; --&gt;
+            &lt;/button&gt;
+            &lt;!-- &lt;button mat-mini-fab matTooltip&#x3D;&quot;Share password&quot; (click)&#x3D;&quot;sharePassword(element._id)&quot;&gt;
+              &lt;mat-icon class&#x3D;&quot;text-tertiary&quot;&gt;share&lt;/mat-icon&gt;
+              &lt;span&gt;Share password&lt;/span&gt;
+            &lt;/button&gt; --&gt;
+            &lt;button mat-mini-fab matTooltip&#x3D;&quot;View password&quot; (click)&#x3D;&quot;viewNotee(element)&quot;&gt;
+              &lt;mat-icon class&#x3D;&quot;text-tertiary&quot;&gt;remove_red_eye&lt;/mat-icon&gt;
+              &lt;!-- &lt;span&gt;View password&lt;/span&gt; --&gt;
+            &lt;/button&gt;
+          
+        &lt;/td&gt;
+      &lt;/ng-container&gt;
+
+      &lt;tr mat-header-row *matHeaderRowDef&#x3D;&quot;displayedColumns&quot;&gt;&lt;/tr&gt;
+      &lt;tr mat-row *matRowDef&#x3D;&quot;let row; columns: displayedColumns&quot;&gt;&lt;/tr&gt;
+    &lt;/table&gt;
+  &lt;/ng-container&gt;
+  &lt;ng-template #noDataTemplate&gt;
+        &lt;div class&#x3D;&quot;flex items-center justify-center flex-col text-center p-6 h-[90vh] overflow-hidden&quot;&gt;
+        &lt;img src&#x3D;&quot;https://placehold.co/150&quot; alt&#x3D;&quot;error-icon&quot; class&#x3D;&quot;w-24 h-24 text-primary mb-4 animate-bounce&quot; /&gt;
+        &lt;p class&#x3D;&quot;text-primary font-extrabold text-2xl mt-2&quot;&gt;Oops! Data not found&lt;/p&gt;
+        &lt;p class&#x3D;&quot;text-muted-foreground text-sm mt-1&quot;&gt;It seems like we couldn&#x27;t locate the information you requested.&lt;/p&gt;
+        &lt;div class&#x3D;&quot;flex space-x-6 mt-6&quot;&gt;
+            &lt;button class&#x3D;&quot;bg-secondary text-secondary-foreground px-5 py-3 rounded-full shadow-md hover:bg-secondary/80 transition duration-300&quot;&gt;Retry&lt;/button&gt;
+            &lt;button class&#x3D;&quot;bg-accent text-accent-foreground px-5 py-3 rounded-full shadow-md hover:bg-accent/80 transition duration-300&quot;&gt;Add&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    
+    
+  &lt;/ng-template&gt;</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><nav aria-label="Global" class="flex items-center  justify-between w-full text-primary-foreground bg-slate-800 shadow-lg p-3">  <div class="flex items-center space-x-2">    <button mat-icon-button (click)="toggleSideBar()" class="menu-button lg:hidden">      <mat-icon>menu</mat-icon>    </button>    <span class="text-xl sm:text-3xl font-bold  text-white">Secure Notes</span>  </div>  <div class="flex sm:items-center space-x-3 sm:w-6/12  sm:justify-end"><!-- Add Menu --><input matInput type="text"  (keyup)="getNotes()" placeholder="Search the password" aria-label="Search the password" class="w-6/12 py-2 px-3 border-2 border-slate-900 text-gray-500" [(ngModel)]="searchTerm"/>  <!-- Add Menu -->  <div class="flex flex-col items-start p-2">    <button mat-icon (click)="openNotesDialog(null)" aria-label="Add new item">      <mat-icon class="text-slate-50">add_circle_outline</mat-icon>    </button>     </div>   <!-- Actions Menu -->  <div class="flex flex-col items-start p-2">    <button mat-icon [matMenuTriggerFor]="actionMenu" aria-label="Actions menu">      <mat-icon class="text-slate-50">settings</mat-icon>    </button>    <mat-menu #actionMenu="matMenu">      <button mat-menu-item (click)="deleteNotes()">Delete</button>      <button mat-menu-item (click)="updateFavourites()">Add to Favourites</button>      <button mat-menu-item (click)="exportPassword()">Export</button>    </mat-menu>  </div></div></nav><ng-container *ngIf="notes.length > 0; else noDataTemplate">    <table mat-table class="mat-elevation-z8" [dataSource]="notes" [trackBy]="trackById">      <ng-container matColumnDef="select">        <th mat-header-cell *matHeaderCellDef>          <mat-checkbox (change)="$event ? toggleAllRows() : null" [checked]="selection.hasValue() && isAllSelected()"            [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">          </mat-checkbox>        </th>        <td mat-cell *matCellDef="let row">          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"            [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">          </mat-checkbox>        </td>      </ng-container>            <ng-container matColumnDef="favourite">        <th mat-header-cell *matHeaderCellDef>          <span>Favourites</span>        </th>        <td mat-cell *matCellDef="let element">          <button mat-menu-item matTooltip="Add to favourites" color="accent" (click)="updateFavourites(element._id)">                        <mat-icon [ngStyle]="{ \'color\': element.isFavorite ? \'#F59E0B\' : \'#4B5563\'}">star</mat-icon>          </button>        </td>      </ng-container>      <ng-container matColumnDef="_id">        <th mat-header-cell *matHeaderCellDef>Id</th>        <td mat-cell *matCellDef="let element; let i = index;">{{ i + 1 }}</td>      </ng-container>      <ng-container matColumnDef="title">        <th mat-header-cell *matHeaderCellDef>title</th>        <td mat-cell *matCellDef="let element">{{ element.title }}</td>      </ng-container>      <ng-container matColumnDef="content">        <th mat-header-cell *matHeaderCellDef>content</th>        <td mat-cell *matCellDef="let element">{{ element.content }}</td>      </ng-container>      <ng-container matColumnDef="created_by">        <th mat-header-cell *matHeaderCellDef>Created by</th>        <td mat-cell *matCellDef="let element">{{ element.ownerName }}</td>      </ng-container>      <ng-container matColumnDef="update_at">        <th mat-header-cell *matHeaderCellDef>Update Date</th>        <td mat-cell *matCellDef="let element">{{ element.updatedAt | date: \'short\' }}</td>      </ng-container>      <!-- <ng-container matColumnDef="tags">        <th mat-header-cell *matHeaderCellDef>Tags</th>        <td mat-cell *matCellDef="let element">          <mat-chip-grid #chipGrid aria-label="Tag selection">            <mat-chip-row *ngFor="let tag of element.tags;">              {{ tag.name }}            </mat-chip-row>          </mat-chip-grid>        </td>      </ng-container> -->      <ng-container matColumnDef="action">        <th mat-header-cell *matHeaderCellDef>Action</th>        <td mat-cell *matCellDef="let element" class="space-x-4">            <button mat-mini-fab matTooltip="Edit password" (click)="openNotesDialog(element)">              <mat-icon class="text-blue-500">edit</mat-icon>            </button>            <button mat-mini-fab matTooltip="Delete password" (click)="deleteNotes(element._id)">              <mat-icon color="warn" class="text-red-600">delete</mat-icon>              <!-- <span>Delete password</span> -->            </button>            <!-- <button mat-mini-fab matTooltip="Share password" (click)="sharePassword(element._id)">              <mat-icon class="text-tertiary">share</mat-icon>              <span>Share password</span>            </button> -->            <button mat-mini-fab matTooltip="View password" (click)="viewNotee(element)">              <mat-icon class="text-tertiary">remove_red_eye</mat-icon>              <!-- <span>View password</span> -->            </button>                  </td>      </ng-container>      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>    </table>  </ng-container>  <ng-template #noDataTemplate>        <div class="flex items-center justify-center flex-col text-center p-6 h-[90vh] overflow-hidden">        <img src="https://placehold.co/150" alt="error-icon" class="w-24 h-24 text-primary mb-4 animate-bounce" />        <p class="text-primary font-extrabold text-2xl mt-2">Oops! Data not found</p>        <p class="text-muted-foreground text-sm mt-1">It seems like we couldn\'t locate the information you requested.</p>        <div class="flex space-x-6 mt-6">            <button class="bg-secondary text-secondary-foreground px-5 py-3 rounded-full shadow-md hover:bg-secondary/80 transition duration-300">Retry</button>            <button class="bg-accent text-accent-foreground px-5 py-3 rounded-full shadow-md hover:bg-accent/80 transition duration-300">Add</button>        </div>    </div>          </ng-template></div>'
+    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admiiin'},{'name': 'ApiDocsComponent', 'selector': 'app-api-docs'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BillingDetailsComponent', 'selector': 'app-billing-details'},{'name': 'CardComponent', 'selector': 'app-card'},{'name': 'CreateFolderDialogComponent', 'selector': 'app-create-folder-dialog'},{'name': 'CreditCardFormComponent', 'selector': 'app-credit-card-form'},{'name': 'DashboardComponent', 'selector': 'app-dashbloard'},{'name': 'DownloadComponent', 'selector': 'app-download'},{'name': 'EditProfileComponent', 'selector': 'app-edit-profile'},{'name': 'FileExplorerComponent', 'selector': 'app-file-explorer'},{'name': 'FileUploadComponent', 'selector': 'app-file-upload'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'IdProofComponent', 'selector': 'app-id-proof'},{'name': 'IdproofformComponent', 'selector': 'app-idproofform'},{'name': 'IndexComponent', 'selector': 'app-index'},{'name': 'InvitationAcceptComponent', 'selector': 'app-invitation-accept'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MfaSettingComponent', 'selector': 'app-mfa-setting'},{'name': 'MfaVerificationComponent', 'selector': 'app-mfa-verification'},{'name': 'NotesComponent', 'selector': 'app-notes'},{'name': 'NotesFormComponent', 'selector': 'app-notes-form'},{'name': 'NotificationComponent', 'selector': 'app-notification'},{'name': 'OrganizationComponent', 'selector': 'app-organization'},{'name': 'OrganizationsComponent', 'selector': 'app-organizations'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'PasswordFormComponent', 'selector': 'app-password-form'},{'name': 'PasswordGenratorComponent', 'selector': 'app-password-genrator'},{'name': 'PasswordStrengthComponent', 'selector': 'app-password-strength'},{'name': 'PricingPageComponent', 'selector': 'app-pricing-page'},{'name': 'PrivacyPolicyComponent', 'selector': 'app-privacy-policy'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'RolesPermissionsComponent', 'selector': 'app-roles-permissions'},{'name': 'SecurityComponent', 'selector': 'app-security'},{'name': 'ShareDialogComponent', 'selector': 'app-share-dialog'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SignupComponent', 'selector': 'app-signup'},{'name': 'SupportComponent', 'selector': 'app-support'},{'name': 'TagFormCompoent', 'selector': 'app-tag'},{'name': 'UserFormComponent', 'selector': 'app-user-form'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'viewCardDetailsComponent', 'selector': 'app-view-card'},{'name': 'ViewNoteCompoent', 'selector': 'app-view-note'},{'name': 'ViewPasswordComponent', 'selector': 'app-view-password'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'NotesComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'NotesComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

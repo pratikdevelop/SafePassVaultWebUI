@@ -1,0 +1,987 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>password-app documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">password-app documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  HeaderComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/header/header.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-header</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>MatSnackBarModule</code>
+                            <code>RouterModule</code>
+                            <code>FormsModule</code>
+                            <code>MatButtonModule</code>
+                            <code>CommonModule</code>
+                            <code>MatIconModule</code>
+                            <code>MatMenuModule</code>
+                            <code>ReactiveFormsModule</code>
+                            <code>MatInputModule</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">styles</td>
+                <td class="col-md-9"><code> @media (min-width: 768px) {
+    .menu-button {
+      display: none;
+      color:&quot;white !important&quot;;
+    }
+  }
+
+  /* Hide complete menu on smaller screens */
+  @media (max-width: 767px) {
+    .menu-content {
+      display: none;
+    }
+  }
+
+  /* Show complete menu on larger screens */
+  @media (min-width: 768px) {
+    .menu-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    .menu-item {
+      margin: 5px 0;
+    }
+  }
+</code></td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./header.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#authService" >authService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#changeDetectorRef" >changeDetectorRef</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#router" >router</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#snackbar" >snackbar</a>
+                            </li>
+                            <li>
+                                <a href="#token" >token</a>
+                            </li>
+                            <li>
+                                <a href="#userProfile" >userProfile</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#logout" >logout</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logout"></a>
+                    <span class="name">
+                        <span ><b>logout</b></span>
+                        <a href="#logout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>logout()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="74"
+                                    class="link-to-prism">src/app/pages/header/header.component.ts:74</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="62"
+                                    class="link-to-prism">src/app/pages/header/header.component.ts:62</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="authService"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>authService</b></span>
+                        <a href="#authService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(AuthService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/pages/header/header.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changeDetectorRef"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>changeDetectorRef</b></span>
+                        <a href="#changeDetectorRef"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ChangeDetectorRef)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/pages/header/header.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="router"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>router</b></span>
+                        <a href="#router"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(Router)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/pages/header/header.component.ts:59</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="snackbar"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>snackbar</b></span>
+                        <a href="#snackbar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(MatSnackBar)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/pages/header/header.component.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="token"></a>
+                    <span class="name">
+                        <span ><b>token</b></span>
+                        <a href="#token"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>localStorage.getItem(&#x27;token&#x27;)?.toString()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/pages/header/header.component.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userProfile"></a>
+                    <span class="name">
+                        <span ><b>userProfile</b></span>
+                        <a href="#userProfile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/pages/header/header.component.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectorRef, Component, OnInit, inject } from &#x27;@angular/core&#x27;;
+import { AuthService } from &#x27;../../services/auth.service&#x27;;
+import { MatSnackBar, MatSnackBarModule } from &#x27;@angular/material/snack-bar&#x27;;
+import { Router, RouterModule } from &#x27;@angular/router&#x27;;
+import { FormsModule, ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
+import { MatInputModule } from &#x27;@angular/material/input&#x27;;
+import { MatMenuModule } from &#x27;@angular/material/menu&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+
+@Component({
+  selector: &#x27;app-header&#x27;,
+  standalone: true,
+  imports: [
+    MatSnackBarModule,
+    RouterModule,
+    FormsModule,
+    MatButtonModule,
+    CommonModule,
+    MatIconModule,
+    MatMenuModule,
+    ReactiveFormsModule,
+    MatInputModule,
+  ],
+  templateUrl: &#x27;./header.component.html&#x27;,
+  styles: &#x60; @media (min-width: 768px) {
+    .menu-button {
+      display: none;
+      color:&quot;white !important&quot;;
+    }
+  }
+
+  /* Hide complete menu on smaller screens */
+  @media (max-width: 767px) {
+    .menu-content {
+      display: none;
+    }
+  }
+
+  /* Show complete menu on larger screens */
+  @media (min-width: 768px) {
+    .menu-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    .menu-item {
+      margin: 5px 0;
+    }
+  }
+&#x60;,
+})
+export class HeaderComponent implements OnInit {
+  token &#x3D; localStorage.getItem(&#x27;token&#x27;)?.toString();
+  private readonly authService &#x3D; inject(AuthService);
+  private readonly snackbar &#x3D; inject(MatSnackBar);
+  private readonly router &#x3D; inject(Router);
+  private readonly changeDetectorRef &#x3D; inject(ChangeDetectorRef);
+  userProfile: any;
+  ngOnInit(): void {
+    this.authService.userProfile$.subscribe({
+      next: (response) &#x3D;&gt; {
+        this.userProfile &#x3D; response;
+        this.changeDetectorRef.detectChanges();
+      },
+      error: (error) &#x3D;&gt; {
+        console.error(error);
+      },
+    });
+  }
+
+  logout(): void {
+    this.authService.logout().subscribe({
+      next: () &#x3D;&gt; {
+        this.authService._userProfileSubject.next(null);
+        localStorage.removeItem(&#x27;token&#x27;);
+        this.snackbar.open(&#x27;Logout successful&#x27;, &#x27;Ok&#x27;, {
+          duration: 2000,
+        });
+        this.changeDetectorRef.detectChanges();
+        this.router.navigateByUrl(&#x27;/&#x27;);
+      },
+      error: (error) &#x3D;&gt; {
+        console.error(&#x27;Error logging out:&#x27;, error);
+        this.snackbar.open(
+          &#x60;Error in logout, please try sometimes later&#x60;,
+          &#x27;Ok&#x27;,
+          {
+            duration: 2000,
+          }
+        );
+        this.changeDetectorRef.detectChanges();
+      },
+    });
+  }
+  
+
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;header class&#x3D;&quot;fixed inset-x-0 top-0 z-10 h-13&quot;&gt;
+  &lt;nav
+    class&#x3D;&quot;flex flex-row items-center bg-gray-900 p-5 py-2 justify-between space-y-2 lg:space-y-0 lg:space-x-4 text-white relative&quot;
+    aria-label&#x3D;&quot;Global&quot;
+  &gt;
+    &lt;div class&#x3D;&quot;flex justify-between w-full lg:w-auto&quot;&gt;
+      &lt;a routerLink&#x3D;&quot;/&quot; class&#x3D;&quot;text-4xl&quot;&gt;Safepassvault&lt;/a&gt;
+      &lt;button
+        mat-icon-button
+        [matMenuTriggerFor]&#x3D;&quot;mainMenu&quot;
+        class&#x3D;&quot;menu-button lg:hidden&quot;
+      &gt;
+        &lt;mat-icon&gt;menu&lt;/mat-icon&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;div
+      class&#x3D;&quot;menu-content flex flex-col lg:flex-row lg:space-x-4 lg:justify-end w-full lg:w-auto&quot;
+    &gt;
+      &lt;ng-container *ngIf&#x3D;&quot;!token&quot;&gt;
+        &lt;span class&#x3D;&quot;flex items-center space-x-4 ml-auto&quot;&gt;
+          &lt;button mat-button [matMenuTriggerFor]&#x3D;&quot;productsMenu&quot;&gt;Products&lt;/button&gt;
+          &lt;a
+            class&#x3D;&quot;menu-item&quot;
+            color&#x3D;&quot;white&quot;
+            color&#x3D;&quot;secondary&quot;
+            mat-button
+            routerLink&#x3D;&quot;/plan-pricing&quot;
+          &gt;
+            Plan and Pricing
+          &lt;/a&gt;
+          &lt;a
+            class&#x3D;&quot;menu-item&quot;
+            color&#x3D;&quot;white&quot;
+            color&#x3D;&quot;secondary&quot;
+            mat-button
+            routerLink&#x3D;&quot;/api-docs&quot;
+          &gt;
+            API Documentation
+          &lt;/a&gt;
+          &lt;a
+            class&#x3D;&quot;menu-item&quot;
+            color&#x3D;&quot;white&quot;
+            color&#x3D;&quot;secondary&quot;
+            mat-button
+            routerLink&#x3D;&quot;/support&quot;
+          &gt;
+            Customer Support
+          &lt;/a&gt;
+          &lt;a
+            class&#x3D;&quot;menu-item&quot;
+            color&#x3D;&quot;white&quot;
+            color&#x3D;&quot;secondary&quot;
+            mat-button
+            routerLink&#x3D;&quot;/download&quot;
+          &gt;
+            Download
+          &lt;/a&gt;
+          &lt;a
+            class&#x3D;&quot;menu-item&quot;
+            color&#x3D;&quot;white&quot;
+            color&#x3D;&quot;secondary&quot;
+            mat-button
+            routerLink&#x3D;&quot;/auth/signup&quot;
+          &gt;
+            Get Started
+          &lt;/a&gt;
+          &lt;a
+            class&#x3D;&quot;menu-item&quot;
+            color&#x3D;&quot;white&quot;
+            color&#x3D;&quot;secondary&quot;
+            mat-button
+            routerLink&#x3D;&quot;/auth/login&quot;
+          &gt;
+            Log In
+          &lt;/a&gt;
+        &lt;/span&gt;
+      &lt;/ng-container&gt;
+
+      &lt;ng-container *ngIf&#x3D;&quot;token&quot;&gt;
+        &lt;span class&#x3D;&quot;flex items-center space-x-4 ml-auto&quot;&gt;
+          &lt;a
+            mat-raised-button
+            class&#x3D;&quot;menu-item&quot;
+            *ngIf&#x3D;&quot;userProfile &amp;&amp; userProfile?.role &#x3D;&#x3D;&#x3D; &#x27;admin&#x27;&quot;
+            routerLink&#x3D;&quot;/admin/users&quot;
+          &gt;
+            &lt;mat-icon&gt;admin_panel_settings&lt;/mat-icon&gt;
+            Administration
+          &lt;/a&gt;
+          &lt;a
+            mat-raised-button
+            class&#x3D;&quot;menu-item&quot;
+            routerLink&#x3D;&quot;/dashboard/profile/personal-details&quot;
+          &gt;
+            &lt;mat-icon&gt;person&lt;/mat-icon&gt;
+            Profile
+          &lt;/a&gt;
+          &lt;button mat-raised-button class&#x3D;&quot;menu-item&quot; (click)&#x3D;&quot;logout()&quot;&gt;
+            &lt;mat-icon&gt;power_settings_new&lt;/mat-icon&gt;
+            Logout
+          &lt;/button&gt;
+        &lt;/span&gt;
+      &lt;/ng-container&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Main Menu for Mobile --&gt;
+    &lt;mat-menu #mainMenu&#x3D;&quot;matMenu&quot;&gt;
+      &lt;ng-container *ngIf&#x3D;&quot;!token&quot;&gt;
+        &lt;button mat-menu-item [matMenuTriggerFor]&#x3D;&quot;productsMenu&quot;&gt;
+          &lt;mat-icon&gt;list&lt;/mat-icon&gt;
+          Products
+        &lt;/button&gt;
+        &lt;button mat-menu-item routerLink&#x3D;&quot;/plan-pricing&quot;&gt;
+          &lt;mat-icon&gt;attach_money&lt;/mat-icon&gt;
+          Plan and Pricing
+        &lt;/button&gt;
+        &lt;a mat-menu-item routerLink&#x3D;&quot;/api-docs&quot;&gt;
+          &lt;mat-icon&gt;description&lt;/mat-icon&gt;
+          API Documentation
+        &lt;/a&gt;
+        &lt;a mat-menu-item routerLink&#x3D;&quot;/support&quot;&gt;
+          &lt;mat-icon&gt;support_agent&lt;/mat-icon&gt;
+          Customer Support
+        &lt;/a&gt;
+        &lt;a mat-menu-item routerLink&#x3D;&quot;/download&quot;&gt;
+          &lt;mat-icon&gt;download&lt;/mat-icon&gt;
+          Download
+        &lt;/a&gt;
+        &lt;button mat-menu-item routerLink&#x3D;&quot;/auth/signup&quot;&gt;
+          &lt;mat-icon&gt;person_add&lt;/mat-icon&gt;
+          Get Started
+        &lt;/button&gt;
+        &lt;button mat-menu-item routerLink&#x3D;&quot;/auth/login&quot;&gt;
+          &lt;mat-icon&gt;login&lt;/mat-icon&gt;
+          Log In
+        &lt;/button&gt;
+      &lt;/ng-container&gt;
+
+      &lt;ng-container *ngIf&#x3D;&quot;token&quot;&gt;
+        &lt;a
+          mat-menu-item
+          *ngIf&#x3D;&quot;userProfile &amp;&amp; userProfile?.role &#x3D;&#x3D;&#x3D; &#x27;admin&#x27;&quot;
+          routerLink&#x3D;&quot;/admin&quot;
+        &gt;
+          &lt;mat-icon&gt;admin_panel_settings&lt;/mat-icon&gt;
+          Administration
+        &lt;/a&gt;
+        &lt;a mat-menu-item routerLink&#x3D;&quot;/dashboard/profile/personal-details&quot;&gt;
+          &lt;mat-icon&gt;person&lt;/mat-icon&gt;
+          Profile
+        &lt;/a&gt;
+        &lt;button mat-menu-item (click)&#x3D;&quot;logout()&quot;&gt;
+          &lt;mat-icon&gt;power_settings_new&lt;/mat-icon&gt;
+          Logout
+        &lt;/button&gt;
+      &lt;/ng-container&gt;
+    &lt;/mat-menu&gt;
+
+    &lt;!-- Products Menu --&gt;
+    &lt;mat-menu #productsMenu&#x3D;&quot;matMenu&quot;&gt;
+      &lt;button mat-menu-item routerLink&#x3D;&quot;/generator&quot;&gt;
+        &lt;mat-icon&gt;lock_open&lt;/mat-icon&gt;
+        Password Generator
+      &lt;/button&gt;
+      &lt;button mat-menu-item routerLink&#x3D;&quot;/password-strength&quot;&gt;
+        &lt;mat-icon&gt;check_circle&lt;/mat-icon&gt;
+        Password Checker
+      &lt;/button&gt;
+      &lt;button mat-menu-item routerLink&#x3D;&quot;/dashboard/passwords&quot;&gt;
+        &lt;mat-icon&gt;lock&lt;/mat-icon&gt;
+        Password Vault
+      &lt;/button&gt;
+      &lt;button mat-menu-item routerLink&#x3D;&quot;/dashboard/file&quot;&gt;
+        &lt;mat-icon&gt;file_copy&lt;/mat-icon&gt;
+        File Storage
+      &lt;/button&gt;
+    &lt;/mat-menu&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+            <pre class="line-numbers"><code class="language-scss"> @media (min-width: 768px) {
+    .menu-button {
+      display: none;
+      color:&quot;white !important&quot;;
+    }
+  }
+
+  /* Hide complete menu on smaller screens */
+  @media (max-width: 767px) {
+    .menu-content {
+      display: none;
+    }
+  }
+
+  /* Show complete menu on larger screens */
+  @media (min-width: 768px) {
+    .menu-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+    .menu-item {
+      margin: 5px 0;
+    }
+  }
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><header class="fixed inset-x-0 top-0 z-10 h-13">  <nav    class="flex flex-row items-center bg-gray-900 p-5 py-2 justify-between space-y-2 lg:space-y-0 lg:space-x-4 text-white relative"    aria-label="Global"  >    <div class="flex justify-between w-full lg:w-auto">      <a routerLink="/" class="text-4xl">Safepassvault</a>      <button        mat-icon-button        [matMenuTriggerFor]="mainMenu"        class="menu-button lg:hidden"      >        <mat-icon>menu</mat-icon>      </button>    </div>    <div      class="menu-content flex flex-col lg:flex-row lg:space-x-4 lg:justify-end w-full lg:w-auto"    >      <ng-container *ngIf="!token">        <span class="flex items-center space-x-4 ml-auto">          <button mat-button [matMenuTriggerFor]="productsMenu">Products</button>          <a            class="menu-item"            color="white"            color="secondary"            mat-button            routerLink="/plan-pricing"          >            Plan and Pricing          </a>          <a            class="menu-item"            color="white"            color="secondary"            mat-button            routerLink="/api-docs"          >            API Documentation          </a>          <a            class="menu-item"            color="white"            color="secondary"            mat-button            routerLink="/support"          >            Customer Support          </a>          <a            class="menu-item"            color="white"            color="secondary"            mat-button            routerLink="/download"          >            Download          </a>          <a            class="menu-item"            color="white"            color="secondary"            mat-button            routerLink="/auth/signup"          >            Get Started          </a>          <a            class="menu-item"            color="white"            color="secondary"            mat-button            routerLink="/auth/login"          >            Log In          </a>        </span>      </ng-container>      <ng-container *ngIf="token">        <span class="flex items-center space-x-4 ml-auto">          <a            mat-raised-button            class="menu-item"            *ngIf="userProfile && userProfile?.role === \'admin\'"            routerLink="/admin/users"          >            <mat-icon>admin_panel_settings</mat-icon>            Administration          </a>          <a            mat-raised-button            class="menu-item"            routerLink="/dashboard/profile/personal-details"          >            <mat-icon>person</mat-icon>            Profile          </a>          <button mat-raised-button class="menu-item" (click)="logout()">            <mat-icon>power_settings_new</mat-icon>            Logout          </button>        </span>      </ng-container>    </div>    <!-- Main Menu for Mobile -->    <mat-menu #mainMenu="matMenu">      <ng-container *ngIf="!token">        <button mat-menu-item [matMenuTriggerFor]="productsMenu">          <mat-icon>list</mat-icon>          Products        </button>        <button mat-menu-item routerLink="/plan-pricing">          <mat-icon>attach_money</mat-icon>          Plan and Pricing        </button>        <a mat-menu-item routerLink="/api-docs">          <mat-icon>description</mat-icon>          API Documentation        </a>        <a mat-menu-item routerLink="/support">          <mat-icon>support_agent</mat-icon>          Customer Support        </a>        <a mat-menu-item routerLink="/download">          <mat-icon>download</mat-icon>          Download        </a>        <button mat-menu-item routerLink="/auth/signup">          <mat-icon>person_add</mat-icon>          Get Started        </button>        <button mat-menu-item routerLink="/auth/login">          <mat-icon>login</mat-icon>          Log In        </button>      </ng-container>      <ng-container *ngIf="token">        <a          mat-menu-item          *ngIf="userProfile && userProfile?.role === \'admin\'"          routerLink="/admin"        >          <mat-icon>admin_panel_settings</mat-icon>          Administration        </a>        <a mat-menu-item routerLink="/dashboard/profile/personal-details">          <mat-icon>person</mat-icon>          Profile        </a>        <button mat-menu-item (click)="logout()">          <mat-icon>power_settings_new</mat-icon>          Logout        </button>      </ng-container>    </mat-menu>    <!-- Products Menu -->    <mat-menu #productsMenu="matMenu">      <button mat-menu-item routerLink="/generator">        <mat-icon>lock_open</mat-icon>        Password Generator      </button>      <button mat-menu-item routerLink="/password-strength">        <mat-icon>check_circle</mat-icon>        Password Checker      </button>      <button mat-menu-item routerLink="/dashboard/passwords">        <mat-icon>lock</mat-icon>        Password Vault      </button>      <button mat-menu-item routerLink="/dashboard/file">        <mat-icon>file_copy</mat-icon>        File Storage      </button>    </mat-menu>  </nav></header></div>'
+    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admiiin'},{'name': 'ApiDocsComponent', 'selector': 'app-api-docs'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BillingDetailsComponent', 'selector': 'app-billing-details'},{'name': 'CardComponent', 'selector': 'app-card'},{'name': 'CreateFolderDialogComponent', 'selector': 'app-create-folder-dialog'},{'name': 'CreditCardFormComponent', 'selector': 'app-credit-card-form'},{'name': 'DashboardComponent', 'selector': 'app-dashbloard'},{'name': 'DownloadComponent', 'selector': 'app-download'},{'name': 'EditProfileComponent', 'selector': 'app-edit-profile'},{'name': 'FileExplorerComponent', 'selector': 'app-file-explorer'},{'name': 'FileUploadComponent', 'selector': 'app-file-upload'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'IdProofComponent', 'selector': 'app-id-proof'},{'name': 'IdproofformComponent', 'selector': 'app-idproofform'},{'name': 'IndexComponent', 'selector': 'app-index'},{'name': 'InvitationAcceptComponent', 'selector': 'app-invitation-accept'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MfaSettingComponent', 'selector': 'app-mfa-setting'},{'name': 'MfaVerificationComponent', 'selector': 'app-mfa-verification'},{'name': 'NotesComponent', 'selector': 'app-notes'},{'name': 'NotesFormComponent', 'selector': 'app-notes-form'},{'name': 'NotificationComponent', 'selector': 'app-notification'},{'name': 'OrganizationComponent', 'selector': 'app-organization'},{'name': 'OrganizationsComponent', 'selector': 'app-organizations'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'PasswordFormComponent', 'selector': 'app-password-form'},{'name': 'PasswordGenratorComponent', 'selector': 'app-password-genrator'},{'name': 'PasswordStrengthComponent', 'selector': 'app-password-strength'},{'name': 'PricingPageComponent', 'selector': 'app-pricing-page'},{'name': 'PrivacyPolicyComponent', 'selector': 'app-privacy-policy'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'RolesPermissionsComponent', 'selector': 'app-roles-permissions'},{'name': 'SecurityComponent', 'selector': 'app-security'},{'name': 'ShareDialogComponent', 'selector': 'app-share-dialog'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SignupComponent', 'selector': 'app-signup'},{'name': 'SupportComponent', 'selector': 'app-support'},{'name': 'TagFormCompoent', 'selector': 'app-tag'},{'name': 'UserFormComponent', 'selector': 'app-user-form'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'viewCardDetailsComponent', 'selector': 'app-view-card'},{'name': 'ViewNoteCompoent', 'selector': 'app-view-note'},{'name': 'ViewPasswordComponent', 'selector': 'app-view-password'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'HeaderComponent-1'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'HeaderComponent-1.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

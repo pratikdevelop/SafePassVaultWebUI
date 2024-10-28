@@ -1,0 +1,1733 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>password-app documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">password-app documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  CardComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/dashboard/card/card.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-card</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>MatButtonModule</code>
+                            <code>MatIconModule</code>
+                            <code>MatTableModule</code>
+                            <code>MatSortModule</code>
+                            <code>MatDialogModule</code>
+                            <code>MatButtonModule</code>
+                            <code>MatIconModule</code>
+                            <code>MatInputModule</code>
+                            <code>MatPaginatorModule</code>
+                            <code>CommonModule</code>
+                            <code>MatCheckboxModule</code>
+                            <code>MatMenuModule</code>
+                            <code>FormsModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./card.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./card.component.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#cardSerrvice" >cardSerrvice</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#changeDetectorRef" >changeDetectorRef</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#commonService" >commonService</a>
+                            </li>
+                            <li>
+                                <a href="#dataSource" >dataSource</a>
+                            </li>
+                            <li>
+                                <a href="#displayedColumns" >displayedColumns</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#matDialog" >matDialog</a>
+                            </li>
+                            <li>
+                                <a href="#searchTerm" >searchTerm</a>
+                            </li>
+                            <li>
+                                <a href="#selection" >selection</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#checkboxLabel" >checkboxLabel</a>
+                            </li>
+                            <li>
+                                <a href="#deleteCard" >deleteCard</a>
+                            </li>
+                            <li>
+                                <a href="#exportPassword" >exportPassword</a>
+                            </li>
+                            <li>
+                                <a href="#getCardsListings" >getCardsListings</a>
+                            </li>
+                            <li>
+                                <a href="#isAllSelected" >isAllSelected</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#openCardFormDialog" >openCardFormDialog</a>
+                            </li>
+                            <li>
+                                <a href="#toggleAllRows" >toggleAllRows</a>
+                            </li>
+                            <li>
+                                <a href="#toggleSideBar" >toggleSideBar</a>
+                            </li>
+                            <li>
+                                <a href="#transform" >transform</a>
+                            </li>
+                            <li>
+                                <a href="#updateFavourites" >updateFavourites</a>
+                            </li>
+                            <li>
+                                <a href="#viewCardDetails" >viewCardDetails</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkboxLabel"></a>
+                    <span class="name">
+                        <span ><b>checkboxLabel</b></span>
+                        <a href="#checkboxLabel"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>checkboxLabel(row?: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="167"
+                                    class="link-to-prism">src/app/dashboard/card/card.component.ts:167</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>row</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteCard"></a>
+                    <span class="name">
+                        <span ><b>deleteCard</b></span>
+                        <a href="#deleteCard"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteCard(id?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="83"
+                                    class="link-to-prism">src/app/dashboard/card/card.component.ts:83</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>id</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exportPassword"></a>
+                    <span class="name">
+                        <span ><b>exportPassword</b></span>
+                        <a href="#exportPassword"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>exportPassword()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="115"
+                                    class="link-to-prism">src/app/dashboard/card/card.component.ts:115</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getCardsListings"></a>
+                    <span class="name">
+                        <span ><b>getCardsListings</b></span>
+                        <a href="#getCardsListings"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getCardsListings()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="70"
+                                    class="link-to-prism">src/app/dashboard/card/card.component.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isAllSelected"></a>
+                    <span class="name">
+                        <span ><b>isAllSelected</b></span>
+                        <a href="#isAllSelected"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isAllSelected()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="152"
+                                    class="link-to-prism">src/app/dashboard/card/card.component.ts:152</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="66"
+                                    class="link-to-prism">src/app/dashboard/card/card.component.ts:66</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openCardFormDialog"></a>
+                    <span class="name">
+                        <span ><b>openCardFormDialog</b></span>
+                        <a href="#openCardFormDialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openCardFormDialog(card: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="76"
+                                    class="link-to-prism">src/app/dashboard/card/card.component.ts:76</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>card</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleAllRows"></a>
+                    <span class="name">
+                        <span ><b>toggleAllRows</b></span>
+                        <a href="#toggleAllRows"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleAllRows()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="158"
+                                    class="link-to-prism">src/app/dashboard/card/card.component.ts:158</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleSideBar"></a>
+                    <span class="name">
+                        <span ><b>toggleSideBar</b></span>
+                        <a href="#toggleSideBar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleSideBar()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="179"
+                                    class="link-to-prism">src/app/dashboard/card/card.component.ts:179</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="transform"></a>
+                    <span class="name">
+                        <span ><b>transform</b></span>
+                        <a href="#transform"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>transform(cardNumber: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="176"
+                                    class="link-to-prism">src/app/dashboard/card/card.component.ts:176</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cardNumber</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateFavourites"></a>
+                    <span class="name">
+                        <span ><b>updateFavourites</b></span>
+                        <a href="#updateFavourites"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateFavourites(cardId?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="130"
+                                    class="link-to-prism">src/app/dashboard/card/card.component.ts:130</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cardId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="viewCardDetails"></a>
+                    <span class="name">
+                        <span ><b>viewCardDetails</b></span>
+                        <a href="#viewCardDetails"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>viewCardDetails(cardDetails: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="109"
+                                    class="link-to-prism">src/app/dashboard/card/card.component.ts:109</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>cardDetails</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cardSerrvice"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>cardSerrvice</b></span>
+                        <a href="#cardSerrvice"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(CardService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/dashboard/card/card.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changeDetectorRef"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>changeDetectorRef</b></span>
+                        <a href="#changeDetectorRef"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ChangeDetectorRef)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/dashboard/card/card.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="commonService"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>commonService</b></span>
+                        <a href="#commonService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(CommonService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/dashboard/card/card.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dataSource"></a>
+                    <span class="name">
+                        <span ><b>dataSource</b></span>
+                        <a href="#dataSource"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/dashboard/card/card.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="displayedColumns"></a>
+                    <span class="name">
+                        <span ><b>displayedColumns</b></span>
+                        <a href="#displayedColumns"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    &#x27;select&#x27;,
+    &#x27;_id&#x27;,
+    &#x27;cardType&#x27;,
+    &#x27;cardNumber&#x27;,
+    &#x27;cardHolderName&#x27;,
+    &#x27;expiryDate&#x27;,
+    &#x27;CVV&#x27;,
+    &#x27;billingAddress&#x27;,
+    &#x27;createdAt&#x27;,
+    &#x27;created_by&#x27;,
+    &#x27;action&#x27;,
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/dashboard/card/card.component.ts:52</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="matDialog"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>matDialog</b></span>
+                        <a href="#matDialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(MatDialog)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/dashboard/card/card.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchTerm"></a>
+                    <span class="name">
+                        <span ><b>searchTerm</b></span>
+                        <a href="#searchTerm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/dashboard/card/card.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selection"></a>
+                    <span class="name">
+                        <span ><b>selection</b></span>
+                        <a href="#selection"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new SelectionModel&lt;any&gt;(true, [])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/dashboard/card/card.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectorRef, Component, inject, OnInit } from &#x27;@angular/core&#x27;;
+import { CardService } from &#x27;../../services/card.service&#x27;;
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
+import { MatTableModule } from &#x27;@angular/material/table&#x27;;
+import { MatSortModule } from &#x27;@angular/material/sort&#x27;;
+import { MatInputModule } from &#x27;@angular/material/input&#x27;;
+import { MatPaginatorModule } from &#x27;@angular/material/paginator&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { MatMenuModule } from &#x27;@angular/material/menu&#x27;;
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogModule,
+} from &#x27;@angular/material/dialog&#x27;;
+import { CreditCardFormComponent } from &#x27;../../dialog/credit-card-form/credit-card-form.component&#x27;;
+import { SelectionModel } from &#x27;@angular/cdk/collections&#x27;;
+import { catchError, tap } from &#x27;rxjs&#x27;;
+import { MatCheckboxModule } from &#x27;@angular/material/checkbox&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { CommonService } from &#x27;../../services/common.service&#x27;;
+
+@Component({
+  selector: &#x27;app-card&#x27;,
+  standalone: true,
+  imports: [
+    MatButtonModule,
+    MatIconModule,
+    MatTableModule,
+    MatSortModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
+    MatInputModule,
+    MatPaginatorModule,
+    CommonModule,
+    MatCheckboxModule,
+    MatMenuModule,
+    FormsModule
+  ],
+  templateUrl: &#x27;./card.component.html&#x27;,
+  styleUrl: &#x27;./card.component.css&#x27;,
+})
+export class CardComponent implements OnInit {
+  readonly matDialog &#x3D; inject(MatDialog);
+  readonly changeDetectorRef &#x3D; inject(ChangeDetectorRef);
+  readonly cardSerrvice &#x3D; inject(CardService);
+  readonly commonService &#x3D; inject(CommonService)
+  selection &#x3D; new SelectionModel&lt;any&gt;(true, []);
+  dataSource: any[] &#x3D; [];
+  searchTerm: string &#x3D; &#x27;&#x27;;
+  displayedColumns: string[] &#x3D; [
+    &#x27;select&#x27;,
+    &#x27;_id&#x27;,
+    &#x27;cardType&#x27;,
+    &#x27;cardNumber&#x27;,
+    &#x27;cardHolderName&#x27;,
+    &#x27;expiryDate&#x27;,
+    &#x27;CVV&#x27;,
+    &#x27;billingAddress&#x27;,
+    &#x27;createdAt&#x27;,
+    &#x27;created_by&#x27;,
+    &#x27;action&#x27;,
+  ];
+
+  ngOnInit(): void {
+    this.getCardsListings();
+  }
+
+  getCardsListings(): void {
+    this.cardSerrvice.getCards().subscribe((response: any) &#x3D;&gt; {
+      this.dataSource &#x3D; response;
+      this.changeDetectorRef.detectChanges();
+    });
+  }
+  openCardFormDialog(card: any) {
+    this.matDialog.open(CreditCardFormComponent, {
+      width: &#x27;500px&#x27;,
+      data: card,
+    });
+  }
+
+  deleteCard(id?: string): void {
+    const ids &#x3D;
+      id ??
+      this.selection.selected
+        .map((note) &#x3D;&gt; {
+          return note._id;
+        })
+        .join(&#x27;,&#x27;);
+    // Delete password using an observable
+    this.cardSerrvice
+      .deleteCard(ids)
+      .pipe(
+        tap(() &#x3D;&gt; {
+          this.getCardsListings();
+        }),
+        catchError((error: any) &#x3D;&gt; {
+          console.error(&#x27;err&#x27;, error);
+          throw error; // re-throw the error to prevent silent failures
+        })
+      )
+      .subscribe({
+        complete: () &#x3D;&gt; {
+          this.changeDetectorRef.detectChanges();
+        },
+      });
+  }
+  viewCardDetails(cardDetails: any): void {
+    this.matDialog.open(viewCardDetailsComponent, {
+      data: { cardDetails },
+    });
+  }
+
+  exportPassword(): void {
+    const ids &#x3D; this.selection.selected
+      .map((pass) &#x3D;&gt; {
+        return pass._id;
+      })
+      .join(&#x27;,&#x27;);
+    this.cardSerrvice.exportCardsASCsv(ids).subscribe((blob: Blob) &#x3D;&gt; {
+      const url &#x3D; URL.createObjectURL(blob);
+      const a &#x3D; document.createElement(&#x27;a&#x27;);
+      a.href &#x3D; url;
+      a.download &#x3D; &#x27;passwords.csv&#x27;;
+      a.click();
+    });
+  }
+
+  updateFavourites(cardId?: string): void {
+    const ids &#x3D;
+      cardId ??
+      this.selection.selected
+        .map((pass) &#x3D;&gt; {
+          return pass._id;
+        })
+        .join(&#x27;,&#x27;);
+    console.log(&#x27;id&#x27;, ids);
+
+    this.cardSerrvice.addToFavorites(ids).subscribe(
+      (response) &#x3D;&gt; {
+        console.log(&#x27;Password added to favorites successfully&#x27;, response);
+        this.getCardsListings();
+        // Handle success, e.g., update UI
+      },
+      (error) &#x3D;&gt; {
+        console.error(&#x27;Error adding password to favorites&#x27;, error);
+        // Handle error, e.g., display error message
+      }
+    );
+  }
+  isAllSelected() {
+    const numSelected &#x3D; this.selection.selected.length;
+    const numRows &#x3D; this.dataSource.length;
+    return numSelected &#x3D;&#x3D;&#x3D; numRows;
+  }
+
+  toggleAllRows() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+
+    this.selection.select(...this.dataSource);
+  }
+
+  checkboxLabel(row?: any): string {
+    if (!row) {
+      return &#x60;${this.isAllSelected() ? &#x27;deselect&#x27; : &#x27;select&#x27;} all&#x60;;
+    }
+    return &#x60;${this.selection.isSelected(row) ? &#x27;deselect&#x27; : &#x27;select&#x27;} row ${
+      row._id + 1
+    }&#x60;;
+  }
+
+  transform(cardNumber: string): string {
+    return cardNumber.replace(/\s+/g, &#x27;&#x27;).replace(/(\d{4})/g, &#x27;$1 &#x27;).trim();
+}
+toggleSideBar(): void {
+    this.commonService.toggleSideBar()
+}
+}
+
+@Component({
+  selector: &#x27;app-view-card&#x27;,
+  templateUrl: &#x27;./view-card-details.html&#x27;,
+  standalone: true,
+  imports: [MatButtonModule, MatDialogModule, CommonModule, MatIconModule],
+})
+export class viewCardDetailsComponent implements OnInit {
+  readonly data &#x3D; inject&lt;any&gt;(MAT_DIALOG_DATA);
+  card: any;
+  ngOnInit(): void {
+  this.card &#x3D; this.data.cardDetails  
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;nav
+  aria-label&#x3D;&quot;Global&quot;
+  class&#x3D;&quot;flex flex-col  sm:flex-row sm:items-center justify-between w-full space-x-2 text-primary-foreground bg-slate-800 shadow-lg p-3&quot;
+&gt;
+  &lt;div class&#x3D;&quot;flex items-center space-x-2&quot;&gt;
+    &lt;button
+      mat-icon-button
+      (click)&#x3D;&quot;toggleSideBar()&quot;
+      class&#x3D;&quot;menu-button lg:hidden&quot;
+    &gt;
+      &lt;mat-icon&gt;menu&lt;/mat-icon&gt;
+    &lt;/button&gt;
+    &lt;span class&#x3D;&quot;text-xl sm:text-3xl font-bold text-white&quot;
+      &gt;Cards&lt;/span
+    &gt;
+  &lt;/div&gt;
+  &lt;div class&#x3D;&quot;flex items-center space-x-1 sm:w-6/12 sm:justify-end&quot;&gt;
+    &lt;!-- Add Menu --&gt;
+    &lt;input
+      matInput
+      [(ngModel)]&#x3D;&quot;searchTerm&quot;
+      type&#x3D;&quot;search&quot;
+      placeholder&#x3D;&quot;Search the password&quot;
+      aria-label&#x3D;&quot;Search the password&quot;
+      class&#x3D;&quot; sm:w-6/12 py-2 px-3 border-2 border-slate-900 text-gray-500&quot;
+      (keyup)&#x3D;&quot;getCardsListings()&quot;
+    /&gt;
+    /&gt;
+    &lt;div class&#x3D;&quot;flex flex-col items-start p-2&quot;&gt;
+      &lt;button
+        mat-icon
+        (click)&#x3D;&quot;openCardFormDialog(null)&quot;
+        aria-label&#x3D;&quot;Add new item&quot;
+      &gt;
+        &lt;mat-icon class&#x3D;&quot;text-stone-200&quot;&gt;add_circle_outline&lt;/mat-icon&gt;
+      &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Actions Menu --&gt;
+    &lt;div class&#x3D;&quot;flex flex-col items-start p-2&quot;&gt;
+      &lt;button
+        mat-icon
+        [matMenuTriggerFor]&#x3D;&quot;actionMenu&quot;
+        aria-label&#x3D;&quot;Actions menu&quot;
+      &gt;
+        &lt;mat-icon class&#x3D;&quot;text-slate-50&quot;&gt;settings&lt;/mat-icon&gt;
+      &lt;/button&gt;
+      &lt;mat-menu #actionMenu&#x3D;&quot;matMenu&quot;&gt;
+        &lt;button mat-menu-item (click)&#x3D;&quot;deleteCard()&quot;&gt;Delete&lt;/button&gt;
+        &lt;button mat-menu-item (click)&#x3D;&quot;updateFavourites(&#x27;add_favorites&#x27;)&quot;&gt;
+          Add to Favourites
+        &lt;/button&gt;
+        &lt;!-- &lt;button mat-menu-item (click)&#x3D;&quot;exportPassword()&quot;&gt;Share&lt;/button&gt; --&gt;
+        &lt;button mat-menu-item (click)&#x3D;&quot;exportPassword()&quot;&gt;Export&lt;/button&gt;
+      &lt;/mat-menu&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;
+&lt;div class&#x3D;&quot;mat-elevation-z8&quot;&gt;
+  &lt;table mat-table [dataSource]&#x3D;&quot;dataSource&quot; class&#x3D;&quot;mat-table&quot;&gt;
+    &lt;ng-container matColumnDef&#x3D;&quot;select&quot;&gt;
+      &lt;th mat-header-cell *matHeaderCellDef&gt;
+        &lt;mat-checkbox
+          (change)&#x3D;&quot;$event ? toggleAllRows() : null&quot;
+          [checked]&#x3D;&quot;selection.hasValue() &amp;&amp; isAllSelected()&quot;
+          [indeterminate]&#x3D;&quot;selection.hasValue() &amp;&amp; !isAllSelected()&quot;
+          [aria-label]&#x3D;&quot;checkboxLabel()&quot;
+        &gt;
+        &lt;/mat-checkbox&gt;
+      &lt;/th&gt;
+      &lt;td mat-cell *matCellDef&#x3D;&quot;let row&quot;&gt;
+        &lt;mat-checkbox
+          (click)&#x3D;&quot;$event.stopPropagation()&quot;
+          (change)&#x3D;&quot;$event ? selection.toggle(row) : null&quot;
+          [checked]&#x3D;&quot;selection.isSelected(row)&quot;
+          [aria-label]&#x3D;&quot;checkboxLabel(row)&quot;
+        &gt;
+        &lt;/mat-checkbox&gt;
+      &lt;/td&gt;
+    &lt;/ng-container&gt;
+
+    &lt;!-- ID Column --&gt;
+    &lt;ng-container matColumnDef&#x3D;&quot;_id&quot;&gt;
+      &lt;th mat-header-cell *matHeaderCellDef&gt;ID&lt;/th&gt;
+      &lt;td mat-cell *matCellDef&#x3D;&quot;let element; let i &#x3D; index&quot;&gt;{{ i + 1 }}&lt;/td&gt;
+    &lt;/ng-container&gt;
+
+    &lt;!-- Card Type Column --&gt;
+    &lt;ng-container matColumnDef&#x3D;&quot;cardType&quot;&gt;
+      &lt;th mat-header-cell *matHeaderCellDef&gt;Card Type&lt;/th&gt;
+      &lt;td mat-cell *matCellDef&#x3D;&quot;let element&quot;&gt;{{ element.cardType }}&lt;/td&gt;
+    &lt;/ng-container&gt;
+
+    &lt;!-- Card Number Column --&gt;
+    &lt;ng-container matColumnDef&#x3D;&quot;cardNumber&quot;&gt;
+      &lt;th mat-header-cell *matHeaderCellDef&gt;Card Number&lt;/th&gt;
+      &lt;td mat-cell *matCellDef&#x3D;&quot;let element&quot;&gt;
+        {{ transform(element.cardNumber) }}
+      &lt;/td&gt;
+    &lt;/ng-container&gt;
+
+    &lt;!-- Card Holder Name Column --&gt;
+    &lt;ng-container matColumnDef&#x3D;&quot;cardHolderName&quot;&gt;
+      &lt;th mat-header-cell *matHeaderCellDef&gt;Card Holder Name&lt;/th&gt;
+      &lt;td mat-cell *matCellDef&#x3D;&quot;let element&quot;&gt;{{ element.cardHolderName }}&lt;/td&gt;
+    &lt;/ng-container&gt;
+
+    &lt;!-- Expiry Date Column --&gt;
+    &lt;ng-container matColumnDef&#x3D;&quot;expiryDate&quot;&gt;
+      &lt;th mat-header-cell *matHeaderCellDef&gt;Expiry Date&lt;/th&gt;
+      &lt;td mat-cell *matCellDef&#x3D;&quot;let element&quot;&gt;
+        {{ element.expiryDate | date : &quot;MM/yyyy&quot; }}
+      &lt;/td&gt;
+    &lt;/ng-container&gt;
+
+    &lt;!-- CVV Column --&gt;
+    &lt;ng-container matColumnDef&#x3D;&quot;CVV&quot;&gt;
+      &lt;th mat-header-cell *matHeaderCellDef&gt;CVV&lt;/th&gt;
+      &lt;td mat-cell *matCellDef&#x3D;&quot;let element&quot;&gt;{{ element.CVV }}&lt;/td&gt;
+    &lt;/ng-container&gt;
+
+    &lt;!-- Billing Address Column --&gt;
+    &lt;ng-container matColumnDef&#x3D;&quot;billingAddress&quot;&gt;
+      &lt;th mat-header-cell *matHeaderCellDef&gt;Billing Address&lt;/th&gt;
+      &lt;td mat-cell *matCellDef&#x3D;&quot;let element&quot;&gt;{{ element.billingAddress }}&lt;/td&gt;
+    &lt;/ng-container&gt;
+
+    &lt;ng-container matColumnDef&#x3D;&quot;createdAt&quot;&gt;
+      &lt;th mat-header-cell *matHeaderCellDef&gt;Created At&lt;/th&gt;
+
+      &lt;td mat-cell *matCellDef&#x3D;&quot;let element&quot;&gt;{{ element.createdAt }}&lt;/td&gt;
+    &lt;/ng-container&gt;
+    &lt;ng-container matColumnDef&#x3D;&quot;created_by&quot;&gt;
+      &lt;th mat-header-cell *matHeaderCellDef&gt;Owner&lt;/th&gt;
+      &lt;td mat-cell *matCellDef&#x3D;&quot;let element&quot;&gt;{{ element.userId }}&lt;/td&gt;
+    &lt;/ng-container&gt;
+
+    &lt;ng-container matColumnDef&#x3D;&quot;action&quot;&gt;
+      &lt;th mat-header-cell *matHeaderCellDef&gt;Action&lt;/th&gt;
+      &lt;td
+        mat-cell
+        *matCellDef&#x3D;&quot;let element&quot;
+        class&#x3D;&quot;space-x-4 hidden sm:flex sm:items-center&quot;
+      &gt;
+        &lt;button
+          mat-mini-fab
+          matTooltip&#x3D;&quot;Add to favourites&quot;
+          color&#x3D;&quot;accent&quot;
+          (click)&#x3D;&quot;updateFavourites(element._id)&quot;
+        &gt;
+          &lt;mat-icon
+            [ngStyle]&#x3D;&quot;{ color: element.isFavorite ? &#x27;#F59E0B&#x27; : &#x27;#4B5563&#x27; }&quot;
+            &gt;star&lt;/mat-icon
+          &gt;
+        &lt;/button&gt;
+        &lt;button
+          mat-mini-fab
+          matTooltip&#x3D;&quot;Edit password&quot;
+          (click)&#x3D;&quot;openCardFormDialog(element)&quot;
+        &gt;
+          &lt;mat-icon class&#x3D;&quot;text-blue-500&quot;&gt;edit&lt;/mat-icon&gt;
+        &lt;/button&gt;
+        &lt;button
+          mat-mini-fab
+          matTooltip&#x3D;&quot;Delete password&quot;
+          (click)&#x3D;&quot;deleteCard(element._id)&quot;
+        &gt;
+          &lt;mat-icon color&#x3D;&quot;warn&quot; class&#x3D;&quot;text-red-600&quot;&gt;delete&lt;/mat-icon&gt;
+        &lt;/button&gt;
+
+        &lt;button
+          mat-mini-fab
+          matTooltip&#x3D;&quot;View password&quot;
+          (click)&#x3D;&quot;viewCardDetails(element)&quot;
+        &gt;
+          &lt;mat-icon class&#x3D;&quot;text-tertiary&quot;&gt;remove_red_eye&lt;/mat-icon&gt;
+        &lt;/button&gt;
+      &lt;/td&gt;
+      &lt;td
+        mat-cell
+        *matCellDef&#x3D;&quot;let element&quot;
+        class&#x3D;&quot;space-x-4 flex sm:hidden items-center&quot;
+      &gt;
+        &lt;a mat-button [matMenuTriggerFor]&#x3D;&quot;setting&quot;&gt;
+          &lt;mat-icon&gt;more_vert&lt;/mat-icon&gt;
+        &lt;/a&gt;
+        &lt;mat-menu #setting&#x3D;&quot;matMenu&quot;&gt;
+          &lt;button
+            mat-menu-item
+            matTooltip&#x3D;&quot;Edit password&quot;
+            (click)&#x3D;&quot;openCardFormDialog(element)&quot;
+          &gt;
+            &lt;mat-icon class&#x3D;&quot;text-blue-500&quot;&gt;edit&lt;/mat-icon&gt;
+            &lt;span&gt;Edit password&lt;/span&gt;
+          &lt;/button&gt;
+          &lt;button
+            mat-menu-item
+            matTooltip&#x3D;&quot;Delete password&quot;
+            (click)&#x3D;&quot;deleteCard(element._id)&quot;
+          &gt;
+            &lt;mat-icon color&#x3D;&quot;warn&quot; class&#x3D;&quot;text-red-600&quot;&gt;delete&lt;/mat-icon&gt;
+            &lt;span&gt;Delete password&lt;/span&gt;
+          &lt;/button&gt;
+          &lt;button
+            mat-menu-item
+            matTooltip&#x3D;&quot;Add to favourites&quot;
+            color&#x3D;&quot;accent&quot;
+            (click)&#x3D;&quot;updateFavourites(element._id)&quot;
+          &gt;
+            &lt;mat-icon
+              [ngStyle]&#x3D;&quot;{ color: element.isFavorite ? &#x27;#F59E0B&#x27; : &#x27;#4B5563&#x27; }&quot;
+              &gt;star&lt;/mat-icon
+            &gt;
+          &lt;/button&gt;
+          &lt;button
+            mat-menu-item
+            matTooltip&#x3D;&quot;View password&quot;
+            (click)&#x3D;&quot;viewCardDetails(element)&quot;
+          &gt;
+            &lt;mat-icon class&#x3D;&quot;text-tertiary&quot;&gt;remove_red_eye&lt;/mat-icon&gt;
+            &lt;span&gt;View password&lt;/span&gt;
+          &lt;/button&gt;
+        &lt;/mat-menu&gt;
+      &lt;/td&gt;
+    &lt;/ng-container&gt;
+    &lt;!-- Header and Row Declarations --&gt;
+    &lt;tr mat-header-row *matHeaderRowDef&#x3D;&quot;displayedColumns&quot;&gt;&lt;/tr&gt;
+    &lt;tr mat-row *matRowDef&#x3D;&quot;let row; columns: displayedColumns&quot;&gt;&lt;/tr&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><nav  aria-label="Global"  class="flex flex-col  sm:flex-row sm:items-center justify-between w-full space-x-2 text-primary-foreground bg-slate-800 shadow-lg p-3">  <div class="flex items-center space-x-2">    <button      mat-icon-button      (click)="toggleSideBar()"      class="menu-button lg:hidden"    >      <mat-icon>menu</mat-icon>    </button>    <span class="text-xl sm:text-3xl font-bold text-white"      >Cards</span    >  </div>  <div class="flex items-center space-x-1 sm:w-6/12 sm:justify-end">    <!-- Add Menu -->    <input      matInput      [(ngModel)]="searchTerm"      type="search"      placeholder="Search the password"      aria-label="Search the password"      class=" sm:w-6/12 py-2 px-3 border-2 border-slate-900 text-gray-500"      (keyup)="getCardsListings()"    />    />    <div class="flex flex-col items-start p-2">      <button        mat-icon        (click)="openCardFormDialog(null)"        aria-label="Add new item"      >        <mat-icon class="text-stone-200">add_circle_outline</mat-icon>      </button>    </div>    <!-- Actions Menu -->    <div class="flex flex-col items-start p-2">      <button        mat-icon        [matMenuTriggerFor]="actionMenu"        aria-label="Actions menu"      >        <mat-icon class="text-slate-50">settings</mat-icon>      </button>      <mat-menu #actionMenu="matMenu">        <button mat-menu-item (click)="deleteCard()">Delete</button>        <button mat-menu-item (click)="updateFavourites(\'add_favorites\')">          Add to Favourites        </button>        <!-- <button mat-menu-item (click)="exportPassword()">Share</button> -->        <button mat-menu-item (click)="exportPassword()">Export</button>      </mat-menu>    </div>  </div></nav><div class="mat-elevation-z8">  <table mat-table [dataSource]="dataSource" class="mat-table">    <ng-container matColumnDef="select">      <th mat-header-cell *matHeaderCellDef>        <mat-checkbox          (change)="$event ? toggleAllRows() : null"          [checked]="selection.hasValue() && isAllSelected()"          [indeterminate]="selection.hasValue() && !isAllSelected()"          [aria-label]="checkboxLabel()"        >        </mat-checkbox>      </th>      <td mat-cell *matCellDef="let row">        <mat-checkbox          (click)="$event.stopPropagation()"          (change)="$event ? selection.toggle(row) : null"          [checked]="selection.isSelected(row)"          [aria-label]="checkboxLabel(row)"        >        </mat-checkbox>      </td>    </ng-container>    <!-- ID Column -->    <ng-container matColumnDef="_id">      <th mat-header-cell *matHeaderCellDef>ID</th>      <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>    </ng-container>    <!-- Card Type Column -->    <ng-container matColumnDef="cardType">      <th mat-header-cell *matHeaderCellDef>Card Type</th>      <td mat-cell *matCellDef="let element">{{ element.cardType }}</td>    </ng-container>    <!-- Card Number Column -->    <ng-container matColumnDef="cardNumber">      <th mat-header-cell *matHeaderCellDef>Card Number</th>      <td mat-cell *matCellDef="let element">        {{ transform(element.cardNumber) }}      </td>    </ng-container>    <!-- Card Holder Name Column -->    <ng-container matColumnDef="cardHolderName">      <th mat-header-cell *matHeaderCellDef>Card Holder Name</th>      <td mat-cell *matCellDef="let element">{{ element.cardHolderName }}</td>    </ng-container>    <!-- Expiry Date Column -->    <ng-container matColumnDef="expiryDate">      <th mat-header-cell *matHeaderCellDef>Expiry Date</th>      <td mat-cell *matCellDef="let element">        {{ element.expiryDate | date : "MM/yyyy" }}      </td>    </ng-container>    <!-- CVV Column -->    <ng-container matColumnDef="CVV">      <th mat-header-cell *matHeaderCellDef>CVV</th>      <td mat-cell *matCellDef="let element">{{ element.CVV }}</td>    </ng-container>    <!-- Billing Address Column -->    <ng-container matColumnDef="billingAddress">      <th mat-header-cell *matHeaderCellDef>Billing Address</th>      <td mat-cell *matCellDef="let element">{{ element.billingAddress }}</td>    </ng-container>    <ng-container matColumnDef="createdAt">      <th mat-header-cell *matHeaderCellDef>Created At</th>      <td mat-cell *matCellDef="let element">{{ element.createdAt }}</td>    </ng-container>    <ng-container matColumnDef="created_by">      <th mat-header-cell *matHeaderCellDef>Owner</th>      <td mat-cell *matCellDef="let element">{{ element.userId }}</td>    </ng-container>    <ng-container matColumnDef="action">      <th mat-header-cell *matHeaderCellDef>Action</th>      <td        mat-cell        *matCellDef="let element"        class="space-x-4 hidden sm:flex sm:items-center"      >        <button          mat-mini-fab          matTooltip="Add to favourites"          color="accent"          (click)="updateFavourites(element._id)"        >          <mat-icon            [ngStyle]="{ color: element.isFavorite ? \'#F59E0B\' : \'#4B5563\' }"            >star</mat-icon          >        </button>        <button          mat-mini-fab          matTooltip="Edit password"          (click)="openCardFormDialog(element)"        >          <mat-icon class="text-blue-500">edit</mat-icon>        </button>        <button          mat-mini-fab          matTooltip="Delete password"          (click)="deleteCard(element._id)"        >          <mat-icon color="warn" class="text-red-600">delete</mat-icon>        </button>        <button          mat-mini-fab          matTooltip="View password"          (click)="viewCardDetails(element)"        >          <mat-icon class="text-tertiary">remove_red_eye</mat-icon>        </button>      </td>      <td        mat-cell        *matCellDef="let element"        class="space-x-4 flex sm:hidden items-center"      >        <a mat-button [matMenuTriggerFor]="setting">          <mat-icon>more_vert</mat-icon>        </a>        <mat-menu #setting="matMenu">          <button            mat-menu-item            matTooltip="Edit password"            (click)="openCardFormDialog(element)"          >            <mat-icon class="text-blue-500">edit</mat-icon>            <span>Edit password</span>          </button>          <button            mat-menu-item            matTooltip="Delete password"            (click)="deleteCard(element._id)"          >            <mat-icon color="warn" class="text-red-600">delete</mat-icon>            <span>Delete password</span>          </button>          <button            mat-menu-item            matTooltip="Add to favourites"            color="accent"            (click)="updateFavourites(element._id)"          >            <mat-icon              [ngStyle]="{ color: element.isFavorite ? \'#F59E0B\' : \'#4B5563\' }"              >star</mat-icon            >          </button>          <button            mat-menu-item            matTooltip="View password"            (click)="viewCardDetails(element)"          >            <mat-icon class="text-tertiary">remove_red_eye</mat-icon>            <span>View password</span>          </button>        </mat-menu>      </td>    </ng-container>    <!-- Header and Row Declarations -->    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>  </table></div></div>'
+    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admiiin'},{'name': 'ApiDocsComponent', 'selector': 'app-api-docs'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BillingDetailsComponent', 'selector': 'app-billing-details'},{'name': 'CardComponent', 'selector': 'app-card'},{'name': 'CreateFolderDialogComponent', 'selector': 'app-create-folder-dialog'},{'name': 'CreditCardFormComponent', 'selector': 'app-credit-card-form'},{'name': 'DashboardComponent', 'selector': 'app-dashbloard'},{'name': 'DownloadComponent', 'selector': 'app-download'},{'name': 'EditProfileComponent', 'selector': 'app-edit-profile'},{'name': 'FileExplorerComponent', 'selector': 'app-file-explorer'},{'name': 'FileUploadComponent', 'selector': 'app-file-upload'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'IdProofComponent', 'selector': 'app-id-proof'},{'name': 'IdproofformComponent', 'selector': 'app-idproofform'},{'name': 'IndexComponent', 'selector': 'app-index'},{'name': 'InvitationAcceptComponent', 'selector': 'app-invitation-accept'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MfaSettingComponent', 'selector': 'app-mfa-setting'},{'name': 'MfaVerificationComponent', 'selector': 'app-mfa-verification'},{'name': 'NotesComponent', 'selector': 'app-notes'},{'name': 'NotesFormComponent', 'selector': 'app-notes-form'},{'name': 'NotificationComponent', 'selector': 'app-notification'},{'name': 'OrganizationComponent', 'selector': 'app-organization'},{'name': 'OrganizationsComponent', 'selector': 'app-organizations'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'PasswordFormComponent', 'selector': 'app-password-form'},{'name': 'PasswordGenratorComponent', 'selector': 'app-password-genrator'},{'name': 'PasswordStrengthComponent', 'selector': 'app-password-strength'},{'name': 'PricingPageComponent', 'selector': 'app-pricing-page'},{'name': 'PrivacyPolicyComponent', 'selector': 'app-privacy-policy'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'RolesPermissionsComponent', 'selector': 'app-roles-permissions'},{'name': 'SecurityComponent', 'selector': 'app-security'},{'name': 'ShareDialogComponent', 'selector': 'app-share-dialog'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SignupComponent', 'selector': 'app-signup'},{'name': 'SupportComponent', 'selector': 'app-support'},{'name': 'TagFormCompoent', 'selector': 'app-tag'},{'name': 'UserFormComponent', 'selector': 'app-user-form'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'viewCardDetailsComponent', 'selector': 'app-view-card'},{'name': 'ViewNoteCompoent', 'selector': 'app-view-note'},{'name': 'ViewPasswordComponent', 'selector': 'app-view-password'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'CardComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'CardComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,772 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>password-app documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">password-app documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content miscellaneous-variables">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Miscellaneous</li>
+  <li class="breadcrumb-item">Variables</li>
+</ol>
+
+<section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <ul class="index-list">
+                        <li>
+                            <a href="#apiInterceptor" title="src/app/api.interceptor.ts" ><b>apiInterceptor</b>&nbsp;&nbsp;&nbsp;(src/.../api.interceptor.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#appConfig" title="src/app/app.config.ts" ><b>appConfig</b>&nbsp;&nbsp;&nbsp;(src/.../app.config.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#authGuard" title="src/app/auth.guard.ts" ><b>authGuard</b>&nbsp;&nbsp;&nbsp;(src/.../auth.guard.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#countries" title="src/app/country.ts" ><b>countries</b>&nbsp;&nbsp;&nbsp;(src/.../country.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#environment" title="src/environments/environment.development.ts" ><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.development.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#environment" title="src/environments/environment.electron.ts" ><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.electron.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#environment" title="src/environments/environment.ts" ><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    <h3>src/app/api.interceptor.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="apiInterceptor"></a>
+                    <span class="name">
+                        <span ><b>apiInterceptor</b></span>
+                        <a href="#apiInterceptor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HttpInterceptorFn</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(req, next) &#x3D;&gt; {
+
+    // Add your logic here to retrieve the token
+    const token &#x3D; localStorage.getItem(&#x27;token&#x27;);
+
+    if (token) {
+      // Clone the request and add the Authorization header
+      const authRequest &#x3D; req.clone({
+        headers: new HttpHeaders().set(&#x27;Authorization&#x27;, &#x60;Bearer ${token}&#x60;),
+      });
+
+      return next(authRequest);
+    } else {
+      // the case where there&#x27;s no token (optional)
+      return next(req); // Pass through the original request
+    }
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/app.config.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="appConfig"></a>
+                    <span class="name">
+                        <span ><b>appConfig</b></span>
+                        <a href="#appConfig"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ApplicationConfig</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+    provideAnimationsAsync(),
+    provideHttpClient(withInterceptors([apiInterceptor])),
+    provideAnimationsAsync(),
+    importProvidersFrom([TranslateModule.forRoot(
+      {
+        loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+          }
+      }
+    )]),
+  ],
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/auth.guard.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="authGuard"></a>
+                    <span class="name">
+                        <span ><b>authGuard</b></span>
+                        <a href="#authGuard"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>CanActivateFn</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>(route, state) &#x3D;&gt; {
+  const router &#x3D; inject(Router);
+  const email &#x3D; route.queryParams[&#x27;username&#x27;];
+  const password &#x3D; route.queryParams[&#x27;password&#x27;];
+  const token &#x3D; localStorage.getItem(&#x27;token&#x27;);
+  
+  if (token) { 
+    const authRoutes &#x3D; [&#x27;/signup&#x27;, &#x27;/reset-password&#x27;, &#x27;/login&#x27; ,&#x27;/home&#x27;, &#x27;/email-confirmation&#x27;];
+    const isAuthRoutes &#x3D; authRoutes.some(route &#x3D;&gt; state.url.includes(route));
+    if(isAuthRoutes) {
+      router.navigate([&#x27;/&#x27;])
+      return false
+    }
+    return true;
+  } else {
+    const publicRoutes &#x3D; [&#x27;pricing-page&#x27;, &#x27;download&#x27;,&#x27;password-strength&#x27;, &#x27;generator&#x27;, &#x27;privacy-policy&#x27;];
+    const isPublicRoute &#x3D; publicRoutes.find(route &#x3D;&gt; state.url.includes(route));
+
+    if (!token &amp;&amp; !isPublicRoute) {
+      router.navigate((email &amp;&amp; password) ? [&#x60;auth/login?username&#x3D;${route.queryParams[&#x27;username&#x27;]}&amp;password&#x3D;${route.queryParams[&#x27;password&#x27;]}&#x60;] : [&#x60;auth/login&#x60;]);
+      return false;
+    } 
+    return true
+    // Token doesn&#x27;t exist, user is not authenticated
+  }
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/country.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="countries"></a>
+                    <span class="name">
+                        <span ><b>countries</b></span>
+                        <a href="#countries"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+        {
+          name: &#x27;Afghanistan&#x27;,
+          shortName: &#x27;AFG&#x27;,
+          code:&quot;+93&quot;,
+          states: [
+            {
+              name: &#x27;Kabul&#x27;,
+              cities: [&#x27;Kabul&#x27;, &#x27;Paghman&#x27;, &#x27;Charikar&#x27;]
+            },
+            {
+              name: &#x27;Kandahar&#x27;,
+              cities: [&#x27;Kandahar City&#x27;, &#x27;Spin Boldak&#x27;]
+            },
+            {
+              name: &#x27;Herat&#x27;,
+              cities: [&#x27;Herat City&#x27;, &#x27;Islam Qala&#x27;]
+            },
+            {
+              name: &#x27;Balkh&#x27;,
+              cities: [&#x27;Mazar-i-Sharif&#x27;, &#x27;Balkh City&#x27;]
+            },
+            {
+              name: &#x27;Nangarhar&#x27;,
+              cities: [&#x27;Jalalabad&#x27;, &#x27;Behsud&#x27;]
+            },
+            {
+              name: &#x27;Badakhshan&#x27;,
+              cities: [&#x27;Fayzabad&#x27;, &#x27;Jurm&#x27;]
+            },
+            {
+              name: &#x27;Baghlan&#x27;,
+              cities: [&#x27;Pul-e-Khumri&#x27;, &#x27;Baghlan City&#x27;]
+            },
+            {
+              name: &#x27;Ghazni&#x27;,
+              cities: [&#x27;Ghazni City&#x27;, &#x27;Qarabagh&#x27;]
+            },
+            {
+              name: &#x27;Faryab&#x27;,
+              cities: [&#x27;Maymana&#x27;, &#x27;Andkhoy&#x27;]
+            },
+            {
+              name: &#x27;Helmand&#x27;,
+              cities: [&#x27;Lashkar Gah&#x27;, &#x27;Sangin&#x27;]
+            }
+          ]
+        },
+      
+    { name: &#x27;United States&#x27;, code: &#x27;+1&#x27;, shortName: &#x27;USA&#x27;, states: [
+        { state: &#x27;Alabama&#x27;, abbreviation: &#x27;AL&#x27;, cities: [&#x27;Birmingham&#x27;, &#x27;Montgomery&#x27;, &#x27;Huntsville&#x27;, &#x27;Mobile&#x27;, &#x27;Tuscaloosa&#x27;] },
+        { state: &#x27;Alaska&#x27;, abbreviation: &#x27;AK&#x27;, cities: [&#x27;Anchorage&#x27;, &#x27;Fairbanks&#x27;, &#x27;Juneau&#x27;, &#x27;Sitka&#x27;, &#x27;Ketchikan&#x27;] },
+        { state: &#x27;Arizona&#x27;, abbreviation: &#x27;AZ&#x27;, cities: [&#x27;Phoenix&#x27;, &#x27;Tucson&#x27;, &#x27;Mesa&#x27;, &#x27;Chandler&#x27;, &#x27;Scottsdale&#x27;] },
+        { state: &#x27;Arkansas&#x27;, abbreviation: &#x27;AR&#x27;, cities: [&#x27;Little Rock&#x27;, &#x27;Fort Smith&#x27;, &#x27;Fayetteville&#x27;, &#x27;Springdale&#x27;, &#x27;Jonesboro&#x27;] },
+        { state: &#x27;California&#x27;, abbreviation: &#x27;CA&#x27;, cities: [&#x27;Los Angeles&#x27;, &#x27;San Francisco&#x27;, &#x27;San Diego&#x27;, &#x27;San Jose&#x27;, &#x27;Sacramento&#x27;] },
+        { state: &#x27;Colorado&#x27;, abbreviation: &#x27;CO&#x27;, cities: [&#x27;Denver&#x27;, &#x27;Colorado Springs&#x27;, &#x27;Aurora&#x27;, &#x27;Fort Collins&#x27;, &#x27;Lakewood&#x27;] },
+        { state: &#x27;Connecticut&#x27;, abbreviation: &#x27;CT&#x27;, cities: [&#x27;Hartford&#x27;, &#x27;Bridgeport&#x27;, &#x27;New Haven&#x27;, &#x27;Stamford&#x27;, &#x27;Waterbury&#x27;] },
+        { state: &#x27;Delaware&#x27;, abbreviation: &#x27;DE&#x27;, cities: [&#x27;Wilmington&#x27;, &#x27;Dover&#x27;, &#x27;Newark&#x27;, &#x27;Middletown&#x27;, &#x27;Smyrna&#x27;] },
+        { state: &#x27;Florida&#x27;, abbreviation: &#x27;FL&#x27;, cities: [&#x27;Jacksonville&#x27;, &#x27;Miami&#x27;, &#x27;Tampa&#x27;, &#x27;Orlando&#x27;, &#x27;St. Petersburg&#x27;] },
+        { state: &#x27;Georgia&#x27;, abbreviation: &#x27;GA&#x27;, cities: [&#x27;Atlanta&#x27;, &#x27;Augusta&#x27;, &#x27;Columbus&#x27;, &#x27;Savannah&#x27;, &#x27;Macon&#x27;] },
+        { state: &#x27;Hawaii&#x27;, abbreviation: &#x27;HI&#x27;, cities: [&#x27;Honolulu&#x27;, &#x27;Hilo&#x27;, &#x27;Kailua&#x27;, &#x27;Kaneohe&#x27;, &#x27;Lahaina&#x27;] },
+        { state: &#x27;Idaho&#x27;, abbreviation: &#x27;ID&#x27;, cities: [&#x27;Boise&#x27;, &#x27;Nampa&#x27;, &#x27;Meridian&#x27;, &#x27;Idaho Falls&#x27;, &#x27;Pocatello&#x27;] },
+        { state: &#x27;Illinois&#x27;, abbreviation: &#x27;IL&#x27;, cities: [&#x27;Chicago&#x27;, &#x27;Aurora&#x27;, &#x27;Naperville&#x27;, &#x27;Rockford&#x27;, &#x27;Joliet&#x27;] },
+        { state: &#x27;Indiana&#x27;, abbreviation: &#x27;IN&#x27;, cities: [&#x27;Indianapolis&#x27;, &#x27;Fort Wayne&#x27;, &#x27;Evansville&#x27;, &#x27;South Bend&#x27;, &#x27;Carmel&#x27;] },
+        { state: &#x27;Iowa&#x27;, abbreviation: &#x27;IA&#x27;, cities: [&#x27;Des Moines&#x27;, &#x27;Cedar Rapids&#x27;, &#x27;Davenport&#x27;, &#x27;Sioux City&#x27;, &#x27;Iowa City&#x27;] },
+        { state: &#x27;Kansas&#x27;, abbreviation: &#x27;KS&#x27;, cities: [&#x27;Wichita&#x27;, &#x27;Overland Park&#x27;, &#x27;Kansas City&#x27;, &#x27;Topeka&#x27;, &#x27;Olathe&#x27;] },
+        { state: &#x27;Kentucky&#x27;, abbreviation: &#x27;KY&#x27;, cities: [&#x27;Louisville&#x27;, &#x27;Lexington&#x27;, &#x27;Bowling Green&#x27;, &#x27;Covington&#x27;, &#x27;Richmond&#x27;] },
+        { state: &#x27;Louisiana&#x27;, abbreviation: &#x27;LA&#x27;, cities: [&#x27;New Orleans&#x27;, &#x27;Baton Rouge&#x27;, &#x27;Shreveport&#x27;, &#x27;Lafayette&#x27;, &#x27;Lake Charles&#x27;] },
+        { state: &#x27;Maine&#x27;, abbreviation: &#x27;ME&#x27;, cities: [&#x27;Portland&#x27;, &#x27;Augusta&#x27;, &#x27;Bangor&#x27;, &#x27;South Portland&#x27;, &#x27;Auburn&#x27;] },
+        { state: &#x27;Maryland&#x27;, abbreviation: &#x27;MD&#x27;, cities: [&#x27;Baltimore&#x27;, &#x27;Frederick&#x27;, &#x27;Rockville&#x27;, &#x27;Gaithersburg&#x27;, &#x27;Bowie&#x27;] },
+        { state: &#x27;Massachusetts&#x27;, abbreviation: &#x27;MA&#x27;, cities: [&#x27;Boston&#x27;, &#x27;Worcester&#x27;, &#x27;Springfield&#x27;, &#x27;Cambridge&#x27;, &#x27;Lowell&#x27;] },
+        { state: &#x27;Michigan&#x27;, abbreviation: &#x27;MI&#x27;, cities: [&#x27;Detroit&#x27;, &#x27;Grand Rapids&#x27;, &#x27;Warren&#x27;, &#x27;Sterling Heights&#x27;, &#x27;Ann Arbor&#x27;] },
+        { state: &#x27;Minnesota&#x27;, abbreviation: &#x27;MN&#x27;, cities: [&#x27;Minneapolis&#x27;, &#x27;Saint Paul&#x27;, &#x27;Rochester&#x27;, &#x27;Duluth&#x27;, &#x27;Bloomington&#x27;] },
+        { state: &#x27;Mississippi&#x27;, abbreviation: &#x27;MS&#x27;, cities: [&#x27;Jackson&#x27;, &#x27;Gulfport&#x27;, &#x27;Southaven&#x27;, &#x27;Hattiesburg&#x27;, &#x27;Biloxi&#x27;] },
+        { state: &#x27;Missouri&#x27;, abbreviation: &#x27;MO&#x27;, cities: [&#x27;Kansas City&#x27;, &#x27;St. Louis&#x27;, &#x27;Springfield&#x27;, &#x27;Columbia&#x27;, &#x27;Independence&#x27;] },
+        { state: &#x27;Montana&#x27;, abbreviation: &#x27;MT&#x27;, cities: [&#x27;Billings&#x27;, &#x27;Missoula&#x27;, &#x27;Great Falls&#x27;, &#x27;Bozeman&#x27;, &#x27;Butte&#x27;] },
+        { state: &#x27;Nebraska&#x27;, abbreviation: &#x27;NE&#x27;, cities: [&#x27;Omaha&#x27;, &#x27;Lincoln&#x27;, &#x27;Bellevue&#x27;, &#x27;Grand Island&#x27;, &#x27;Kearney&#x27;] },
+        { state: &#x27;Nevada&#x27;, abbreviation: &#x27;NV&#x27;, cities: [&#x27;Las Vegas&#x27;, &#x27;Henderson&#x27;, &#x27;Reno&#x27;, &#x27;North Las Vegas&#x27;, &#x27;Sparks&#x27;] },
+        { state: &#x27;New Hampshire&#x27;, abbreviation: &#x27;NH&#x27;, cities: [&#x27;Manchester&#x27;, &#x27;Nashua&#x27;, &#x27;Concord&#x27;, &#x27;Derry&#x27;, &#x27;Rochester&#x27;] },
+        { state: &#x27;New Jersey&#x27;, abbreviation: &#x27;NJ&#x27;, cities: [&#x27;Newark&#x27;, &#x27;Jersey City&#x27;, &#x27;Paterson&#x27;, &#x27;Elizabeth&#x27;, &#x27;Edison&#x27;] },
+        { state: &#x27;New Mexico&#x27;, abbreviation: &#x27;NM&#x27;, cities: [&#x27;Albuquerque&#x27;, &#x27;Las Cruces&#x27;, &#x27;Santa Fe&#x27;, &#x27;Roswell&#x27;, &#x27;Farmington&#x27;] },
+        { state: &#x27;New York&#x27;, abbreviation: &#x27;NY&#x27;, cities: [&#x27;New York City&#x27;, &#x27;Buffalo&#x27;, &#x27;Rochester&#x27;, &#x27;Yonkers&#x27;, &#x27;Syracuse&#x27;] },
+        { state: &#x27;North Carolina&#x27;, abbreviation: &#x27;NC&#x27;, cities: [&#x27;Charlotte&#x27;, &#x27;Raleigh&#x27;, &#x27;Greensboro&#x27;, &#x27;Durham&#x27;, &#x27;Winston-Salem&#x27;] },
+        { state: &#x27;North Dakota&#x27;, abbreviation: &#x27;ND&#x27;, cities: [&#x27;Fargo&#x27;, &#x27;Bismarck&#x27;, &#x27;Grand Forks&#x27;, &#x27;Minot&#x27;, &#x27;West Fargo&#x27;] },
+        { state: &#x27;Ohio&#x27;, abbreviation: &#x27;OH&#x27;, cities: [&#x27;Columbus&#x27;, &#x27;Cleveland&#x27;, &#x27;Cincinnati&#x27;, &#x27;Toledo&#x27;, &#x27;Akron&#x27;] },
+        { state: &#x27;Oklahoma&#x27;, abbreviation: &#x27;OK&#x27;, cities: [&#x27;Oklahoma City&#x27;, &#x27;Tulsa&#x27;, &#x27;Norman&#x27;, &#x27;Broken Arrow&#x27;, &#x27;Edmond&#x27;] },
+        { state: &#x27;Oregon&#x27;, abbreviation: &#x27;OR&#x27;, cities: [&#x27;Portland&#x27;, &#x27;Salem&#x27;, &#x27;Eugene&#x27;, &#x27;Gresham&#x27;, &#x27;Hillsboro&#x27;] },
+        { state: &#x27;Pennsylvania&#x27;, abbreviation: &#x27;PA&#x27;, cities: [&#x27;Philadelphia&#x27;, &#x27;Pittsburgh&#x27;, &#x27;Allentown&#x27;, &#x27;Erie&#x27;, &#x27;Reading&#x27;] },
+        { state: &#x27;Rhode Island&#x27;, abbreviation: &#x27;RI&#x27;, cities: [&#x27;Providence&#x27;, &#x27;Warwick&#x27;, &#x27;Cranston&#x27;, &#x27;Pawtucket&#x27;, &#x27;East Providence&#x27;] },
+        { state: &#x27;South Carolina&#x27;, abbreviation: &#x27;SC&#x27;, cities: [&#x27;Columbia&#x27;, &#x27;Charleston&#x27;, &#x27;North Charleston&#x27;, &#x27;Mount Pleasant&#x27;, &#x27;Rock Hill&#x27;] },
+        { state: &#x27;South Dakota&#x27;, abbreviation: &#x27;SD&#x27;, cities: [&#x27;Sioux Falls&#x27;, &#x27;Rapid City&#x27;, &#x27;Aberdeen&#x27;, &#x27;Brookings&#x27;, &#x27;Mitchell&#x27;] },
+        { state: &#x27;Tennessee&#x27;, abbreviation: &#x27;TN&#x27;, cities: [&#x27;Nashville&#x27;, &#x27;Memphis&#x27;, &#x27;Knoxville&#x27;, &#x27;Chattanooga&#x27;, &#x27;Clarksville&#x27;] },
+        { state: &#x27;Texas&#x27;, abbreviation: &#x27;TX&#x27;, cities: [&#x27;Houston&#x27;, &#x27;San Antonio&#x27;, &#x27;Dallas&#x27;, &#x27;Austin&#x27;, &#x27;Fort Worth&#x27;] },
+        { state: &#x27;Utah&#x27;, abbreviation: &#x27;UT&#x27;, cities: [&#x27;Salt Lake City&#x27;, &#x27;West Valley City&#x27;, &#x27;Provo&#x27;, &#x27;Sandy&#x27;, &#x27;Orem&#x27;] },
+        { state: &#x27;Vermont&#x27;, abbreviation: &#x27;VT&#x27;, cities: [&#x27;Burlington&#x27;, &#x27;Essex&#x27;, &#x27;South Burlington&#x27;, &#x27;Rutland&#x27;, &#x27;Barre&#x27;] },
+        { state: &#x27;Virginia&#x27;, abbreviation: &#x27;VA&#x27;, cities: [&#x27;Virginia Beach&#x27;, &#x27;Norfolk&#x27;, &#x27;Chesapeake&#x27;, &#x27;Richmond&#x27;, &#x27;Newport News&#x27;] },
+        { state: &#x27;Washington&#x27;, abbreviation: &#x27;WA&#x27;, cities: [&#x27;Seattle&#x27;, &#x27;Spokane&#x27;, &#x27;Tacoma&#x27;, &#x27;Vancouver&#x27;, &#x27;Bellevue&#x27;] },
+        { state: &#x27;West Virginia&#x27;, abbreviation: &#x27;WV&#x27;, cities: [&#x27;Charleston&#x27;, &#x27;Huntington&#x27;, &#x27;Morgantown&#x27;, &#x27;Parkersburg&#x27;, &#x27;Weirton&#x27;] },
+        { state: &#x27;Wisconsin&#x27;, abbreviation: &#x27;WI&#x27;, cities: [&#x27;Milwaukee&#x27;, &#x27;Madison&#x27;, &#x27;Green Bay&#x27;, &#x27;Kenosha&#x27;, &#x27;Racine&#x27;] },
+        { state: &#x27;Wyoming&#x27;, abbreviation: &#x27;WY&#x27;, cities: [&#x27;Cheyenne&#x27;, &#x27;Casper&#x27;, &#x27;Laramie&#x27;, &#x27;Gillette&#x27;, &#x27;Rock Springs&#x27;] },
+      ]
+           },
+    { name: &#x27;United Kingdom&#x27;, code: &#x27;+44&#x27;, shortName: &#x27;UK&#x27;,states: [
+        { state: &#x27;England&#x27;, abbreviation: &#x27;ENG&#x27;, cities: [&#x27;London&#x27;, &#x27;Birmingham&#x27;, &#x27;Manchester&#x27;, &#x27;Liverpool&#x27;, &#x27;Bristol&#x27;] },
+        { state: &#x27;Scotland&#x27;, abbreviation: &#x27;SCT&#x27;, cities: [&#x27;Edinburgh&#x27;, &#x27;Glasgow&#x27;, &#x27;Aberdeen&#x27;, &#x27;Dundee&#x27;, &#x27;Inverness&#x27;] },
+        { state: &#x27;Wales&#x27;, abbreviation: &#x27;WLS&#x27;, cities: [&#x27;Cardiff&#x27;, &#x27;Swansea&#x27;, &#x27;Newport&#x27;, &#x27;Wrexham&#x27;, &#x27;Barry&#x27;] },
+        { state: &#x27;Northern Ireland&#x27;, abbreviation: &#x27;NIR&#x27;, cities: [&#x27;Belfast&#x27;, &#x27;Derry&#x27;, &#x27;Lisburn&#x27;, &#x27;Newtownabbey&#x27;, &#x27;Carrickfergus&#x27;] },
+      ]
+     },
+    { name: &#x27;India&#x27;, code: &#x27;+91&#x27;, shortName: &#x27;IND&#x27;, states: [
+        { state: &#x27;Andhra Pradesh&#x27;, abbreviation: &#x27;AP&#x27;, cities: [&#x27;Hyderabad&#x27;, &#x27;Visakhapatnam&#x27;, &#x27;Vijayawada&#x27;, &#x27;Guntur&#x27;, &#x27;Nellore&#x27;] },
+        { state: &#x27;Arunachal Pradesh&#x27;, abbreviation: &#x27;AR&#x27;, cities: [&#x27;Itanagar&#x27;, &#x27;Naharlagun&#x27;, &#x27;Pasighat&#x27;, &#x27;Tezpur&#x27;, &#x27;Bomdila&#x27;] },
+        { state: &#x27;Assam&#x27;, abbreviation: &#x27;AS&#x27;, cities: [&#x27;Guwahati&#x27;, &#x27;Dispur&#x27;, &#x27;Dibrugarh&#x27;, &#x27;Silchar&#x27;, &#x27;Nagaon&#x27;] },
+        { state: &#x27;Bihar&#x27;, abbreviation: &#x27;BR&#x27;, cities: [&#x27;Patna&#x27;, &#x27;Gaya&#x27;, &#x27;Bhagalpur&#x27;, &#x27;Muzaffarpur&#x27;, &#x27;Darbhanga&#x27;] },
+        { state: &#x27;Chhattisgarh&#x27;, abbreviation: &#x27;CG&#x27;, cities: [&#x27;Raipur&#x27;, &#x27;Bilaspur&#x27;, &#x27;Durg&#x27;, &#x27;Bhilai&#x27;, &#x27;Korba&#x27;] },
+        { state: &#x27;Goa&#x27;, abbreviation: &#x27;GA&#x27;, cities: [&#x27;Panaji&#x27;, &#x27;Margao&#x27;, &#x27;Vasco da Gama&#x27;, &#x27;Ponda&#x27;, &#x27;Mapusa&#x27;] },
+        { state: &#x27;Gujarat&#x27;, abbreviation: &#x27;GJ&#x27;, cities: [&#x27;Ahmedabad&#x27;, &#x27;Surat&#x27;, &#x27;Vadodara&#x27;, &#x27;Rajkot&#x27;, &#x27;Gandhinagar&#x27;] },
+        { state: &#x27;Haryana&#x27;, abbreviation: &#x27;HR&#x27;, cities: [&#x27;Chandigarh&#x27;, &#x27;Gurgaon&#x27;, &#x27;Faridabad&#x27;, &#x27;Hisar&#x27;, &#x27;Panipat&#x27;] },
+        { state: &#x27;Himachal Pradesh&#x27;, abbreviation: &#x27;HP&#x27;, cities: [&#x27;Shimla&#x27;, &#x27;Dharamshala&#x27;, &#x27;Kullu&#x27;, &#x27;Manali&#x27;, &#x27;Solan&#x27;] },
+        { state: &#x27;Jharkhand&#x27;, abbreviation: &#x27;JH&#x27;, cities: [&#x27;Ranchi&#x27;, &#x27;Jamshedpur&#x27;, &#x27;Dhanbad&#x27;, &#x27;Bokaro&#x27;, &#x27;Deoghar&#x27;] },
+        { state: &#x27;Karnataka&#x27;, abbreviation: &#x27;KA&#x27;, cities: [&#x27;Bengaluru&#x27;, &#x27;Mysuru&#x27;, &#x27;Mangaluru&#x27;, &#x27;Hubli&#x27;, &#x27;Davangere&#x27;] },
+        { state: &#x27;Kerala&#x27;, abbreviation: &#x27;KL&#x27;, cities: [&#x27;Thiruvananthapuram&#x27;, &#x27;Kochi&#x27;, &#x27;Kozhikode&#x27;, &#x27;Kollam&#x27;, &#x27;Malappuram&#x27;] },
+        { state: &#x27;Madhya Pradesh&#x27;, abbreviation: &#x27;MP&#x27;, cities: [&#x27;Bhopal&#x27;, &#x27;Indore&#x27;, &#x27;Gwalior&#x27;, &#x27;Jabalpur&#x27;, &#x27;Ujjain&#x27;] },
+        { state: &#x27;Maharashtra&#x27;, abbreviation: &#x27;MH&#x27;, cities: [&#x27;Mumbai&#x27;, &#x27;Pune&#x27;, &#x27;Nagpur&#x27;, &#x27;Nashik&#x27;, &#x27;Aurangabad&#x27;] },
+        { state: &#x27;Manipur&#x27;, abbreviation: &#x27;MN&#x27;, cities: [&#x27;Imphal&#x27;, &#x27;Thoubal&#x27;, &#x27;Kakching&#x27;, &#x27;Churachandpur&#x27;, &#x27;Tamenglong&#x27;] },
+        { state: &#x27;Meghalaya&#x27;, abbreviation: &#x27;ML&#x27;, cities: [&#x27;Shillong&#x27;, &#x27;Tura&#x27;, &#x27;Jowai&#x27;, &#x27;Nongpoh&#x27;, &#x27;Bholaganj&#x27;] },
+        { state: &#x27;Mizoram&#x27;, abbreviation: &#x27;MZ&#x27;, cities: [&#x27;Aizawl&#x27;, &#x27;Lunglei&#x27;, &#x27;Saiha&#x27;, &#x27;Kolasib&#x27;, &#x27;Mamit&#x27;] },
+        { state: &#x27;Nagaland&#x27;, abbreviation: &#x27;NL&#x27;, cities: [&#x27;Kohima&#x27;, &#x27;Dimapur&#x27;, &#x27;Mokokchung&#x27;, &#x27;Tuensang&#x27;, &#x27;Wokha&#x27;] },
+        { state: &#x27;Odisha&#x27;, abbreviation: &#x27;OR&#x27;, cities: [&#x27;Bhubaneswar&#x27;, &#x27;Cuttack&#x27;, &#x27;Rourkela&#x27;, &#x27;Berhampur&#x27;, &#x27;Sambalpur&#x27;] },
+        { state: &#x27;Punjab&#x27;, abbreviation: &#x27;PB&#x27;, cities: [&#x27;Chandigarh&#x27;, &#x27;Ludhiana&#x27;, &#x27;Amritsar&#x27;, &#x27;Jalandhar&#x27;, &#x27;Patiala&#x27;] },
+        { state: &#x27;Rajasthan&#x27;, abbreviation: &#x27;RJ&#x27;, cities: [&#x27;Jaipur&#x27;, &#x27;Udaipur&#x27;, &#x27;Jodhpur&#x27;, &#x27;Ajmer&#x27;, &#x27;Bikaner&#x27;] },
+        { state: &#x27;Sikkim&#x27;, abbreviation: &#x27;SK&#x27;, cities: [&#x27;Gangtok&#x27;, &#x27;Namchi&#x27;, &#x27;Mangan&#x27;, &#x27;Gyalshing&#x27;, &#x27;Pakyong&#x27;] },
+        { state: &#x27;Tamil Nadu&#x27;, abbreviation: &#x27;TN&#x27;, cities: [&#x27;Chennai&#x27;, &#x27;Coimbatore&#x27;, &#x27;Madurai&#x27;, &#x27;Tiruchirappalli&#x27;, &#x27;Salem&#x27;] },
+        { state: &#x27;Telangana&#x27;, abbreviation: &#x27;TG&#x27;, cities: [&#x27;Hyderabad&#x27;, &#x27;Warangal&#x27;, &#x27;Nizamabad&#x27;, &#x27;Khammam&#x27;, &#x27;Karimnagar&#x27;] },
+        { state: &#x27;Tripura&#x27;, abbreviation: &#x27;TR&#x27;, cities: [&#x27;Agartala&#x27;, &#x27;Ambassa&#x27;, &#x27;Udaipur&#x27;, &#x27;Dharmanagar&#x27;, &#x27;Belonia&#x27;] },
+        { state: &#x27;Uttar Pradesh&#x27;, abbreviation: &#x27;UP&#x27;, cities: [&#x27;Lucknow&#x27;, &#x27;Kanpur&#x27;, &#x27;Agra&#x27;, &#x27;Varanasi&#x27;, &#x27;Meerut&#x27;] },
+        { state: &#x27;Uttarakhand&#x27;, abbreviation: &#x27;UK&#x27;, cities: [&#x27;Dehradun&#x27;, &#x27;Haridwar&#x27;, &#x27;Nainital&#x27;, &#x27;Rudrapur&#x27;, &#x27;Roorkee&#x27;] },
+        { state: &#x27;West Bengal&#x27;, abbreviation: &#x27;WB&#x27;, cities: [&#x27;Kolkata&#x27;, &#x27;Siliguri&#x27;, &#x27;Asansol&#x27;, &#x27;Durgapur&#x27;, &#x27;Howrah&#x27;] },
+      ] },
+    { name: &#x27;Australia&#x27;, code: &#x27;+61&#x27;, shortName: &#x27;AUS&#x27;,  states: [
+        { state: &#x27;New South Wales&#x27;, abbreviation: &#x27;NSW&#x27;, cities: [&#x27;Sydney&#x27;, &#x27;Newcastle&#x27;, &#x27;Wollongong&#x27;, &#x27;Central Coast&#x27;, &#x27;Coffs Harbour&#x27;] },
+        { state: &#x27;Victoria&#x27;, abbreviation: &#x27;VIC&#x27;, cities: [&#x27;Melbourne&#x27;, &#x27;Geelong&#x27;, &#x27;Ballarat&#x27;, &#x27;Bendigo&#x27;, &#x27;Mildura&#x27;] },
+        { state: &#x27;Queensland&#x27;, abbreviation: &#x27;QLD&#x27;, cities: [&#x27;Brisbane&#x27;, &#x27;Gold Coast&#x27;, &#x27;Cairns&#x27;, &#x27;Townsville&#x27;, &#x27;Mackay&#x27;] },
+        { state: &#x27;Western Australia&#x27;, abbreviation: &#x27;WA&#x27;, cities: [&#x27;Perth&#x27;, &#x27;Bunbury&#x27;, &#x27;Mandurah&#x27;, &#x27;Geraldton&#x27;, &#x27;Kalgoorlie&#x27;] },
+        { state: &#x27;South Australia&#x27;, abbreviation: &#x27;SA&#x27;, cities: [&#x27;Adelaide&#x27;, &#x27;Mount Gambier&#x27;, &#x27;Whyalla&#x27;, &#x27;Murray Bridge&#x27;, &#x27;Port Augusta&#x27;] },
+        { state: &#x27;Tasmania&#x27;, abbreviation: &#x27;TAS&#x27;, cities: [&#x27;Hobart&#x27;, &#x27;Launceston&#x27;, &#x27;Devonport&#x27;, &#x27;Burnie&#x27;, &#x27;Kingston&#x27;] },
+        { state: &#x27;Australian Capital Territory&#x27;, abbreviation: &#x27;ACT&#x27;, cities: [&#x27;Canberra&#x27;, &#x27;Queanbeyan&#x27;, &#x27;Gungahlin&#x27;, &#x27;Tuggeranong&#x27;, &#x27;Belconnen&#x27;] },
+        { state: &#x27;Northern Territory&#x27;, abbreviation: &#x27;NT&#x27;, cities: [&#x27;Darwin&#x27;, &#x27;Alice Springs&#x27;, &#x27;Katherine&#x27;, &#x27;Casuarina&#x27;, &#x27;Palmerston&#x27;] },      
+    ] },
+        { name: &#x27;Japan&#x27;, code: &#x27;+81&#x27;, shortName: &#x27;JPN&#x27;, states: [{ state: &#x27;Tokyo&#x27;, cities: [&#x27;Tokyo&#x27;, &#x27;Shinjuku&#x27;, &#x27;Shibuya&#x27;, &#x27;Ikebukuro&#x27;] }] },
+        { name: &#x27;Germany&#x27;, code: &#x27;+49&#x27;, shortName: &#x27;DEU&#x27;, states: [{ state: &#x27;Bavaria&#x27;, cities: [&#x27;Munich&#x27;, &#x27;Nuremberg&#x27;, &#x27;Augsburg&#x27;, &#x27;Regensburg&#x27;] }] },
+        { name: &#x27;Canada&#x27;, code: &#x27;+1&#x27;, shortName: &#x27;CAN&#x27;, states: [{ state: &#x27;Ontario&#x27;, cities: [&#x27;Toronto&#x27;, &#x27;Ottawa&#x27;, &#x27;Mississauga&#x27;, &#x27;Brampton&#x27;] }] },
+        { name: &#x27;France&#x27;, code: &#x27;+33&#x27;, shortName: &#x27;FRA&#x27;, states: [{ state: &#x27;Île-de-France&#x27;, cities: [&#x27;Paris&#x27;, &#x27;Versailles&#x27;, &#x27;Boulogne-Billancourt&#x27;, &#x27;Saint-Denis&#x27;] }] },
+        { name: &#x27;Brazil&#x27;, code: &#x27;+55&#x27;, shortName: &#x27;BRA&#x27;, states: [{ state: &#x27;São Paulo&#x27;, cities: [&#x27;São Paulo&#x27;, &#x27;Campinas&#x27;, &#x27;Santo André&#x27;, &#x27;Osasco&#x27;] }] },
+        { name: &#x27;Mexico&#x27;, code: &#x27;+52&#x27;, shortName: &#x27;MEX&#x27;, states: [{ state: &#x27;Mexico City&#x27;, cities: [&#x27;Mexico City&#x27;, &#x27;Ecatepec&#x27;, &#x27;Nezahualcóyotl&#x27;, &#x27;Tlalnepantla&#x27;] }] },
+        { name: &#x27;Italy&#x27;, code: &#x27;+39&#x27;, shortName: &#x27;ITA&#x27;, states: [{ state: &#x27;Lazio&#x27;, cities: [&#x27;Rome&#x27;, &#x27;Fiumicino&#x27;, &#x27;Tivoli&#x27;, &#x27;Civitavecchia&#x27;] }] },
+        { name: &#x27;Russia&#x27;, code: &#x27;+7&#x27;, shortName: &#x27;RUS&#x27;, states: [{ state: &#x27;Moscow&#x27;, cities: [&#x27;Moscow&#x27;, &#x27;Zelenograd&#x27;, &#x27;Podolsk&#x27;, &#x27;Khimki&#x27;] }] },
+        { name: &#x27;South Africa&#x27;, code: &#x27;+27&#x27;, shortName: &#x27;ZAF&#x27;, states: [{ state: &#x27;Gauteng&#x27;, cities: [&#x27;Johannesburg&#x27;, &#x27;Pretoria&#x27;, &#x27;Soweto&#x27;, &#x27;Ekurhuleni&#x27;] }] },
+        { name: &#x27;Netherlands&#x27;, code: &#x27;+31&#x27;, shortName: &#x27;NLD&#x27;, states: [{ state: &#x27;North Holland&#x27;, cities: [&#x27;Amsterdam&#x27;, &#x27;Haarlem&#x27;, &#x27;Hilversum&#x27;, &#x27;Alkmaar&#x27;] }] },
+        { name: &#x27;Spain&#x27;, code: &#x27;+34&#x27;, shortName: &#x27;ESP&#x27;, states: [{ state: &#x27;Madrid&#x27;, cities: [&#x27;Madrid&#x27;, &#x27;Alcalá de Henares&#x27;, &#x27;Móstoles&#x27;, &#x27;Getafe&#x27;] }] },
+        { name: &#x27;Turkey&#x27;, code: &#x27;+90&#x27;, shortName: &#x27;TUR&#x27;, states: [{ state: &#x27;Istanbul&#x27;, cities: [&#x27;Istanbul&#x27;, &#x27;Kadıköy&#x27;, &#x27;Beyoğlu&#x27;, &#x27;Şişli&#x27;] }] },
+        { name: &#x27;New Zealand&#x27;, code: &#x27;+64&#x27;, shortName: &#x27;NZL&#x27;, states: [{ state: &#x27;Auckland&#x27;, cities: [&#x27;Auckland&#x27;, &#x27;Hamilton&#x27;, &#x27;Tauranga&#x27;, &#x27;Dunedin&#x27;] }] },
+        { name: &#x27;Sweden&#x27;, code: &#x27;+46&#x27;, shortName: &#x27;SWE&#x27;, states: [{ state: &#x27;Stockholm&#x27;, cities: [&#x27;Stockholm&#x27;, &#x27;Uppsala&#x27;, &#x27;Sundbyberg&#x27;, &#x27;Södertälje&#x27;] }] },
+        { name: &#x27;Norway&#x27;, code: &#x27;+47&#x27;, shortName: &#x27;NOR&#x27;, states: [{ state: &#x27;Oslo&#x27;, cities: [&#x27;Oslo&#x27;, &#x27;Drammen&#x27;, &#x27;Bergen&#x27;, &#x27;Stavanger&#x27;] }] },
+        { name: &#x27;Argentina&#x27;, code: &#x27;+54&#x27;, shortName: &#x27;ARG&#x27;, states: [{ state: &#x27;Buenos Aires&#x27;, cities: [&#x27;Buenos Aires&#x27;, &#x27;La Plata&#x27;, &#x27;Mar del Plata&#x27;, &#x27;Rosario&#x27;] }] },
+        { name: &#x27;Chile&#x27;, code: &#x27;+56&#x27;, shortName: &#x27;CHL&#x27;, states: [{ state: &#x27;Santiago Metropolitan&#x27;, cities: [&#x27;Santiago&#x27;, &#x27;Puente Alto&#x27;, &#x27;Maipú&#x27;, &#x27;Las Condes&#x27;] }] },
+        { name: &#x27;Singapore&#x27;, code: &#x27;+65&#x27;, shortName: &#x27;SGP&#x27;, states: [{ state: &#x27;Central Region&#x27;, cities: [&#x27;Singapore&#x27;, &#x27;Jurong&#x27;, &#x27;Yishun&#x27;, &#x27;Bukit Batok&#x27;] }] },
+        { name: &#x27;Philippines&#x27;, code: &#x27;+63&#x27;, shortName: &#x27;PHL&#x27;, states: [{ state: &#x27;Metro Manila&#x27;, cities: [&#x27;Manila&#x27;, &#x27;Quezon City&#x27;, &#x27;Caloocan&#x27;, &#x27;Pasig&#x27;] }] },
+        { name: &#x27;Indonesia&#x27;, code: &#x27;+62&#x27;, shortName: &#x27;IDN&#x27;, states: [{ state: &#x27;Bali&#x27;, cities: [&#x27;Denpasar&#x27;, &#x27;Ubud&#x27;, &#x27;Kuta&#x27;, &#x27;Seminyak&#x27;] }] },
+        { name: &#x27;Thailand&#x27;, code: &#x27;+66&#x27;, shortName: &#x27;THA&#x27;, states: [{ state: &#x27;Bangkok&#x27;, cities: [&#x27;Bangkok&#x27;, &#x27;Nonthaburi&#x27;, &#x27;Samut Prakan&#x27;, &#x27;Nakhon Pathom&#x27;] }] },
+        { name: &#x27;Vietnam&#x27;, code: &#x27;+84&#x27;, shortName: &#x27;VNM&#x27;, states: [{ state: &#x27;Hanoi&#x27;, cities: [&#x27;Hanoi&#x27;, &#x27;Ho Chi Minh City&#x27;, &#x27;Hai Phong&#x27;, &#x27;Da Nang&#x27;] }] },
+        { name: &#x27;Pakistan&#x27;, code: &#x27;+92&#x27;, shortName: &#x27;PAK&#x27;, states: [{ state: &#x27;Punjab&#x27;, cities: [&#x27;Lahore&#x27;, &#x27;Faisalabad&#x27;, &#x27;Rawalpindi&#x27;, &#x27;Multan&#x27;] }] },
+        { name: &#x27;Bangladesh&#x27;, code: &#x27;+880&#x27;, shortName: &#x27;BGD&#x27;, states: [{ state: &#x27;Dhaka&#x27;, cities: [&#x27;Dhaka&#x27;, &#x27;Chittagong&#x27;, &#x27;Khulna&#x27;, &#x27;Rajshahi&#x27;] }] },
+        { name: &#x27;Nigeria&#x27;, code: &#x27;+234&#x27;, shortName: &#x27;NGA&#x27;, states: [{ state: &#x27;Lagos&#x27;, cities: [&#x27;Lagos&#x27;, &#x27;Ikeja&#x27;, &#x27;Victoria Island&#x27;, &#x27;Badagry&#x27;] }] },
+        { name: &#x27;Egypt&#x27;, code: &#x27;+20&#x27;, shortName: &#x27;EGY&#x27;, states: [{ state: &#x27;Cairo&#x27;, cities: [&#x27;Cairo&#x27;, &#x27;Giza&#x27;, &#x27;Alexandria&#x27;, &#x27;Shubra El Kheima&#x27;] }] },
+        { name: &#x27;Saudi Arabia&#x27;, code: &#x27;+966&#x27;, shortName: &#x27;SAU&#x27;, states: [{ state: &#x27;Riyadh&#x27;, cities: [&#x27;Riyadh&#x27;, &#x27;Jeddah&#x27;, &#x27;Dammam&#x27;, &#x27;Khobar&#x27;] }] },
+        { name: &#x27;United Arab Emirates&#x27;, code: &#x27;+971&#x27;, shortName: &#x27;ARE&#x27;, states: [{ state: &#x27;Dubai&#x27;, cities: [&#x27;Dubai&#x27;, &#x27;Abu Dhabi&#x27;, &#x27;Sharjah&#x27;, &#x27;Ajman&#x27;] }] },
+        { name: &#x27;Israel&#x27;, code: &#x27;+972&#x27;, shortName: &#x27;ISR&#x27;, states: [{ state: &#x27;Tel Aviv&#x27;, cities: [&#x27;Tel Aviv&#x27;, &#x27;Jerusalem&#x27;, &#x27;Haifa&#x27;, &#x27;Rishon Lezion&#x27;] }] },
+        { name: &#x27;Malaysia&#x27;, code: &#x27;+60&#x27;, shortName: &#x27;MYS&#x27;, states: [{ state: &#x27;Selangor&#x27;, cities: [&#x27;Shah Alam&#x27;, &#x27;Subang Jaya&#x27;, &#x27;Petaling Jaya&#x27;, &#x27;Klang&#x27;] }] },
+        { name: &#x27;Ireland&#x27;, code: &#x27;+353&#x27;, shortName: &#x27;IRL&#x27;, states: [{ state: &#x27;Leinster&#x27;, cities: [&#x27;Dublin&#x27;, &#x27;Cork&#x27;, &#x27;Limerick&#x27;, &#x27;Waterford&#x27;] }] },
+        { name: &#x27;Czech Republic&#x27;, code: &#x27;+420&#x27;, shortName: &#x27;CZE&#x27;, states: [{ state: &#x27;Prague&#x27;, cities: [&#x27;Prague&#x27;, &#x27;Brno&#x27;, &#x27;Ostrava&#x27;, &#x27;Plzeň&#x27;] }] },
+        { name: &#x27;Greece&#x27;, code: &#x27;+30&#x27;, shortName: &#x27;GRC&#x27;, states: [{ state: &#x27;Attica&#x27;, cities: [&#x27;Athens&#x27;, &#x27;Piraeus&#x27;, &#x27;Kallithea&#x27;, &#x27;Peristeri&#x27;] }] },
+        { name: &#x27;Finland&#x27;, code: &#x27;+358&#x27;, shortName: &#x27;FIN&#x27;, states: [{ state: &#x27;Uusimaa&#x27;, cities: [&#x27;Helsinki&#x27;, &#x27;Espoo&#x27;, &#x27;Vantaa&#x27;, &#x27;Kauniainen&#x27;] }] },
+        { name: &#x27;Hungary&#x27;, code: &#x27;+36&#x27;, shortName: &#x27;HUN&#x27;, states: [{ state: &#x27;Budapest&#x27;, cities: [&#x27;Budapest&#x27;, &#x27;Debrecen&#x27;, &#x27;Szeged&#x27;, &#x27;Miskolc&#x27;] }] },
+        { name: &#x27;Iceland&#x27;, code: &#x27;+354&#x27;, shortName: &#x27;ISL&#x27;, states: [{ state: &#x27;Reykjavík&#x27;, cities: [&#x27;Reykjavík&#x27;, &#x27;Kopavogur&#x27;, &#x27;Hafnarfjordur&#x27;, &#x27;Akureyri&#x27;] }] },
+        { name: &#x27;Portugal&#x27;, code: &#x27;+351&#x27;, shortName: &#x27;PRT&#x27;, states: [{ state: &#x27;Lisbon&#x27;, cities: [&#x27;Lisbon&#x27;, &#x27;Porto&#x27;, &#x27;Amadora&#x27;, &#x27;Braga&#x27;] }] },
+        { name: &#x27;Estonia&#x27;, code: &#x27;+372&#x27;, shortName: &#x27;EST&#x27;, states: [{ state: &#x27;Tallinn&#x27;, cities: [&#x27;Tallinn&#x27;, &#x27;Tartu&#x27;, &#x27;Narva&#x27;, &#x27;Kohtla-Järve&#x27;] }] },
+        { name: &#x27;Latvia&#x27;, code: &#x27;+371&#x27;, shortName: &#x27;LVA&#x27;, states: [{ state: &#x27;Riga&#x27;, cities: [&#x27;Riga&#x27;, &#x27;Daugavpils&#x27;, &#x27;Liepaja&#x27;, &#x27;Jelgava&#x27;] }] },
+        { name: &#x27;Lithuania&#x27;, code: &#x27;+370&#x27;, shortName: &#x27;LTU&#x27;, states: [{ state: &#x27;Vilnius&#x27;, cities: [&#x27;Vilnius&#x27;, &#x27;Kaunas&#x27;, &#x27;Klaipeda&#x27;, &#x27;Šiauliai&#x27;] }] },
+        { name: &#x27;Slovakia&#x27;, code: &#x27;+421&#x27;, shortName: &#x27;SVK&#x27;, states: [{ state: &#x27;Bratislava&#x27;, cities: [&#x27;Bratislava&#x27;, &#x27;Košice&#x27;, &#x27;Nitra&#x27;, &#x27;Prešov&#x27;] }] },
+        { name: &#x27;Slovenia&#x27;, code: &#x27;+386&#x27;, shortName: &#x27;SVN&#x27;, states: [{ state: &#x27;Ljubljana&#x27;, cities: [&#x27;Ljubljana&#x27;, &#x27;Maribor&#x27;, &#x27;Celje&#x27;, &#x27;Kranj&#x27;] }] },
+        { name: &#x27;Serbia&#x27;, code: &#x27;+381&#x27;, shortName: &#x27;SRB&#x27;, states: [{ state: &#x27;Belgrade&#x27;, cities: [&#x27;Belgrade&#x27;, &#x27;Novi Sad&#x27;, &#x27;Niš&#x27;, &#x27;Kragujevac&#x27;] }] },
+        { name: &#x27;Croatia&#x27;, code: &#x27;+385&#x27;, shortName: &#x27;HRV&#x27;, states: [{ state: &#x27;Zagreb&#x27;, cities: [&#x27;Zagreb&#x27;, &#x27;Split&#x27;, &#x27;Rijeka&#x27;, &#x27;Osijek&#x27;] }] },
+        { name: &#x27;Bosnia and Herzegovina&#x27;, code: &#x27;+387&#x27;, shortName: &#x27;BIH&#x27;, states: [{ state: &#x27;Federation of Bosnia and Herzegovina&#x27;, cities: [&#x27;Sarajevo&#x27;, &#x27;Zenica&#x27;, &#x27;Tuzla&#x27;, &#x27;Mostar&#x27;] }] },
+        { name: &#x27;Montenegro&#x27;, code: &#x27;+382&#x27;, shortName: &#x27;MNE&#x27;, states: [{ state: &#x27;Podgorica&#x27;, cities: [&#x27;Podgorica&#x27;, &#x27;Nikšić&#x27;, &#x27;Herceg Novi&#x27;, &#x27;Bijelo Polje&#x27;] }] },
+        { name: &#x27;North Macedonia&#x27;, code: &#x27;+389&#x27;, shortName: &#x27;MKD&#x27;, states: [{ state: &#x27;Skopje&#x27;, cities: [&#x27;Skopje&#x27;, &#x27;Bitola&#x27;, &#x27;Kumanovo&#x27;, &#x27;Tetovo&#x27;] }] },
+        { name: &#x27;Albania&#x27;, code: &#x27;+355&#x27;, shortName: &#x27;ALB&#x27;, states: [{ state: &#x27;Tirana&#x27;, cities: [&#x27;Tirana&#x27;, &#x27;Durrës&#x27;, &#x27;Vlorë&#x27;, &#x27;Fier&#x27;] }] },
+        { name: &#x27;Moldova&#x27;, code: &#x27;+373&#x27;, shortName: &#x27;MDA&#x27;, states: [{ state: &#x27;Chișinău&#x27;, cities: [&#x27;Chișinău&#x27;, &#x27;Bălți&#x27;, &#x27;Bender&#x27;, &#x27;Rîbnița&#x27;] }] },
+        { name: &#x27;Armenia&#x27;, code: &#x27;+374&#x27;, shortName: &#x27;ARM&#x27;, states: [{ state: &#x27;Yerevan&#x27;, cities: [&#x27;Yerevan&#x27;, &#x27;Gyumri&#x27;, &#x27;Vagharshapat&#x27;, &#x27;Vanadzor&#x27;] }] },
+        { name: &#x27;Georgia&#x27;, code: &#x27;+995&#x27;, shortName: &#x27;GEO&#x27;, states: [{ state: &#x27;Tbilisi&#x27;, cities: [&#x27;Tbilisi&#x27;, &#x27;Kutaisi&#x27;, &#x27;Zugdidi&#x27;, &#x27;Batumi&#x27;] }] },
+        { name: &#x27;Kazakhstan&#x27;, code: &#x27;+7&#x27;, shortName: &#x27;KAZ&#x27;, states: [{ state: &#x27;Almaty&#x27;, cities: [&#x27;Almaty&#x27;, &#x27;Astana&#x27;, &#x27;Shymkent&#x27;, &#x27;Karaganda&#x27;] }] },
+        { name: &#x27;Uzbekistan&#x27;, code: &#x27;+998&#x27;, shortName: &#x27;UZB&#x27;, states: [{ state: &#x27;Tashkent&#x27;, cities: [&#x27;Tashkent&#x27;, &#x27;Samarkand&#x27;, &#x27;Bukhara&#x27;, &#x27;Andijan&#x27;] }] },
+        { name: &#x27;Kyrgyzstan&#x27;, code: &#x27;+996&#x27;, shortName: &#x27;KGZ&#x27;, states: [{ state: &#x27;Bishkek&#x27;, cities: [&#x27;Bishkek&#x27;, &#x27;Osh&#x27;, &#x27;Jalal-Abad&#x27;, &#x27;Tokmok&#x27;] }] },
+        { name: &#x27;Tajikistan&#x27;, code: &#x27;+992&#x27;, shortName: &#x27;TJK&#x27;, states: [{ state: &#x27;Dushanbe&#x27;, cities: [&#x27;Dushanbe&#x27;, &#x27;Khujand&#x27;, &#x27;Kulob&#x27;, &#x27;Istaravshan&#x27;] }] },
+        { name: &#x27;Turkmenistan&#x27;, code: &#x27;+993&#x27;, shortName: &#x27;TKM&#x27;, states: [{ state: &#x27;Ashgabat&#x27;, cities: [&#x27;Ashgabat&#x27;, &#x27;Turkmenbashi&#x27;, &#x27;Mary&#x27;, &#x27;Balkanabat&#x27;] }] },
+        { name: &#x27;Qatar&#x27;, code: &#x27;+974&#x27;, shortName: &#x27;QAT&#x27;, states: [{ state: &#x27;Doha&#x27;, cities: [&#x27;Doha&#x27;, &#x27;Al Rayyan&#x27;, &#x27;Al Wakrah&#x27;, &#x27;Umm Salal&#x27;] }] },
+        { name: &#x27;Oman&#x27;, code: &#x27;+968&#x27;, shortName: &#x27;OMN&#x27;, states: [{ state: &#x27;Muscat&#x27;, cities: [&#x27;Muscat&#x27;, &#x27;Salalah&#x27;, &#x27;Sohar&#x27;, &#x27;Nizwa&#x27;] }] },
+        { name: &#x27;Bahrain&#x27;, code: &#x27;+973&#x27;, shortName: &#x27;BHR&#x27;, states: [{ state: &#x27;Manama&#x27;, cities: [&#x27;Manama&#x27;, &#x27;Muharraq&#x27;, &#x27;Riffa&#x27;, &#x27;Sitra&#x27;] }] },
+        { name: &#x27;Kuwait&#x27;, code: &#x27;+965&#x27;, shortName: &#x27;KWT&#x27;, states: [{ state: &#x27;Kuwait City&#x27;, cities: [&#x27;Kuwait City&#x27;, &#x27;Al Ahmadi&#x27;, &#x27;Hawalli&#x27;, &#x27;Salmiya&#x27;] }] },
+        { name: &#x27;Lebanon&#x27;, code: &#x27;+961&#x27;, shortName: &#x27;LBN&#x27;, states: [{ state: &#x27;Beirut&#x27;, cities: [&#x27;Beirut&#x27;, &#x27;Tripoli&#x27;, &#x27;Sidon&#x27;, &#x27;Tyre&#x27;] }] },
+        { name: &#x27;Syria&#x27;, code: &#x27;+963&#x27;, shortName: &#x27;SYR&#x27;, states: [{ state: &#x27;Damascus&#x27;, cities: [&#x27;Damascus&#x27;, &#x27;Aleppo&#x27;, &#x27;Homs&#x27;, &#x27;Latakia&#x27;] }] },
+        { name: &#x27;Jordan&#x27;, code: &#x27;+962&#x27;, shortName: &#x27;JOR&#x27;, states: [{ state: &#x27;Amman&#x27;, cities: [&#x27;Amman&#x27;, &#x27;Zarqa&#x27;, &#x27;Irbid&#x27;, &#x27;Ajloun&#x27;] }] },
+        { name: &#x27;Yemen&#x27;, code: &#x27;+967&#x27;, shortName: &#x27;YEM&#x27;, states: [{ state: &#x27;Sana\&#x27;a&#x27;, cities: [&#x27;Sana\&#x27;a&#x27;, &#x27;Aden&#x27;, &#x27;Taiz&#x27;, &#x27;Hodeida&#x27;] }] },
+        { name: &#x27;Bhutan&#x27;, code: &#x27;+975&#x27;, shortName: &#x27;BTN&#x27;, states: [{ state: &#x27;Thimphu&#x27;, cities: [&#x27;Thimphu&#x27;, &#x27;Paro&#x27;, &#x27;Punakha&#x27;, &#x27;Wangdue Phodrang&#x27;] }] },
+        { name: &#x27;Maldives&#x27;, code: &#x27;+960&#x27;, shortName: &#x27;MDV&#x27;, states: [{ state: &#x27;Malé&#x27;, cities: [&#x27;Malé&#x27;, &#x27;Addu City&#x27;, &#x27;Fuvahmulah&#x27;, &#x27;Kulhudhuffushi&#x27;] }] },
+        { name: &#x27;Brunei&#x27;, code: &#x27;+673&#x27;, shortName: &#x27;BRN&#x27;, states: [{ state: &#x27;Bandar Seri Begawan&#x27;, cities: [&#x27;Bandar Seri Begawan&#x27;, &#x27;Kuala Belait&#x27;, &#x27;Seria&#x27;, &#x27;Tutong&#x27;] }] },
+        { name: &#x27;Myanmar&#x27;, code: &#x27;+95&#x27;, shortName: &#x27;MMR&#x27;, states: [{ state: &#x27;Yangon&#x27;, cities: [&#x27;Yangon&#x27;, &#x27;Mandalay&#x27;, &#x27;Naypyidaw&#x27;, &#x27;Bago&#x27;] }] },
+        { name: &#x27;Cambodia&#x27;, code: &#x27;+855&#x27;, shortName: &#x27;KHM&#x27;, states: [{ state: &#x27;Phnom Penh&#x27;, cities: [&#x27;Phnom Penh&#x27;, &#x27;Siem Reap&#x27;, &#x27;Battambang&#x27;, &#x27;Sihanoukville&#x27;] }] },
+        { name: &#x27;Laos&#x27;, code: &#x27;+856&#x27;, shortName: &#x27;LAO&#x27;, states: [{ state: &#x27;Vientiane&#x27;, cities: [&#x27;Vientiane&#x27;, &#x27;Luang Prabang&#x27;, &#x27;Savannakhet&#x27;, &#x27;Pakse&#x27;] }] },
+        { name: &#x27;Mongolia&#x27;, code: &#x27;+976&#x27;, shortName: &#x27;MNG&#x27;, states: [{ state: &#x27;Ulaanbaatar&#x27;, cities: [&#x27;Ulaanbaatar&#x27;, &#x27;Erdenet&#x27;, &#x27;Darkhan&#x27;, &#x27;Mörön&#x27;] }] },
+        { name: &#x27;Nepal&#x27;, code: &#x27;+977&#x27;, shortName: &#x27;NPL&#x27;, states: [{ state: &#x27;Kathmandu&#x27;, cities: [&#x27;Kathmandu&#x27;, &#x27;Pokhara&#x27;, &#x27;Lalitpur&#x27;, &#x27;Bhaktapur&#x27;] }] },
+        { name: &#x27;Sri Lanka&#x27;, code: &#x27;+94&#x27;, shortName: &#x27;LKA&#x27;, states: [{ state: &#x27;Western&#x27;, cities: [&#x27;Colombo&#x27;, &#x27;Galle&#x27;, &#x27;Kandy&#x27;, &#x27;Negombo&#x27;] }] },
+        { name: &#x27;Somalia&#x27;, code: &#x27;+252&#x27;, shortName: &#x27;SOM&#x27;, states: [{ state: &#x27;Mogadishu&#x27;, cities: [&#x27;Mogadishu&#x27;, &#x27;Hargeisa&#x27;, &#x27;Kismayo&#x27;, &#x27;Baidoa&#x27;] }] },
+        { name: &#x27;Sudan&#x27;, code: &#x27;+249&#x27;, shortName: &#x27;SDN&#x27;, states: [{ state: &#x27;Khartoum&#x27;, cities: [&#x27;Khartoum&#x27;, &#x27;Omdurman&#x27;, &#x27;Port Sudan&#x27;, &#x27;El Obeid&#x27;] }] },
+        { name: &#x27;Zimbabwe&#x27;, code: &#x27;+263&#x27;, shortName: &#x27;ZWE&#x27;, states: [{ state: &#x27;Harare&#x27;, cities: [&#x27;Harare&#x27;, &#x27;Bulawayo&#x27;, &#x27;Gweru&#x27;, &#x27;Kwekwe&#x27;] }] },
+        { name: &#x27;Kenya&#x27;, code: &#x27;+254&#x27;, shortName: &#x27;KEN&#x27;, states: [{ state: &#x27;Nairobi&#x27;, cities: [&#x27;Nairobi&#x27;, &#x27;Mombasa&#x27;, &#x27;Nakuru&#x27;, &#x27;Eldoret&#x27;] }] },
+        { name: &#x27;Uganda&#x27;, code: &#x27;+256&#x27;, shortName: &#x27;UGA&#x27;, states: [{ state: &#x27;Kampala&#x27;, cities: [&#x27;Kampala&#x27;, &#x27;Entebbe&#x27;, &#x27;Mbarara&#x27;, &#x27;Jinja&#x27;] }] },
+        { name: &#x27;Tanzania&#x27;, code: &#x27;+255&#x27;, shortName: &#x27;TZA&#x27;, states: [{ state: &#x27;Dodoma&#x27;, cities: [&#x27;Dodoma&#x27;, &#x27;Dar es Salaam&#x27;, &#x27;Arusha&#x27;, &#x27;Mbeya&#x27;] }] },
+        { name: &#x27;Rwanda&#x27;, code: &#x27;+250&#x27;, shortName: &#x27;RWA&#x27;, states: [{ state: &#x27;Kigali&#x27;, cities: [&#x27;Kigali&#x27;, &#x27;Butare&#x27;, &#x27;Gisenyi&#x27;, &#x27;Musanze&#x27;] }] },
+        { name: &#x27;Ghana&#x27;, code: &#x27;+233&#x27;, shortName: &#x27;GHA&#x27;, states: [{ state: &#x27;Accra&#x27;, cities: [&#x27;Accra&#x27;, &#x27;Kumasi&#x27;, &#x27;Tamale&#x27;, &#x27;Takoradi&#x27;] }] },
+        { name: &#x27;Angola&#x27;, code: &#x27;+244&#x27;, shortName: &#x27;AGO&#x27;, states: [{ state: &#x27;Luanda&#x27;, cities: [&#x27;Luanda&#x27;, &quot;N&#x27;dalatando&quot;, &#x27;Huambo&#x27;, &#x27;Lubango&#x27;] }] },
+        { name: &#x27;Zambia&#x27;, code: &#x27;+260&#x27;, shortName: &#x27;ZMB&#x27;, states: [{ state: &#x27;Lusaka&#x27;, cities: [&#x27;Lusaka&#x27;, &#x27;Kitwe&#x27;, &#x27;Ndola&#x27;, &#x27;Kabwe&#x27;] }] },
+        { name: &#x27;Botswana&#x27;, code: &#x27;+267&#x27;, shortName: &#x27;BWA&#x27;, states: [{ state: &#x27;Gaborone&#x27;, cities: [&#x27;Gaborone&#x27;, &#x27;Francistown&#x27;, &#x27;Maun&#x27;, &#x27;Kasane&#x27;] }] },
+        { name: &#x27;Namibia&#x27;, code: &#x27;+264&#x27;, shortName: &#x27;NAM&#x27;, states: [{ state: &#x27;Windhoek&#x27;, cities: [&#x27;Windhoek&#x27;, &#x27;Swakopmund&#x27;, &#x27;Walvis Bay&#x27;, &#x27;Oshakati&#x27;] }] },
+        { name: &#x27;Lesotho&#x27;, code: &#x27;+266&#x27;, shortName: &#x27;LSO&#x27;, states: [{ state: &#x27;Maseru&#x27;, cities: [&#x27;Maseru&#x27;, &#x27;Teyateyaneng&#x27;, &#x27;Maputsoe&#x27;, &#x27;Quthing&#x27;] }] },
+        { name: &#x27;Swaziland&#x27;, code: &#x27;+268&#x27;, shortName: &#x27;SWZ&#x27;, states: [{ state: &#x27;Mbabane&#x27;, cities: [&#x27;Mbabane&#x27;, &#x27;Manzini&#x27;, &#x27;Siteki&#x27;, &#x27;Piggs Peak&#x27;] }] },
+        { name: &#x27;Malawi&#x27;, code: &#x27;+265&#x27;, shortName: &#x27;MWI&#x27;, states: [{ state: &#x27;Lilongwe&#x27;, cities: [&#x27;Lilongwe&#x27;, &#x27;Blantyre&#x27;, &#x27;Mzuzu&#x27;, &#x27;Zomba&#x27;] }] },
+        { name: &#x27;Sierra Leone&#x27;, code: &#x27;+232&#x27;, shortName: &#x27;SLE&#x27;, states: [{ state: &#x27;Freetown&#x27;, cities: [&#x27;Freetown&#x27;, &#x27;Bo&#x27;, &#x27;Kenema&#x27;, &#x27;Makeni&#x27;] }] },
+        { name: &#x27;Liberia&#x27;, code: &#x27;+231&#x27;, shortName: &#x27;LBR&#x27;, states: [{ state: &#x27;Monrovia&#x27;, cities: [&#x27;Monrovia&#x27;, &#x27;Gbarnga&#x27;, &#x27;Kakata&#x27;, &#x27;Bong&#x27;] }] },
+        { name: &#x27;Togo&#x27;, code: &#x27;+228&#x27;, shortName: &#x27;TGO&#x27;, states: [{ state: &#x27;Lomé&#x27;, cities: [&#x27;Lomé&#x27;, &#x27;Sokodé&#x27;, &#x27;Kpalimé&#x27;, &#x27;Atakpamé&#x27;] }] },
+        { name: &#x27;Ivory Coast&#x27;, code: &#x27;+225&#x27;, shortName: &#x27;CIV&#x27;, states: [{ state: &#x27;Yamoussoukro&#x27;, cities: [&#x27;Yamoussoukro&#x27;, &#x27;Abidjan&#x27;, &#x27;Bouaké&#x27;, &#x27;San Pedro&#x27;] }] },
+        { name: &#x27;Senegal&#x27;, code: &#x27;+221&#x27;, shortName: &#x27;SEN&#x27;, states: [{ state: &#x27;Dakar&#x27;, cities: [&#x27;Dakar&#x27;, &#x27;Touba&#x27;, &#x27;Thiès&#x27;, &#x27;Saint-Louis&#x27;] }] },
+        { name: &#x27;Cameroon&#x27;, code: &#x27;+237&#x27;, shortName: &#x27;CMR&#x27;, states: [{ state: &#x27;Yaoundé&#x27;, cities: [&#x27;Yaoundé&#x27;, &#x27;Douala&#x27;, &#x27;Garoua&#x27;, &#x27;Bafoussam&#x27;] }] },
+        { name: &#x27;Chad&#x27;, code: &#x27;+235&#x27;, shortName: &#x27;TCD&#x27;, states: [{ state: &quot;N&#x27;Djamena&quot;, cities: [&quot;N&#x27;Djamena&quot;, &#x27;Moundou&#x27;, &#x27;Sarh&#x27;, &#x27;Abéché&#x27;] }] },
+        { name: &#x27;Central African Republic&#x27;, code: &#x27;+236&#x27;, shortName: &#x27;CAF&#x27;, states: [{ state: &#x27;Bangui&#x27;, cities: [&#x27;Bangui&#x27;, &#x27;Berberati&#x27;, &#x27;Bimbo&#x27;, &#x27;Mbaïki&#x27;] }] },
+        { name: &#x27;Republic of the Congo&#x27;, code: &#x27;+242&#x27;, shortName: &#x27;COG&#x27;, states: [{ state: &#x27;Brazzaville&#x27;, cities: [&#x27;Brazzaville&#x27;, &#x27;Pointe-Noire&#x27;, &#x27;Dolisie&#x27;, &#x27;Oyo&#x27;] }] },
+        { name: &#x27;Democratic Republic of the Congo&#x27;, code: &#x27;+243&#x27;, shortName: &#x27;COD&#x27;, states: [{ state: &#x27;Kinshasa&#x27;, cities: [&#x27;Kinshasa&#x27;, &#x27;Lubumbashi&#x27;, &#x27;Mbuji-Mayi&#x27;, &#x27;Kisangani&#x27;] }] },
+        { name: &#x27;Gabon&#x27;, code: &#x27;+241&#x27;, shortName: &#x27;GAB&#x27;, states: [{ state: &#x27;Libreville&#x27;, cities: [&#x27;Libreville&#x27;, &#x27;Port-Gentil&#x27;, &#x27;Franceville&#x27;, &#x27;Moanda&#x27;] }] },
+        { name: &#x27;Equatorial Guinea&#x27;, code: &#x27;+240&#x27;, shortName: &#x27;GNQ&#x27;, states: [{ state: &#x27;Malabo&#x27;, cities: [&#x27;Malabo&#x27;, &#x27;Bata&#x27;, &#x27;Ebebiyin&#x27;, &#x27;Aconibe&#x27;] }] },
+        { name: &#x27;Mauritius&#x27;, code: &#x27;+230&#x27;, shortName: &#x27;MUS&#x27;, states: [{ state: &#x27;Port Louis&#x27;, cities: [&#x27;Port Louis&#x27;, &#x27;Beau Bassin-Rose Hill&#x27;, &#x27;Vacoas-Phoenix&#x27;, &#x27;Curepipe&#x27;] }] },
+        { name: &#x27;Mali&#x27;, code: &#x27;+223&#x27;, shortName: &#x27;MLI&#x27;, states: [{ state: &#x27;Bamako&#x27;, cities: [&#x27;Bamako&#x27;, &#x27;Sikasso&#x27;, &#x27;Kayes&#x27;, &#x27;Mopti&#x27;] }] },
+        { name: &#x27;Niger&#x27;, code: &#x27;+227&#x27;, shortName: &#x27;NER&#x27;, states: [{ state: &#x27;Niamey&#x27;, cities: [&#x27;Niamey&#x27;, &#x27;Zinder&#x27;, &#x27;Maradi&#x27;, &#x27;Agadez&#x27;] }] },
+        { name: &#x27;Burkina Faso&#x27;, code: &#x27;+226&#x27;, shortName: &#x27;BFA&#x27;, states: [{ state: &#x27;Ouagadougou&#x27;, cities: [&#x27;Ouagadougou&#x27;, &#x27;Bobo-Dioulasso&#x27;, &#x27;Koudougou&#x27;, &#x27;Banfora&#x27;] }] },
+        { name: &#x27;Burundi&#x27;, code: &#x27;+257&#x27;, shortName: &#x27;BDI&#x27;, states: [{ state: &#x27;Gitega&#x27;, cities: [&#x27;Gitega&#x27;, &#x27;Bujumbura&#x27;, &#x27;Ngozi&#x27;, &#x27;Cankuzo&#x27;] }] },
+        { name: &#x27;Djibouti&#x27;, code: &#x27;+253&#x27;, shortName: &#x27;DJI&#x27;, states: [{ state: &#x27;Djibouti&#x27;, cities: [&#x27;Djibouti&#x27;, &#x27;Ali Sabieh&#x27;, &#x27;Dikhil&#x27;, &#x27;Tadjourah&#x27;] }] },
+        { name: &#x27;Sao Tome and Principe&#x27;, code: &#x27;+239&#x27;, shortName: &#x27;STP&#x27;, states: [{ state: &#x27;São Tomé&#x27;, cities: [&#x27;São Tomé&#x27;, &#x27;Principe&#x27;, &#x27;Neves&#x27;, &#x27;Santa Catarina&#x27;] }] },
+        { name: &#x27;Gambia&#x27;, code: &#x27;+220&#x27;, shortName: &#x27;GMB&#x27;, states: [{ state: &#x27;Banjul&#x27;, cities: [&#x27;Banjul&#x27;, &#x27;Serrekunda&#x27;, &#x27;Brikama&#x27;, &#x27;Gunjur&#x27;] }] },
+        { name: &#x27;Comoros&#x27;, code: &#x27;+269&#x27;, shortName: &#x27;COM&#x27;, states: [{ state: &#x27;Moroni&#x27;, cities: [&#x27;Moroni&#x27;, &#x27;Moutsamoudou&#x27;, &#x27;Domoni&#x27;, &#x27;Fumbuni&#x27;] }] },
+        { name: &#x27;Seychelles&#x27;, code: &#x27;+248&#x27;, shortName: &#x27;SYC&#x27;, states: [{ state: &#x27;Victoria&#x27;, cities: [&#x27;Victoria&#x27;, &#x27;Beau Vallon&#x27;, &#x27;Anse Royale&#x27;, &#x27;Praslin&#x27;] }] },
+        { name: &#x27;Anguilla&#x27;, code: &#x27;+1 264&#x27;, shortName: &#x27;AIA&#x27;, states: [{ state: &#x27;The Valley&#x27;, cities: [&#x27;The Valley&#x27;, &#x27;East End&#x27;, &#x27;Blowing Point&#x27;, &#x27;Sandy Ground&#x27;] }] },
+        { name: &#x27;Antigua and Barbuda&#x27;, code: &#x27;+1 268&#x27;, shortName: &#x27;ATG&#x27;, states: [{ state: &#x60;Saint John&#x27;s&#x60;, cities: [&quot;Saint John&#x27;s&quot;, &#x27;All Saints&#x27;, &#x27;Liberta&#x27;, &#x27;Freetown&#x27;] }] },
+        { name: &#x27;Saint Kitts and Nevis&#x27;, code: &#x27;+1 869&#x27;, shortName: &#x27;KNA&#x27;, states: [{ state: &#x27;Basseterre&#x27;, cities: [&#x27;Basseterre&#x27;, &#x27;Clayton J. Lloyd International Airport&#x27;] }] },
+        { name: &#x27;Dominica&#x27;, code: &#x27;+1 767&#x27;, shortName: &#x27;DMA&#x27;, states: [{ state: &#x27;Roseau&#x27;, cities: [&#x27;Roseau&#x27;, &#x27; Portsmouth&#x27;, &#x27;Marigot&#x27;, &#x27;La Plaine&#x27;] }] },
+        { name: &#x27;Saint Lucia&#x27;, code: &#x27;+1 758&#x27;, shortName: &#x27;LCA&#x27;, states: [{ state: &#x27;Castries&#x27;, cities: [&#x27;Castries&#x27;, &#x27;Vieux Fort&#x27;, &#x27;Soufrière&#x27;, &#x27;Gros Islet&#x27;] }] },
+        { name: &#x27;Saint Vincent and the Grenadines&#x27;, code: &#x27;+1 784&#x27;, shortName: &#x27;VCT&#x27;, states: [{ state: &#x27;Kingstown&#x27;, cities: [&#x27;Kingstown&#x27;, &#x27;Villa&#x27;, &#x27;Barrouallie&#x27;, &#x27;Bequia&#x27;] }] },
+        { name: &#x27;Grenada&#x27;, code: &#x27;+1 473&#x27;, shortName: &#x27;GRD&#x27;, states: [{ state: &#x27;Saint George\&#x27;s&#x27;, cities: [&#x27;Saint George\&#x27;s&#x27;, &#x27;Gouyave&#x27;, &#x27;Victoria&#x27;, &#x27;Grenville&#x27;] }] },
+        { name: &#x27;Barbados&#x27;, code: &#x27;+1 246&#x27;, shortName: &#x27;BRB&#x27;, states: [{ state: &#x27;Bridgetown&#x27;, cities: [&#x27;Bridgetown&#x27;, &#x27;Speightstown&#x27;, &#x27;Oistins&#x27;, &#x27;Bathsheba&#x27;] }] },
+        { name: &#x27;Bahamas&#x27;, code: &#x27;+1 242&#x27;, shortName: &#x27;BHS&#x27;, states: [{ state: &#x27;Nassau&#x27;, cities: [&#x27;Nassau&#x27;, &#x27;Freeport&#x27;, &#x27;West End&#x27;, &#x27;Marsh Harbour&#x27;] }] },
+        { name: &#x27;Cayman Islands&#x27;, code: &#x27;+1 345&#x27;, shortName: &#x27;CYM&#x27;, states: [{ state: &#x27;George Town&#x27;, cities: [&#x27;George Town&#x27;, &#x27;West Bay&#x27;, &#x27;Bodden Town&#x27;, &#x27;East End&#x27;] }] },
+        { name: &#x27;Turks and Caicos Islands&#x27;, code: &#x27;+1 649&#x27;, shortName: &#x27;TCA&#x27;, states: [{ state: &#x27;Grand Turk&#x27;, cities: [&#x27;Cockburn Town&#x27;, &#x27;Grand Turk&#x27;, &#x27;Salt Cay&#x27;, &#x27;South Caicos&#x27;] }] },
+        { name: &#x27;Jamaica&#x27;, code: &#x27;+1 876&#x27;, shortName: &#x27;JAM&#x27;, states: [{ state: &#x27;Kingston&#x27;, cities: [&#x27;Kingston&#x27;, &#x27;Montego Bay&#x27;, &#x27;Portmore&#x27;, &#x27;Spanish Town&#x27;] }] },
+        { name: &#x27;Puerto Rico&#x27;, code: &#x27;+1 787&#x27;, shortName: &#x27;PRI&#x27;, states: [{ state: &#x27;San Juan&#x27;, cities: [&#x27;San Juan&#x27;, &#x27;Bayamon&#x27;, &#x27;Ponce&#x27;, &#x27;Caguas&#x27;] }] },
+        { name: &#x27;Dominican Republic&#x27;, code: &#x27;+1 809&#x27;, shortName: &#x27;DOM&#x27;, states: [{ state: &#x27;Santo Domingo&#x27;, cities: [&#x27;Santo Domingo&#x27;, &#x27;Santiago de los Caballeros&#x27;, &#x27;La Romana&#x27;, &#x27;San Pedro de Macorís&#x27;] }] },
+        { name: &#x27;Haiti&#x27;, code: &#x27;+509&#x27;, shortName: &#x27;HTI&#x27;, states: [{ state: &#x27;Port-au-Prince&#x27;, cities: [&#x27;Port-au-Prince&#x27;, &#x27;Cap-Haïtien&#x27;, &#x27;Les Cayes&#x27;, &#x27;Pétion-Ville&#x27;] }] },
+        { name: &#x27;Cuba&#x27;, code: &#x27;+53&#x27;, shortName: &#x27;CUB&#x27;, states: [{ state: &#x27;Havana&#x27;, cities: [&#x27;Havana&#x27;, &#x27;Santiago de Cuba&#x27;, &#x27;Camagüey&#x27;, &#x27;Holguín&#x27;] }] },
+        { name: &#x27;Nicaragua&#x27;, code: &#x27;+505&#x27;, shortName: &#x27;NIC&#x27;, states: [{ state: &#x27;Managua&#x27;, cities: [&#x27;Managua&#x27;, &#x27;León&#x27;, &#x27;Masaya&#x27;, &#x27;Granada&#x27;] }] },
+        { name: &#x27;Costa Rica&#x27;, code: &#x27;+506&#x27;, shortName: &#x27;CRI&#x27;, states: [{ state: &#x27;San José&#x27;, cities: [&#x27;San José&#x27;, &#x27;Alajuela&#x27;, &#x27;Cartago&#x27;, &#x27;Heredia&#x27;] }] },
+        { name: &#x27;Panama&#x27;, code: &#x27;+507&#x27;, shortName: &#x27;PAN&#x27;, states: [{ state: &#x27;Panama City&#x27;, cities: [&#x27;Panama City&#x27;, &#x27;Colón&#x27;, &#x27;David&#x27;, &#x27;Chitré&#x27;] }] },
+        { name: &#x27;El Salvador&#x27;, code: &#x27;+503&#x27;, shortName: &#x27;SLV&#x27;, states: [{ state: &#x27;San Salvador&#x27;, cities: [&#x27;San Salvador&#x27;, &#x27;Santa Ana&#x27;, &#x27;San Miguel&#x27;, &#x27;La Libertad&#x27;] }] },
+        { name: &#x27;Guatemala&#x27;, code: &#x27;+502&#x27;, shortName: &#x27;GTM&#x27;, states: [{ state: &#x27;Guatemala City&#x27;, cities: [&#x27;Guatemala City&#x27;, &#x27;Mixco&#x27;, &#x27;Villa Nueva&#x27;, &#x27;Quetzaltenango&#x27;] }] },
+        { name: &#x27;Honduras&#x27;, code: &#x27;+504&#x27;, shortName: &#x27;HND&#x27;, states: [{ state: &#x27;Tegucigalpa&#x27;, cities: [&#x27;Tegucigalpa&#x27;, &#x27;San Pedro Sula&#x27;, &#x27;Choloma&#x27;, &#x27;La Ceiba&#x27;] }] },
+        { name: &#x27;Belize&#x27;, code: &#x27;+501&#x27;, shortName: &#x27;BLZ&#x27;, states: [{ state: &#x27;Belmopan&#x27;, cities: [&#x27;Belmopan&#x27;, &#x27;San Ignacio&#x27;, &#x27;Orange Walk&#x27;, &#x27;Corozal&#x27;] }] },
+        { name: &#x27;Barbados&#x27;, code: &#x27;+1 246&#x27;, shortName: &#x27;BRB&#x27;, states: [{ state: &#x27;Bridgetown&#x27;, cities: [&#x27;Bridgetown&#x27;, &#x27;Speightstown&#x27;, &#x27;Oistins&#x27;, &#x27;Bathsheba&#x27;] }] }
+  ]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/environments/environment.development.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="environment"></a>
+                    <span class="name">
+                        <span ><b>environment</b></span>
+                        <a href="#environment"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    production: false,
+    isElectron: false,
+    api_url: &quot;http://localhost:3000/api&quot;,
+
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/environments/environment.electron.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="environment"></a>
+                    <span class="name">
+                        <span ><b>environment</b></span>
+                        <a href="#environment"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    production: false,
+    isElectron: true,
+    api_url: &quot;http://localhost:3000/api&quot;,
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/environments/environment.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="environment"></a>
+                    <span class="name">
+                        <span ><b>environment</b></span>
+                        <a href="#environment"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    production: true,
+    isElectron: false,
+    api_url: &quot;http://54.224.249.251/api&quot;,
+}</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'miscellaneous-variables';
+            var COMPODOC_CURRENT_PAGE_URL = 'variables.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

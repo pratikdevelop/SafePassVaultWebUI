@@ -1,0 +1,1164 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>password-app documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">password-app documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  UserProfileComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/dashboard/profile/user-profile/user-profile.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-user-profile</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>MatButtonModule</code>
+                            <code>MatSnackBarModule</code>
+                            <code>CommonModule</code>
+                            <code>MatIconModule</code>
+                            <code>MatDialogModule</code>
+                            <code>NgOptimizedImage</code>
+                            <code>UploaderModule</code>
+                            <code>MatIconModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./user-profile.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#authService" >authService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#commonService" >commonService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#detectorRef" >detectorRef</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#matDialog" >matDialog</a>
+                            </li>
+                            <li>
+                                <a href="#plan" >plan</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#sanitizer" >sanitizer</a>
+                            </li>
+                            <li>
+                                <a href="#selectedFile" >selectedFile</a>
+                            </li>
+                            <li>
+                                <a href="#selectedImageUrl" >selectedImageUrl</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#snackBar" >snackBar</a>
+                            </li>
+                            <li>
+                                <a href="#user" >user</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#editProfile" >editProfile</a>
+                            </li>
+                            <li>
+                                <a href="#getProfile" >getProfile</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onFileSelected" >onFileSelected</a>
+                            </li>
+                            <li>
+                                <a href="#onUpload" >onUpload</a>
+                            </li>
+                            <li>
+                                <a href="#toggleSideBar" >toggleSideBar</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="editProfile"></a>
+                    <span class="name">
+                        <span ><b>editProfile</b></span>
+                        <a href="#editProfile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>editProfile()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="60"
+                                    class="link-to-prism">src/app/dashboard/profile/user-profile/user-profile.component.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getProfile"></a>
+                    <span class="name">
+                        <span ><b>getProfile</b></span>
+                        <a href="#getProfile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getProfile()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="44"
+                                    class="link-to-prism">src/app/dashboard/profile/user-profile/user-profile.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="37"
+                                    class="link-to-prism">src/app/dashboard/profile/user-profile/user-profile.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onFileSelected"></a>
+                    <span class="name">
+                        <span ><b>onFileSelected</b></span>
+                        <a href="#onFileSelected"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onFileSelected(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="73"
+                                    class="link-to-prism">src/app/dashboard/profile/user-profile/user-profile.component.ts:73</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onUpload"></a>
+                    <span class="name">
+                        <span ><b>onUpload</b></span>
+                        <a href="#onUpload"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onUpload()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="87"
+                                    class="link-to-prism">src/app/dashboard/profile/user-profile/user-profile.component.ts:87</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleSideBar"></a>
+                    <span class="name">
+                        <span ><b>toggleSideBar</b></span>
+                        <a href="#toggleSideBar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleSideBar()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="41"
+                                    class="link-to-prism">src/app/dashboard/profile/user-profile/user-profile.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="authService"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>authService</b></span>
+                        <a href="#authService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(AuthService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/dashboard/profile/user-profile/user-profile.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="commonService"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>commonService</b></span>
+                        <a href="#commonService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(CommonService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/dashboard/profile/user-profile/user-profile.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="detectorRef"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>detectorRef</b></span>
+                        <a href="#detectorRef"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ChangeDetectorRef)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/dashboard/profile/user-profile/user-profile.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="matDialog"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>matDialog</b></span>
+                        <a href="#matDialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(MatDialog)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/dashboard/profile/user-profile/user-profile.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="plan"></a>
+                    <span class="name">
+                        <span ><b>plan</b></span>
+                        <a href="#plan"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/dashboard/profile/user-profile/user-profile.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sanitizer"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>sanitizer</b></span>
+                        <a href="#sanitizer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(DomSanitizer)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/dashboard/profile/user-profile/user-profile.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedFile"></a>
+                    <span class="name">
+                        <span ><b>selectedFile</b></span>
+                        <a href="#selectedFile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>File | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/dashboard/profile/user-profile/user-profile.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedImageUrl"></a>
+                    <span class="name">
+                        <span ><b>selectedImageUrl</b></span>
+                        <a href="#selectedImageUrl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/dashboard/profile/user-profile/user-profile.component.ts:25</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="snackBar"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>snackBar</b></span>
+                        <a href="#snackBar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(MatSnackBar)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/dashboard/profile/user-profile/user-profile.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="user"></a>
+                    <span class="name">
+                        <span ><b>user</b></span>
+                        <a href="#user"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/dashboard/profile/user-profile/user-profile.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonModule } from &#x27;@angular/common&#x27;;
+import { ChangeDetectorRef, Component, EventEmitter, inject, Output } from &#x27;@angular/core&#x27;;
+import { MatSnackBar, MatSnackBarModule } from &#x27;@angular/material/snack-bar&#x27;;
+import { AuthService } from &#x27;../../../services/auth.service&#x27;;
+import { tap } from &#x27;rxjs&#x27;;
+import { UploaderModule } from &quot;angular-uploader&quot;;
+
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
+import { MatDialog, MatDialogModule } from &#x27;@angular/material/dialog&#x27;;
+import { NgOptimizedImage } from &#x27;@angular/common&#x27;
+import { EditProfileComponent } from &#x27;./dailog/edit-profile/edit-profile.component&#x27;;
+import { DomSanitizer } from &#x27;@angular/platform-browser&#x27;;
+import { CommonService } from &#x27;../../../services/common.service&#x27;;
+@Component({
+  selector: &#x27;app-user-profile&#x27;,
+  standalone: true,
+  imports: [MatButtonModule, MatSnackBarModule, CommonModule,MatIconModule, MatDialogModule, NgOptimizedImage,
+    UploaderModule, MatIconModule // &lt;-- Add the Uploader module here.
+
+  ],
+  templateUrl: &#x27;./user-profile.component.html&#x27;,
+})
+export class UserProfileComponent {
+  selectedImageUrl: any;
+  readonly authService &#x3D; inject(AuthService)
+  readonly snackBar &#x3D; inject(MatSnackBar);
+  readonly detectorRef &#x3D; inject(ChangeDetectorRef)
+  readonly matDialog &#x3D; inject(MatDialog)
+  readonly  sanitizer &#x3D; inject(DomSanitizer)
+  readonly commonService &#x3D; inject(CommonService);
+
+  selectedFile: File | null &#x3D; null;
+
+  user: any;
+  plan: any;
+  ngOnInit(): void {
+    this.getProfile();
+  }
+
+  toggleSideBar(): void {
+    this.commonService.toggleProfileSideBar();
+  }
+  getProfile(): void {
+    this.authService.getProfile().pipe(tap()).subscribe(
+      profileData &#x3D;&gt; {
+        this.user &#x3D; profileData.user
+        this.plan &#x3D; profileData.planDetails;
+        console.log(&quot;pp&quot;, profileData);
+        this.detectorRef.detectChanges();
+
+      },
+      error &#x3D;&gt; {
+        console.error(&#x27;Error getting profile:&#x27;, error);
+        this.snackBar.open(&#x27;Error retrieving profile: &#x27; + error.message, &#x27;close&#x27;);
+      }
+    );
+  }
+
+  editProfile(): void {
+    const dialogRef &#x3D; this.matDialog.open(EditProfileComponent, {
+      width: &#x27;800px&#x27;,
+      data: this.user,
+
+      });
+    dialogRef.afterClosed().subscribe((result)&#x3D;&gt;{
+      if(result){
+        this.getProfile();
+        }
+    })
+   }
+    // Handle file selection
+  onFileSelected(event: any): void {
+    const file &#x3D; event.target.files[0];
+    if (file) {
+      this.selectedFile &#x3D; file;
+
+      // Optional: Create a preview URL for the selected image
+      const objectUrl &#x3D; URL.createObjectURL(file);
+      this.selectedImageUrl &#x3D; this.sanitizer.bypassSecurityTrustUrl(objectUrl); // Safe preview URL
+
+      this.snackBar.open(&#x27;File selected: &#x27; + file.name, &#x27;close&#x27;, {
+        duration: 2000
+      });
+    }
+  }
+  onUpload(): void {
+    if (this.selectedFile) {
+      const formData &#x3D; new FormData();
+      formData.append(&#x27;image&#x27;, this.selectedFile);
+
+      // Example: Upload the image to an API endpoint
+      // this.http.post(&#x27;https://your-api-endpoint.com/upload&#x27;, formData).subscribe(
+      //   (response) &#x3D;&gt; {
+      //     this.snackbar.open(&#x27;Image uploaded successfully&#x27;, &#x27;close&#x27;, {
+      //       duration: 2000
+      //     });
+      //     // Optionally reset selected file and image preview
+      //     this.selectedFile &#x3D; null;
+      //     this.selectedImageUrl &#x3D; null;
+      //   },
+      //   (error) &#x3D;&gt; {
+      //     this.snackbar.open(&#x27;Image upload failed: &#x27; + error.message, &#x27;close&#x27;, {
+      //       duration: 2000
+      //     });
+      //   }
+      // );
+    } else {
+      this.snackBar.open(&#x27;Please select a file first&#x27;, &#x27;close&#x27;, {
+        duration: 2000
+      });
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;nav
+  aria-label&#x3D;&quot;Global&quot;
+  class&#x3D;&quot;flex items-center space-x-2 justify-between w-full text-primary-foreground bg-background shadow-lg p-3&quot;
+&gt;
+  &lt;div class&#x3D;&quot;flex items-center space-x-2&quot;&gt;
+    &lt;button
+      mat-icon-button
+      (click)&#x3D;&quot;toggleSideBar()&quot;
+      class&#x3D;&quot;menu-button lg:hidden&quot;
+    &gt;
+      &lt;mat-icon&gt;menu&lt;/mat-icon&gt;
+    &lt;/button&gt;
+    &lt;span class&#x3D;&quot;font-bold text-xl sm:text-3xl text-accent&quot;
+      &gt;Personal Information&lt;/span
+    &gt;
+  &lt;/div&gt;
+  &lt;button mat-flat-button class&#x3D;&quot;&quot; (click)&#x3D;&quot;editProfile()&quot;&gt;Edit Profile&lt;/button&gt;
+&lt;/nav&gt;
+&lt;div
+  id&#x3D;&quot;profile&quot;
+  class&#x3D;&quot;flex flex-col md:flex-row md:items-center md:justify-between p-3 md:p-8 bg-card md:mx-20 mt-10 shadow-xl transition-transform transform&quot;
+&gt;
+  &lt;div class&#x3D;&quot;flex flex-col mb-4 md:mr-4 order-2 md:order-1 w-2/3&quot;&gt;
+    &lt;h2 class&#x3D;&quot;text-2xl font-bold text-accent uppercase&quot;&gt;{{ user?.name }}&lt;/h2&gt;
+    &lt;div class&#x3D;&quot;grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4&quot;&gt;
+      &lt;div class&#x3D;&quot;flex items-center space-x-2&quot;&gt;
+        &lt;h6 class&#x3D;&quot;font-semibold text-slate-900&quot;&gt;Role:&lt;/h6&gt;
+        &lt;p class&#x3D;&quot;text-primary uppercase&quot;&gt;{{ user?.role ?? &quot;admin&quot; }}&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;flex items-center space-x-2&quot;&gt;
+        &lt;h6 class&#x3D;&quot;font-semibold text-slate-900&quot;&gt;Email:&lt;/h6&gt;
+        &lt;p class&#x3D;&quot;text-primary&quot;&gt;{{ user?.email }}&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;flex items-center space-x-2&quot;&gt;
+        &lt;h6 class&#x3D;&quot;font-semibold text-slate-900&quot;&gt;Phone:&lt;/h6&gt;
+        &lt;p class&#x3D;&quot;text-primary&quot;&gt;+{{ user?.phone }}&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;flex items-center space-x-2&quot;&gt;
+        &lt;h6 class&#x3D;&quot;font-semibold text-slate-900&quot;&gt;Created at:&lt;/h6&gt;
+        &lt;p class&#x3D;&quot;text-primary&quot;&gt;{{ user?.createdAt | date : &quot;short&quot; }}&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;flex items-center space-x-2&quot;&gt;
+        &lt;h6 class&#x3D;&quot;font-semibold text-slate-900&quot;&gt;Address:&lt;/h6&gt;
+        &lt;p class&#x3D;&quot;text-primary&quot;&gt;{{ user?.billingAddress }} {{ user?.city }}&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;flex items-center space-x-2&quot;&gt;
+        &lt;h6 class&#x3D;&quot;font-semibold text-slate-900&quot;&gt;City:&lt;/h6&gt;
+        &lt;p class&#x3D;&quot;text-primary&quot;&gt;{{ user?.city }}&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;flex items-center space-x-2&quot;&gt;
+        &lt;h6 class&#x3D;&quot;font-semibold text-slate-900&quot;&gt;State:&lt;/h6&gt;
+        &lt;p class&#x3D;&quot;text-primary&quot;&gt;{{ user?.state }}&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;flex items-center space-x-2&quot;&gt;
+        &lt;h6 class&#x3D;&quot;font-semibold text-slate-900&quot;&gt;Postal Code:&lt;/h6&gt;
+        &lt;p class&#x3D;&quot;text-primary&quot;&gt;{{ user?.postalCode }}&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;flex items-center space-x-2&quot;&gt;
+        &lt;h6 class&#x3D;&quot;font-semibold text-slate-900&quot;&gt;Country:&lt;/h6&gt;
+        &lt;p class&#x3D;&quot;text-primary&quot;&gt;{{ user?.country }}&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;flex items-center space-x-2&quot;&gt;
+        &lt;h6 class&#x3D;&quot;font-semibold text-slate-900&quot;&gt;Organization:&lt;/h6&gt;
+        &lt;p class&#x3D;&quot;text-primary&quot;&gt;{{ user?.organization[0].name }}&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;flex items-center space-x-2&quot;&gt;
+        &lt;h6 class&#x3D;&quot;font-semibold text-slate-900&quot;&gt;Plan:&lt;/h6&gt;
+        &lt;p class&#x3D;&quot;text-primary&quot;&gt;{{ plan?.plan || &quot;Free&quot; }}&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;!-- class&#x3D;&quot;flex items-center space-x-2&quot; &lt;div&gt;
+        &lt;h6 class&#x3D;&quot;font-semibold text-slate-900&quot;&gt;Plan Amount:&lt;/h6&gt;
+        &lt;p class&#x3D;&quot;text-primary&quot;&gt;{{plan?.plan.amount || &#x27;0&#x27;}} {{plan?.plan.currency || &quot;USD&quot;}}&lt;/p&gt;
+      &lt;/div&gt; --&gt;
+      &lt;div *ngIf&#x3D;&quot;user?.trialEndDate&quot;&gt;
+        &lt;h6 class&#x3D;&quot;font-semibold text-slate-900&quot;&gt;Trial End Date:&lt;/h6&gt;
+        &lt;p class&#x3D;&quot;text-primary&quot;&gt;{{ user?.trialEndDate | date : &quot;short&quot; }}&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;flex items-center space-x-2&quot;&gt;
+        &lt;h6 class&#x3D;&quot;font-semibold text-slate-900&quot;&gt;MFA Status:&lt;/h6&gt;
+        &lt;p class&#x3D;&quot;text-primary&quot;&gt;
+          {{ user?.mfaEnabled ? &quot;Enabled&quot; : &quot;Disabled&quot; }}
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class&#x3D;&quot;relative flex flex-col mb-4 sm:mr-4 gap-y-10 order-1 md:order-2&quot;&gt;
+    &lt;img
+      src&#x3D;&quot;https://placehold.co/150&quot;
+      alt&#x3D;&quot;Profile Picture&quot;
+      class&#x3D;&quot;rounded-full max-h-80 w-80 border-4 border-accent shadow-lg mt-4 lg:mt-0&quot;
+    /&gt;
+    &lt;input
+      type&#x3D;&quot;file&quot;
+      #fileInput
+      accept&#x3D;&quot;image/*&quot;
+      (change)&#x3D;&quot;onFileSelected($event)&quot;
+      hidden
+    /&gt;
+
+    &lt;button
+      mat-flat-button
+      type&#x3D;&quot;button&quot;
+      class&#x3D;&quot;absolute bottom-0&quot;
+      (click)&#x3D;&quot;fileInput.click()&quot;
+    &gt;
+      Upload photo
+    &lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><nav  aria-label="Global"  class="flex items-center space-x-2 justify-between w-full text-primary-foreground bg-background shadow-lg p-3">  <div class="flex items-center space-x-2">    <button      mat-icon-button      (click)="toggleSideBar()"      class="menu-button lg:hidden"    >      <mat-icon>menu</mat-icon>    </button>    <span class="font-bold text-xl sm:text-3xl text-accent"      >Personal Information</span    >  </div>  <button mat-flat-button class="" (click)="editProfile()">Edit Profile</button></nav><div  id="profile"  class="flex flex-col md:flex-row md:items-center md:justify-between p-3 md:p-8 bg-card md:mx-20 mt-10 shadow-xl transition-transform transform">  <div class="flex flex-col mb-4 md:mr-4 order-2 md:order-1 w-2/3">    <h2 class="text-2xl font-bold text-accent uppercase">{{ user?.name }}</h2>    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">      <div class="flex items-center space-x-2">        <h6 class="font-semibold text-slate-900">Role:</h6>        <p class="text-primary uppercase">{{ user?.role ?? "admin" }}</p>      </div>      <div class="flex items-center space-x-2">        <h6 class="font-semibold text-slate-900">Email:</h6>        <p class="text-primary">{{ user?.email }}</p>      </div>      <div class="flex items-center space-x-2">        <h6 class="font-semibold text-slate-900">Phone:</h6>        <p class="text-primary">+{{ user?.phone }}</p>      </div>      <div class="flex items-center space-x-2">        <h6 class="font-semibold text-slate-900">Created at:</h6>        <p class="text-primary">{{ user?.createdAt | date : "short" }}</p>      </div>      <div class="flex items-center space-x-2">        <h6 class="font-semibold text-slate-900">Address:</h6>        <p class="text-primary">{{ user?.billingAddress }} {{ user?.city }}</p>      </div>      <div class="flex items-center space-x-2">        <h6 class="font-semibold text-slate-900">City:</h6>        <p class="text-primary">{{ user?.city }}</p>      </div>      <div class="flex items-center space-x-2">        <h6 class="font-semibold text-slate-900">State:</h6>        <p class="text-primary">{{ user?.state }}</p>      </div>      <div class="flex items-center space-x-2">        <h6 class="font-semibold text-slate-900">Postal Code:</h6>        <p class="text-primary">{{ user?.postalCode }}</p>      </div>      <div class="flex items-center space-x-2">        <h6 class="font-semibold text-slate-900">Country:</h6>        <p class="text-primary">{{ user?.country }}</p>      </div>      <div class="flex items-center space-x-2">        <h6 class="font-semibold text-slate-900">Organization:</h6>        <p class="text-primary">{{ user?.organization[0].name }}</p>      </div>      <div class="flex items-center space-x-2">        <h6 class="font-semibold text-slate-900">Plan:</h6>        <p class="text-primary">{{ plan?.plan || "Free" }}</p>      </div>      <!-- class="flex items-center space-x-2" <div>        <h6 class="font-semibold text-slate-900">Plan Amount:</h6>        <p class="text-primary">{{plan?.plan.amount || \'0\'}} {{plan?.plan.currency || "USD"}}</p>      </div> -->      <div *ngIf="user?.trialEndDate">        <h6 class="font-semibold text-slate-900">Trial End Date:</h6>        <p class="text-primary">{{ user?.trialEndDate | date : "short" }}</p>      </div>      <div class="flex items-center space-x-2">        <h6 class="font-semibold text-slate-900">MFA Status:</h6>        <p class="text-primary">          {{ user?.mfaEnabled ? "Enabled" : "Disabled" }}        </p>      </div>    </div>  </div>  <div class="relative flex flex-col mb-4 sm:mr-4 gap-y-10 order-1 md:order-2">    <img      src="https://placehold.co/150"      alt="Profile Picture"      class="rounded-full max-h-80 w-80 border-4 border-accent shadow-lg mt-4 lg:mt-0"    />    <input      type="file"      #fileInput      accept="image/*"      (change)="onFileSelected($event)"      hidden    />    <button      mat-flat-button      type="button"      class="absolute bottom-0"      (click)="fileInput.click()"    >      Upload photo    </button>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admiiin'},{'name': 'ApiDocsComponent', 'selector': 'app-api-docs'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BillingDetailsComponent', 'selector': 'app-billing-details'},{'name': 'CardComponent', 'selector': 'app-card'},{'name': 'CreateFolderDialogComponent', 'selector': 'app-create-folder-dialog'},{'name': 'CreditCardFormComponent', 'selector': 'app-credit-card-form'},{'name': 'DashboardComponent', 'selector': 'app-dashbloard'},{'name': 'DownloadComponent', 'selector': 'app-download'},{'name': 'EditProfileComponent', 'selector': 'app-edit-profile'},{'name': 'FileExplorerComponent', 'selector': 'app-file-explorer'},{'name': 'FileUploadComponent', 'selector': 'app-file-upload'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'IdProofComponent', 'selector': 'app-id-proof'},{'name': 'IdproofformComponent', 'selector': 'app-idproofform'},{'name': 'IndexComponent', 'selector': 'app-index'},{'name': 'InvitationAcceptComponent', 'selector': 'app-invitation-accept'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MfaSettingComponent', 'selector': 'app-mfa-setting'},{'name': 'MfaVerificationComponent', 'selector': 'app-mfa-verification'},{'name': 'NotesComponent', 'selector': 'app-notes'},{'name': 'NotesFormComponent', 'selector': 'app-notes-form'},{'name': 'NotificationComponent', 'selector': 'app-notification'},{'name': 'OrganizationComponent', 'selector': 'app-organization'},{'name': 'OrganizationsComponent', 'selector': 'app-organizations'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'PasswordFormComponent', 'selector': 'app-password-form'},{'name': 'PasswordGenratorComponent', 'selector': 'app-password-genrator'},{'name': 'PasswordStrengthComponent', 'selector': 'app-password-strength'},{'name': 'PricingPageComponent', 'selector': 'app-pricing-page'},{'name': 'PrivacyPolicyComponent', 'selector': 'app-privacy-policy'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'RolesPermissionsComponent', 'selector': 'app-roles-permissions'},{'name': 'SecurityComponent', 'selector': 'app-security'},{'name': 'ShareDialogComponent', 'selector': 'app-share-dialog'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SignupComponent', 'selector': 'app-signup'},{'name': 'SupportComponent', 'selector': 'app-support'},{'name': 'TagFormCompoent', 'selector': 'app-tag'},{'name': 'UserFormComponent', 'selector': 'app-user-form'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'viewCardDetailsComponent', 'selector': 'app-view-card'},{'name': 'ViewNoteCompoent', 'selector': 'app-view-note'},{'name': 'ViewPasswordComponent', 'selector': 'app-view-password'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'UserProfileComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'UserProfileComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

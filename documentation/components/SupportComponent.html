@@ -1,0 +1,859 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>password-app documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">password-app documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  SupportComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/support/support.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-support</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>FormsModule</code>
+                            <code>CommonModule</code>
+                            <code>MatFormFieldModule</code>
+                            <code>MatInputModule</code>
+                            <code>MatButtonModule</code>
+                            <code>MatExpansionModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./support.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./support.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#contact" >contact</a>
+                            </li>
+                            <li>
+                                <a href="#errorMessage" >errorMessage</a>
+                            </li>
+                            <li>
+                                <a href="#faqs" >faqs</a>
+                            </li>
+                            <li>
+                                <a href="#successMessage" >successMessage</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#submitContactForm" >submitContactForm</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="submitContactForm"></a>
+                    <span class="name">
+                        <span ><b>submitContactForm</b></span>
+                        <a href="#submitContactForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>submitContactForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="95"
+                                    class="link-to-prism">src/app/support/support.component.ts:95</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="contact"></a>
+                    <span class="name">
+                        <span ><b>contact</b></span>
+                        <a href="#contact"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    firstName: &#x27;&#x27;,
+    lastName: &#x27;&#x27;,
+    company: &#x27;&#x27;,
+    email: &#x27;&#x27;,
+    phoneNumber: &#x27;&#x27;,
+    message: &#x27;&#x27;,
+    agreeToPolicies: false,
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">src/app/support/support.component.ts:82</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="errorMessage"></a>
+                    <span class="name">
+                        <span ><b>errorMessage</b></span>
+                        <a href="#errorMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="93" class="link-to-prism">src/app/support/support.component.ts:93</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="faqs"></a>
+                    <span class="name">
+                        <span ><b>faqs</b></span>
+                        <a href="#faqs"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    {
+      question: &#x27;How do I reset my password?&#x27;,
+      answer:
+        &#x27;To reset your password, click on the &quot;Forgot Password?&quot; link on the login page. You will receive an email with instructions to create a new password.&#x27;,
+    },
+    {
+      question: &#x27;How secure is my data?&#x27;,
+      answer:
+        &#x27;We employ industry-standard encryption protocols to keep your data safe. Your master password is never stored, ensuring only you have access to your information.&#x27;,
+    },
+    {
+      question: &#x27;Can I access my passwords on multiple devices?&#x27;,
+      answer:
+        &#x27;Yes, you can log into your account from any device using your credentials. All your data will sync across devices.&#x27;,
+    },
+    {
+      question: &#x27;What features does this application offer?&#x27;,
+      answer:
+        &#x27;The application supports password storage, notes, cards, file storage, activity reports, user management, and sharing capabilities for collaborative access.&#x27;,
+    },
+    {
+      question: &#x27;How do I share passwords securely?&#x27;,
+      answer:
+        &#x27;You can share passwords with trusted users directly through the application. Use the &quot;Share&quot; option on the password detail page to send a secure link.&#x27;,
+    },
+    {
+      question: &#x27;What happens if I forget my master password?&#x27;,
+      answer:
+        &#x27;Unfortunately, if you forget your master password, you will need to reset your account. This ensures your data remains secure and inaccessible to anyone but you.&#x27;,
+    },
+    {
+      question: &#x27;How can I manage my notes?&#x27;,
+      answer:
+        &#x27;You can create, edit, and delete notes in the Notes section. Simply click &quot;Add Note&quot; to start, and use the edit option to modify existing notes.&#x27;,
+    },
+    {
+      question: &#x27;Is my payment card information safe?&#x27;,
+      answer:
+        &#x27;Absolutely! We utilize secure storage methods compliant with PCI-DSS standards to keep your card details safe.&#x27;,
+    },
+    {
+      question: &#x27;How do I upload and manage files?&#x27;,
+      answer:
+        &#x27;In the File Storage section, you can upload files by clicking &quot;Upload.&quot; To manage your files, simply click on any file to view, download, or delete it.&#x27;,
+    },
+    {
+      question: &#x27;How do I view activity reports?&#x27;,
+      answer:
+        &#x27;Access the Activity Reports section from the main menu. Here, you can filter reports by date and type of activity for detailed insights.&#x27;,
+    },
+    {
+      question: &#x27;Can I manage users in my organization?&#x27;,
+      answer:
+        &#x27;Yes, as an admin, you can add, edit, or remove users from your organization in the User Management section. You can also assign roles and permissions.&#x27;,
+    },
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/support/support.component.ts:24</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="successMessage"></a>
+                    <span class="name">
+                        <span ><b>successMessage</b></span>
+                        <a href="#successMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="92" class="link-to-prism">src/app/support/support.component.ts:92</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonModule } from &#x27;@angular/common&#x27;;
+import { Component } from &#x27;@angular/core&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+import { MatExpansionModule } from &#x27;@angular/material/expansion&#x27;;
+import { MatFormFieldModule } from &#x27;@angular/material/form-field&#x27;;
+import { MatInputModule } from &#x27;@angular/material/input&#x27;;
+
+@Component({
+  selector: &#x27;app-support&#x27;,
+  standalone: true,
+  imports: [
+    FormsModule,
+    CommonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatExpansionModule,
+  ],
+  templateUrl: &#x27;./support.component.html&#x27;,
+  styleUrls: [&#x27;./support.component.css&#x27;],
+})
+export class SupportComponent {
+  faqs &#x3D; [
+    {
+      question: &#x27;How do I reset my password?&#x27;,
+      answer:
+        &#x27;To reset your password, click on the &quot;Forgot Password?&quot; link on the login page. You will receive an email with instructions to create a new password.&#x27;,
+    },
+    {
+      question: &#x27;How secure is my data?&#x27;,
+      answer:
+        &#x27;We employ industry-standard encryption protocols to keep your data safe. Your master password is never stored, ensuring only you have access to your information.&#x27;,
+    },
+    {
+      question: &#x27;Can I access my passwords on multiple devices?&#x27;,
+      answer:
+        &#x27;Yes, you can log into your account from any device using your credentials. All your data will sync across devices.&#x27;,
+    },
+    {
+      question: &#x27;What features does this application offer?&#x27;,
+      answer:
+        &#x27;The application supports password storage, notes, cards, file storage, activity reports, user management, and sharing capabilities for collaborative access.&#x27;,
+    },
+    {
+      question: &#x27;How do I share passwords securely?&#x27;,
+      answer:
+        &#x27;You can share passwords with trusted users directly through the application. Use the &quot;Share&quot; option on the password detail page to send a secure link.&#x27;,
+    },
+    {
+      question: &#x27;What happens if I forget my master password?&#x27;,
+      answer:
+        &#x27;Unfortunately, if you forget your master password, you will need to reset your account. This ensures your data remains secure and inaccessible to anyone but you.&#x27;,
+    },
+    {
+      question: &#x27;How can I manage my notes?&#x27;,
+      answer:
+        &#x27;You can create, edit, and delete notes in the Notes section. Simply click &quot;Add Note&quot; to start, and use the edit option to modify existing notes.&#x27;,
+    },
+    {
+      question: &#x27;Is my payment card information safe?&#x27;,
+      answer:
+        &#x27;Absolutely! We utilize secure storage methods compliant with PCI-DSS standards to keep your card details safe.&#x27;,
+    },
+    {
+      question: &#x27;How do I upload and manage files?&#x27;,
+      answer:
+        &#x27;In the File Storage section, you can upload files by clicking &quot;Upload.&quot; To manage your files, simply click on any file to view, download, or delete it.&#x27;,
+    },
+    {
+      question: &#x27;How do I view activity reports?&#x27;,
+      answer:
+        &#x27;Access the Activity Reports section from the main menu. Here, you can filter reports by date and type of activity for detailed insights.&#x27;,
+    },
+    {
+      question: &#x27;Can I manage users in my organization?&#x27;,
+      answer:
+        &#x27;Yes, as an admin, you can add, edit, or remove users from your organization in the User Management section. You can also assign roles and permissions.&#x27;,
+    },
+  ];
+
+  contact &#x3D; {
+    firstName: &#x27;&#x27;,
+    lastName: &#x27;&#x27;,
+    company: &#x27;&#x27;,
+    email: &#x27;&#x27;,
+    phoneNumber: &#x27;&#x27;,
+    message: &#x27;&#x27;,
+    agreeToPolicies: false,
+  };
+
+  successMessage: string &#x3D; &#x27;&#x27;;
+  errorMessage: string &#x3D; &#x27;&#x27;;
+
+  submitContactForm() {
+    if (this.contact.firstName &amp;&amp; this.contact.email &amp;&amp; this.contact.message) {
+      this.successMessage &#x3D; &#x27;Your message has been sent successfully!&#x27;;
+      this.errorMessage &#x3D; &#x27;&#x27;;
+      this.contact &#x3D; {
+        firstName: &#x27;&#x27;,
+        lastName: &#x27;&#x27;,
+        company: &#x27;&#x27;,
+        email: &#x27;&#x27;,
+        phoneNumber: &#x27;&#x27;,
+        message: &#x27;&#x27;,
+        agreeToPolicies: false,
+      };
+    } else {
+      this.errorMessage &#x3D; &#x27;Please fill in all required fields.&#x27;;
+      this.successMessage &#x3D; &#x27;&#x27;;
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;flex flex-col space-y-3 m-20 bg-white p-8 rounded-lg shadow-lg&quot;&gt;
+    &lt;h1 class&#x3D;&quot;text-2xl font-bold text-blue-600&quot;&gt;Support for Safepassvault Application&lt;/h1&gt;
+  
+    &lt;section id&#x3D;&quot;faq&quot; class&#x3D;&quot;mt-6&quot;&gt;
+      &lt;h2 class&#x3D;&quot;text-xl font-semibold&quot;&gt;Frequently Asked Questions&lt;/h2&gt;
+      &lt;mat-accordion&gt;
+        &lt;mat-expansion-panel *ngFor&#x3D;&quot;let faq of faqs&quot;&gt;
+          &lt;mat-expansion-panel-header&gt;
+            &lt;mat-panel-title&gt;
+              {{ faq.question }}
+            &lt;/mat-panel-title&gt;
+          &lt;/mat-expansion-panel-header&gt;
+          &lt;p&gt;{{ faq.answer }}&lt;/p&gt;
+        &lt;/mat-expansion-panel&gt;
+      &lt;/mat-accordion&gt;
+    &lt;/section&gt;
+    
+    &lt;div class&#x3D;&quot;isolate bg-white px-6 py-24 sm:py-32 lg:px-8&quot;&gt;
+        &lt;div class&#x3D;&quot;absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]&quot; aria-hidden&#x3D;&quot;true&quot;&gt;
+          &lt;div class&#x3D;&quot;relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]&quot; style&#x3D;&quot;clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;mx-auto max-w-2xl text-center&quot;&gt;
+          &lt;h2 class&#x3D;&quot;text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl&quot;&gt;Contact Support&lt;/h2&gt;
+          &lt;p class&#x3D;&quot;mt-2 text-lg leading-8 text-gray-600&quot;&gt;If you have any questions or need assistance, please fill out the form below:&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;form (ngSubmit)&#x3D;&quot;submitContactForm()&quot; class&#x3D;&quot;mx-auto mt-16 max-w-xl sm:mt-20&quot;&gt;
+          &lt;div class&#x3D;&quot;grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2&quot;&gt;
+            &lt;div&gt;
+              &lt;label for&#x3D;&quot;first-name&quot; class&#x3D;&quot;block text-sm font-semibold leading-6 text-gray-900&quot;&gt;First name&lt;/label&gt;
+              &lt;div class&#x3D;&quot;mt-2.5&quot;&gt;
+                &lt;input type&#x3D;&quot;text&quot; [(ngModel)]&#x3D;&quot;contact.firstName&quot; name&#x3D;&quot;first-name&quot; id&#x3D;&quot;first-name&quot; autocomplete&#x3D;&quot;given-name&quot; class&#x3D;&quot;block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6&quot; required&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div&gt;
+              &lt;label for&#x3D;&quot;last-name&quot; class&#x3D;&quot;block text-sm font-semibold leading-6 text-gray-900&quot;&gt;Last name&lt;/label&gt;
+              &lt;div class&#x3D;&quot;mt-2.5&quot;&gt;
+                &lt;input type&#x3D;&quot;text&quot; [(ngModel)]&#x3D;&quot;contact.lastName&quot; name&#x3D;&quot;last-name&quot; id&#x3D;&quot;last-name&quot; autocomplete&#x3D;&quot;family-name&quot; class&#x3D;&quot;block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6&quot;&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;sm:col-span-2&quot;&gt;
+              &lt;label for&#x3D;&quot;company&quot; class&#x3D;&quot;block text-sm font-semibold leading-6 text-gray-900&quot;&gt;Company&lt;/label&gt;
+              &lt;div class&#x3D;&quot;mt-2.5&quot;&gt;
+                &lt;input type&#x3D;&quot;text&quot; [(ngModel)]&#x3D;&quot;contact.company&quot; name&#x3D;&quot;company&quot; id&#x3D;&quot;company&quot; autocomplete&#x3D;&quot;organization&quot; class&#x3D;&quot;block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6&quot;&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;sm:col-span-2&quot;&gt;
+              &lt;label for&#x3D;&quot;email&quot; class&#x3D;&quot;block text-sm font-semibold leading-6 text-gray-900&quot;&gt;Email&lt;/label&gt;
+              &lt;div class&#x3D;&quot;mt-2.5&quot;&gt;
+                &lt;input type&#x3D;&quot;email&quot; [(ngModel)]&#x3D;&quot;contact.email&quot; name&#x3D;&quot;email&quot; id&#x3D;&quot;email&quot; autocomplete&#x3D;&quot;email&quot; class&#x3D;&quot;block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6&quot; required&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;sm:col-span-2&quot;&gt;
+              &lt;label for&#x3D;&quot;phone-number&quot; class&#x3D;&quot;block text-sm font-semibold leading-6 text-gray-900&quot;&gt;Phone number&lt;/label&gt;
+              &lt;div class&#x3D;&quot;relative mt-2.5&quot;&gt;
+                &lt;div class&#x3D;&quot;absolute inset-y-0 left-0 flex items-center&quot;&gt;
+                  &lt;label for&#x3D;&quot;country&quot; class&#x3D;&quot;sr-only&quot;&gt;Country&lt;/label&gt;
+                  &lt;select id&#x3D;&quot;country&quot; name&#x3D;&quot;country&quot; class&#x3D;&quot;h-full rounded-md border-0 bg-transparent bg-none py-0 pl-4 pr-9 text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm&quot;&gt;
+                    &lt;option&gt;US&lt;/option&gt;
+                    &lt;option&gt;CA&lt;/option&gt;
+                    &lt;option&gt;EU&lt;/option&gt;
+                  &lt;/select&gt;
+                  &lt;svg class&#x3D;&quot;pointer-events-none absolute right-3 top-0 h-full w-5 text-gray-400&quot; viewBox&#x3D;&quot;0 0 20 20&quot; fill&#x3D;&quot;currentColor&quot; aria-hidden&#x3D;&quot;true&quot; data-slot&#x3D;&quot;icon&quot;&gt;
+                    &lt;path fill-rule&#x3D;&quot;evenodd&quot; d&#x3D;&quot;M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z&quot; clip-rule&#x3D;&quot;evenodd&quot; /&gt;
+                  &lt;/svg&gt;
+                &lt;/div&gt;
+                &lt;input type&#x3D;&quot;tel&quot; [(ngModel)]&#x3D;&quot;contact.phoneNumber&quot; name&#x3D;&quot;phone-number&quot; id&#x3D;&quot;phone-number&quot; autocomplete&#x3D;&quot;tel&quot; class&#x3D;&quot;block w-full rounded-md border-0 px-3.5 py-2 pl-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6&quot;&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;sm:col-span-2&quot;&gt;
+              &lt;label for&#x3D;&quot;message&quot; class&#x3D;&quot;block text-sm font-semibold leading-6 text-gray-900&quot;&gt;Message&lt;/label&gt;
+              &lt;div class&#x3D;&quot;mt-2.5&quot;&gt;
+                &lt;textarea [(ngModel)]&#x3D;&quot;contact.message&quot; name&#x3D;&quot;message&quot; id&#x3D;&quot;message&quot; rows&#x3D;&quot;4&quot; class&#x3D;&quot;block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6&quot; required&gt;&lt;/textarea&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;flex gap-x-4 sm:col-span-2&quot;&gt;
+              &lt;div class&#x3D;&quot;flex h-6 items-center&quot;&gt;
+                &lt;button type&#x3D;&quot;button&quot; class&#x3D;&quot;flex w-8 flex-none cursor-pointer rounded-full bg-gray-200 p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600&quot; role&#x3D;&quot;switch&quot; aria-checked&#x3D;&quot;false&quot; (click)&#x3D;&quot;contact.agreeToPolicies &#x3D; !contact.agreeToPolicies&quot;&gt;
+                  &lt;span class&#x3D;&quot;sr-only&quot;&gt;Agree to policies&lt;/span&gt;
+                  &lt;span aria-hidden&#x3D;&quot;true&quot; class&#x3D;&quot;h-4 w-4 transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition duration-200 ease-in-out&quot; [ngClass]&#x3D;&quot;{&#x27;translate-x-3.5&#x27;: contact.agreeToPolicies, &#x27;translate-x-0&#x27;: !contact.agreeToPolicies}&quot;&gt;&lt;/span&gt;
+                &lt;/button&gt;
+              &lt;/div&gt;
+              &lt;label class&#x3D;&quot;text-sm leading-6 text-gray-600&quot; id&#x3D;&quot;switch-1-label&quot;&gt;
+                By selecting this, you agree to our
+                &lt;a href&#x3D;&quot;#&quot; class&#x3D;&quot;font-semibold text-indigo-600&quot;&gt;privacy policy&lt;/a&gt;.
+              &lt;/label&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;mt-10&quot;&gt;
+            &lt;button type&#x3D;&quot;submit&quot; [disabled]&#x3D;&quot;!contact.agreeToPolicies&quot; class&#x3D;&quot;block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600&quot;&gt;Let&#x27;s talk&lt;/button&gt;
+          &lt;/div&gt;
+          &lt;div *ngIf&#x3D;&quot;successMessage&quot; class&#x3D;&quot;mt-4 text-green-600&quot;&gt;
+            {{ successMessage }}
+          &lt;/div&gt;
+          &lt;div *ngIf&#x3D;&quot;errorMessage&quot; class&#x3D;&quot;mt-4 text-red-600&quot;&gt;
+            {{ errorMessage }}
+          &lt;/div&gt;
+        &lt;/form&gt;
+    &lt;/div&gt;
+      
+  
+    &lt;section id&#x3D;&quot;features&quot; class&#x3D;&quot;mt-6&quot;&gt;
+      &lt;h2 class&#x3D;&quot;text-xl font-semibold&quot;&gt;Application Features&lt;/h2&gt;
+      &lt;ul class&#x3D;&quot;list-disc list-inside&quot;&gt;
+        &lt;li&gt;&lt;strong&gt;Secure Password Storage:&lt;/strong&gt; Store all your passwords in one place with encryption to ensure security.&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;Note-Taking Capabilities:&lt;/strong&gt; Keep important notes related to your accounts or any other information.&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;Card Information Management:&lt;/strong&gt; Store and manage payment card details securely.&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;File Storage and Management:&lt;/strong&gt; Upload files and manage them easily within your account.&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;User Authentication:&lt;/strong&gt; Log in securely to protect your data.&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;Activity Reporting:&lt;/strong&gt; Monitor user activity for added security and awareness.&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;Organizational Management:&lt;/strong&gt; Manage users and their permissions within your organization.&lt;/li&gt;
+        &lt;li&gt;&lt;strong&gt;Password Sharing:&lt;/strong&gt; Share passwords with trusted users securely through the app.&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  
+    &lt;section id&#x3D;&quot;tips&quot; class&#x3D;&quot;mt-6&quot;&gt;
+      &lt;h2 class&#x3D;&quot;text-xl font-semibold&quot;&gt;Tips for Strong Passwords&lt;/h2&gt;
+      &lt;ul class&#x3D;&quot;list-disc list-inside&quot;&gt;
+        &lt;li&gt;Use a mix of uppercase and lowercase letters, numbers, and special characters.&lt;/li&gt;
+        &lt;li&gt;Avoid using easily guessable information like birthdays or names.&lt;/li&gt;
+        &lt;li&gt;Consider using a password manager to generate and store strong passwords.&lt;/li&gt;
+        &lt;li&gt;Regularly update your passwords and enable two-factor authentication when available.&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+  </code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./support.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss"></code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="flex flex-col space-y-3 m-20 bg-white p-8 rounded-lg shadow-lg">    <h1 class="text-2xl font-bold text-blue-600">Support for Safepassvault Application</h1>      <section id="faq" class="mt-6">      <h2 class="text-xl font-semibold">Frequently Asked Questions</h2>      <mat-accordion>        <mat-expansion-panel *ngFor="let faq of faqs">          <mat-expansion-panel-header>            <mat-panel-title>              {{ faq.question }}            </mat-panel-title>          </mat-expansion-panel-header>          <p>{{ faq.answer }}</p>        </mat-expansion-panel>      </mat-accordion>    </section>        <div class="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">        <div class="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]" aria-hidden="true">          <div class="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>        </div>        <div class="mx-auto max-w-2xl text-center">          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Contact Support</h2>          <p class="mt-2 text-lg leading-8 text-gray-600">If you have any questions or need assistance, please fill out the form below:</p>        </div>        <form (ngSubmit)="submitContactForm()" class="mx-auto mt-16 max-w-xl sm:mt-20">          <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">            <div>              <label for="first-name" class="block text-sm font-semibold leading-6 text-gray-900">First name</label>              <div class="mt-2.5">                <input type="text" [(ngModel)]="contact.firstName" name="first-name" id="first-name" autocomplete="given-name" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>              </div>            </div>            <div>              <label for="last-name" class="block text-sm font-semibold leading-6 text-gray-900">Last name</label>              <div class="mt-2.5">                <input type="text" [(ngModel)]="contact.lastName" name="last-name" id="last-name" autocomplete="family-name" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">              </div>            </div>            <div class="sm:col-span-2">              <label for="company" class="block text-sm font-semibold leading-6 text-gray-900">Company</label>              <div class="mt-2.5">                <input type="text" [(ngModel)]="contact.company" name="company" id="company" autocomplete="organization" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">              </div>            </div>            <div class="sm:col-span-2">              <label for="email" class="block text-sm font-semibold leading-6 text-gray-900">Email</label>              <div class="mt-2.5">                <input type="email" [(ngModel)]="contact.email" name="email" id="email" autocomplete="email" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>              </div>            </div>            <div class="sm:col-span-2">              <label for="phone-number" class="block text-sm font-semibold leading-6 text-gray-900">Phone number</label>              <div class="relative mt-2.5">                <div class="absolute inset-y-0 left-0 flex items-center">                  <label for="country" class="sr-only">Country</label>                  <select id="country" name="country" class="h-full rounded-md border-0 bg-transparent bg-none py-0 pl-4 pr-9 text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">                    <option>US</option>                    <option>CA</option>                    <option>EU</option>                  </select>                  <svg class="pointer-events-none absolute right-3 top-0 h-full w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">                    <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />                  </svg>                </div>                <input type="tel" [(ngModel)]="contact.phoneNumber" name="phone-number" id="phone-number" autocomplete="tel" class="block w-full rounded-md border-0 px-3.5 py-2 pl-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">              </div>            </div>            <div class="sm:col-span-2">              <label for="message" class="block text-sm font-semibold leading-6 text-gray-900">Message</label>              <div class="mt-2.5">                <textarea [(ngModel)]="contact.message" name="message" id="message" rows="4" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required></textarea>              </div>            </div>            <div class="flex gap-x-4 sm:col-span-2">              <div class="flex h-6 items-center">                <button type="button" class="flex w-8 flex-none cursor-pointer rounded-full bg-gray-200 p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" role="switch" aria-checked="false" (click)="contact.agreeToPolicies = !contact.agreeToPolicies">                  <span class="sr-only">Agree to policies</span>                  <span aria-hidden="true" class="h-4 w-4 transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition duration-200 ease-in-out" [ngClass]="{\'translate-x-3.5\': contact.agreeToPolicies, \'translate-x-0\': !contact.agreeToPolicies}"></span>                </button>              </div>              <label class="text-sm leading-6 text-gray-600" id="switch-1-label">                By selecting this, you agree to our                <a href="#" class="font-semibold text-indigo-600">privacy policy</a>.              </label>            </div>          </div>          <div class="mt-10">            <button type="submit" [disabled]="!contact.agreeToPolicies" class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Let\'s talk</button>          </div>          <div *ngIf="successMessage" class="mt-4 text-green-600">            {{ successMessage }}          </div>          <div *ngIf="errorMessage" class="mt-4 text-red-600">            {{ errorMessage }}          </div>        </form>    </div>            <section id="features" class="mt-6">      <h2 class="text-xl font-semibold">Application Features</h2>      <ul class="list-disc list-inside">        <li><strong>Secure Password Storage:</strong> Store all your passwords in one place with encryption to ensure security.</li>        <li><strong>Note-Taking Capabilities:</strong> Keep important notes related to your accounts or any other information.</li>        <li><strong>Card Information Management:</strong> Store and manage payment card details securely.</li>        <li><strong>File Storage and Management:</strong> Upload files and manage them easily within your account.</li>        <li><strong>User Authentication:</strong> Log in securely to protect your data.</li>        <li><strong>Activity Reporting:</strong> Monitor user activity for added security and awareness.</li>        <li><strong>Organizational Management:</strong> Manage users and their permissions within your organization.</li>        <li><strong>Password Sharing:</strong> Share passwords with trusted users securely through the app.</li>      </ul>    </section>      <section id="tips" class="mt-6">      <h2 class="text-xl font-semibold">Tips for Strong Passwords</h2>      <ul class="list-disc list-inside">        <li>Use a mix of uppercase and lowercase letters, numbers, and special characters.</li>        <li>Avoid using easily guessable information like birthdays or names.</li>        <li>Consider using a password manager to generate and store strong passwords.</li>        <li>Regularly update your passwords and enable two-factor authentication when available.</li>      </ul>    </section>  </div>  </div>'
+    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admiiin'},{'name': 'ApiDocsComponent', 'selector': 'app-api-docs'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BillingDetailsComponent', 'selector': 'app-billing-details'},{'name': 'CardComponent', 'selector': 'app-card'},{'name': 'CreateFolderDialogComponent', 'selector': 'app-create-folder-dialog'},{'name': 'CreditCardFormComponent', 'selector': 'app-credit-card-form'},{'name': 'DashboardComponent', 'selector': 'app-dashbloard'},{'name': 'DownloadComponent', 'selector': 'app-download'},{'name': 'EditProfileComponent', 'selector': 'app-edit-profile'},{'name': 'FileExplorerComponent', 'selector': 'app-file-explorer'},{'name': 'FileUploadComponent', 'selector': 'app-file-upload'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'IdProofComponent', 'selector': 'app-id-proof'},{'name': 'IdproofformComponent', 'selector': 'app-idproofform'},{'name': 'IndexComponent', 'selector': 'app-index'},{'name': 'InvitationAcceptComponent', 'selector': 'app-invitation-accept'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MfaSettingComponent', 'selector': 'app-mfa-setting'},{'name': 'MfaVerificationComponent', 'selector': 'app-mfa-verification'},{'name': 'NotesComponent', 'selector': 'app-notes'},{'name': 'NotesFormComponent', 'selector': 'app-notes-form'},{'name': 'NotificationComponent', 'selector': 'app-notification'},{'name': 'OrganizationComponent', 'selector': 'app-organization'},{'name': 'OrganizationsComponent', 'selector': 'app-organizations'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'PasswordFormComponent', 'selector': 'app-password-form'},{'name': 'PasswordGenratorComponent', 'selector': 'app-password-genrator'},{'name': 'PasswordStrengthComponent', 'selector': 'app-password-strength'},{'name': 'PricingPageComponent', 'selector': 'app-pricing-page'},{'name': 'PrivacyPolicyComponent', 'selector': 'app-privacy-policy'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'RolesPermissionsComponent', 'selector': 'app-roles-permissions'},{'name': 'SecurityComponent', 'selector': 'app-security'},{'name': 'ShareDialogComponent', 'selector': 'app-share-dialog'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SignupComponent', 'selector': 'app-signup'},{'name': 'SupportComponent', 'selector': 'app-support'},{'name': 'TagFormCompoent', 'selector': 'app-tag'},{'name': 'UserFormComponent', 'selector': 'app-user-form'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'viewCardDetailsComponent', 'selector': 'app-view-card'},{'name': 'ViewNoteCompoent', 'selector': 'app-view-note'},{'name': 'ViewPasswordComponent', 'selector': 'app-view-password'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'SupportComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'SupportComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

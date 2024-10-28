@@ -1,0 +1,1146 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>password-app documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">password-app documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  MfaSettingComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/dashboard/profile/mfa-setting/mfa-setting.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-mfa-setting</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>MatFormFieldModule</code>
+                            <code>MatInputModule</code>
+                            <code>CommonModule</code>
+                            <code>MatSelectModule</code>
+                            <code>MatOptionModule</code>
+                            <code>ReactiveFormsModule</code>
+                            <code>FormsModule</code>
+                            <code>MatButtonModule</code>
+                            <code>MatSliderModule</code>
+                            <code>MatSlideToggleModule</code>
+                            <code>MatIconModule</code>
+                            <code>MatSnackBarModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./mfa-setting.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./mfa-setting.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#authService" >authService</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#commonService" >commonService</a>
+                            </li>
+                            <li>
+                                <a href="#mfaForm" >mfaForm</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#snackBar" >snackBar</a>
+                            </li>
+                            <li>
+                                <a href="#userProfile" >userProfile</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#disableAllMfaFields" >disableAllMfaFields</a>
+                            </li>
+                            <li>
+                                <a href="#onSubmit" >onSubmit</a>
+                            </li>
+                            <li>
+                                <a href="#populateFormWithUserProfile" >populateFormWithUserProfile</a>
+                            </li>
+                            <li>
+                                <a href="#selectMFAMethod" >selectMFAMethod</a>
+                            </li>
+                            <li>
+                                <a href="#toggleMFA" >toggleMFA</a>
+                            </li>
+                            <li>
+                                <a href="#toggleSideBar" >toggleSideBar</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(fb: FormBuilder)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/dashboard/profile/mfa-setting/mfa-setting.component.ts:47</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>fb</td>
+                                                  
+                                                        <td>
+                                                                    <code>FormBuilder</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="disableAllMfaFields"></a>
+                    <span class="name">
+                        <span ><b>disableAllMfaFields</b></span>
+                        <a href="#disableAllMfaFields"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>disableAllMfaFields()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="105"
+                                    class="link-to-prism">src/app/dashboard/profile/mfa-setting/mfa-setting.component.ts:105</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSubmit"></a>
+                    <span class="name">
+                        <span ><b>onSubmit</b></span>
+                        <a href="#onSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSubmit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="111"
+                                    class="link-to-prism">src/app/dashboard/profile/mfa-setting/mfa-setting.component.ts:111</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="populateFormWithUserProfile"></a>
+                    <span class="name">
+                        <span ><b>populateFormWithUserProfile</b></span>
+                        <a href="#populateFormWithUserProfile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>populateFormWithUserProfile(profile: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="64"
+                                    class="link-to-prism">src/app/dashboard/profile/mfa-setting/mfa-setting.component.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>profile</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectMFAMethod"></a>
+                    <span class="name">
+                        <span ><b>selectMFAMethod</b></span>
+                        <a href="#selectMFAMethod"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectMFAMethod(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="89"
+                                    class="link-to-prism">src/app/dashboard/profile/mfa-setting/mfa-setting.component.ts:89</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleMFA"></a>
+                    <span class="name">
+                        <span ><b>toggleMFA</b></span>
+                        <a href="#toggleMFA"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleMFA(enabled: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank">boolean</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="79"
+                                    class="link-to-prism">src/app/dashboard/profile/mfa-setting/mfa-setting.component.ts:79</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>enabled</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleSideBar"></a>
+                    <span class="name">
+                        <span ><b>toggleSideBar</b></span>
+                        <a href="#toggleSideBar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleSideBar()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="134"
+                                    class="link-to-prism">src/app/dashboard/profile/mfa-setting/mfa-setting.component.ts:134</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="authService"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>authService</b></span>
+                        <a href="#authService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(AuthService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/dashboard/profile/mfa-setting/mfa-setting.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="commonService"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>commonService</b></span>
+                        <a href="#commonService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(CommonService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/dashboard/profile/mfa-setting/mfa-setting.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mfaForm"></a>
+                    <span class="name">
+                        <span ><b>mfaForm</b></span>
+                        <a href="#mfaForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/dashboard/profile/mfa-setting/mfa-setting.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="snackBar"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>snackBar</b></span>
+                        <a href="#snackBar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(MatSnackBar)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/dashboard/profile/mfa-setting/mfa-setting.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userProfile"></a>
+                    <span class="name">
+                        <span ><b>userProfile</b></span>
+                        <a href="#userProfile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/dashboard/profile/mfa-setting/mfa-setting.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonModule } from &#x27;@angular/common&#x27;;
+import { Component, EventEmitter, inject, Output } from &#x27;@angular/core&#x27;;
+import {
+  FormGroup,
+  FormBuilder,
+  ReactiveFormsModule,
+  FormsModule,
+  FormControl,
+} from &#x27;@angular/forms&#x27;;
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+import { MatOptionModule } from &#x27;@angular/material/core&#x27;;
+import { MatFormFieldModule } from &#x27;@angular/material/form-field&#x27;;
+import { MatInputModule } from &#x27;@angular/material/input&#x27;;
+import { MatSelectModule } from &#x27;@angular/material/select&#x27;;
+import { MatSliderModule } from &#x27;@angular/material/slider&#x27;;
+import { MatSlideToggleModule } from &#x27;@angular/material/slide-toggle&#x27;;
+import { AuthService } from &#x27;../../../services/auth.service&#x27;;
+import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
+import { CommonService } from &#x27;../../../services/common.service&#x27;;
+import { MatSnackBar, MatSnackBarModule } from &#x27;@angular/material/snack-bar&#x27;;
+
+@Component({
+  selector: &#x27;app-mfa-setting&#x27;,
+  standalone: true,
+  imports: [
+    MatFormFieldModule,
+    MatInputModule,
+    CommonModule,
+    MatSelectModule,
+    MatOptionModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatButtonModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatIconModule,
+    MatSnackBarModule
+  ],
+  templateUrl: &#x27;./mfa-setting.component.html&#x27;,
+  styleUrls: [&#x27;./mfa-setting.component.css&#x27;],
+})
+export class MfaSettingComponent {
+  mfaForm: FormGroup;
+  userProfile: any;
+  readonly snackBar &#x3D; inject(MatSnackBar);
+  readonly commonService &#x3D; inject(CommonService);
+  readonly authService &#x3D; inject(AuthService);
+
+  constructor(private fb: FormBuilder) {
+    this.mfaForm &#x3D; this.fb.group({
+      mfaEnabled: [false],
+      mfaMethod: [{ value: &#x27;&#x27;, disabled: true }],
+      totpSecret: [{ value: &#x27;&#x27;, disabled: true }],
+      smsPhoneNumber: [{ value: &#x27;&#x27;, disabled: true }],
+      emailAddress: [{ value: &#x27;&#x27;, disabled: true }],
+    });
+
+    this.authService.userProfile$.subscribe((userProfile) &#x3D;&gt; {
+      this.userProfile &#x3D; userProfile;
+      this.populateFormWithUserProfile(userProfile);
+    });
+  }
+
+  populateFormWithUserProfile(profile: any): void {
+    this.mfaForm.patchValue({
+      mfaEnabled: profile.mfaEnabled || false,
+      mfaMethod: profile.mfaMethod || &#x27;&#x27;,
+      totpSecret: profile.mfaMethod &#x3D;&#x3D;&#x3D; &#x27;totp&#x27; ? profile.totpSecret || &#x27;&#x27; : &#x27;&#x27;,
+      smsPhoneNumber:
+        profile.mfaMethod &#x3D;&#x3D;&#x3D; &#x27;sms&#x27; ? profile.smsPhoneNumber || &#x27;&#x27; : &#x27;&#x27;,
+      emailAddress:
+        profile.mfaMethod &#x3D;&#x3D;&#x3D; &#x27;email&#x27; ? profile.emailAddress || &#x27;&#x27; : &#x27;&#x27;,
+    });
+
+    this.toggleMFA(profile.mfaEnabled);
+    this.selectMFAMethod({ value: profile.mfaMethod });
+  }
+
+  toggleMFA(enabled: boolean): void {
+    const mfaMethodControl &#x3D; this.mfaForm.get(&#x27;mfaMethod&#x27;);
+    if (enabled) {
+      mfaMethodControl?.enable();
+    } else {
+      mfaMethodControl?.disable();
+      this.disableAllMfaFields();
+    }
+  }
+
+  selectMFAMethod(event: any): void {
+    const method &#x3D; event.value;
+    this.disableAllMfaFields();
+
+    if (method &#x3D;&#x3D;&#x3D; &#x27;totp&#x27;) {
+      this.mfaForm.get(&#x27;totpSecret&#x27;)?.enable();
+    } else if (method &#x3D;&#x3D;&#x3D; &#x27;sms&#x27;) {
+      this.mfaForm.get(&#x27;smsPhoneNumber&#x27;)?.enable();
+      this.mfaForm.get(&#x27;smsPhoneNumber&#x27;)?.setValue(this.userProfile.phone);
+    } else if (method &#x3D;&#x3D;&#x3D; &#x27;email&#x27;) {
+      this.mfaForm.get(&#x27;emailAddress&#x27;)?.enable();
+      console.log(&#x27;email&#x27;, this.userProfile.email);
+      this.mfaForm.get(&#x27;emailAddress&#x27;)?.setValue(this.userProfile.email);
+    }
+  }
+
+  disableAllMfaFields(): void {
+    this.mfaForm.get(&#x27;totpSecret&#x27;)?.disable();
+    this.mfaForm.get(&#x27;smsPhoneNumber&#x27;)?.disable();
+    this.mfaForm.get(&#x27;emailAddress&#x27;)?.disable();
+  }
+
+  onSubmit() {
+    if (this.mfaForm.valid) {
+      this.authService.updateMfaSettings(this.mfaForm.value).subscribe({
+        next: (response) &#x3D;&gt; {
+          this.snackBar.open(&#x27;MFA settings updated successfully:&#x27;, &#x27;Ok&#x27;, {
+            duration: 3000,
+          });
+        },
+        error: (error) &#x3D;&gt; {
+          this.snackBar.open(
+            &#x27;Failed to update MFA settings. Please try again later.&#x27;,
+            &#x27;Ok&#x27;,
+            {
+              duration: 3000,
+              }
+              
+          )
+          console.error(&#x27;Error updating MFA settings:&#x27;, error);
+        },
+      });
+    }
+  }
+
+  toggleSideBar(): void {
+    this.commonService.toggleProfileSideBar();
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;nav aria-label&#x3D;&quot;Global&quot;
+    class&#x3D;&quot;flex items-center justify-between w-full text-primary-foreground bg-background shadow-lg rounded-md p-3&quot;&gt;
+    &lt;div class&#x3D;&quot;text-primary-foreground flex items-center space-x-2&quot;&gt;
+        &lt;button mat-icon-button (click)&#x3D;&quot;toggleSideBar()&quot; class&#x3D;&quot;menu-button lg:hidden&quot;&gt;
+            &lt;mat-icon&gt;menu&lt;/mat-icon&gt;
+          &lt;/button&gt;
+        &lt;div class&#x3D;&quot;text-xl sm:text-3xl font-bold text-accent&quot;&gt;MFA Settings&lt;/div&gt;
+
+    &lt;/div&gt;
+    &lt;button mat-flat-button type&#x3D;&quot;submit&quot; (click)&#x3D;&quot;onSubmit()&quot;&gt;Save Changes&lt;/button&gt;
+&lt;/nav&gt;
+&lt;form [formGroup]&#x3D;&quot;mfaForm&quot;  class&#x3D;&quot;flex flex-col space-y-6 p-3&quot;&gt;
+    &lt;mat-slide-toggle formControlName&#x3D;&quot;mfaEnabled&quot; color&#x3D;&quot;primary&quot; (change)&#x3D;&quot;toggleMFA($event.checked)&quot;&gt;
+        Enable MFA
+    &lt;/mat-slide-toggle&gt;
+
+    &lt;div *ngIf&#x3D;&quot;mfaForm.get(&#x27;mfaEnabled&#x27;)?.value&quot; class&#x3D;&quot;flex flex-col&quot;&gt;
+        &lt;mat-form-field&gt;
+            &lt;mat-label&gt;Select MFA Method&lt;/mat-label&gt;
+            &lt;mat-select formControlName&#x3D;&quot;mfaMethod&quot; (selectionChange)&#x3D;&quot;selectMFAMethod($event)&quot;&gt;
+                &lt;mat-option value&#x3D;&quot;totp&quot;&gt;Time-Based One-Time Password (TOTP)&lt;/mat-option&gt;
+                &lt;mat-option value&#x3D;&quot;sms&quot;&gt;SMS Authentication&lt;/mat-option&gt;
+                &lt;mat-option value&#x3D;&quot;email&quot;&gt;Email Authentication&lt;/mat-option&gt;
+                &lt;!-- &lt;mat-option value&#x3D;&quot;duo&quot;&gt;Duo Authentication&lt;/mat-option&gt;
+                &lt;mat-option value&#x3D;&quot;fingerprint&quot;&gt;Fingerprint Authentication&lt;/mat-option&gt;
+                &lt;mat-option value&#x3D;&quot;face&quot;&gt;Face Recognition Authentication&lt;/mat-option&gt; --&gt;
+                &lt;!-- &lt;mat-option value&#x3D;&quot;securityKey&quot;&gt;Security Key (FIDO2/U2F)&lt;/mat-option&gt; --&gt;
+            &lt;/mat-select&gt;
+        &lt;/mat-form-field&gt;
+
+        &lt;mat-form-field *ngIf&#x3D;&quot;mfaForm.get(&#x27;mfaMethod&#x27;)?.value &#x3D;&#x3D;&#x3D; &#x27;totp&#x27;&quot;&gt;
+            &lt;mat-label&gt;Enter TOTP Secret&lt;/mat-label&gt;
+            &lt;input matInput formControlName&#x3D;&quot;totpSecret&quot; placeholder&#x3D;&quot;Enter your TOTP secret&quot;&gt;
+        &lt;/mat-form-field&gt;
+
+        &lt;mat-form-field *ngIf&#x3D;&quot;mfaForm.get(&#x27;mfaMethod&#x27;)?.value &#x3D;&#x3D;&#x3D; &#x27;sms&#x27;&quot;&gt;
+            &lt;mat-label&gt;Phone Number&lt;/mat-label&gt;
+            &lt;input matInput formControlName&#x3D;&quot;smsPhoneNumber&quot; placeholder&#x3D;&quot;Enter your phone number&quot;&gt;
+        &lt;/mat-form-field&gt;
+
+        &lt;mat-form-field *ngIf&#x3D;&quot;mfaForm.get(&#x27;mfaMethod&#x27;)?.value &#x3D;&#x3D;&#x3D; &#x27;email&#x27;&quot;&gt;
+            &lt;mat-label&gt;Email Address&lt;/mat-label&gt;
+            &lt;input matInput formControlName&#x3D;&quot;emailAddress&quot; placeholder&#x3D;&quot;Enter your email address&quot;&gt;
+        &lt;/mat-form-field&gt;
+
+        &lt;!-- &lt;div *ngIf&#x3D;&quot;mfaForm.get(&#x27;mfaMethod&#x27;)?.value &#x3D;&#x3D;&#x3D; &#x27;duo&#x27;&quot; class&#x3D;&quot;setup-instructions&quot;&gt;
+            &lt;h3&gt;Duo Authentication Setup&lt;/h3&gt;
+            &lt;p&gt;Follow these steps to set up Duo Authentication:&lt;/p&gt;
+            &lt;ol&gt;
+                &lt;li&gt;Log in to your Duo Admin Panel.&lt;/li&gt;
+                &lt;li&gt;Navigate to the &quot;Applications&quot; section and click &quot;Protect an Application.&quot;&lt;/li&gt;
+                &lt;li&gt;Select the appropriate application from the list and follow the instructions to configure it.&lt;/li&gt;
+                &lt;li&gt;Copy the integration key, secret key, and API hostname provided.&lt;/li&gt;
+                &lt;li&gt;Enter these details into the Duo setup form in your application settings.&lt;/li&gt;
+                &lt;li&gt;Save your changes and test the Duo integration to ensure it&#x27;s working correctly.&lt;/li&gt;
+            &lt;/ol&gt;
+        &lt;/div&gt;
+
+        &lt;div *ngIf&#x3D;&quot;mfaForm.get(&#x27;mfaMethod&#x27;)?.value &#x3D;&#x3D;&#x3D; &#x27;fingerprint&#x27;&quot; class&#x3D;&quot;setup-instructions&quot;&gt;
+            &lt;h3&gt;Fingerprint Authentication Setup&lt;/h3&gt;
+            &lt;p&gt;Follow these steps to set up Fingerprint Authentication:&lt;/p&gt;
+            &lt;ol&gt;
+                &lt;li&gt;Ensure your device has a fingerprint scanner and necessary drivers installed.&lt;/li&gt;
+                &lt;li&gt;Go to the &quot;Security&quot; settings on your device and register your fingerprint.&lt;/li&gt;
+                &lt;li&gt;In your application settings, enable Fingerprint Authentication and configure it as needed.&lt;/li&gt;
+                &lt;li&gt;Follow any additional instructions provided by your application for verification.&lt;/li&gt;
+                &lt;li&gt;Test the setup to ensure it recognizes your fingerprint accurately.&lt;/li&gt;
+            &lt;/ol&gt;
+        &lt;/div&gt;
+
+        &lt;div *ngIf&#x3D;&quot;mfaForm.get(&#x27;mfaMethod&#x27;)?.value &#x3D;&#x3D;&#x3D; &#x27;face&#x27;&quot; class&#x3D;&quot;setup-instructions&quot;&gt;
+            &lt;h3&gt;Face Recognition Authentication Setup&lt;/h3&gt;
+            &lt;p&gt;Follow these steps to set up Face Recognition Authentication:&lt;/p&gt;
+            &lt;ol&gt;
+                &lt;li&gt;Ensure your device has a camera that supports face recognition.&lt;/li&gt;
+                &lt;li&gt;Go to the &quot;Security&quot; settings on your device and set up Face Recognition.&lt;/li&gt;
+                &lt;li&gt;In your application settings, enable Face Recognition Authentication and follow the setup instructions.&lt;/li&gt;
+                &lt;li&gt;Complete any required configuration and calibration steps.&lt;/li&gt;
+                &lt;li&gt;Test the face recognition feature to ensure it functions correctly.&lt;/li&gt;
+            &lt;/ol&gt;
+        &lt;/div&gt;
+
+        &lt;div *ngIf&#x3D;&quot;mfaForm.get(&#x27;mfaMethod&#x27;)?.value &#x3D;&#x3D;&#x3D; &#x27;securityKey&#x27;&quot; class&#x3D;&quot;setup-instructions&quot;&gt;
+            &lt;h3&gt;Security Key (FIDO2/U2F) Setup&lt;/h3&gt;
+            &lt;p&gt;Follow these steps to set up a Security Key:&lt;/p&gt;
+            &lt;ol&gt;
+                &lt;li&gt;Plug in your FIDO2/U2F security key into a USB port or connect it via Bluetooth.&lt;/li&gt;
+                &lt;li&gt;Go to the &quot;Security&quot; settings in your application.&lt;/li&gt;
+                &lt;li&gt;Select &quot;Add Security Key&quot; and follow the instructions to register your key.&lt;/li&gt;
+                &lt;li&gt;Perform any necessary actions on the security key, such as pressing a button or touching the device.&lt;/li&gt;
+                &lt;li&gt;Verify the setup by testing the security key with your application.&lt;/li&gt;
+            &lt;/ol&gt;
+        &lt;/div&gt; --&gt;
+    &lt;/div&gt;
+&lt;/form&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./mfa-setting.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss"></code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><nav aria-label="Global"    class="flex items-center justify-between w-full text-primary-foreground bg-background shadow-lg rounded-md p-3">    <div class="text-primary-foreground flex items-center space-x-2">        <button mat-icon-button (click)="toggleSideBar()" class="menu-button lg:hidden">            <mat-icon>menu</mat-icon>          </button>        <div class="text-xl sm:text-3xl font-bold text-accent">MFA Settings</div>    </div>    <button mat-flat-button type="submit" (click)="onSubmit()">Save Changes</button></nav><form [formGroup]="mfaForm"  class="flex flex-col space-y-6 p-3">    <mat-slide-toggle formControlName="mfaEnabled" color="primary" (change)="toggleMFA($event.checked)">        Enable MFA    </mat-slide-toggle>    <div *ngIf="mfaForm.get(\'mfaEnabled\')?.value" class="flex flex-col">        <mat-form-field>            <mat-label>Select MFA Method</mat-label>            <mat-select formControlName="mfaMethod" (selectionChange)="selectMFAMethod($event)">                <mat-option value="totp">Time-Based One-Time Password (TOTP)</mat-option>                <mat-option value="sms">SMS Authentication</mat-option>                <mat-option value="email">Email Authentication</mat-option>                <!-- <mat-option value="duo">Duo Authentication</mat-option>                <mat-option value="fingerprint">Fingerprint Authentication</mat-option>                <mat-option value="face">Face Recognition Authentication</mat-option> -->                <!-- <mat-option value="securityKey">Security Key (FIDO2/U2F)</mat-option> -->            </mat-select>        </mat-form-field>        <mat-form-field *ngIf="mfaForm.get(\'mfaMethod\')?.value === \'totp\'">            <mat-label>Enter TOTP Secret</mat-label>            <input matInput formControlName="totpSecret" placeholder="Enter your TOTP secret">        </mat-form-field>        <mat-form-field *ngIf="mfaForm.get(\'mfaMethod\')?.value === \'sms\'">            <mat-label>Phone Number</mat-label>            <input matInput formControlName="smsPhoneNumber" placeholder="Enter your phone number">        </mat-form-field>        <mat-form-field *ngIf="mfaForm.get(\'mfaMethod\')?.value === \'email\'">            <mat-label>Email Address</mat-label>            <input matInput formControlName="emailAddress" placeholder="Enter your email address">        </mat-form-field>        <!-- <div *ngIf="mfaForm.get(\'mfaMethod\')?.value === \'duo\'" class="setup-instructions">            <h3>Duo Authentication Setup</h3>            <p>Follow these steps to set up Duo Authentication:</p>            <ol>                <li>Log in to your Duo Admin Panel.</li>                <li>Navigate to the "Applications" section and click "Protect an Application."</li>                <li>Select the appropriate application from the list and follow the instructions to configure it.</li>                <li>Copy the integration key, secret key, and API hostname provided.</li>                <li>Enter these details into the Duo setup form in your application settings.</li>                <li>Save your changes and test the Duo integration to ensure it\'s working correctly.</li>            </ol>        </div>        <div *ngIf="mfaForm.get(\'mfaMethod\')?.value === \'fingerprint\'" class="setup-instructions">            <h3>Fingerprint Authentication Setup</h3>            <p>Follow these steps to set up Fingerprint Authentication:</p>            <ol>                <li>Ensure your device has a fingerprint scanner and necessary drivers installed.</li>                <li>Go to the "Security" settings on your device and register your fingerprint.</li>                <li>In your application settings, enable Fingerprint Authentication and configure it as needed.</li>                <li>Follow any additional instructions provided by your application for verification.</li>                <li>Test the setup to ensure it recognizes your fingerprint accurately.</li>            </ol>        </div>        <div *ngIf="mfaForm.get(\'mfaMethod\')?.value === \'face\'" class="setup-instructions">            <h3>Face Recognition Authentication Setup</h3>            <p>Follow these steps to set up Face Recognition Authentication:</p>            <ol>                <li>Ensure your device has a camera that supports face recognition.</li>                <li>Go to the "Security" settings on your device and set up Face Recognition.</li>                <li>In your application settings, enable Face Recognition Authentication and follow the setup instructions.</li>                <li>Complete any required configuration and calibration steps.</li>                <li>Test the face recognition feature to ensure it functions correctly.</li>            </ol>        </div>        <div *ngIf="mfaForm.get(\'mfaMethod\')?.value === \'securityKey\'" class="setup-instructions">            <h3>Security Key (FIDO2/U2F) Setup</h3>            <p>Follow these steps to set up a Security Key:</p>            <ol>                <li>Plug in your FIDO2/U2F security key into a USB port or connect it via Bluetooth.</li>                <li>Go to the "Security" settings in your application.</li>                <li>Select "Add Security Key" and follow the instructions to register your key.</li>                <li>Perform any necessary actions on the security key, such as pressing a button or touching the device.</li>                <li>Verify the setup by testing the security key with your application.</li>            </ol>        </div> -->    </div></form></div>'
+    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admiiin'},{'name': 'ApiDocsComponent', 'selector': 'app-api-docs'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BillingDetailsComponent', 'selector': 'app-billing-details'},{'name': 'CardComponent', 'selector': 'app-card'},{'name': 'CreateFolderDialogComponent', 'selector': 'app-create-folder-dialog'},{'name': 'CreditCardFormComponent', 'selector': 'app-credit-card-form'},{'name': 'DashboardComponent', 'selector': 'app-dashbloard'},{'name': 'DownloadComponent', 'selector': 'app-download'},{'name': 'EditProfileComponent', 'selector': 'app-edit-profile'},{'name': 'FileExplorerComponent', 'selector': 'app-file-explorer'},{'name': 'FileUploadComponent', 'selector': 'app-file-upload'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'IdProofComponent', 'selector': 'app-id-proof'},{'name': 'IdproofformComponent', 'selector': 'app-idproofform'},{'name': 'IndexComponent', 'selector': 'app-index'},{'name': 'InvitationAcceptComponent', 'selector': 'app-invitation-accept'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MfaSettingComponent', 'selector': 'app-mfa-setting'},{'name': 'MfaVerificationComponent', 'selector': 'app-mfa-verification'},{'name': 'NotesComponent', 'selector': 'app-notes'},{'name': 'NotesFormComponent', 'selector': 'app-notes-form'},{'name': 'NotificationComponent', 'selector': 'app-notification'},{'name': 'OrganizationComponent', 'selector': 'app-organization'},{'name': 'OrganizationsComponent', 'selector': 'app-organizations'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'PasswordFormComponent', 'selector': 'app-password-form'},{'name': 'PasswordGenratorComponent', 'selector': 'app-password-genrator'},{'name': 'PasswordStrengthComponent', 'selector': 'app-password-strength'},{'name': 'PricingPageComponent', 'selector': 'app-pricing-page'},{'name': 'PrivacyPolicyComponent', 'selector': 'app-privacy-policy'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'RolesPermissionsComponent', 'selector': 'app-roles-permissions'},{'name': 'SecurityComponent', 'selector': 'app-security'},{'name': 'ShareDialogComponent', 'selector': 'app-share-dialog'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SignupComponent', 'selector': 'app-signup'},{'name': 'SupportComponent', 'selector': 'app-support'},{'name': 'TagFormCompoent', 'selector': 'app-tag'},{'name': 'UserFormComponent', 'selector': 'app-user-form'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'viewCardDetailsComponent', 'selector': 'app-view-card'},{'name': 'ViewNoteCompoent', 'selector': 'app-view-note'},{'name': 'ViewPasswordComponent', 'selector': 'app-view-password'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'MfaSettingComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'MfaSettingComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,1650 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>password-app documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">password-app documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  FileUploadComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/dialog/file-upload/file-upload.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-file-upload</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>ReactiveFormsModule</code>
+                            <code>MatFormFieldModule</code>
+                            <code>MatChipsModule</code>
+                            <code>MatChipListbox</code>
+                            <code>MatAutocompleteModule</code>
+                            <code>MatButtonModule</code>
+                            <code>MatToolbarModule</code>
+                            <code>MatIconModule</code>
+                            <code>FormsModule</code>
+                            <code>MatInputModule</code>
+                            <code>MatSnackBarModule</code>
+                            <code>MatDialogModule</code>
+                            <code>MatCheckboxModule</code>
+                            <code>CommonModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./file-upload.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./file-upload.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#changeDetectorRef" >changeDetectorRef</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#dialog" >dialog</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#dilaogRef" >dilaogRef</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#fb" >fb</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#fileService" >fileService</a>
+                            </li>
+                            <li>
+                                <a href="#fileToUpload" >fileToUpload</a>
+                            </li>
+                            <li>
+                                <a href="#filteredFolders" >filteredFolders</a>
+                            </li>
+                            <li>
+                                <a href="#filteredUsers" >filteredUsers</a>
+                            </li>
+                            <li>
+                                <a href="#folderNotFound" >folderNotFound</a>
+                            </li>
+                            <li>
+                                <a href="#selectedUsers" >selectedUsers</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#snackBar" >snackBar</a>
+                            </li>
+                            <li>
+                                <a href="#uploadForm" >uploadForm</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#change" >change</a>
+                            </li>
+                            <li>
+                                <a href="#createFolder" >createFolder</a>
+                            </li>
+                            <li>
+                                <a href="#onFileChange" >onFileChange</a>
+                            </li>
+                            <li>
+                                <a href="#onFolderSearch" >onFolderSearch</a>
+                            </li>
+                            <li>
+                                <a href="#onSubmit" >onSubmit</a>
+                            </li>
+                            <li>
+                                <a href="#removeUser" >removeUser</a>
+                            </li>
+                            <li>
+                                <a href="#removeUserOrFolder" >removeUserOrFolder</a>
+                            </li>
+                            <li>
+                                <a href="#searchUsers" >searchUsers</a>
+                            </li>
+                            <li>
+                                <a href="#selected" >selected</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/dialog/file-upload/file-upload.component.ts:57</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="change"></a>
+                    <span class="name">
+                        <span ><b>change</b></span>
+                        <a href="#change"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>change(folder: literal type)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="174"
+                                    class="link-to-prism">src/app/dialog/file-upload/file-upload.component.ts:174</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>folder</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createFolder"></a>
+                    <span class="name">
+                        <span ><b>createFolder</b></span>
+                        <a href="#createFolder"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createFolder(folderName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="72"
+                                    class="link-to-prism">src/app/dialog/file-upload/file-upload.component.ts:72</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>folderName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onFileChange"></a>
+                    <span class="name">
+                        <span ><b>onFileChange</b></span>
+                        <a href="#onFileChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onFileChange(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="85"
+                                    class="link-to-prism">src/app/dialog/file-upload/file-upload.component.ts:85</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onFolderSearch"></a>
+                    <span class="name">
+                        <span ><b>onFolderSearch</b></span>
+                        <a href="#onFolderSearch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onFolderSearch(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="90"
+                                    class="link-to-prism">src/app/dialog/file-upload/file-upload.component.ts:90</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSubmit"></a>
+                    <span class="name">
+                        <span ><b>onSubmit</b></span>
+                        <a href="#onSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSubmit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="115"
+                                    class="link-to-prism">src/app/dialog/file-upload/file-upload.component.ts:115</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeUser"></a>
+                    <span class="name">
+                        <span ><b>removeUser</b></span>
+                        <a href="#removeUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>removeUser(user: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="167"
+                                    class="link-to-prism">src/app/dialog/file-upload/file-upload.component.ts:167</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>user</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeUserOrFolder"></a>
+                    <span class="name">
+                        <span ><b>removeUserOrFolder</b></span>
+                        <a href="#removeUserOrFolder"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>removeUserOrFolder(name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="157"
+                                    class="link-to-prism">src/app/dialog/file-upload/file-upload.component.ts:157</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>name</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="searchUsers"></a>
+                    <span class="name">
+                        <span ><b>searchUsers</b></span>
+                        <a href="#searchUsers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>searchUsers(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="108"
+                                    class="link-to-prism">src/app/dialog/file-upload/file-upload.component.ts:108</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selected"></a>
+                    <span class="name">
+                        <span ><b>selected</b></span>
+                        <a href="#selected"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selected(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="164"
+                                    class="link-to-prism">src/app/dialog/file-upload/file-upload.component.ts:164</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changeDetectorRef"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>changeDetectorRef</b></span>
+                        <a href="#changeDetectorRef"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(ChangeDetectorRef)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/dialog/file-upload/file-upload.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dialog"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>dialog</b></span>
+                        <a href="#dialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(MatDialog)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/dialog/file-upload/file-upload.component.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="dilaogRef"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>dilaogRef</b></span>
+                        <a href="#dilaogRef"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(MatDialogRef&lt;FileUploadComponent&gt;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/dialog/file-upload/file-upload.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fb"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>fb</b></span>
+                        <a href="#fb"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(FormBuilder)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/dialog/file-upload/file-upload.component.ts:52</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fileService"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>fileService</b></span>
+                        <a href="#fileService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(FileService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/dialog/file-upload/file-upload.component.ts:53</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fileToUpload"></a>
+                    <span class="name">
+                        <span ><b>fileToUpload</b></span>
+                        <a href="#fileToUpload"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>File | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/dialog/file-upload/file-upload.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filteredFolders"></a>
+                    <span class="name">
+                        <span ><b>filteredFolders</b></span>
+                        <a href="#filteredFolders"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/dialog/file-upload/file-upload.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filteredUsers"></a>
+                    <span class="name">
+                        <span ><b>filteredUsers</b></span>
+                        <a href="#filteredUsers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/dialog/file-upload/file-upload.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="folderNotFound"></a>
+                    <span class="name">
+                        <span ><b>folderNotFound</b></span>
+                        <a href="#folderNotFound"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/dialog/file-upload/file-upload.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedUsers"></a>
+                    <span class="name">
+                        <span ><b>selectedUsers</b></span>
+                        <a href="#selectedUsers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/dialog/file-upload/file-upload.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="snackBar"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>snackBar</b></span>
+                        <a href="#snackBar"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(MatSnackBar)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/dialog/file-upload/file-upload.component.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="uploadForm"></a>
+                    <span class="name">
+                        <span ><b>uploadForm</b></span>
+                        <a href="#uploadForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/dialog/file-upload/file-upload.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from &#x27;@angular/core&#x27;;
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule
+} from &#x27;@angular/forms&#x27;;
+import { FileService } from &#x27;../../services/file.service&#x27;; // Import your file service
+import { HttpEventType } from &#x27;@angular/common/http&#x27;;
+import { MatSnackBar, MatSnackBarModule } from &#x27;@angular/material/snack-bar&#x27;;
+import { MatFormFieldModule } from &#x27;@angular/material/form-field&#x27;;
+import { MatInputModule } from &#x27;@angular/material/input&#x27;;
+import { MatDialog, MatDialogModule, MatDialogRef } from &#x27;@angular/material/dialog&#x27;;
+import { MatCheckboxModule } from &#x27;@angular/material/checkbox&#x27;;
+import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+import { MatToolbarModule } from &#x27;@angular/material/toolbar&#x27;;
+import { MatChipListbox, MatChipsModule } from &#x27;@angular/material/chips&#x27;;
+import { MatAutocompleteModule } from &#x27;@angular/material/autocomplete&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+
+@Component({
+  selector: &#x27;app-file-upload&#x27;,
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatChipsModule,
+    MatChipListbox,
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatIconModule,
+    FormsModule,
+    MatInputModule,
+    MatSnackBarModule,
+    MatDialogModule,
+    MatCheckboxModule,
+    CommonModule,
+  ],
+  templateUrl: &#x27;./file-upload.component.html&#x27;,
+  styleUrls: [&#x27;./file-upload.component.css&#x27;],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class FileUploadComponent {
+  uploadForm: FormGroup;
+  filteredUsers: any[] &#x3D; [];
+  filteredFolders: any[] &#x3D; [];
+  selectedUsers: string[] &#x3D; [];
+  fileToUpload: File | null &#x3D; null;
+  folderNotFound &#x3D; false;
+  private readonly fb &#x3D; inject(FormBuilder);
+  private readonly fileService &#x3D; inject(FileService);
+  private readonly snackBar &#x3D; inject(MatSnackBar);
+  private readonly changeDetectorRef &#x3D; inject(ChangeDetectorRef);
+  private readonly dialog &#x3D; inject(MatDialog);
+  private readonly dilaogRef &#x3D; inject(MatDialogRef&lt;FileUploadComponent&gt;);
+
+  constructor(
+
+  ) {
+    this.uploadForm &#x3D; this.fb.group({
+      file: [&#x27;&#x27;],
+      folderId: [&#x27;&#x27;],
+      folderName: [&#x27;&#x27;],
+      sharedWith: [&#x27;&#x27;],
+      encrypted: [false],
+      offlineAccess: [false],
+    });
+  }
+
+  createFolder(folderName: string): void {
+    this.fileService.createFolder(folderName).subscribe(
+      (res) &#x3D;&gt; {
+        this.snackBar.open(&#x60;Folder &quot;${folderName}&quot; created.&#x60;, &#x27;Close&#x27;);
+        this.filteredFolders.push(res.folder);
+        this.folderNotFound &#x3D; false;
+      },
+      () &#x3D;&gt; {
+        this.snackBar.open(&#x27;Error creating folder.&#x27;, &#x27;Close&#x27;);
+      }
+    );
+  }
+
+  onFileChange(event: any): void {
+    if (event.target.files.length &gt; 0) {
+      this.fileToUpload &#x3D; event.target.files[0];
+    }
+  }
+  onFolderSearch(event: any): void {
+    const input &#x3D; event.target.value;
+    if (input) {
+      this.fileService.searchFolders(input).subscribe({
+        next: (folders) &#x3D;&gt; {
+          this.filteredFolders &#x3D; folders;
+          this.folderNotFound &#x3D; folders.length &#x3D;&#x3D;&#x3D; 0;
+        },
+        error: () &#x3D;&gt; {
+          this.snackBar.open(&#x27;Error searching folders.&#x27;, &#x27;Close&#x27;);
+        },
+        complete: () &#x3D;&gt; {
+          this.changeDetectorRef.detectChanges();
+        },
+      });
+    }
+  }
+
+  searchUsers(event: any): void {
+    const input &#x3D; event.target.value;
+    this.fileService.searchUsers(input).subscribe((response) &#x3D;&gt; {
+      this.filteredUsers &#x3D; response;
+    });
+  }
+
+  onSubmit(): void {
+    if (this.uploadForm.invalid || !this.fileToUpload) {
+      this.snackBar.open(
+        &#x27;Please fill in all required fields and select a file.&#x27;,
+        &#x27;Close&#x27;
+      );
+      return;
+    }
+
+    const formData &#x3D; new FormData();
+    formData.append(&#x27;file&#x27;, this.fileToUpload);
+    formData.append(&#x27;folderId&#x27;, this.uploadForm.get(&#x27;folderId&#x27;)?.value || &#x27;&#x27;);
+    formData.append(&#x27;ownerId&#x27;, this.uploadForm.get(&#x27;ownerId&#x27;)?.value);
+    formData.append(
+      &#x27;sharedWith&#x27;,
+      JSON.stringify(this.uploadForm.get(&#x27;sharedWith&#x27;)?.value || [])
+    );
+    formData.append(&#x27;encrypted&#x27;, this.uploadForm.get(&#x27;encrypted&#x27;)?.value);
+    formData.append(
+      &#x27;offlineAccess&#x27;,
+      this.uploadForm.get(&#x27;offlineAccess&#x27;)?.value
+    );
+
+    this.fileService.uploadFile(formData).subscribe({
+      next: (event) &#x3D;&gt; {
+        this.snackBar.open(&#x27;File uploaded successfully!&#x27;, &#x27;Close&#x27;);
+        this.uploadForm.reset();
+        this.fileToUpload &#x3D; null;
+      },
+      error: (error) &#x3D;&gt; {
+        this.snackBar.open(&#x27;Error uploading file.&#x27;, &#x27;Close&#x27;, {
+          duration: 2000,
+        });
+      },
+      complete: () &#x3D;&gt; {
+        this.changeDetectorRef.detectChanges();
+        this.dilaogRef.close();
+
+      },
+    });
+  }
+
+  removeUserOrFolder(name: string): void {
+    const index &#x3D; this.uploadForm.value.sharedWith.indexOf(name);
+    if (index &gt;&#x3D; 0) {
+      this.uploadForm.value.sharedWith.splice(index, 1);
+    }
+  }
+
+  selected(event: any): void {
+    this.selectedUsers.push(event.option.viewValue);
+  }
+  removeUser(user: string): void {
+    const index &#x3D; this.selectedUsers.indexOf(user);
+    if (index &gt;&#x3D; 0) {
+      this.selectedUsers.splice(index, 1);
+    }
+  }
+
+  change(folder: { id: string }): void {
+    this.uploadForm.patchValue({ folderId: folder.id });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;mat-toolbar color&#x3D;&quot;primary&quot;&gt;
+  &lt;h2 mat-dialog-title&gt;Upload File&lt;/h2&gt;
+&lt;/mat-toolbar&gt;
+&lt;mat-dialog-content class&#x3D;&quot;mat-typography p-6&quot;&gt;
+  &lt;form [formGroup]&#x3D;&quot;uploadForm&quot; (ngSubmit)&#x3D;&quot;onSubmit()&quot; class&#x3D;&quot;flex flex-col space-y-4&quot;&gt;
+    &lt;!-- File Upload Input --&gt;
+    &lt;mat-form-field&gt;
+      &lt;mat-label&gt;File&lt;/mat-label&gt;
+      &lt;button  type&#x3D;&quot;button&quot; mat-icon-button matPrefix (click)&#x3D;&quot;f_input.click()&quot;&gt;
+        &lt;mat-icon&gt;attach_file&lt;/mat-icon&gt;
+      &lt;/button&gt;
+      &lt;input type&#x3D;&quot;text&quot; readonly matInput /&gt;
+      &lt;input
+        type&#x3D;&quot;file&quot;
+        multiple
+        hidden
+        #f_input
+        (change)&#x3D;&quot;onFileChange($event)&quot;
+      /&gt;
+      &lt;mat-error&gt;This field is required&lt;/mat-error&gt;
+    &lt;/mat-form-field&gt;
+
+    &lt;!-- Folder Selection Input --&gt;
+
+    &lt;mat-form-field&gt;
+      &lt;mat-label&gt;Folder&lt;/mat-label&gt;
+      &lt;input type&#x3D;&quot;text&quot; matInput formControlName&#x3D;&quot;folderName&quot; [matAutocomplete]&#x3D;&quot;auto&quot;  (input)&#x3D;&quot;onFolderSearch($event)&quot; /&gt;
+      &lt;mat-autocomplete #auto&#x3D;&quot;matAutocomplete&quot;&gt;
+        &lt;mat-option (click)&#x3D;&quot;change(folder)&quot; *ngFor&#x3D;&quot;let folder of filteredFolders&quot; [value]&#x3D;&quot;folder.name&quot;&gt;
+          {{ folder.name }}
+        &lt;/mat-option&gt;
+      &lt;/mat-autocomplete&gt;
+    &lt;/mat-form-field&gt;
+
+    &lt;!-- Create Folder Button (visible when folder not found) --&gt;
+    &lt;button *ngIf&#x3D;&quot;folderNotFound&quot; mat-raised-button color&#x3D;&quot;primary&quot; type&#x3D;&quot;button&quot; (click)&#x3D;&quot;createFolder(uploadForm.get(&#x27;folderName&#x27;)!.value)&quot;&gt;
+      Create Folder &quot;{{ uploadForm.get(&#x27;folderName&#x27;)!.value }}&quot;
+    &lt;/button&gt;
+
+    &lt;!-- Shared With Input --&gt;
+    &lt;mat-form-field class&#x3D;&quot;shared-with-field&quot;&gt;
+      &lt;mat-chip-grid #chipGrid aria-label&#x3D;&quot;Shared With&quot;&gt;
+        &lt;mat-chip-row *ngFor&#x3D;&quot;let user of selectedUsers&quot; [removable]&#x3D;&quot;true&quot; (removed)&#x3D;&quot;removeUser(user)&quot;&gt;
+          {{ user }}
+          &lt;mat-icon matChipRemove&gt;cancel&lt;/mat-icon&gt;
+        &lt;/mat-chip-row&gt;
+      &lt;/mat-chip-grid&gt;
+      &lt;input
+        type&#x3D;&quot;text&quot;
+      matInput
+        placeholder&#x3D;&quot;Shared With&quot;
+        formControlName&#x3D;&quot;sharedWith&quot;
+        [matAutocomplete]&#x3D;&quot;autoSharedWith&quot;
+        [matChipInputFor]&#x3D;&quot;chipGrid&quot;
+        (input)&#x3D;&quot;searchUsers($event)&quot;
+      /&gt;
+      &lt;mat-autocomplete #autoSharedWith&#x3D;&quot;matAutocomplete&quot; (optionSelected)&#x3D;&quot;selected($event)&quot;&gt;
+        &lt;mat-option *ngFor&#x3D;&quot;let option of filteredUsers&quot; [value]&#x3D;&quot;option&quot;&gt;
+          {{ option }}
+        &lt;/mat-option&gt;
+      &lt;/mat-autocomplete&gt;
+    &lt;/mat-form-field&gt;
+
+    &lt;!-- Additional Options --&gt;
+    &lt;div class&#x3D;&quot;flex items-center justify-between&quot;&gt;
+      &lt;mat-checkbox formControlName&#x3D;&quot;encrypted&quot;&gt;Encrypted&lt;/mat-checkbox&gt;
+      &lt;mat-checkbox formControlName&#x3D;&quot;offlineAccess&quot;&gt;Offline Access&lt;/mat-checkbox&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Submit and Cancel Buttons --&gt;
+    &lt;div class&#x3D;&quot;flex items-center justify-between&quot;&gt;
+      &lt;button mat-raised-button color&#x3D;&quot;primary&quot; type&#x3D;&quot;submit&quot;&gt;Upload&lt;/button&gt;
+      &lt;button mat-raised-button type&#x3D;&quot;button&quot; mat-dialog-close&#x3D;&quot;true&quot;&gt;Cancel&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/mat-dialog-content&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./file-upload.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss"></code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><mat-toolbar color="primary">  <h2 mat-dialog-title>Upload File</h2></mat-toolbar><mat-dialog-content class="mat-typography p-6">  <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" class="flex flex-col space-y-4">    <!-- File Upload Input -->    <mat-form-field>      <mat-label>File</mat-label>      <button  type="button" mat-icon-button matPrefix (click)="f_input.click()">        <mat-icon>attach_file</mat-icon>      </button>      <input type="text" readonly matInput />      <input        type="file"        multiple        hidden        #f_input        (change)="onFileChange($event)"      />      <mat-error>This field is required</mat-error>    </mat-form-field>    <!-- Folder Selection Input -->    <mat-form-field>      <mat-label>Folder</mat-label>      <input type="text" matInput formControlName="folderName" [matAutocomplete]="auto"  (input)="onFolderSearch($event)" />      <mat-autocomplete #auto="matAutocomplete">        <mat-option (click)="change(folder)" *ngFor="let folder of filteredFolders" [value]="folder.name">          {{ folder.name }}        </mat-option>      </mat-autocomplete>    </mat-form-field>    <!-- Create Folder Button (visible when folder not found) -->    <button *ngIf="folderNotFound" mat-raised-button color="primary" type="button" (click)="createFolder(uploadForm.get(\'folderName\')!.value)">      Create Folder "{{ uploadForm.get(\'folderName\')!.value }}"    </button>    <!-- Shared With Input -->    <mat-form-field class="shared-with-field">      <mat-chip-grid #chipGrid aria-label="Shared With">        <mat-chip-row *ngFor="let user of selectedUsers" [removable]="true" (removed)="removeUser(user)">          {{ user }}          <mat-icon matChipRemove>cancel</mat-icon>        </mat-chip-row>      </mat-chip-grid>      <input        type="text"      matInput        placeholder="Shared With"        formControlName="sharedWith"        [matAutocomplete]="autoSharedWith"        [matChipInputFor]="chipGrid"        (input)="searchUsers($event)"      />      <mat-autocomplete #autoSharedWith="matAutocomplete" (optionSelected)="selected($event)">        <mat-option *ngFor="let option of filteredUsers" [value]="option">          {{ option }}        </mat-option>      </mat-autocomplete>    </mat-form-field>    <!-- Additional Options -->    <div class="flex items-center justify-between">      <mat-checkbox formControlName="encrypted">Encrypted</mat-checkbox>      <mat-checkbox formControlName="offlineAccess">Offline Access</mat-checkbox>    </div>    <!-- Submit and Cancel Buttons -->    <div class="flex items-center justify-between">      <button mat-raised-button color="primary" type="submit">Upload</button>      <button mat-raised-button type="button" mat-dialog-close="true">Cancel</button>    </div>  </form></mat-dialog-content></div>'
+    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admiiin'},{'name': 'ApiDocsComponent', 'selector': 'app-api-docs'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BillingDetailsComponent', 'selector': 'app-billing-details'},{'name': 'CardComponent', 'selector': 'app-card'},{'name': 'CreateFolderDialogComponent', 'selector': 'app-create-folder-dialog'},{'name': 'CreditCardFormComponent', 'selector': 'app-credit-card-form'},{'name': 'DashboardComponent', 'selector': 'app-dashbloard'},{'name': 'DownloadComponent', 'selector': 'app-download'},{'name': 'EditProfileComponent', 'selector': 'app-edit-profile'},{'name': 'FileExplorerComponent', 'selector': 'app-file-explorer'},{'name': 'FileUploadComponent', 'selector': 'app-file-upload'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'HeaderComponent', 'selector': 'app-header'},{'name': 'IdProofComponent', 'selector': 'app-id-proof'},{'name': 'IdproofformComponent', 'selector': 'app-idproofform'},{'name': 'IndexComponent', 'selector': 'app-index'},{'name': 'InvitationAcceptComponent', 'selector': 'app-invitation-accept'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MfaSettingComponent', 'selector': 'app-mfa-setting'},{'name': 'MfaVerificationComponent', 'selector': 'app-mfa-verification'},{'name': 'NotesComponent', 'selector': 'app-notes'},{'name': 'NotesFormComponent', 'selector': 'app-notes-form'},{'name': 'NotificationComponent', 'selector': 'app-notification'},{'name': 'OrganizationComponent', 'selector': 'app-organization'},{'name': 'OrganizationsComponent', 'selector': 'app-organizations'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordChangeComponent', 'selector': 'app-password-change'},{'name': 'PasswordComponent', 'selector': 'app-password'},{'name': 'PasswordFormComponent', 'selector': 'app-password-form'},{'name': 'PasswordGenratorComponent', 'selector': 'app-password-genrator'},{'name': 'PasswordStrengthComponent', 'selector': 'app-password-strength'},{'name': 'PricingPageComponent', 'selector': 'app-pricing-page'},{'name': 'PrivacyPolicyComponent', 'selector': 'app-privacy-policy'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'ResetPasswordComponent', 'selector': 'app-reset-password'},{'name': 'RolesPermissionsComponent', 'selector': 'app-roles-permissions'},{'name': 'SecurityComponent', 'selector': 'app-security'},{'name': 'ShareDialogComponent', 'selector': 'app-share-dialog'},{'name': 'SideNavComponent', 'selector': 'app-side-nav'},{'name': 'SignupComponent', 'selector': 'app-signup'},{'name': 'SupportComponent', 'selector': 'app-support'},{'name': 'TagFormCompoent', 'selector': 'app-tag'},{'name': 'UserFormComponent', 'selector': 'app-user-form'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'viewCardDetailsComponent', 'selector': 'app-view-card'},{'name': 'ViewNoteCompoent', 'selector': 'app-view-note'},{'name': 'ViewPasswordComponent', 'selector': 'app-view-password'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'FileUploadComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'FileUploadComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
