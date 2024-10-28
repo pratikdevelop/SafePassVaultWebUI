@@ -63,6 +63,12 @@ import countries  from '../../country';
     MatDatepickerModule,
     MatNativeDateModule,
   ],
+  providers:[
+    {
+      provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
+
+    }
+  ],
   templateUrl: './signup.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -94,6 +100,10 @@ export class SignupComponent {
 
   // Form Controls
   signupForm: FormGroup;
+  OTPForm: FormGroup;
+  billingForm: FormGroup;
+  paymentForm: FormGroup;
+  securityForm: FormGroup;
 
   billingForm = new FormGroup({
     billingAddress: new FormControl('', Validators.required),
@@ -145,10 +155,7 @@ export class SignupComponent {
         this.changeDetetorRef.detectChanges();
       });
   }
-  clickEvent(event: MouseEvent) {
-    this.hide.set(!this.hide());
-    event.stopPropagation();
-  }
+
 
   ngOnInit(): void {
     this.initPasswordStrengthWatcher();
@@ -164,6 +171,11 @@ export class SignupComponent {
       this.paymentForm.get('plan_action')?.setValue(params.action);
     });
   }
+  clickEvent(event: MouseEvent) {
+    this.hide.set(!this.hide());
+    event.stopPropagation();
+  }
+
 
   private initConfig(): void {
     this.payPalConfig = {
@@ -212,10 +224,10 @@ export class SignupComponent {
           this.createSubscription(details);
         });
       },
-      onClientAuthorization: (data) => {
+      onClientAuthorization: () => {
         this.showSuccess = true;
       },
-      onCancel: (data) => {
+      onCancel: () => {
         this.showCancel = true;
       },
       onError: (err) => {
@@ -261,7 +273,6 @@ export class SignupComponent {
   // Dynamic Billing Cycles Function
   private getBillingCycles(): any[] {
     if (this.paymentForm.value.plan_action === 'trial') {
-      // 7-day free trial
       return [
         {
           frequency: {
@@ -270,10 +281,10 @@ export class SignupComponent {
           },
           tenure_type: 'TRIAL',
           sequence: 1,
-          total_cycles: 1, // Only 1 trial cycle of 7 days
+          total_cycles: 1,
           pricing_scheme: {
             fixed_price: {
-              value: '0', // Free for trial period
+              value: '0',
               currency_code: 'USD',
             },
           },
@@ -281,7 +292,7 @@ export class SignupComponent {
         {
           frequency: {
             interval_unit: this.selectedPlan.interval,
-            interval_count: 1, // Monthly subscription after the trial
+            interval_count: 1,
           },
           tenure_type: 'REGULAR',
           sequence: 2,
@@ -303,7 +314,7 @@ export class SignupComponent {
           },
           tenure_type: 'REGULAR',
           sequence: 1,
-          total_cycles: 0, // Unlimited cycles
+          total_cycles: 0,
           pricing_scheme: {
             fixed_price: {
               value: this.selectedPlan.amount,
@@ -337,9 +348,9 @@ export class SignupComponent {
     this.planService.createPlan(subscriptionData).subscribe({
       next: (response: any) => {
         this.authService.resendCode(this.signupForm.value.email).subscribe({
-          next: (res: any) => {
+          next: () => {
             this.snackbar.open(
-              'Subscription created successfully. The email verification code  has been sent to your email. Please check your inbox.',
+              'Subscription created successfully. The email verification code has been sent to your email. Please check your inbox.',
               'close',
               { duration: 3000 }
             );
@@ -350,8 +361,7 @@ export class SignupComponent {
           },
         });
       },
-      error: (error: any) =>
-        console.error('Error creating subscription:', error),
+      error: (error: any) => console.error('Error creating subscription:', error),
     });
   }
 
@@ -368,21 +378,17 @@ export class SignupComponent {
       this.snackbar.open('Please fill in all required fields', 'close', {
         duration: 3000,
       });
-      7;
     }
   }
+
   getPasswordStrength(): number {
     return this.value;
   }
 
   generatePassword(): void {
     const passwords = Array(10)
-      .fill(
-        '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@-#$'
-      )
-      .map(function (x) {
-        return x[Math.floor(Math.random() * x.length)];
-      })
+      .fill('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@-#$')
+      .map(x => x[Math.floor(Math.random() * x.length)])
       .join('');
     this.signupForm.get('password')?.setValue(passwords);
     const result = zxcvbn(passwords);
@@ -393,7 +399,7 @@ export class SignupComponent {
 
   getPasswordStrengthLabel(strength: number): string {
     switch (strength) {
-      case 0 && this.signupForm.value.password !== null:
+      case 0:
       case 1:
         return 'Weak';
       case 2:
@@ -435,9 +441,7 @@ export class SignupComponent {
     });
   }
 
-  private passwordValidator(
-    control: FormControl
-  ): { [key: string]: any } | null {
+  private passwordValidator(control: FormControl): { [key: string]: any } | null {
     const result = zxcvbn(control.value);
     this.strength = (result.score + 1) * 20; // Strength percentage
     return result.score < 3 ? { weakPassword: true } : null;

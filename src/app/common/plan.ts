@@ -1,0 +1,336 @@
+export const plan = [
+    {
+      id: 'null',
+      title: 'Free Plan',
+      amount: 0,
+      currency: 'USD',
+      interval: 'month',
+      intervalCount: 1,
+      features: [
+        {
+          icon: '💾',
+          text: '500 MB Storage',
+          _id: '66edb1f317812bd55ad87b4b',
+        },
+        {
+          icon: '📦',
+          text: 'Store passwords, notes, cards, ID proofs',
+          _id: '66edb1f317812bd55ad87b4c',
+        },
+        {
+          icon: '👥',
+          text: '1 Organization',
+          _id: '66edb1f317812bd55ad87b4d',
+        },
+        {
+          icon: '📧',
+          text: '5 User Invitations',
+          _id: '66edb1f317812bd55ad87b4e',
+        },
+        {
+          icon: '🔑',
+          text: '5 Shares',
+          _id: '66edb1f317812bd55ad87b4f',
+        },
+      ],
+      buttonLink: '/auth/signup',
+      buttonText: 'Get Started',
+      hasTrial: false,
+      queryParams: {
+        plan: 'free',
+        action: 'signup',
+      },
+    },
+    {
+      id: 'P-6XR17625JV867584NM3WGF7I',
+      title: 'Premium Plan (yearly)',
+      amount: 60,
+      currency: 'USD',
+      interval: 'year',
+      intervalCount: 1,
+      features: [
+        {
+          icon: '💾',
+          text: '5 GB Storage',
+          _id: '66edb1f317812bd55ad87b5f',
+        },
+        {
+          icon: '📦',
+          text: 'Store passwords, notes, cards, ID proofs',
+          _id: '66edb1f317812bd55ad87b60',
+        },
+        {
+          icon: '👥',
+          text: '10 Organizations',
+          _id: '66edb1f317812bd55ad87b61',
+        },
+        {
+          icon: '📧',
+          text: '100 User Invitations',
+          _id: '66edb1f317812bd55ad87b62',
+        },
+        {
+          icon: '🔑',
+          text: '100 Shares',
+          _id: '66edb1f317812bd55ad87b63',
+        },
+      ],
+      buttonLink: '/auth/signup',
+      buttonText: 'Buy Now',
+      hasTrial: true,
+      queryParams: {
+        plan: 'premium',
+        action: 'purchase',
+      },
+      trialLink: '/auth/signup',
+      trialQueryParams: {
+        plan: 'premium',
+        action: 'trial',
+      },
+    },
+    {
+      id: 'P-5GV04444VF2894031M3VR2MY',
+      title: 'Premium Plan (Monthly)',
+      amount: 6,
+      currency: 'USD',
+      interval: 'month',
+      intervalCount: 1,
+      features: [
+        {
+          icon: '💾',
+          text: '5 GB Storage',
+          _id: '66edb1f317812bd55ad87b65',
+        },
+        {
+          icon: '📦',
+          text: 'Store passwords, notes, cards, ID proofs',
+          _id: '66edb1f317812bd55ad87b66',
+        },
+        {
+          icon: '👥',
+          text: '10 Organizations',
+          _id: '66edb1f317812bd55ad87b67',
+        },
+        {
+          icon: '📧',
+          text: '100 User Invitations',
+          _id: '66edb1f317812bd55ad87b68',
+        },
+        {
+          icon: '🔑',
+          text: '100 Shares',
+          _id: '66edb1f317812bd55ad87b69',
+        },
+      ],
+      buttonLink: '/auth/signup',
+      buttonText: 'Buy Now',
+      hasTrial: true,
+      queryParams: {
+        plan: 'premium',
+        action: 'purchase',
+      },
+      trialLink: '/auth/signup',
+      trialQueryParams: {
+        plan: 'premium',
+        action: 'trial',
+      },
+    },
+    {
+      id: 'P-93233881XJ483274HM3WGPGA',
+      title: 'Basic Plan (Yearly)',
+      amount: 40,
+      currency: 'USD',
+      interval: 'year',
+      intervalCount: 1,
+      features: [
+        {
+          icon: '💾',
+          text: '1 GB Storage',
+          _id: '66edb1f317812bd55ad87b6b',
+        },
+        {
+          icon: '📦',
+          text: 'Store passwords, notes, cards, ID proofs',
+          _id: '66edb1f317812bd55ad87b6c',
+        },
+        {
+          icon: '👥',
+          text: '2 Organizations',
+          _id: '66edb1f317812bd55ad87b6d',
+        },
+        {
+          icon: '📧',
+          text: '15 User Invitations',
+          _id: '66edb1f317812bd55ad87b6e',
+        },
+        {
+          icon: '🔑',
+          text: '15 Shares',
+          _id: '66edb1f317812bd55ad87b6f',
+        },
+      ],
+      buttonLink: '/auth/signup',
+      buttonText: 'Buy Now',
+      hasTrial: true,
+      queryParams: {
+        plan: 'basic',
+        action: 'purchase',
+      },
+      trialLink: '/auth/signup',
+      trialQueryParams: {
+        plan: 'basic',
+        action: 'trial',
+      },
+    },
+    {
+      id: 'P-85R761525X622673PM3WGOTQ',
+      title: 'Basic Plan (Monthly)',
+      amount: 4,
+      currency: 'USD',
+      interval: 'month',
+      intervalCount: 1,
+      features: [
+        {
+          icon: '💾',
+          text: '1 GB Storage',
+          _id: '66edb1f317812bd55ad87b71',
+        },
+        {
+          icon: '📦',
+          text: 'Store passwords, notes, cards, ID proofs',
+          _id: '66edb1f317812bd55ad87b72',
+        },
+        {
+          icon: '👥',
+          text: '2 Organizations',
+          _id: '66edb1f317812bd55ad87b73',
+        },
+        {
+          icon: '📧',
+          text: '15 User Invitations',
+          _id: '66edb1f317812bd55ad87b74',
+        },
+        {
+          icon: '🔑',
+          text: '15 Shares',
+          _id: '66edb1f317812bd55ad87b75',
+        },
+      ],
+      buttonLink: '/auth/signup',
+      buttonText: 'Buy Now',
+      hasTrial: true,
+      queryParams: {
+        plan: 'basic',
+        action: 'purchase',
+      },
+      trialLink: '/auth/signup',
+      trialQueryParams: {
+        plan: 'basic',
+        action: 'trial',
+      },
+    },
+    {
+      id: 'P-683760842Y234025BM3WGQ6Y',
+      title: 'Enterprise Plan (Yearly)',
+      amount: 100,
+      currency: 'USD',
+      interval: 'year',
+      intervalCount: 1,
+      features: [
+        {
+          icon: '📦',
+          text: 'Store passwords, notes, cards, ID proofs',
+          _id: '66edb1f317812bd55ad87b51',
+        },
+        {
+          icon: '🔐',
+          text: 'Passwordless SSO Integration',
+          _id: '66edb1f317812bd55ad87b52',
+        },
+        {
+          icon: '💾',
+          text: '10 GB Storage',
+          _id: '66edb1f317812bd55ad87b53',
+        },
+        {
+          icon: '👥',
+          text: 'Unlimited Organizations',
+          _id: '66edb1f317812bd55ad87b54',
+        },
+        {
+          icon: '📧',
+          text: 'Unlimited User Invitations',
+          _id: '66edb1f317812bd55ad87b55',
+        },
+        {
+          icon: '🔑',
+          text: 'Unlimited Password Shares',
+          _id: '66edb1f317812bd55ad87b56',
+        },
+      ],
+      buttonLink: '/auth/signup',
+      buttonText: 'Buy Now',
+      hasTrial: true,
+      queryParams: {
+        plan: 'enterprise',
+        action: 'purchase',
+      },
+      trialLink: '/auth/signup',
+      trialQueryParams: {
+        plan: 'enterprise',
+        action: 'trial',
+      },
+    },
+    {
+      id: 'P-959072281U895714BM3WGQCA',
+      title: 'Enterprise Plan (Monthly)',
+      amount: 10,
+      currency: 'USD',
+      interval: 'month',
+      intervalCount: 1,
+      features: [
+        {
+          icon: '📦',
+          text: 'Store passwords, notes, cards, ID proofs',
+          _id: '66edb1f317812bd55ad87b58',
+        },
+        {
+          icon: '🔐',
+          text: 'Passwordless SSO Integration',
+          _id: '66edb1f317812bd55ad87b59',
+        },
+        {
+          icon: '💾',
+          text: '10 GB Storage',
+          _id: '66edb1f317812bd55ad87b5a',
+        },
+        {
+          icon: '👥',
+          text: 'Unlimited Organizations',
+          _id: '66edb1f317812bd55ad87b5b',
+        },
+        {
+          icon: '📧',
+          text: 'Unlimited User Invitations',
+          _id: '66edb1f317812bd55ad87b5c',
+        },
+        {
+          icon: '🔑',
+          text: 'Unlimited Password Shares',
+          _id: '66edb1f317812bd55ad87b5d',
+        },
+      ],
+      buttonLink: '/auth/signup',
+      buttonText: 'Buy Now',
+      hasTrial: true,
+      queryParams: {
+        plan: 'enterprise',
+        action: 'purchase',
+      },
+      trialLink: '/auth/signup',
+      trialQueryParams: {
+        plan: 'enterprise',
+        action: 'trial',
+      },
+    },
+  ];

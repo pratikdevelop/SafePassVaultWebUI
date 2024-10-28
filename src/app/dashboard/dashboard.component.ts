@@ -18,7 +18,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { CommonService } from '../services/common.service';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from '../common/header/header.component';
 
 @Component({
   selector: 'app-dashbloard',

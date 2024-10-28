@@ -35,7 +35,7 @@
             </mat-error>
             <mat-error
               *ngIf="
-                signupForm.get('name')?.hasError('minlength') &&
+                signupForm.get('name')?.hasError('minlength') ||
                 signupForm.get('name')?.touched
               "
             >
@@ -61,7 +61,7 @@
             </mat-error>
             <mat-error
               *ngIf="
-                signupForm.get('email')?.hasError('email') &&
+                signupForm.get('email')?.hasError('email') ||
                 signupForm.get('email')?.touched
               "
             >

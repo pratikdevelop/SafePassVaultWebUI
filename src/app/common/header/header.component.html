@@ -1,0 +1,91 @@
+<header class="fixed inset-x-0 top-0 z-10">
+  <nav class="flex flex-row items-center bg-gray-900 p-5 py-2 justify-between space-y-2 lg:space-y-0 lg:space-x-4 text-white relative" aria-label="Global">
+    <div class="flex justify-between w-full lg:w-auto">
+      <a routerLink="/" class="text-4xl">Safepassvault</a>
+      <button mat-icon-button [matMenuTriggerFor]="mainMenu" class="menu-button lg:hidden">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+
+    <div class="menu-content flex flex-col lg:flex-row lg:space-x-4 lg:justify-end w-full lg:w-auto">
+      <span class="flex items-center space-x-4 ml-auto">
+
+
+        
+        <ng-container *ngIf="token; else loggedOutMenu">
+          <a mat-raised-button class="menu-item" *ngIf="userProfile?.role === 'admin'" routerLink="/admin/users">
+            <mat-icon>admin_panel_settings</mat-icon>
+            Administration
+          </a>
+          <a mat-raised-button class="menu-item" routerLink="/dashboard/profile/personal-details">
+            <mat-icon>person</mat-icon>
+            Profile
+          </a>
+          <button mat-raised-button class="menu-item" (click)="logout()">
+            <mat-icon>power_settings_new</mat-icon>
+            Logout
+          </button>
+        </ng-container>
+        <ng-template #loggedOutMenu>
+          <button mat-button [matMenuTriggerFor]="productsMenu">Products</button>
+          <a class="menu-item" mat-button routerLink="/plan-pricing">Plan and Pricing</a>
+          <a class="menu-item" mat-button routerLink="/api-docs">API Documentation</a>
+          <a class="menu-item" mat-button routerLink="/support">Customer Support</a>
+          <a class="menu-item" mat-button routerLink="/download">Download</a>
+          <a class="menu-item" mat-button routerLink="/auth/signup">Get Started</a>
+          <a class="menu-item" mat-button routerLink="/auth/login">Log In</a>
+        </ng-template>
+      </span>
+    </div>
+
+    <mat-menu #mainMenu="matMenu">
+      <button mat-menu-item [matMenuTriggerFor]="productsMenu">
+        <mat-icon>list</mat-icon>
+        Products
+      </button>
+      <button mat-menu-item routerLink="/plan-pricing">
+        <mat-icon>monetization_on</mat-icon>
+        Plan and Pricing
+      </button>
+      <button mat-menu-item routerLink="/auth/signup">
+        <mat-icon>account_circle</mat-icon>
+        Get Started
+      </button>
+      <a mat-menu-item routerLink="/download">
+        <mat-icon>cloud_download</mat-icon>
+        Download
+      </a>
+      <a mat-menu-item routerLink="/api-docs">
+        <mat-icon>dock</mat-icon>
+        API Documentation
+      </a>
+      <a mat-menu-item routerLink="/support">
+        <mat-icon>contact_support</mat-icon>
+        Customer Support
+      </a>
+      <button mat-menu-item routerLink="/auth/login">
+        <mat-icon>login</mat-icon>
+        Log In
+      </button>
+    </mat-menu>
+
+    <mat-menu #productsMenu="matMenu">
+      <button mat-menu-item routerLink="/generator">
+        <mat-icon>lock_open</mat-icon>
+        Password Generator
+      </button>
+      <button mat-menu-item routerLink="/password-strength">
+        <mat-icon>check_circle</mat-icon>
+        Password Checker
+      </button>
+      <button mat-menu-item routerLink="/dashboard/passwords">
+        <mat-icon>lock</mat-icon>
+        Password Vault
+      </button>
+      <button mat-menu-item routerLink="/dashboard/file">
+        <mat-icon>file_copy</mat-icon>
+        File Storage
+      </button>
+    </mat-menu>
+  </nav>
+</header>

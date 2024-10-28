@@ -1,14 +1,14 @@
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { inject } from '@angular/core';
-import { HeaderComponent } from './pages/header/header.component';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import { IStaticMethods } from 'preline/preline';
 import { AuthService } from './services/auth.service';
-import { FooterComponent } from './pages/footer/footer.component';
+import { FooterComponent } from './common/footer/footer.component';
 import { CommonModule } from '@angular/common';
+import { HeaderComponent } from './common/header/header.component';
 declare global {
   interface Window {
     HSStaticMethods: IStaticMethods;
