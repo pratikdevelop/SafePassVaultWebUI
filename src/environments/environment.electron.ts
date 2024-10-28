@@ -1,5 +1,5 @@
 export const environment = {
     production: false,
     isElectron: true,
-    api_url: "http://54.224.249.251/api",
+    api_url: "https://vixol72czg.execute-api.us-east-1.amazonaws.com/api",
 };

@@ -5,18 +5,20 @@ import {
 
 export const apiInterceptor: HttpInterceptorFn = (req, next) => {
 
-    // Add your logic here to retrieve the token
+    // Retrieve the token from local storage
     const token = localStorage.getItem('token');
 
-    if (token) {
-      // Clone the request and add the Authorization header
-      const authRequest = req.clone({
-        headers: new HttpHeaders().set('Authorization', `Bearer ${token}`),
-      });
+    // Set up default headers
+    let headers = req.headers.set('Access-Control-Allow-Origin', '*'); // Set '*' or specific origin if necessary
 
-      return next(authRequest);
-    } else {
-      // the case where there's no token (optional)
-      return next(req); // Pass through the original request
+    // If a token exists, add the Authorization header
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
     }
+
+    // Clone the request with the modified headers
+    const authRequest = req.clone({ headers });
+
+    // Forward the modified request
+    return next(authRequest);
 }
