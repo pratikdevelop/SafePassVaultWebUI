@@ -34,6 +34,9 @@
           <a class="menu-item" mat-button routerLink="/download">Download</a>
           <a class="menu-item" mat-button routerLink="/auth/signup">Get Started</a>
           <a class="menu-item" mat-button routerLink="/auth/login">Log In</a>
+          <a mat-button class="menu-item" routerLink="/privacy-policy">
+           Privacy policy
+          </a>
         </ng-template>
       </span>
     </div>
@@ -51,6 +54,10 @@
         <mat-icon>account_circle</mat-icon>
         Get Started
       </button>
+      <a mat-menu-item routerLink="/privacy-policy">
+        <mat-icon>policy</mat-icon>
+       Privacy policy
+      </a>
       <a mat-menu-item routerLink="/download">
         <mat-icon>cloud_download</mat-icon>
         Download

@@ -2,7 +2,6 @@
 @import 'material-icons/iconfont/material-icons.css';
 @import url('https://fonts.googleapis.com/css2?family=Yrsa:ital,wght@0,300..700;1,300..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Kreon:wght@600&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -25,7 +24,6 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 240 5.9% 90%;
-    /* --input: 240 5.9% 90%; */
     --ring: 240 5.9% 10%;
     --radius: 0.5rem;
   }
@@ -47,7 +45,6 @@
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 240 3.7% 15.9%;
-    /* --input: 240 3.7% 15.9%; */
     --ring: 240 4.9% 83.9%;
   }
 }
@@ -66,7 +63,7 @@
   border-radius: o.1em !important;
 }
 .mat-mdc-unelevated-button,
-.mat-mdc-raised-button{
+.mat-mdc-outlined-button {
   border-radius: 0.1rem !important;
   font-size: medium !important;
   font-weight: bold !important;

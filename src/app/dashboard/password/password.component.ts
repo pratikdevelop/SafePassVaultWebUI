@@ -1,9 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectorRef,
-  Component,
-  inject,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -25,6 +21,7 @@ import { ShareDialogComponent } from '../../dialog/share-dialog/share-dialog.com
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ViewPasswordComponent } from '../../dialog/view-password/view-password.component';
 import { CommonService } from '../../services/common.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-password',
@@ -44,20 +41,20 @@ import { CommonService } from '../../services/common.service';
     MatTableModule,
     MatSortModule,
     MatTooltipModule,
-    MatSidenavModule
+    MatSidenavModule,
   ],
   templateUrl: './password.component.html',
   styleUrls: ['./password.component.css'],
 })
-export class PasswordComponent {
+export class PasswordComponent implements OnInit {
   passwords: any[] = [];
   passwordIds = [];
   snackbar = inject(MatSnackBar);
   selectedTags: string = 'none';
   filter_by: string = '';
   action: string = '';
-  changedetect = inject(ChangeDetectorRef);
-  passwordService = inject(PasswordService);
+  private readonly changeDetectorReforRef = inject(ChangeDetectorRef);
+  private readonly passwordService = inject(PasswordService);
   displayedColumns: string[] = [
     'select',
     'favourite',
@@ -70,45 +67,43 @@ export class PasswordComponent {
     'update_at',
     'action',
   ];
-  readonly dialog = inject(MatDialog);
-  readonly commonService = inject(CommonService);
+  private readonly dialog = inject(MatDialog);
+  private readonly commonService = inject(CommonService);
+  private readonly router = inject(ActivatedRoute);
   isLoading: boolean = true;
   searchTerm: string = '';
   selection = new SelectionModel<any>(true, []);
   password: any[] = [];
-  isOpened= false;
+  isOpened = false;
+  folderId: any;
 
-  constructor() {
-    this.passwordService.filteredPasswords$.subscribe(
-      (filteredPasswords: any[]) => {
-        if (filteredPasswords && filteredPasswords.length > 0) {
-          this.passwords = filteredPasswords;
-        } else {
-          if (this.isLoading) {
-            this.getPasswords();
-          }
-        }
-      },
-      (error) => {
-        this.getPasswords();
-      }
-    );
+  constructor() {}
+
+  ngOnInit(): void {
+    this.router.paramMap.subscribe((params: any) => {
+      this.folderId = params.get('folderId'); // Get folderId from the route
+      this.getPasswords();
+    });
   }
 
-  getPasswords(event = null): void {
+  getPasswords(): void {
     this.isLoading = true;
-    this.passwordService.getPasswords().subscribe(
-      (passwords: any[]) => {
-        this.isLoading = false;
-        this.passwords = passwords;
-        this.changedetect.detectChanges();
-      },
-      (error) => {
-        this.passwords = [];
-        this.isLoading = false;
-        this.changedetect.detectChanges();
-      }
-    );
+    this.passwordService
+      .getPasswords(this.folderId, this.searchTerm)
+      .subscribe({
+        next: (response: any) => {
+          this.passwords = response;
+          this.isLoading = false;
+        },
+        error: (error) => {
+          this.isLoading = false;
+          console.error(error);
+        },
+        complete: () => {
+          this.isLoading = false;
+          this.changeDetectorReforRef.detectChanges();
+        },
+      });
   }
 
   autofill(password: any): void {
@@ -130,7 +125,6 @@ export class PasswordComponent {
     }
   }
 
-  
   generateStrongPassword(length: number = 12): void {
     const characters =
       'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+~';
@@ -140,13 +134,17 @@ export class PasswordComponent {
         Math.floor(Math.random() * characters.length)
       );
     }
-    this.changedetect.detectChanges();
+    this.changeDetectorReforRef.detectChanges();
   }
 
-  deletePasswords(id?:string): void {
-    const ids = id ?? this.selection.selected.map((pass)=>{
-      return pass._id
-     }).join(',')
+  deletePasswords(id?: string): void {
+    const ids =
+      id ??
+      this.selection.selected
+        .map((pass) => {
+          return pass._id;
+        })
+        .join(',');
     this.passwordService
       .deletePassword(ids)
       .pipe(
@@ -160,7 +158,7 @@ export class PasswordComponent {
       )
       .subscribe({
         complete: () => {
-          this.changedetect.detectChanges();
+          this.changeDetectorReforRef.detectChanges();
         },
       });
   }
@@ -170,23 +168,27 @@ export class PasswordComponent {
   }
 
   sharePassword(passwordId?: string): void {
-    const items = passwordId ??  this.selection.selected.map((pass)=>{
-      return pass._id
-     }).join(',');
-    console.log('id', items);
-   this.dialog.open(ShareDialogComponent, {
-    width: '500px',
-    data: {
-      items, itemType: 'password'
-      }
-   })
+    const items =
+      passwordId ??
+      this.selection.selected
+        .map((pass) => {
+          return pass._id;
+        })
+        .join(',');
+    this.dialog.open(ShareDialogComponent, {
+      width: '500px',
+      data: {
+        items,
+        itemType: 'password',
+      },
+    });
   }
 
   openPasswordFormDialog(password: any): void {
     this.dialog
       .open(PasswordFormComponent, {
         width: '2000px',
-        data: { password },
+        data: { password, folderId: this.folderId },
       })
       .afterClosed()
       .subscribe((res) => {
@@ -220,11 +222,15 @@ export class PasswordComponent {
   }
 
   updateFavourites(passwordId?: string): void {
-    const ids = passwordId ??  this.selection.selected.map((pass)=>{
-      return pass._id
-     }).join(',');
+    const ids =
+      passwordId ??
+      this.selection.selected
+        .map((pass) => {
+          return pass._id;
+        })
+        .join(',');
     console.log('id', ids);
-    
+
     this.passwordService.addToFavorites(ids).subscribe(
       (response) => {
         console.log('Password added to favorites successfully', response);
@@ -240,20 +246,22 @@ export class PasswordComponent {
 
   viewPassword(password: any): void {
     console.log(password);
-   this.password = password
-    this.isOpened = true
+    this.password = password;
+    this.isOpened = true;
   }
   exportPassword(): void {
-    const ids = this.selection.selected.map((pass)=>{
-      return pass._id
-     }).join(',');
-    this.passwordService.exportPasswordsAsCsv(ids).subscribe((blob: Blob)=>{
+    const ids = this.selection.selected
+      .map((pass) => {
+        return pass._id;
+      })
+      .join(',');
+    this.passwordService.exportPasswordsAsCsv(ids).subscribe((blob: Blob) => {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
       a.download = 'passwords.csv';
       a.click();
-    })
+    });
     // Implement preview functionality
   }
 
@@ -262,13 +270,14 @@ export class PasswordComponent {
   }
   searchPassword(): void {
     console.log('dd', this.searchTerm);
-    
-    this.passwordService.getPasswords(this.searchTerm).subscribe((response: any) => {
-      this.passwords = response;
+
+    this.passwordService
+      .getPasswords(this.searchTerm)
+      .subscribe((response: any) => {
+        this.passwords = response;
       });
   }
   toggleSideBar(): void {
     this.commonService.toggleSideBar();
   }
-
 }

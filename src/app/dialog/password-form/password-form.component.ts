@@ -34,7 +34,7 @@ export class PasswordFormComponent implements OnInit {
     username: new FormControl('', Validators.required),
     password: new FormControl('', [Validators.required, this.strongPasswordValidator()]), // Added strong password validation
     tags: new FormControl(),
-    searchTerm: new FormControl('')
+    searchTerm: new FormControl(''),
   });
   
   searchTermSubject: Subject<string> = new Subject<string>();
@@ -56,7 +56,6 @@ export class PasswordFormComponent implements OnInit {
       tagIds.push(tag._id)
     });
     this.searchTermSubject.pipe(
-      // debounceTime(300), // Delay of 300ms
       switchMap(term => this.passwordService.searchTags(term))
     ).subscribe(
       (res) => {
@@ -110,7 +109,8 @@ export class PasswordFormComponent implements OnInit {
       key: fixedKey,
       name: this.passwordForm.value.name,
       tags: this.passwordForm.value.tags,
-      description: this.passwordForm.value.description
+      description: this.passwordForm.value.description,
+      folderId: this.data.folderId
     };
 
     if (!this.passwordForm?.value._id) {

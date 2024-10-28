@@ -1,14 +1,12 @@
 <!-- Main Container -->
 <div
-  class="w-full flex flex-col items-center justify-center flex-auto p-5  h-[100vh]"
+  class="w-full flex flex-col flex-auto items-center justify-center flex-auto p-6 h-full relative overflow-y-auto overflow-x-hidden"
 >
   <!-- Signup Card Content -->
-  <div class="flex flex-col space-y-6 p-8">
-    <div class="flex items-center justify-between">
-      <span class="text-3xl font-extrabold text-white text-center"
-        >Start Your Credential Management Journey with SafePassVault</span
-      >
-    </div>
+  <div class="flex flex-col space-y-2">
+    <span class="text-xl sm:text-3xl font-extrabold text-slate-900 text-center text-wrap"
+    >Start Your Credential Management Journey with SafePassVault</span
+  >
 
     <mat-stepper [orientation]="stepperOrientation" [linear]="true" #stepper color="accent">
       <!-- Step 1: User Details -->
@@ -70,9 +68,9 @@
           </mat-form-field>
 
           <!-- Phone Number Field with Country Code -->
-          <div class="flex items-center space-x-2">
+          <div class="flex sm:items-center space-y-6 sm:space-y-0 sm:space-x-2 flex-col sm:flex-row">
             <mat-form-field appearance="outline" class="flex flex-row">
-              <mat-select formControlName="countryCode" class="w-1/4" required>
+              <mat-select formControlName="countryCode" required>
                 <ng-container *ngFor="let country of countries">
                   <mat-option selecte [value]="country.code">{{country.code}} ({{country.name}})</mat-option>
 
@@ -115,36 +113,40 @@
 
           </div>
 
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" class="flex flex-row items-center">
             <input
               matInput
               [type]="hide() ? 'password' : 'text'"
               id="password-input"
               formControlName="password"
               placeholder="Create a Password"
+              class="w-10/12"
               required
             />
-            <button
-              mat-icon-button
-              type="button"
-              matSuffix
-              (click)="clickEvent($event)"
-              [attr.aria-label]="'Toggle password visibility'"
-              [attr.aria-pressed]="hide()"
-            >
-              <mat-icon>{{
-                hide() ? "visibility_off" : "visibility"
-              }}</mat-icon>
-            </button>
-            <button
-              mat-icon-button
-              type="button"
-              matSuffix
-              (click)="generatePassword()"
-              aria-label="Generate a strong password"
-            >
-              <mat-icon>filter</mat-icon>
-            </button>
+            <div class="flex items-center w-2/12">
+              <button
+                mat-icon-button
+                type="button"
+                matSuffix
+                (click)="clickEvent($event)"
+                [attr.aria-label]="'Toggle password visibility'"
+                [attr.aria-pressed]="hide()"
+              >
+                <mat-icon>{{
+                  hide() ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                type="button"
+                matSuffix
+                (click)="generatePassword()"
+                aria-label="Generate a strong password"
+              >
+                <mat-icon>filter</mat-icon>
+              </button>
+
+            </div>
             <mat-error
               *ngIf="
                 signupForm.get('password')?.hasError('required') ||
@@ -180,15 +182,17 @@
             </span>
           </span>
 
-          <div>
+          <div class="flex flex-col  sm:flex-row  sm:items-center sm:justify-between">
+
             <button mat-flat-button matStepperNext (click)="logData()">Next</button>
+            <span>Already have an account? <button mat-button routerLink="/auth/login">login</button> </span>
           </div>
         </form>
       </mat-step>
 
       <!-- Step 2: Billing Information -->
       <mat-step [stepControl]="billingForm">
-        <form [formGroup]="billingForm" class="flex flex-col space-y-6">
+        <form [formGroup]="billingForm" class="flex flex-col space-y-6 p-6">
           <ng-template matStepLabel>Billing Information</ng-template>
       
           <mat-form-field appearance="outline">
@@ -244,7 +248,7 @@
             <input
               matInput
               formControlName="billingAddress"
-              placeholder="State Address"
+              placeholder="Street Address"
               required
             />
             <mat-error
@@ -290,7 +294,7 @@
           <!-- PayPal Button -->
           <ngx-paypal [config]="payPalConfig"></ngx-paypal>
 
-          <div>
+          <div class="flex items-center justify-betwee">
             <button mat-flat-button matStepperPrevious>Back</button>
             <button mat-flat-button [disabled]="!paymentForm.valid">
               Next
@@ -428,7 +432,7 @@
             </mat-error>
           </mat-form-field>
 
-          <div>
+          <div class="flex items-center justify-between">
             <button mat-flat-button matStepperPrevious>Back</button>
             <button mat-flat-button (click)="addSecurityQuestion()">
               Finish

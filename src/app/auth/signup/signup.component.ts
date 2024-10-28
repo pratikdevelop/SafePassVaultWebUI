@@ -38,7 +38,8 @@ import {
 import { CommonModule } from '@angular/common';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import countries  from '../../country';
+import countries from '../../country';
+import { StepperOptions, StepperOrientation } from '@angular/cdk/stepper';
 
 @Component({
   selector: 'app-signup',
@@ -63,20 +64,12 @@ import countries  from '../../country';
     MatDatepickerModule,
     MatNativeDateModule,
   ],
-  providers:[
-    {
-      provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
-
-    }
-  ],
   templateUrl: './signup.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignupComponent {
-  isPaidPlan: boolean = false;
   @ViewChild('stepper') stepper!: MatStepper; // Access the stepper
   public readonly countries = countries;
-
   private readonly snackbar = inject(MatSnackBar);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
@@ -86,52 +79,24 @@ export class SignupComponent {
   private readonly formBuilder = inject(FormBuilder);
   private readonly breakpointObserver = inject(BreakpointObserver);
   private readonly changeDetetorRef = inject(ChangeDetectorRef);
-
-  strength: number = 0;
-  value = 0;
-  hide = signal(true);
-  showSuccess = false;
-  showCancel = false;
-  showError = false;
-  userId!: string;
-  selectedPlan: any;
-
+  public isPaidPlan: boolean = false;
+  public strength: number = 0;
+  public value = 0;
+  public hide = signal(true);
+  public showSuccess = false;
+  public showCancel = false;
+  public showError = false;
+  public userId!: string;
+  public selectedPlan: any;
   public payPalConfig?: IPayPalConfig;
-
-  // Form Controls
   signupForm: FormGroup;
-  OTPForm: FormGroup;
   billingForm: FormGroup;
   paymentForm: FormGroup;
+  OTPForm: FormGroup;
   securityForm: FormGroup;
-
-  billingForm = new FormGroup({
-    billingAddress: new FormControl('', Validators.required),
-    city: new FormControl('', Validators.required),
-    state: new FormControl('', Validators.required),
-    postalCode: new FormControl('', Validators.required),
-    country: new FormControl('', Validators.required),
-  });
-
-  paymentForm = new FormGroup({
-    planType: new FormControl(''),
-    planId: new FormControl(''),
-    plan_action: new FormControl(''),
-  });
-
-  OTPForm = new FormGroup({
-    confirmationCode: new FormControl('', Validators.required),
-  });
-
-  securityForm = new FormGroup({
-    securityQuestion1: new FormControl(''),
-    securityAnswer1: new FormControl(''),
-    securityQuestion2: new FormControl(''),
-    securityAnswer2: new FormControl(''),
-  });
-  stepperOrientation: 'horizontal' | 'vertical' = 'horizontal';
+  public stepperOrientation: StepperOrientation = 'horizontal';
   filteredCities!: any[];
-  filteredStates!:  any[];
+  filteredStates!: any[];
   constructor() {
     this.signupForm = this.formBuilder.group({
       name: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -146,6 +111,27 @@ export class SignupComponent {
         this.passwordValidator.bind(this),
       ]),
     });
+    this.billingForm = this.formBuilder.group({
+      billingAddress: new FormControl('', Validators.required),
+      city: new FormControl('', Validators.required),
+      state: new FormControl('', Validators.required),
+      postalCode: new FormControl('', Validators.required),
+      country: new FormControl('', Validators.required),
+    });
+    this.paymentForm = this.formBuilder.group({
+      planType: new FormControl(''),
+      planId: new FormControl(''),
+      plan_action: new FormControl(''),
+    });
+    this.OTPForm = this.formBuilder.group({
+      confirmationCode: new FormControl('', Validators.required),
+    });
+    this.securityForm = this.formBuilder.group({
+      securityQuestion1: new FormControl(''),
+      securityAnswer1: new FormControl(''),
+      securityQuestion2: new FormControl(''),
+      securityAnswer2: new FormControl(''),
+    });
 
     this.breakpointObserver
       .observe([Breakpoints.Handset])
@@ -155,7 +141,6 @@ export class SignupComponent {
         this.changeDetetorRef.detectChanges();
       });
   }
-
 
   ngOnInit(): void {
     this.initPasswordStrengthWatcher();
@@ -175,7 +160,6 @@ export class SignupComponent {
     this.hide.set(!this.hide());
     event.stopPropagation();
   }
-
 
   private initConfig(): void {
     this.payPalConfig = {
@@ -239,8 +223,10 @@ export class SignupComponent {
   }
 
   onCountryChange(selectedCountry: string) {
-    const countryData = this.countries.find(country => country.shortName === selectedCountry);
-    
+    const countryData = this.countries.find(
+      (country) => country.shortName === selectedCountry
+    );
+
     if (countryData) {
       // Update the filtered cities and states based on the selected country
       this.filteredStates = countryData.states;
@@ -249,26 +235,23 @@ export class SignupComponent {
       this.billingForm.get('state')?.setValue('');
     }
     console.log('ff', this.filteredStates);
-    
   }
   onStateChange(seletedState: string) {
-    const  state = this.filteredStates.find((state: any)=> {
-
-      return state.abbreviation === seletedState
-    })
+    const state = this.filteredStates.find((state: any) => {
+      return state.abbreviation === seletedState;
+    });
     console.log('fff', state, seletedState);
-    
+
     if (state) {
       // Update the filtered cities based on the selected state
-      this.filteredCities = state.cities.map((city: string)=>{
+      this.filteredCities = state.cities.map((city: string) => {
         return {
           name: city,
-        }
+        };
       });
       // Reset city form control
       this.billingForm.get('city')?.setValue('');
-      }
-
+    }
   }
   // Dynamic Billing Cycles Function
   private getBillingCycles(): any[] {
@@ -333,7 +316,9 @@ export class SignupComponent {
   }
 
   selectPlan(planId: string): void {
-    this.selectedPlan = this.planService.plan.find((plan) => plan.id === planId);
+    this.selectedPlan = this.planService.plan.find(
+      (plan) => plan.id === planId
+    );
     this.paymentForm.patchValue({ planType: this.selectedPlan });
     console.log('Selected Plan:', this.selectedPlan);
   }
@@ -361,7 +346,8 @@ export class SignupComponent {
           },
         });
       },
-      error: (error: any) => console.error('Error creating subscription:', error),
+      error: (error: any) =>
+        console.error('Error creating subscription:', error),
     });
   }
 
@@ -387,14 +373,16 @@ export class SignupComponent {
 
   generatePassword(): void {
     const passwords = Array(10)
-      .fill('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@-#$')
-      .map(x => x[Math.floor(Math.random() * x.length)])
+      .fill(
+        '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@-#$'
+      )
+      .map((x) => x[Math.floor(Math.random() * x.length)])
       .join('');
     this.signupForm.get('password')?.setValue(passwords);
     const result = zxcvbn(passwords);
     this.strength = result.score;
     this.value = (this.strength / 4) * 100;
-    this.changeDetetorRef.detectChanges()
+    this.changeDetetorRef.detectChanges();
   }
 
   getPasswordStrengthLabel(strength: number): string {
@@ -414,7 +402,6 @@ export class SignupComponent {
   }
 
   createUser(): void {
-    
     const userDetails = {
       ...this.signupForm.value,
       ...this.billingForm.value,
@@ -441,7 +428,9 @@ export class SignupComponent {
     });
   }
 
-  private passwordValidator(control: FormControl): { [key: string]: any } | null {
+  private passwordValidator(
+    control: FormControl
+  ): { [key: string]: any } | null {
     const result = zxcvbn(control.value);
     this.strength = (result.score + 1) * 20; // Strength percentage
     return result.score < 3 ? { weakPassword: true } : null;
@@ -510,7 +499,7 @@ export class SignupComponent {
       });
   }
 
-  logData(): void{
+  logData(): void {
     console.log(this.signupForm);
   }
 }
