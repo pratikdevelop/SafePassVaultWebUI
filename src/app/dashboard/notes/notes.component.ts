@@ -20,7 +20,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonService } from '../../services/common.service';
-
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { ViewChild } from '@angular/core';
+import {
+  MatDrawer,
+  MatDrawerMode,
+  MatSidenavModule
+} from '@angular/material/sidenav';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FolderService } from '../../services/folder.service';
+import { HeaderComponent } from '../../common/header/header.component';
+import { SideNavComponent } from "../side-nav/side-nav.component";
 @Component({
   selector: 'app-notes',
   standalone: true,
@@ -38,7 +48,10 @@ import { CommonService } from '../../services/common.service';
     MatDialogModule,
     MatChipsModule,
     CommonModule,
-  ],
+    MatSidenavModule,
+    HeaderComponent,
+    SideNavComponent
+],
   templateUrl: './notes.component.html',
   styleUrl: './notes.component.css',
 })
@@ -63,7 +76,16 @@ export class NotesComponent implements OnInit {
   isLoading: boolean = true;
   selection = new SelectionModel<any>(true, []);
   searchTerm: string = '';
-  constructor() {}
+  @ViewChild('drawer') drawer: MatDrawer | undefined;
+  readonly breakpointObserver = inject(BreakpointObserver);
+  readonly router = inject(Router);
+  readonly activateRouter = inject(ActivatedRoute)
+  readonly service  = inject(FolderService);
+  mode: MatDrawerMode = 'side';
+  folders: any[] = [];
+  isSidebarOpen: boolean = true;
+  isBreakPoint: boolean = false;
+  isShow: boolean = false;
   ngOnInit(): void {
     this.getNotes();
   }
@@ -83,6 +105,35 @@ export class NotesComponent implements OnInit {
         this.changedetect.detectChanges();
       }
     );
+
+    this.breakpointObserver
+    .observe(['(max-width: 600px)'])
+    .subscribe((result) => {
+      if (result.breakpoints['(max-width: 600px)']) {
+        this.isBreakPoint = true;
+        this.isSidebarOpen = false;
+        this.mode = 'over';
+      } else {
+        this.isSidebarOpen = true;
+        this.isBreakPoint = false;
+        this.mode = 'side';
+      }
+    });
+    
+    this.activateRouter.data.subscribe((response: any) => {
+      console.log('resolver data',  response);
+      
+    })
+  this.commonService.sideBarOpen.subscribe((res) => {
+    if (this.isBreakPoint) {
+      this.isSidebarOpen = res;
+    }
+  });
+  if(this.router.url.includes('profile')) {
+    this.isShow = false;
+  }else {
+    this.isShow = true;
+  }
   }
 
   deleteNotes(id?: string): void {

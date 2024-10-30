@@ -5,57 +5,68 @@ import { catchError, switchMap } from 'rxjs/operators';
 import { AES } from 'crypto-js';
 import CryptoJS from 'crypto-js';
 import { environment } from '../../environments/environment';
+import { Q } from '@angular/cdk/keycodes';
 @Injectable({
   providedIn: 'root',
 })
 export class PasswordService {
   private apiUrl = `${environment[`api_url`]}/passwords`;
   readonly http = inject(HttpClient);
-  public filteredPasswords$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>([]);
+  public filteredPasswords$: BehaviorSubject<any[]> = new BehaviorSubject<
+    any[]
+  >([]);
 
-  getPasswords(folderId?: string, _search?: string): Observable<any[]> {
-	const params = this.createHttpParams(folderId, _search);
-  
-	return this.http.get<any>(`${this.apiUrl}`, { params }).pipe(
-	  switchMap(response => this.decryptPasswords(response.passwords)),
-	  catchError(error => {
-		console.error('Error fetching or decrypting passwords:', error);
-		return throwError(error); // Re-throw the error for proper handling
-	  })
-	);
+  getPasswords(_search?: string, queryparams?: any): Observable<any[]> {
+    const params = this.createHttpParams(_search, queryparams);
+
+    return this.http.get<any>(`${this.apiUrl}`, { params }).pipe(
+      switchMap((response) => this.decryptPasswords(response.passwords)),
+      catchError((error) => {
+        console.error('Error fetching or decrypting passwords:', error);
+        return throwError(error); // Re-throw the error for proper handling
+      })
+    );
   }
-  
+
   // Helper function to create HttpParams
-  private createHttpParams(folderId?: string, _search?: string): HttpParams {
-	let params = new HttpParams();
-	
-	if (_search) {
-	  params = params.set('search', _search);
-	}
-	
-	if (folderId) {
-	  params = params.set('folderId', folderId);
-	}
-	
-	return params;
+  private createHttpParams(_search?: string, queryparams?: any): HttpParams {
+    let params = new HttpParams();
+    if (queryparams) {
+      Object.keys(queryparams).forEach((key) => {
+        if (key === 'folderId') {
+          params = params.set(key, queryparams[key].toString());
+        } else {
+          params = params.set('filter', queryparams[key]);
+        }
+      });
+    }
+
+    if (_search) {
+      params = params.set('search', _search);
+    }
+
+    return params;
   }
-  
+
   // Helper function to decrypt passwords
   private decryptPasswords(passwords: any[]): Observable<any[]> {
-	const decryptedPasswords = passwords.map(res => {
-	  try {
-		const decryptedPassword = CryptoJS.AES.decrypt(res.password, res.key).toString(CryptoJS.enc.Utf8);
-		return { ...res, password: decryptedPassword };
-	  } catch (err) {
-		console.error('Error decrypting password:', err);
-		return throwError(new Error('Failed to decrypt password')); // Handle individual decryption errors
-	  }
-	});
-  
-	this.filteredPasswords$.next(decryptedPasswords); // Initialize filteredPasswords$ with fetched data
-	return of(decryptedPasswords);
+    const decryptedPasswords = passwords.map((res) => {
+      try {
+        const decryptedPassword = CryptoJS.AES.decrypt(
+          res.password,
+          res.key
+        ).toString(CryptoJS.enc.Utf8);
+        return { ...res, password: decryptedPassword };
+      } catch (err) {
+        console.error('Error decrypting password:', err);
+        return throwError(new Error('Failed to decrypt password')); // Handle individual decryption errors
+      }
+    });
+
+    this.filteredPasswords$.next(decryptedPasswords); // Initialize filteredPasswords$ with fetched data
+    return of(decryptedPasswords);
   }
-  
+
   addPassword(password: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/password`, password).pipe(
       switchMap((response: any) => {

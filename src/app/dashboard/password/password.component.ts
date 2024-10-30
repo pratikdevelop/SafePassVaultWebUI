@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -18,10 +24,18 @@ import { PasswordFormComponent } from '../../dialog/password-form/password-form.
 import { SelectionModel } from '@angular/cdk/collections';
 import { catchError, tap } from 'rxjs';
 import { ShareDialogComponent } from '../../dialog/share-dialog/share-dialog.component';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import {
+  MatDrawer,
+  MatSidenavModule,
+  MatDrawerMode,
+} from '@angular/material/sidenav';
 import { ViewPasswordComponent } from '../../dialog/view-password/view-password.component';
 import { CommonService } from '../../services/common.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { HeaderComponent } from '../../common/header/header.component';
+import { SideNavComponent } from '../side-nav/side-nav.component';
+import { FolderService } from '../../services/folder.service';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-password',
@@ -42,6 +56,9 @@ import { ActivatedRoute } from '@angular/router';
     MatSortModule,
     MatTooltipModule,
     MatSidenavModule,
+    HeaderComponent,
+    RouterModule,
+    SideNavComponent,
   ],
   templateUrl: './password.component.html',
   styleUrls: ['./password.component.css'],
@@ -69,27 +86,65 @@ export class PasswordComponent implements OnInit {
   ];
   private readonly dialog = inject(MatDialog);
   private readonly commonService = inject(CommonService);
-  private readonly router = inject(ActivatedRoute);
+  private readonly router = inject(Router);
   isLoading: boolean = true;
   searchTerm: string = '';
   selection = new SelectionModel<any>(true, []);
   password: any[] = [];
   isOpened = false;
   folderId: any;
-
-  constructor() {}
+  @ViewChild('drawer') drawer: MatDrawer | undefined;
+  readonly breakpointObserver = inject(BreakpointObserver);
+  readonly activateRouter = inject(ActivatedRoute);
+  readonly service = inject(FolderService);
+  mode: MatDrawerMode = 'side';
+  folders: any[] = [];
+  isSidebarOpen: boolean = true;
+  isBreakPoint: boolean = false;
+  isShow: boolean = false;
 
   ngOnInit(): void {
-    this.router.paramMap.subscribe((params: any) => {
+    this.activateRouter.paramMap.subscribe((params: any) => {
       this.folderId = params.get('folderId'); // Get folderId from the route
       this.getPasswords();
     });
+    this.breakpointObserver
+      .observe(['(max-width: 600px)'])
+      .subscribe((result) => {
+        if (result.breakpoints['(max-width: 600px)']) {
+          this.isBreakPoint = true;
+          this.isSidebarOpen = false;
+          this.mode = 'over';
+        } else {
+          this.isSidebarOpen = true;
+          this.isBreakPoint = false;
+          this.mode = 'side';
+        }
+      });
+
+    this.activateRouter.data.subscribe((response: any) => {
+      console.log('resolver data', response);
+    });
+    this.commonService.sideBarOpen.subscribe((res) => {
+      if (this.isBreakPoint) {
+        this.isSidebarOpen = res;
+      }
+    });
+    if (this.router.url.includes('profile')) {
+      this.isShow = false;
+    } else {
+      this.isShow = true;
+    }
   }
 
-  getPasswords(): void {
-    this.isLoading = true;
+  getPasswords(event: any = null): void {
+    this.isLoading = true;    
+    if (event?.folderId) {
+      this.folderId = event.folderId
+    }
+
     this.passwordService
-      .getPasswords(this.folderId, this.searchTerm)
+      .getPasswords(this.searchTerm, event)
       .subscribe({
         next: (response: any) => {
           this.passwords = response;

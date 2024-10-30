@@ -3,7 +3,7 @@ const url = require("url");
 const path = require("path");
 // const updateappelectron = require('update-electron-app')
 if (process.env.NODE_ENV === 'development') {
-  require('electron-reload')(path.join(__dirname, '/dist/password-app'), {
+  require('electron-reload')(path.join(__dirname, '/dist/safePassVault'), {
     electron: require(path.join(__dirname, 'node_modules', 'electron'))
   });
 }
@@ -20,12 +20,13 @@ function createWindow() {
       nodeIntegration: true,
       contextIsolation: false,
       devTools: true,
+      webSecurity: false, // This can help for local file loading
     }
   });
 
   mainWindow.loadURL(
     url.format({
-      pathname: path.join(__dirname, '/dist/password-app/browser/index.html'),
+      pathname: path.join(__dirname, '/dist/safePassVault/browser/index.html'),
       protocol: "file:",
       slashes: true
     })

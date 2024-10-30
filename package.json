@@ -1,5 +1,5 @@
 {
-  "name": "password-app",
+  "name": "safepassvault",
   "version": "0.0.0",
   "main": "index.js",
   "description": "Your Password Management Application",
@@ -21,7 +21,7 @@
     "appId": "com.safepassvault.passwordapp",
     "productName": "PasswordApp",
     "files": [
-      "dist/password-app/browser/",
+      "dist/safepassvault/browser/",
       "index.js",
       "package.json"
     ],
@@ -86,7 +86,7 @@
     "@angular-devkit/build-angular": "^18.0.2",
     "@angular/cli": "^18.0.2",
     "@angular/compiler-cli": "^18.0.0",
-    "@electron-forge/cli": "^7.4.0",
+    "@electron-forge/cli": "^7.5.0",
     "@electron-forge/maker-deb": "^7.4.0",
     "@electron-forge/maker-dmg": "^7.4.0",
     "@electron-forge/maker-rpm": "^7.4.0",

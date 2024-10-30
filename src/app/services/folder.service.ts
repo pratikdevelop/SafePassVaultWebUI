@@ -34,7 +34,7 @@ export class FolderService {
   }
 
   // Get folders by type
-  getFoldersByType(type: string): Observable<Folder[]> {
+  getFoldersByType(type?: string): Observable<Folder[]> {
     return this.http.get<Folder[]>(`${this.apiUrl}/type/${type}`);
   }
 

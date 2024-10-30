@@ -19,6 +19,17 @@ import { catchError, tap } from 'rxjs';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { CommonService } from '../../services/common.service';
+import { HeaderComponent } from "../../common/header/header.component";
+import { SideNavComponent } from "../side-nav/side-nav.component";
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { ViewChild } from '@angular/core';
+import {
+  MatDrawer,
+  MatDrawerMode
+} from '@angular/material/sidenav';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FolderService } from '../../services/folder.service';
 
 @Component({
   selector: 'app-card',
@@ -36,8 +47,11 @@ import { CommonService } from '../../services/common.service';
     CommonModule,
     MatCheckboxModule,
     MatMenuModule,
-    FormsModule
-  ],
+    FormsModule,
+    HeaderComponent,
+    SideNavComponent,
+    MatSidenavModule
+],
   templateUrl: './card.component.html',
   styleUrl: './card.component.css',
 })
@@ -62,9 +76,48 @@ export class CardComponent implements OnInit {
     'created_by',
     'action',
   ];
+folders: any;
+@ViewChild('drawer') drawer: MatDrawer | undefined;
+readonly dialog = inject(MatDialog);
+readonly breakpointObserver = inject(BreakpointObserver);
+readonly router = inject(Router);
+readonly activateRouter = inject(ActivatedRoute)
+readonly service  = inject(FolderService);
+mode: MatDrawerMode = 'side';
+isSidebarOpen: boolean = true;
+isBreakPoint: boolean = false;
+isShow: boolean = false;
 
   ngOnInit(): void {
     this.getCardsListings();
+    this.breakpointObserver
+    .observe(['(max-width: 600px)'])
+    .subscribe((result) => {
+      if (result.breakpoints['(max-width: 600px)']) {
+        this.isBreakPoint = true;
+        this.isSidebarOpen = false;
+        this.mode = 'over';
+      } else {
+        this.isSidebarOpen = true;
+        this.isBreakPoint = false;
+        this.mode = 'side';
+      }
+    });
+    
+    this.activateRouter.data.subscribe((response: any) => {
+      console.log('resolver data',  response);
+      
+    })
+  this.commonService.sideBarOpen.subscribe((res) => {
+    if (this.isBreakPoint) {
+      this.isSidebarOpen = res;
+    }
+  });
+  if(this.router.url.includes('profile')) {
+    this.isShow = false;
+  }else {
+    this.isShow = true;
+  }
   }
 
   getCardsListings(): void {

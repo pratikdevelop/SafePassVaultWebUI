@@ -69,5 +69,11 @@
   font-weight: bold !important;
   padding: .5rem 2rem !important;
 }
+.mdc-list-item__primary-text {
+  font-size: 1.2rem !important;
+  color: white !important;
+  font-weight: bold !important;
+  font-family: "Kreon", serif !important;
+}
 
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "password-app": {
+    "safePassVault": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/password-app",
+            "outputPath": "dist/safePassVault",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -78,10 +78,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "password-app:build:production"
+              "buildTarget": "safePassVault:build:production"
             },
             "development": {
-              "buildTarget": "password-app:build:development"
+              "buildTarget": "safePassVault:build:development"
             }
           },
           "defaultConfiguration": "development"

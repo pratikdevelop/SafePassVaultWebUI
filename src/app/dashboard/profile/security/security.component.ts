@@ -33,14 +33,16 @@ export class SecurityComponent implements OnInit {
 
   loadSecurityQuestions(): void {
     this.securityQuestionService.getSecurityQuestions().subscribe(
-      (data: any) => {
-          const questions = data[0].securityQuestions
-          this.securityForm.setValue({
-            securityQuestion1: questions[0]?.question || '',
-            securityAnswer1: questions[0]?.answer || '',
-            securityQuestion2: questions[1]?.question || '',
-            securityAnswer2: questions[1]?.answer || ''
-          });          
+      (data: any) => {  
+          if (data.securityQuestions && data.securityQuestions.length> 0) {
+            const questions = data?.securityQuestions[0].securityQuestions
+            this.securityForm.setValue({
+              securityQuestion1: questions[0]?.question || '',
+              securityAnswer1: questions[0]?.answer || '',
+              securityQuestion2: questions[1]?.question || '',
+              securityAnswer2: questions[1]?.answer || ''
+            });          
+          }          
       },
       (error: any) => console.error('Error loading security questions', error)
     );

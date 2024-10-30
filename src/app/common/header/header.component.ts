@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router, RouterModule } from '@angular/router';
@@ -53,6 +53,7 @@ import { CommonModule } from '@angular/common';
 })
 export class HeaderComponent implements OnInit {
   token = localStorage.getItem('token')?.toString();
+  @Output()updateSideBarFF = new EventEmitter<string>()
   private readonly authService = inject(AuthService);
   private readonly snackbar = inject(MatSnackBar);
   private readonly router = inject(Router);
@@ -62,6 +63,8 @@ export class HeaderComponent implements OnInit {
     this.authService.userProfile$.subscribe({
       next: (response) => {
         this.userProfile = response;
+        console.log('df', this.userProfile);
+        
         this.changeDetectorRef.detectChanges();
       },
       error: (error) => {
@@ -93,5 +96,10 @@ export class HeaderComponent implements OnInit {
         this.changeDetectorRef.detectChanges();
       },
     });
+  }
+
+
+  updateSideBar(type: string):void {
+    this.updateSideBarFF.emit(type);
   }
 }

@@ -1,40 +1,37 @@
-<div class="border-r-1 h-full mt-16 flex flex-col items-center space-y-6 py-5">
-  <mat-tree #tree [dataSource]="dataSource" [childrenAccessor]="childrenAccessor">
-    
-    <!-- Leaf Nodes -->
-    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding (click)="sectionOpened(node.type)" class="flex items-center">
-      <div class="flex items-center">
-        <a mat-icon-button [routerLink]="node.redirectLink">
-          <mat-icon>{{node.icon}}</mat-icon>
-        </a>
-        <span>
-          {{node.name}}
-        </span>
-      </div>
-      <button *ngIf="node.redirectLink" mat-icon-button class="ml-auto" (click)="openCreateFolderDialog($event, node.type)">
-        <mat-icon class="mr-2">create_new_folder</mat-icon>
-      </button>
-    </mat-tree-node>
 
-    <!-- Expandable Nodes -->
-    <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding matTreeNodeToggle class="flex items-center">
-      <!-- <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
-        <mat-icon class="mat-icon-rtl-mirror">
-          {{tree.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-        </mat-icon>
-      </button> -->
-      <div class="flex items-center">
-        <a mat-icon-button [routerLink]="node.redirectLink">
-          <mat-icon>{{node.icon}}</mat-icon>
-        </a>
-        <span>
-          {{node.name}}
-        </span>
-      </div>
-      <button *ngIf="node.redirectLink" mat-icon-button class="ml-auto" (click)="openCreateFolderDialog($event, node.type)">
-        <mat-icon class="mr-2">create_new_folder</mat-icon>
+  <form [formGroup]="form"   class="border-r-1  flex flex-col  h-full  overflow-hidden overflow-y-auto space-y-6 py-4 px-0 bg-slate-900  flex-auto text-white">
+  <mat-selection-list  [multiple]="false" formControlName="filterList" (selectionChange)="change($event.source._value)">
+    <mat-list-option checkboxPosition="before" value="all" selected="true" aria-current="true"  style="color: white !important;">All Items</mat-list-option>
+    <mat-divider></mat-divider>
+
+    <mat-list-option checkboxPosition="before" value="favourite" style="color: white !important;">Favourites</mat-list-option>
+    <mat-divider></mat-divider>
+
+    <mat-list-option checkboxPosition="before" value="shared_with_me" style="color: white !important;">Shared With Me</mat-list-option>
+    <mat-divider></mat-divider>
+
+    <mat-list-option checkboxPosition="before" value="created_by_me" style="color: white !important;">Created By Me</mat-list-option>
+    <mat-divider></mat-divider>
+
+    <div  mat-subheader class="flex items-center justify-start ">
+      <span class="text-xl font-bold">Folders</span>
+      <button
+        mat-icon-button
+        class="ml-auto"
+        (click)="openCreateFolderDialog($event, '')"
+      >
+        <mat-icon>create_new_folder</mat-icon>
       </button>
-    </mat-tree-node>
-    
-  </mat-tree>
-</div>
+    </div>
+    <ng-container *ngFor="let folder of folders ; let i = index;">
+      <mat-list-option checkboxPosition="before" [value]="folder._id" class="flex items-center">
+        <div matListItemTitle class="flex items-center space-x-3">
+          <mat-icon matListItemIcon>folder</mat-icon>
+          <span>{{ folder.name }}</span>
+        </div>
+      </mat-list-option>
+      <mat-divider *ngIf="i+1 < folders.length"></mat-divider>
+    </ng-container>
+  </mat-selection-list>
+
+</form>

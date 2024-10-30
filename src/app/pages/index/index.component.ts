@@ -16,13 +16,11 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './index.component.css',
 })
 export class IndexComponent implements OnInit {
-  router = inject(Router);
-  activate = inject(ActivatedRoute);
-  token = localStorage.getItem('token');
+  readonly router = inject(Router);
+  readonly activate = inject(ActivatedRoute);
+  readonly token = localStorage.getItem('token');
 
-  ngOnInit(): void {
-    console.log('ff', environment);
-    
+  ngOnInit(): void {    
     if (!this.token && environment.isElectron) {
       this.router.navigateByUrl('/auth/login');
     } else if (this.token) {
