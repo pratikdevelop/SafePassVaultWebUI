@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/password-app/browser",
+    "public": "dist/safePassVault/browser",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -10,10 +10,6 @@
       {
         "source": "/public/**",
         "destination": "/public.html"
-      },
-      {
-        "source": "/api/**",
-        "destination": "http://54.224.249.251/api/**"
       },
       {
         "source": "**",
