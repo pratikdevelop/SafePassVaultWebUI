@@ -16,7 +16,7 @@ RUN npm run build --prod
 FROM nginx:alpine
 
 # Copy the built Angular application from the previous stage
-COPY --from=builder /app/dist/password-app/browser /usr/share/nginx/html
+COPY --from=builder /app/dist/safePassVault/browser /usr/share/nginx/html
 
 # Copy the custom nginx configuration file
 COPY nginx.conf /etc/nginx/nginx.conf
