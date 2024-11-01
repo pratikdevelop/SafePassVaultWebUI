@@ -24,32 +24,21 @@ import { CommonModule } from '@angular/common';
     MatInputModule,
   ],
   templateUrl: './header.component.html',
-  styles: ` @media (min-width: 768px) {
-    .menu-button {
-      display: none;
-    }
-  }
+//   styles: `
 
-  /* Hide complete menu on smaller screens */
-  @media (max-width: 767px) {
-    .menu-content {
-      display: none;
-    }
-  }
-
-  /* Show complete menu on larger screens */
-  @media (min-width: 768px) {
-    .menu-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-    }
-    .menu-item {
-      margin: 5px 0;
-    }
-  }
-`,
+//   /* Show complete menu on larger screens */
+//   @media (min-width: 768px) {
+//     .menu-content {
+//       display: flex;
+//       flex-direction: column;
+//       align-items: center;
+//       width: 100%;
+//     }
+//     .menu-item {
+//       margin: 5px 0;
+//     }
+//   }
+// `,
 })
 export class HeaderComponent implements OnInit {
   token = localStorage.getItem('token')?.toString();

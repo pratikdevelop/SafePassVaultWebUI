@@ -33,6 +33,13 @@ export class AuthService {
       })
     );
   }
+  uploadFile(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    // Send POST request to the backend
+    return this.http.post(`${this.apiUrl}/upload`, formData);
+  }
 
   emailVerification(OTPForm: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/confirm-email`, OTPForm).pipe(

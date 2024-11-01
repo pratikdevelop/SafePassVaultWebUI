@@ -1,39 +1,45 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, EventEmitter, inject, Output } from '@angular/core';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { AuthService } from '../../../services/auth.service';
-import { tap } from 'rxjs';
-import { UploaderModule } from "angular-uploader";
-
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { NgOptimizedImage } from '@angular/common'
-import { EditProfileComponent } from './dailog/edit-profile/edit-profile.component';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { UploaderModule } from "angular-uploader";
+import { tap } from 'rxjs';
+
+import { AuthService } from '../../../services/auth.service';
 import { CommonService } from '../../../services/common.service';
+import { EditProfileComponent } from './dailog/edit-profile/edit-profile.component';
+
+interface ProfileData {
+  user: any; // Define user interface based on actual data structure
+  planDetails: any; // Define plan interface based on actual data structure
+}
+
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [MatButtonModule, MatSnackBarModule, CommonModule,MatIconModule, MatDialogModule, NgOptimizedImage,
-    UploaderModule, MatIconModule // <-- Add the Uploader module here.
-
+  imports: [
+    CommonModule, NgOptimizedImage,
+    MatButtonModule, MatIconModule, MatSnackBarModule, MatDialogModule,
+    UploaderModule
   ],
   templateUrl: './user-profile.component.html',
 })
-export class UserProfileComponent {
-  selectedImageUrl: any;
-  readonly authService = inject(AuthService)
-  readonly snackBar = inject(MatSnackBar);
-  readonly detectorRef = inject(ChangeDetectorRef)
-  readonly matDialog = inject(MatDialog)
-  readonly  sanitizer = inject(DomSanitizer)
-  readonly commonService = inject(CommonService);
+export class UserProfileComponent implements OnInit {
+  private readonly authService = inject(AuthService);
+  private readonly snackBar = inject(MatSnackBar);
+  private readonly detectorRef = inject(ChangeDetectorRef);
+  private readonly matDialog = inject(MatDialog);
+  private readonly sanitizer = inject(DomSanitizer);
+  private readonly commonService = inject(CommonService);
 
   selectedFile: File | null = null;
+  selectedImageUrl: SafeUrl | null = null;
+  user: any; // Define user interface if possible
+  plan: any; // Define plan interface if possible
 
-  user: any;
-  plan: any;
   ngOnInit(): void {
     this.getProfile();
   }
@@ -41,74 +47,80 @@ export class UserProfileComponent {
   toggleSideBar(): void {
     this.commonService.toggleProfileSideBar();
   }
-  getProfile(): void {
-    this.authService.getProfile().pipe(tap()).subscribe(
-      profileData => {
-        this.user = profileData.user
-        this.plan = profileData.planDetails;
-        console.log("pp", profileData);
-        this.detectorRef.detectChanges();
 
+  getProfile(): void {
+    this.authService.getProfile().pipe(
+      tap() // Add any necessary side-effects here
+    ).subscribe({
+      next: (profileData: ProfileData) => {
+        this.user = profileData.user;
+        this.plan = profileData.planDetails;
+        this.detectorRef.detectChanges();
       },
-      error => {
+      error: (error) => {
         console.error('Error getting profile:', error);
-        this.snackBar.open('Error retrieving profile: ' + error.message, 'close');
+        this.snackBar.open(`Error retrieving profile: ${error.message}`, 'close');
       }
-    );
+    });
   }
 
   editProfile(): void {
     const dialogRef = this.matDialog.open(EditProfileComponent, {
       width: '800px',
       data: this.user,
+    });
 
-      });
-    dialogRef.afterClosed().subscribe((result)=>{
-      if(result){
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
         this.getProfile();
-        }
-    })
-   }
-    // Handle file selection
-  onFileSelected(event: any): void {
-    const file = event.target.files[0];
+      }
+    });
+  }
+
+  onFileSelected(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
-      this.selectedFile = file;
-
-      // Optional: Create a preview URL for the selected image
-      const objectUrl = URL.createObjectURL(file);
-      this.selectedImageUrl = this.sanitizer.bypassSecurityTrustUrl(objectUrl); // Safe preview URL
-
-      this.snackBar.open('File selected: ' + file.name, 'close', {
-        duration: 2000
-      });
+        this.selectedFile = file;
+        const input = event.target as HTMLInputElement;
+        if (input.files && input.files.length > 0) {
+          this.selectedFile = input.files[0];
+          this.authService.uploadFile(this.selectedFile).subscribe({
+            next: (response) => {
+              this.snackBar.open('File uploaded successfully!', 'Close', { duration: 3000 });
+            },
+            error: (err) => {
+              this.snackBar.open('File upload failed: ' + err.message, 'Close', { duration: 3000 });
+            }
+          });
+        }
+      this.snackBar.open(`File selected: ${file.name}`, 'close', { duration: 2000 });
     }
   }
+
   onUpload(): void {
     if (this.selectedFile) {
       const formData = new FormData();
       formData.append('image', this.selectedFile);
+      
 
-      // Example: Upload the image to an API endpoint
-      // this.http.post('https://your-api-endpoint.com/upload', formData).subscribe(
-      //   (response) => {
-      //     this.snackbar.open('Image uploaded successfully', 'close', {
-      //       duration: 2000
-      //     });
-      //     // Optionally reset selected file and image preview
-      //     this.selectedFile = null;
-      //     this.selectedImageUrl = null;
+      // Placeholder for upload method
+      // Example:
+      // this.authService.uploadImage(formData).subscribe({
+      //   next: (response) => {
+      //     this.snackBar.open('Image uploaded successfully', 'close', { duration: 2000 });
+      //     this.resetSelectedFile();
       //   },
-      //   (error) => {
-      //     this.snackbar.open('Image upload failed: ' + error.message, 'close', {
-      //       duration: 2000
-      //     });
+      //   error: (error) => {
+      //     this.snackBar.open(`Image upload failed: ${error.message}`, 'close', { duration: 2000 });
       //   }
-      // );
+      // });
     } else {
-      this.snackBar.open('Please select a file first', 'close', {
-        duration: 2000
-      });
+      this.snackBar.open('Please select a file first', 'close', { duration: 2000 });
     }
+  }
+
+  private resetSelectedFile(): void {
+    this.selectedFile = null;
+    this.selectedImageUrl = null;
   }
 }

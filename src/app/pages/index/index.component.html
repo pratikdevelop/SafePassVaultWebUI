@@ -1,10 +1,10 @@
-<div class="relative w-full rounded shadow-md flex flex-col space-y-16 px-5 py-10 md:px-20">
+<div class="relative w-full rounded shadow-md flex flex-col space-y-24 px-5 py-10 md:px-20">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-8 ">
-      <div class="flex flex-col order-2 lg:order-1 space-y-4 w-full py-12">
-        <div class="text-3xl lg:text-6xl leading-normal">
+      <div class="flex flex-col flex-auto order-2 lg:order-1 space-y-6 w-full py-12">
+        <div class="text-3xl lg:text-6xl leading-8">
           Safepassvault The Password Manager Trusted by Millions
         </div>
-        <p class="font-normal leading-6 text-sm">
+        <p class=" leading-normal  tracking-wide text-base">
           Safepassvault is the best password manager for securely storing,
           generating, and sharing passwords across all of your devices. managing,
           and sharing sensitive online data such as passwords, passkeys, credit
@@ -15,76 +15,76 @@
           using Safepassvault, you can generate strong and unique passwords, autofill
           login credentials, and securely share sensitive information with others.
         </p>
-        <button mat-raised-button color="primary" class="mr-auto">
+        <button mat-flat-button color="primary" class="mr-auto">
           Get Started
         </button>
       </div>
-      <div class="flex w-full lg:justify-center lg:items-center order-1 lg:order-2">
+      <div class="flex flex-auto w-full lg:justify-center lg:items-center order-1 lg:order-2">
         <img
           src="https://img.freepik.com/premium-vector/guardian-digital-realm-mans-vigilance-login-gate_1134661-21388.jpg?size=626&ext=jpg&ga=GA1.1.1866294671.1721672145&semt=ais_user"
-          alt="Safepassvault Logo" class="rounded-full :w-full h-auto" />
+          alt="Safepassvault Logo" class="rounded-full" />
       </div>
     </div>
-    <div class="flex flex-col space-y-5">
-      <div class="sm:text-center text-3xl font-extrabold">
+    <div class="flex flex-col space-y-12">
+      <div class="sm:text-center text-6xl font-extrabold mb-8">
         Try Safepassvault Services Products
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-        <div class="bg-gray-200 relative rounded shadow-xl shadow-slate-500 border-2 border-slate-600 p-4">
+        <div class="bg-gray-200 space-y-4 relative rounded shadow-xl shadow-slate-500 border-2 border-slate-600 p-4">
           <div class="text-3xl font-extrabold mb-2">Password Vault</div>
           <p class="font-normal text-gray-500">Store and organize your passwords securely</p>
-          <button mat-raised-button color="primary" class="absolute  left-3 bottom-0 rounded" routerLink="/vault">
+          <button mat-flat-button color="primary" class="absolute  left-2 bottom-0 rounded" routerLink="/vault">
             View Vault
           </button>
         </div>
-        <div class="bg-gray-200 relative rounded shadow-xl shadow-slate-500 border-2 border-slate-600 p-4">
+        <div class="bg-gray-200 space-y-4 relative rounded shadow-xl shadow-slate-500 border-2 border-slate-600 p-4">
           <div class="text-3xl font-extrabold mb-2">Security Dashboard</div>
           <p class="font-normal text-gray-500">Monitor and improve your password security</p>
-          <button mat-raised-button color="primary" class="absolute  left-3 bottom-0 rounded" routerLink="/dashboard">
+          <button mat-flat-button color="primary" class="absolute  left-2 bottom-0 rounded" routerLink="/dashboard">
             View Dashboard
           </button>
         </div>
   
   
-        <div class="bg-gray-200 relative rounded shadow-xl shadow-slate-500 border-2 border-slate-600 p-4">
+        <div class="bg-gray-200 space-y-4 relative rounded shadow-xl shadow-slate-500 border-2 border-slate-600 p-4">
           <div class="text-3xl font-extrabold mb-2">File Storage</div>
           <p class="font-normal text-gray-500">Securely store and manage your files</p>
-          <button mat-raised-button color="primary" class="absolute  left-3 bottom-0 rounded" routerLink="/storage">
+          <button mat-flat-button color="primary" class="absolute  left-2 bottom-0 rounded" routerLink="/storage">
             Manage Files
           </button>
         </div>
-        <div class="bg-gray-200 relative rounded shadow-xl shadow-slate-500 border-2 border-slate-600 p-4">
+        <div class="bg-gray-200 space-y-4 relative rounded shadow-xl shadow-slate-500 border-2 border-slate-600 p-4">
           <div class="text-3xl font-extrabold mb-2">Password Generator</div>
           <p class="font-normal text-gray-500">
             Generate strong & unique passwords for accounts.
           </p>
-          <button mat-raised-button color="primary" class="absolute  left-3 bottom-0 rounded" routerLink="/generator">
+          <button mat-flat-button color="primary" class="absolute  left-2 bottom-0 rounded" routerLink="/generator">
             Generate Password
           </button>
         </div>
-        <div class="bg-gray-200 relative rounded shadow-xl shadow-slate-500 border-2 border-slate-600 p-4">
+        <div class="bg-gray-200 space-y-4 relative rounded shadow-xl shadow-slate-500 border-2 border-slate-600 p-4">
           <div class="text-3xl font-extrabold mb-2">Password Checker</div>
           <p class="font-normal text-gray-500">Check the strength and security of passwords</p>
-          <button mat-raised-button color="primary" class="absolute  left-3 bottom-0 rounded" routerLink="/checker">
+          <button mat-flat-button color="primary" class="absolute  left-2 bottom-0 rounded" routerLink="/checker">
             Check Password
           </button>
         </div>
   
-        <div class="bg-gray-200 relative rounded shadow-xl shadow-slate-500 border-2 border-slate-600 p-4">
+        <div class="bg-gray-200 space-y-4 relative rounded shadow-xl shadow-slate-500 border-2 border-slate-600 p-4">
           <div class="text-3xl font-extrabold mb-2">Passwordless Login</div>
           <p class="font-normal text-gray-500">Authenticate without password using other methods</p>
-          <button mat-raised-button color="primary" class="absolute  left-3 bottom-0 rounded" routerLink="/passwordless">
+          <button mat-flat-button color="primary" class="absolute left-2 bottom-0 rounded" routerLink="/passwordless">
             Go Passwordless
           </button>
         </div>
       </div>
     </div>
-    <div class="flex flex-col space-y-5">
-      <div class="sm:text-center text-3xl font-extrabold mb-4">
+    <div class="flex flex-col space-y-12 mt-8 ">
+      <div class="sm:text-center text-6xl font-bold">
         Latest Articles on Safepassvault Features
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
-        <div class="bg-gray-200 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
+        <div class="bg-gray-200 space-y-4 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
           <div class="text-3xl font-extrabold mb-2">Generate Unbreakable Passwords</div>
           <p class="font-normal text-gray-500">
             Safepassvault crafts complex passwords using a mix of characters,
@@ -92,7 +92,7 @@
           </p>
           <p class=" mt-2">Security • 5 Min Read</p>
         </div>
-        <div class="bg-gray-200 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
+        <div class="bg-gray-200 space-y-4 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
           <div class="text-3xl font-extrabold mb-2">
             Effortless Logins with Autofill
           </div>
@@ -102,7 +102,7 @@
           </p>
           <p class=" mt-2">Convenience • 4 Min Read</p>
         </div>
-        <div class="bg-gray-200 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
+        <div class="bg-gray-200 space-y-4 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
           <div class="text-3xl font-extrabold mb-2">
             Secure Password Sharing Made Easy
           </div>
@@ -112,13 +112,13 @@
           </p>
           <p class=" mt-2">Collaboration • 6 Min Read</p>
         </div>
-        <div class="bg-gray-200 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
+        <div class="bg-gray-200 space-y-4 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
           <div class="text-3xl font-extrabold mb-2">Advanced Security Features</div>
           <p class="font-normal text-gray-500">Advanced security features: Two-Factor Authentication, Password Breach
             Alerts, Password Analyzer, and Secure Notes ensure comprehensive protection</p>
           <p class=" mt-2">Security • 7 Min Read</p>
         </div>
-        <div class="bg-gray-200 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
+        <div class="bg-gray-200 space-y-4 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
           <div class="text-3xl font-extrabold mb-2">
             Unparalleled Security for Your Passwords
           </div>
@@ -131,37 +131,37 @@
         </div>
       </div>
     </div>
-    <div class="flex flex-col space-y-5">
-      <div class="sm:text-center text-3xl font-extrabold mb-4">Benefits of using Safepassvaults</div>
+    <div class="flex flex-col space-y-12 mt-10">
+      <div class="sm:text-center text-6xl font-bold mb-4">Benefits of using Safepassvaults</div>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
-        <div class="bg-gray-200 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
+        <div class="bg-gray-200 space-y-4 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
           <div class="text-3xl font-extrabold mb-2">Protect your online identity</div>
           <p class="font-normal text-gray-500">
             Safeguard your personal information with advanced encryption and
             security features.
           </p>
         </div>
-        <div class="bg-gray-200 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
+        <div class="bg-gray-200 space-y-4 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
           <div class="text-3xl font-extrabold mb-2">Save time and reduce stress</div>
           <p class="font-normal text-gray-500">
             Effortlessly manage and autofill passwords, eliminating the need to
             remember multiple credentials.
           </p>
         </div>
-        <div class="bg-gray-200 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
+        <div class="bg-gray-200 space-y-4 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
           <div class="text-3xl font-extrabold mb-2">Improve your online security</div>
           <p class="font-normal text-gray-500">
             Identify and strengthen weak passwords with our password analyzer.
           </p>
         </div>
-        <div class="bg-gray-200 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
+        <div class="bg-gray-200 space-y-4 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
           <div class="text-3xl font-extrabold mb-2">Store and share your files</div>
           <p class="font-normal text-gray-500">
             Securely store and manage your files, and easily share them with
             others when needed.
           </p>
         </div>
-        <div class="bg-gray-200 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
+        <div class="bg-gray-200 space-y-4 relative rounded shadow-xl shadow-slat-500 border-2 border-slate-600 p-4">
           <div class="text-3xl font-extrabold mb-2">
             Access your passwords from anywhere
           </div>
@@ -173,10 +173,10 @@
       </div>
     </div>
   
-    <div class="flex flex-col space-y-5">
-      <div class="text-2xl font-bold mb-4 text-center">Testimonials</div>
+    <div class="flex flex-col space-y-12">
+      <div class="text-6xl font-bold mb-4 text-center">Testimonials</div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-        <div class="bg-gray-200 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4">
+        <div class="bg-gray-200space-y-4  rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4">
           <p class="font-normal text-gray-500">
             "This password manager has been a game-changer for me. I no longer
             have to worry about remembering multiple passwords!"
@@ -189,7 +189,7 @@
           </div>
           <p class="font-normal text-gray-500">- John Doe</p>
         </div>
-        <div class="bg-gray-200 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4">
+        <div class="bg-gray-200space-y-4  rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4">
           <p class="font-normal text-gray-500">
             "I was skeptical at first, but this password manager has exceeded my
             expectations. The security features are top-notch!"
@@ -203,7 +203,7 @@
           </div>
           <p class="font-normal text-gray-500">- Jane Smith</p>
         </div>
-        <div class="bg-gray-200 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4">
+        <div class="bg-gray-200space-y-4  rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4">
           <p class="font-normal text-gray-500">
             "Easy to use and effective. Best decision I made for my online
             security!"
@@ -216,7 +216,7 @@
           </div>
           <p class="font-normal text-gray-500">- Sarah Johnson</p>
         </div>
-        <div class="bg-gray-200 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4">
+        <div class="bg-gray-200space-y-4  rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4">
           <p class="font-normal text-gray-500">
             "Fantastic tool! I feel much safer knowing my passwords are secure."
           </p>
@@ -228,7 +228,7 @@
   
           <p class="font-normal text-gray-500">- Michael Brown</p>
         </div>
-        <div class="bg-gray-200 rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4">
+        <div class="bg-gray-200space-y-4  rounded shadow-2xl shadow-slat-100 border-2 border-slate-100 p-4">
           <p class="font-normal text-gray-500">"Highly recommended! Simplifies my digital life."</p>
           <div class="flex items-center mb-2">
             <span class="text-yellow-500">&#9733;</span>

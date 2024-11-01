@@ -137,7 +137,7 @@ export class PasswordComponent implements OnInit {
     }
   }
 
-  getPasswords(event: any = null): void {
+  getPasswords(event: any = ['all']): void {
     this.isLoading = true;    
     if (event?.folderId) {
       this.folderId = event.folderId

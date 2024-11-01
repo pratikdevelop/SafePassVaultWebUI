@@ -445,7 +445,11 @@ export class SignupComponent {
 
   onConfirmOTP(): void {
     if (this.OTPForm.invalid) return;
-    this.authService.emailVerification(this.OTPForm.value).subscribe(
+    const payload ={
+      confirmationCode: this.OTPForm.value.confirmationCode,
+      email: this.signupForm.value.email
+    }
+    this.authService.emailVerification(payload).subscribe(
       (response) => {
         localStorage.setItem('token', response.token);
         this.snackbar.open(
@@ -488,7 +492,7 @@ export class SignupComponent {
           this.snackbar.open('Security question added successfully', 'close', {
             duration: 3000,
           });
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/dashboard/passwords']);
         },
         error: (error) => {
           console.error('error', error);
