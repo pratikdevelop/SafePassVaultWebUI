@@ -30,7 +30,7 @@
 
         <mat-form-field *ngIf="mfaForm.get('mfaMethod')?.value === 'totp'">
             <mat-label>Enter TOTP Secret</mat-label>
-            <input matInput formControlName="totpSecret" placeholder="Enter your TOTP secret">
+            <input matInput  [disabled]="userProfile.totpSecret !== null" formControlName="totpSecret" placeholder="Enter your TOTP secret">
         </mat-form-field>
 
         <mat-form-field *ngIf="mfaForm.get('mfaMethod')?.value === 'sms'">
@@ -91,5 +91,10 @@
                 <li>Verify the setup by testing the security key with your application.</li>
             </ol>
         </div> -->
+
+        <div *ngIf="qrCodeUrl">
+        <h3>Scan this QR code with your authentication app:</h3>
+        <img [src]="qrCodeUrl" alt="QR Code" />
+        </div>
     </div>
 </form>

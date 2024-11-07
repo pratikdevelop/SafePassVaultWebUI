@@ -34,7 +34,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     MatSliderModule,
     MatSlideToggleModule,
     MatIconModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   templateUrl: './mfa-setting.component.html',
   styleUrls: ['./mfa-setting.component.css'],
@@ -45,6 +45,7 @@ export class MfaSettingComponent {
   readonly snackBar = inject(MatSnackBar);
   readonly commonService = inject(CommonService);
   readonly authService = inject(AuthService);
+  qrCodeUrl: string = '';
 
   constructor(private fb: FormBuilder) {
     this.mfaForm = this.fb.group({
@@ -54,11 +55,14 @@ export class MfaSettingComponent {
       smsPhoneNumber: [{ value: '', disabled: true }],
       emailAddress: [{ value: '', disabled: true }],
     });
-
-    this.authService.userProfile$.subscribe((userProfile) => {
-      this.userProfile = userProfile;
-      this.populateFormWithUserProfile(userProfile);
+    this.authService.getProfile().subscribe((response) => {
+      this.userProfile = response.user;
+      console.log('ff', response.user);
+      
+      this.populateFormWithUserProfile(this.userProfile);
     });
+
+
   }
 
   populateFormWithUserProfile(profile: any): void {
@@ -66,10 +70,8 @@ export class MfaSettingComponent {
       mfaEnabled: profile.mfaEnabled || false,
       mfaMethod: profile.mfaMethod || '',
       totpSecret: profile.mfaMethod === 'totp' ? profile.totpSecret || '' : '',
-      smsPhoneNumber:
-        profile.mfaMethod === 'sms' ? profile.smsPhoneNumber || '' : '',
-      emailAddress:
-        profile.mfaMethod === 'email' ? profile.emailAddress || '' : '',
+      smsPhoneNumber: profile.mfaMethod === 'sms' ? profile.phone || '' : '',
+      emailAddress: profile.mfaMethod === 'email' ? profile.email || '' : '',
     });
 
     this.toggleMFA(profile.mfaEnabled);
@@ -88,10 +90,13 @@ export class MfaSettingComponent {
 
   selectMFAMethod(event: any): void {
     const method = event.value;
+    this.qrCodeUrl = '';
     this.disableAllMfaFields();
 
     if (method === 'totp') {
-      this.mfaForm.get('totpSecret')?.enable();
+      !this.userProfile.totpSecret ? this.setup2FA() : null;
+      this.mfaForm.get('totpSecret')?.disable()
+      this.qrCodeUrl = this.userProfile.totpQrImage ?? null;
     } else if (method === 'sms') {
       this.mfaForm.get('smsPhoneNumber')?.enable();
       this.mfaForm.get('smsPhoneNumber')?.setValue(this.userProfile.phone);
@@ -118,19 +123,30 @@ export class MfaSettingComponent {
         },
         error: (error) => {
           this.snackBar.open(
-            'Failed to update MFA settings. Please try again later.',
+            `Failed to update MFA settings.${error.error.message} `,
             'Ok',
             {
               duration: 3000,
-              }
-              
-          )
-          console.error('Error updating MFA settings:', error);
+            }
+          );
+          console.error('Error updating MFA settings:', error.error.message);
         },
       });
     }
   }
 
+  setup2FA(): void {
+
+    this.authService.setup2FA(this.userProfile.email).subscribe(
+      (response) => {
+        this.qrCodeUrl = response.imageUrl; // Display QR code URL to user
+        this.mfaForm.controls['totpSecret'].enable();
+      },
+      (error) => {
+        console.error('Error setting up 2FA', error);
+      }
+    );
+  }
   toggleSideBar(): void {
     this.commonService.toggleProfileSideBar();
   }

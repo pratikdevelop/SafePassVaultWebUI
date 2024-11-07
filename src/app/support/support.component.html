@@ -1,4 +1,4 @@
-<div class="flex flex-col space-y-3 m-20 bg-white p-8 rounded-lg shadow-lg">
+<div class="flex flex-col space-y-3  bg-white p-8 rounded-lg shadow-lg">
     <h1 class="text-2xl font-bold text-blue-600">Support for Safepassvault Application</h1>
   
     <section id="faq" class="mt-6">
@@ -14,112 +14,116 @@
         </mat-expansion-panel>
       </mat-accordion>
     </section>
-    
-    <div class="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
-        <div class="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]" aria-hidden="true">
-          <div class="relative left-1/2 -z-10 aspect-[1155/678] w-[36.125rem] max-w-none -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
-        </div>
-        <div class="mx-auto max-w-2xl text-center">
-          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Contact Support</h2>
-          <p class="mt-2 text-lg leading-8 text-gray-600">If you have any questions or need assistance, please fill out the form below:</p>
-        </div>
-        <form (ngSubmit)="submitContactForm()" class="mx-auto mt-16 max-w-xl sm:mt-20">
-          <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-            <div>
-              <label for="first-name" class="block text-sm font-semibold leading-6 text-gray-900">First name</label>
-              <div class="mt-2.5">
-                <input type="text" [(ngModel)]="contact.firstName" name="first-name" id="first-name" autocomplete="given-name" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
-              </div>
-            </div>
-            <div>
-              <label for="last-name" class="block text-sm font-semibold leading-6 text-gray-900">Last name</label>
-              <div class="mt-2.5">
-                <input type="text" [(ngModel)]="contact.lastName" name="last-name" id="last-name" autocomplete="family-name" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-              </div>
-            </div>
-            <div class="sm:col-span-2">
-              <label for="company" class="block text-sm font-semibold leading-6 text-gray-900">Company</label>
-              <div class="mt-2.5">
-                <input type="text" [(ngModel)]="contact.company" name="company" id="company" autocomplete="organization" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-              </div>
-            </div>
-            <div class="sm:col-span-2">
-              <label for="email" class="block text-sm font-semibold leading-6 text-gray-900">Email</label>
-              <div class="mt-2.5">
-                <input type="email" [(ngModel)]="contact.email" name="email" id="email" autocomplete="email" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
-              </div>
-            </div>
-            <div class="sm:col-span-2">
-              <label for="phone-number" class="block text-sm font-semibold leading-6 text-gray-900">Phone number</label>
-              <div class="relative mt-2.5">
-                <div class="absolute inset-y-0 left-0 flex items-center">
-                  <label for="country" class="sr-only">Country</label>
-                  <select id="country" name="country" class="h-full rounded-md border-0 bg-transparent bg-none py-0 pl-4 pr-9 text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
-                    <option>US</option>
-                    <option>CA</option>
-                    <option>EU</option>
-                  </select>
-                  <svg class="pointer-events-none absolute right-3 top-0 h-full w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                    <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
-                  </svg>
+    <div class="flex flex-row gap-x-12 p-6 py-24">
+
+      <div class="bg-white px-6 lg:px-8 space-y-8  w-1/2">
+          <div class="mx-auto  text-center">
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Contact Support</h2>
+            <p class="mt-2 text-lg leading-8 text-gray-600">If you have any questions or need assistance, please fill out the form below:</p>
+          </div>
+          <form (ngSubmit)="submitContactForm()" class="mx-auto w-full">
+            <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+              <div>
+                <label for="first-name" class="block text-sm font-semibold leading-6 text-gray-900">First name</label>
+                <div class="mt-2.5">
+                  <input type="text" [(ngModel)]="contact.firstName" name="first-name" id="first-name" autocomplete="given-name" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
                 </div>
-                <input type="tel" [(ngModel)]="contact.phoneNumber" name="phone-number" id="phone-number" autocomplete="tel" class="block w-full rounded-md border-0 px-3.5 py-2 pl-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+              </div>
+              <div>
+                <label for="last-name" class="block text-sm font-semibold leading-6 text-gray-900">Last name</label>
+                <div class="mt-2.5">
+                  <input type="text" [(ngModel)]="contact.lastName" name="last-name" id="last-name" autocomplete="family-name" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+              </div>
+              <div class="sm:col-span-2">
+                <label for="company" class="block text-sm font-semibold leading-6 text-gray-900">Company</label>
+                <div class="mt-2.5">
+                  <input type="text" [(ngModel)]="contact.company" name="company" id="company" autocomplete="organization" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+              </div>
+              <div class="sm:col-span-2">
+                <label for="email" class="block text-sm font-semibold leading-6 text-gray-900">Email</label>
+                <div class="mt-2.5">
+                  <input type="email" [(ngModel)]="contact.email" name="email" id="email" autocomplete="email" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required>
+                </div>
+              </div>
+              <div class="sm:col-span-2">
+                <label for="phone-number" class="block text-sm font-semibold leading-6 text-gray-900">Phone number</label>
+                <div class="relative mt-2.5">
+                  <div class="absolute inset-y-0 left-0 flex items-center">
+                    <label for="country" class="sr-only">Country</label>
+                    <select id="country" name="country" class="h-full rounded-md border-0 bg-transparent bg-none py-0 pl-4 pr-9 text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm">
+                      <option>US</option>
+                      <option>CA</option>
+                      <option>EU</option>
+                    </select>
+                    <svg class="pointer-events-none absolute right-3 top-0 h-full w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                      <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <input type="tel" [(ngModel)]="contact.phoneNumber" name="phone-number" id="phone-number" autocomplete="tel" class="block w-full rounded-md border-0 px-3.5 py-2 pl-20 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+              </div>
+              <div class="sm:col-span-2">
+                <label for="message" class="block text-sm font-semibold leading-6 text-gray-900">Message</label>
+                <div class="mt-2.5">
+                  <textarea [(ngModel)]="contact.message" name="message" id="message" rows="4" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required></textarea>
+                </div>
+              </div>
+              <div class="flex gap-x-4 sm:col-span-2">
+                <div class="flex h-6 items-center">
+                  <button type="button" class="flex w-8 flex-none cursor-pointer rounded-full bg-gray-200 p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" role="switch" aria-checked="false" (click)="contact.agreeToPolicies = !contact.agreeToPolicies">
+                    <span class="sr-only">Agree to policies</span>
+                    <span aria-hidden="true" class="h-4 w-4 transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition duration-200 ease-in-out" [ngClass]="{'translate-x-3.5': contact.agreeToPolicies, 'translate-x-0': !contact.agreeToPolicies}"></span>
+                  </button>
+                </div>
+                <label class="text-sm leading-6 text-gray-600" id="switch-1-label">
+                  By selecting this, you agree to our
+                  <a href="#" class="font-semibold text-indigo-600">privacy policy</a>.
+                </label>
               </div>
             </div>
-            <div class="sm:col-span-2">
-              <label for="message" class="block text-sm font-semibold leading-6 text-gray-900">Message</label>
-              <div class="mt-2.5">
-                <textarea [(ngModel)]="contact.message" name="message" id="message" rows="4" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" required></textarea>
-              </div>
+            <div class="mt-10">
+              <button type="submit" [disabled]="!contact.agreeToPolicies" class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Let's talk</button>
             </div>
-            <div class="flex gap-x-4 sm:col-span-2">
-              <div class="flex h-6 items-center">
-                <button type="button" class="flex w-8 flex-none cursor-pointer rounded-full bg-gray-200 p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" role="switch" aria-checked="false" (click)="contact.agreeToPolicies = !contact.agreeToPolicies">
-                  <span class="sr-only">Agree to policies</span>
-                  <span aria-hidden="true" class="h-4 w-4 transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition duration-200 ease-in-out" [ngClass]="{'translate-x-3.5': contact.agreeToPolicies, 'translate-x-0': !contact.agreeToPolicies}"></span>
-                </button>
-              </div>
-              <label class="text-sm leading-6 text-gray-600" id="switch-1-label">
-                By selecting this, you agree to our
-                <a href="#" class="font-semibold text-indigo-600">privacy policy</a>.
-              </label>
+            <div *ngIf="successMessage" class="mt-4 text-green-600">
+              {{ successMessage }}
             </div>
-          </div>
-          <div class="mt-10">
-            <button type="submit" [disabled]="!contact.agreeToPolicies" class="block w-full rounded-md bg-indigo-600 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Let's talk</button>
-          </div>
-          <div *ngIf="successMessage" class="mt-4 text-green-600">
-            {{ successMessage }}
-          </div>
-          <div *ngIf="errorMessage" class="mt-4 text-red-600">
-            {{ errorMessage }}
-          </div>
-        </form>
+            <div *ngIf="errorMessage" class="mt-4 text-red-600">
+              {{ errorMessage }}
+            </div>
+          </form>
+      </div>
+      <div class="bg-indigo-300  w-1/2">
+  <img class="object-cover"  src="data:image/jpeg;base64,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" alt="" srcset="">">
+</div>
+     
     </div>
-      
+    <div>
+      <section id="features" class="mt-6">
+        <h2 class="text-xl font-semibold">Application Features</h2>
+        <ul class="list-disc list-inside">
+          <li><strong>Secure Password Storage:</strong> Store all your passwords in one place with encryption to ensure security.</li>
+          <li><strong>Note-Taking Capabilities:</strong> Keep important notes related to your accounts or any other information.</li>
+          <li><strong>Card Information Management:</strong> Store and manage payment card details securely.</li>
+          <li><strong>File Storage and Management:</strong> Upload files and manage them easily within your account.</li>
+          <li><strong>User Authentication:</strong> Log in securely to protect your data.</li>
+          <li><strong>Activity Reporting:</strong> Monitor user activity for added security and awareness.</li>
+          <li><strong>Organizational Management:</strong> Manage users and their permissions within your organization.</li>
+          <li><strong>Password Sharing:</strong> Share passwords with trusted users securely through the app.</li>
+        </ul>
+      </section>
+
+      <section id="tips" class="mt-6">
+        <h2 class="text-xl font-semibold">Tips for Strong Passwords</h2>
+        <ul class="list-disc list-inside">
+          <li>Use a mix of uppercase and lowercase letters, numbers, and special characters.</li>
+          <li>Avoid using easily guessable information like birthdays or names.</li>
+          <li>Consider using a password manager to generate and store strong passwords.</li>
+          <li>Regularly update your passwords and enable two-factor authentication when available.</li>
+        </ul>
+      </section>
+    </div>
   
-    <section id="features" class="mt-6">
-      <h2 class="text-xl font-semibold">Application Features</h2>
-      <ul class="list-disc list-inside">
-        <li><strong>Secure Password Storage:</strong> Store all your passwords in one place with encryption to ensure security.</li>
-        <li><strong>Note-Taking Capabilities:</strong> Keep important notes related to your accounts or any other information.</li>
-        <li><strong>Card Information Management:</strong> Store and manage payment card details securely.</li>
-        <li><strong>File Storage and Management:</strong> Upload files and manage them easily within your account.</li>
-        <li><strong>User Authentication:</strong> Log in securely to protect your data.</li>
-        <li><strong>Activity Reporting:</strong> Monitor user activity for added security and awareness.</li>
-        <li><strong>Organizational Management:</strong> Manage users and their permissions within your organization.</li>
-        <li><strong>Password Sharing:</strong> Share passwords with trusted users securely through the app.</li>
-      </ul>
-    </section>
-  
-    <section id="tips" class="mt-6">
-      <h2 class="text-xl font-semibold">Tips for Strong Passwords</h2>
-      <ul class="list-disc list-inside">
-        <li>Use a mix of uppercase and lowercase letters, numbers, and special characters.</li>
-        <li>Avoid using easily guessable information like birthdays or names.</li>
-        <li>Consider using a password manager to generate and store strong passwords.</li>
-        <li>Regularly update your passwords and enable two-factor authentication when available.</li>
-      </ul>
-    </section>
   </div>
   

@@ -17,7 +17,7 @@ import { environment } from '../../environments/environment';
 })
 export class AuthService {
   private apiUrl: string = `${environment.api_url}/auth`;
-  readonly  http = inject(HttpClient) 
+  readonly http = inject(HttpClient);
   public _userProfileSubject = new BehaviorSubject<any | null>(null);
   public userProfile$: Observable<any | null> =
     this._userProfileSubject.asObservable();
@@ -55,7 +55,7 @@ export class AuthService {
   }
 
   resetPassword(email: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/reset-password`,{email}).pipe(
+    return this.http.post<any>(`${this.apiUrl}/reset-password`, { email }).pipe(
       tap((response: any) => {
         return of(response);
       }),
@@ -152,6 +152,19 @@ export class AuthService {
     return this.http.post<any>(`${this.apiUrl}/verify-mfa`, mfaData);
   }
 
+  setup2FA(email: string): Observable<{ imageUrl: string }> {
+    console.log('email', email);
+
+    return this.http.post<{ imageUrl: string }>(`${this.apiUrl}/setup-2fa`, {
+      email,
+    });
+  }
+
+  // Verify 2FA token entered by the user
+  verify2FA(email: string, token: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/verify-2fa`, { email, token });
+  }
+
   resendCode(email: string): Observable<any> {
     return this.http
       .get(`${this.apiUrl}/resend-code/${email}`) // Some APIs might require an empty payload for logout
@@ -175,42 +188,52 @@ export class AuthService {
       })
     );
   }
-  getUsers() : Observable<any>{
+  getUsers(): Observable<any> {
     return this.http.get(`${this.apiUrl}/users`);
   }
 
-  getPlans(): Observable<any>{
+  getPlans(): Observable<any> {
     return this.http.get(`${this.apiUrl}/plans`).pipe(
       map((response) => {
         return response;
-        }),
-        catchError((error) => {
-          return throwError(error);
-          })
-          );
+      }),
+      catchError((error) => {
+        return throwError(error);
+      })
+    );
   }
 
-  resendInvitation(organizationId: string, recipientId: string): Observable<any>{
-    return this.http.post(`${this.apiUrl}/resend-invitation/${organizationId}/${recipientId}`, {}).pipe(
-      map((response) => {
-        return response;
+  resendInvitation(
+    organizationId: string,
+    recipientId: string
+  ): Observable<any> {
+    return this.http
+      .post(
+        `${this.apiUrl}/resend-invitation/${organizationId}/${recipientId}`,
+        {}
+      )
+      .pipe(
+        map((response) => {
+          return response;
         }),
         catchError((error) => {
           return throwError(error);
-          })
-          
-    )
+        })
+      );
   }
 
   updateProfile(profile: any): Observable<any> {
-
     return this.http.patch(`${this.apiUrl}/profile`, profile).pipe(
       map((response) => {
         return response;
-        }),
-        catchError((error) => {
-          return throwError(error);
-          })
-      )
+      }),
+      catchError((error) => {
+        return throwError(error);
+      })
+    );
+  }
+
+  requestLogin(email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/request-login`, { email });
   }
 }
