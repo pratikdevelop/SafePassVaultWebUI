@@ -20,7 +20,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { CommonService } from '../../services/common.service';
 import { HeaderComponent } from "../../common/header/header.component";
-import { SideNavComponent } from "../side-nav/side-nav.component";
+import { SideNavComponent } from "../../common/side-nav/side-nav.component";
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ViewChild } from '@angular/core';

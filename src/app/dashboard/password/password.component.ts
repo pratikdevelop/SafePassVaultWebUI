@@ -33,9 +33,10 @@ import { ViewPasswordComponent } from '../../dialog/view-password/view-password.
 import { CommonService } from '../../services/common.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { HeaderComponent } from '../../common/header/header.component';
-import { SideNavComponent } from '../side-nav/side-nav.component';
+import { SideNavComponent } from '../../common/side-nav/side-nav.component';
 import { FolderService } from '../../services/folder.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-password',
@@ -72,6 +73,8 @@ export class PasswordComponent implements OnInit {
   action: string = '';
   private readonly changeDetectorReforRef = inject(ChangeDetectorRef);
   private readonly passwordService = inject(PasswordService);
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+
   displayedColumns: string[] = [
     'select',
     'favourite',
@@ -334,5 +337,8 @@ export class PasswordComponent implements OnInit {
   }
   toggleSideBar(): void {
     this.commonService.toggleSideBar();
+  }
+  removeTag(tagId: string, element: any): void {
+    element.tags = element.tags.filter((tag: { _id: string; }) => tag._id !== tagId);
   }
 }

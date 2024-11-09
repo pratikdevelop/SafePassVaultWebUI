@@ -65,4 +65,17 @@ export class NoteService {
   addToFavorites(noteId: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/note/${noteId}/favorite`, {}); // Assuming no additional data is sent in the request body
   }
+
+  searchTags(name: string): Observable<any> {
+    return this.http.get(`${environment.api_url}/tags/search/${name}`);
+  }
+
+  addTag(payload: any): Observable<any> {
+    return this.http.post<any>(`${environment.api_url}/tags/tag`, payload);
+  }
+
+  addTagToPassword(passwordId: string, tagName: string): Observable<any> {
+    const body = { passwordId, tagName };
+    return this.http.post(`${this.apiUrl}/add-tag`, body);
+  }
 }

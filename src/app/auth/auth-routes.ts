@@ -29,6 +29,8 @@ export const authRoutes: Routes = [
         path: 'mfa-verification',
         loadComponent:()=>import("./mfa-verification/mfa-verification.component").then((m
             )=>m.MfaVerificationComponent)
-    }
+    },
+    { path: 'magic-link', loadComponent:()=>import('./magic-link-verification/magic-link-verification.component').then((m)=>m.MagicLinkVerificationComponent) }
+
 ]
 

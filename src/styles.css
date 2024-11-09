@@ -55,6 +55,7 @@
   padding: 0;
   font-family: "Kreon", serif;
   font-optical-sizing: auto;
+  font-size: 0.9rem;
   font-weight: 600;
 }
 
@@ -73,6 +74,10 @@
   color: white !important;
   font-weight: bold !important;
   font-family: "Kreon", serif !important;
+}
+.mat-mdc-option .mdc-list-item__primary-text{
+  color: rgb(24, 23, 23)
+   !important;
 }
 
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

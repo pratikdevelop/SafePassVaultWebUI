@@ -61,16 +61,13 @@
       </div>
       <div class="flex items-center space-x-2">
         <h6 class="font-semibold text-slate-900">Organization:</h6>
-        <p class="text-primary">{{ user?.organization[0].name }}</p>
+        <p class="text-primary">{{ user?.organization[0]?.name }}</p>
       </div>
       <div class="flex items-center space-x-2">
         <h6 class="font-semibold text-slate-900">Plan:</h6>
         <p class="text-primary">{{ plan?.plan || "Free" }}</p>
       </div>
-      <!-- class="flex items-center space-x-2" <div>
-        <h6 class="font-semibold text-slate-900">Plan Amount:</h6>
-        <p class="text-primary">{{plan?.plan.amount || '0'}} {{plan?.plan.currency || "USD"}}</p>
-      </div> -->
+
       <div *ngIf="user?.trialEndDate">
         <h6 class="font-semibold text-slate-900">Trial End Date:</h6>
         <p class="text-primary">{{ user?.trialEndDate | date : "short" }}</p>
@@ -85,14 +82,14 @@
   </div>
   <div class="relative flex flex-col mb-4 sm:mr-4 gap-y-10 order-1 md:order-2">
     <img
-      src="https://placehold.co/150"
+      [src]="user?.userImage ? user.userImage : 'https://placehold.co/150'"
       alt="Profile Picture"
-      class="rounded-full max-h-80 w-80 border-4 border-accent shadow-lg mt-4 lg:mt-0"
+      class="rounded-full w-32 h-32 border-4 border-accent shadow-lg mt-4 lg:mt-0"
     />
     <input
       type="file"
       #fileInput
-      accept="image/*"
+      accept="image/*" 
       (change)="onFileSelected($event)"
       hidden
     />
@@ -105,5 +102,11 @@
     >
       Upload photo
     </button>
+    
+    <!-- Optional: Display file validation error -->
+    <!-- <div *ngIf="uploadError" class="text-red-500 text-sm mt-2">
+      {{ uploadError }}
+    </div> -->
   </div>
+
 </div>

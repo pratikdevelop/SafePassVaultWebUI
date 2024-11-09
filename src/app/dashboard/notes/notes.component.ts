@@ -30,7 +30,7 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { FolderService } from '../../services/folder.service';
 import { HeaderComponent } from '../../common/header/header.component';
-import { SideNavComponent } from "../side-nav/side-nav.component";
+import { SideNavComponent } from "../../common/side-nav/side-nav.component";
 @Component({
   selector: 'app-notes',
   standalone: true,

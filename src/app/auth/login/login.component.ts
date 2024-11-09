@@ -80,6 +80,12 @@ export class LoginComponent implements OnInit {
     event.stopPropagation();
   }
 
+  updateLoginPage(event: any): void {
+    console.log('fff', event);
+    
+    this.loginMode = event.value;
+    this.changeDetectorRef.detectChanges()
+  }
   // Handle form submission based on the login mode
   onSubmit(): void {
     if (this.loginForm.valid) {

@@ -7,7 +7,6 @@ export const dashboardRoutes: Routes = [
       path: '',
       loadComponent: () =>
         import('./dashboard.component').then((m) => m.DashboardComponent),
-      resolve: { products: apiResolver },
       children: [
         {
           path: 'passwords/:folderId',  // Original path with folderId

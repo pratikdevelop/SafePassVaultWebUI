@@ -54,6 +54,8 @@ export class UserProfileComponent implements OnInit {
     ).subscribe({
       next: (profileData: ProfileData) => {
         this.user = profileData.user;
+        console.log('userImage', this.user);
+        
         this.plan = profileData.planDetails;
         this.detectorRef.detectChanges();
       },

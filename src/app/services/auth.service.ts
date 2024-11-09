@@ -234,6 +234,14 @@ export class AuthService {
   }
 
   requestLogin(email: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/request-login`, { email });
+    return this.http.post(`${this.apiUrl}/request-magic-link`, { email });
+  }
+  verifyMagicLink(token: string) {
+    return this.http.get<{ token: string }>(`${this.apiUrl}/magic-link`, {
+      params: { token }
+    });
+  }
+  resendMagicLink(email: string) {
+    return this.http.post(`${this.apiUrl}/resend-magic-link`, { email });
   }
 }

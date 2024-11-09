@@ -6,7 +6,7 @@ export const apiResolver: ResolveFn<any[]> = (route, state) => {
   const service  = inject(FolderService)
   const url = state.url;
   const match = url.match(/\/dashboard\/([^\/]+)/);
-  const name = match ? match[1] : undefined;
+  const name = match ? match[1] : '';
   const folders: any[] = [];
   service.getFoldersByType(name).subscribe({
     next: (data) => {

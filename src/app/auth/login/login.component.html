@@ -5,7 +5,7 @@
       <div class="text-center text-4xl mb-8">Login with your account</div>
 
       <!-- Toggle between password and passwordless login -->
-      <mat-button-toggle-group class="mx-auto" [(ngModel)]="loginMode" aria-label="Login Mode Toggle">
+      <mat-button-toggle-group class="mx-auto" (change)="updateLoginPage($event)" [(ngModel)]="loginMode" aria-label="Login Mode Toggle">
         <mat-button-toggle value="password">Login with Password</mat-button-toggle>
         <mat-button-toggle value="passwordless">Login with Email Link</mat-button-toggle>
       </mat-button-toggle-group>

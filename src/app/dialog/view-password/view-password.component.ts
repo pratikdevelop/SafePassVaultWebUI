@@ -44,10 +44,11 @@ export class ViewPasswordComponent implements OnChanges {
           if (!this.password.comments) {
             this.password.comments = [];
           } 
-          this.password.comments.push(newComment);
+          this.password.comments.push(response.comment);
           // Handle successful response (e.g., update UI)
-          this.commentAdded.emit(newComment);
+          this.commentAdded.emit(response.comment);
           this.newComment = '';
+        this.detectorRef.detectChanges();
         },
         error => {
           console.error('Error adding comment', error);
@@ -65,11 +66,10 @@ export class ViewPasswordComponent implements OnChanges {
       }
     
       // Add new tag to the array
-      this.passwordService.addTagToPassword(this.password._id, this.newTag).subscribe((res: any)=>{
-        this.password.tags.push(this.newTag.trim());
-        console.log('ppp', this.password);
-      
-        this.tagAdded.emit(this.newTag.trim());
+      this.passwordService.addTagToPassword(this.password._id, this.newTag).subscribe((ressponse: any)=>{
+        console.log('rr', ressponse);
+        this.password.tags.push(ressponse.tag);
+        this.tagAdded.emit(ressponse.tag);
         this.newTag = '';
         this.detectorRef.detectChanges();
       })

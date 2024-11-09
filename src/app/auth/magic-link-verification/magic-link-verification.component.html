@@ -1,0 +1,21 @@
+<div class="container h-screen flex items-center justify-center">
+    <div *ngIf="loading" class="text-center">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Verifying magic link...</p>
+    </div>
+  
+    <div *ngIf="verificationStatus === 'success'" class="text-center">
+      <mat-icon color="primary" fontSize="large">check_circle</mat-icon>
+      <h2>Login Successful</h2>
+      <p>Redirecting to your dashboard...</p>
+    </div>
+  
+    <div *ngIf="verificationStatus === 'failed'" class="text-center">
+      <mat-icon color="warn" fontSize="large">error</mat-icon>
+      <h2>Verification Failed</h2>
+      <p>The magic link is invalid or has expired. Please try logging in again.</p>
+      <button mat-flat-button color="primary" (click)="resendMagicLink()">Resend Magic Link</button>
+      <button mat-stroked-button color="primary" routerLink="/auth/login">Back to Login</button>
+    </div>
+  </div>
+  

@@ -30,7 +30,6 @@ export class ProfileComponent implements OnInit {
       .subscribe((result) => {
         if (result.breakpoints['(max-width: 600px)']) {
           this.isbreakPoints = true;
-
           this.isSidebarOpen = false;
           this.mode = 'over';
         } else {
@@ -42,9 +41,6 @@ export class ProfileComponent implements OnInit {
   }
   setTab(url: string): void {
     this.router.navigateByUrl(`/dashboard/profile/${url}`);
-    if(this.isbreakPoints){
-      this.toggleSidebar();
-    }
   }
 
   toggleSidebar() {
