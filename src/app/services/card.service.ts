@@ -47,12 +47,25 @@ export class CardService {
     return this.http.get(`${this.apiUrl}/export?ids=${ids}`, { responseType: 'blob' });
   }
   addToFavorites(cardIds: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/card/${cardIds}/favorite`, {}); // Assuming no additional data is sent in the request body
+    return this.http.post(`${this.apiUrl}/${cardIds}/favorite`, {}); // Assuming no additional data is sent in the request body
   }
 
   // Error handling
   private handleError(error: any) {
     console.error('An error occurred:', error);
     return throwError('Something bad happened; please try again later.');
+  }
+
+  searchTags(name: string): Observable<any> {
+    return this.http.get(`${environment.api_url}/tags/search/${name}`);
+  }
+
+  addTag(payload: any): Observable<any> {
+    return this.http.post<any>(`${environment.api_url}/tags/tag`, payload);
+  }
+
+  addTagToPassword(passwordId: string, tagName: string): Observable<any> {
+    const body = { passwordId, tagName };
+    return this.http.post(`${this.apiUrl}/add-tag`, body);
   }
 }

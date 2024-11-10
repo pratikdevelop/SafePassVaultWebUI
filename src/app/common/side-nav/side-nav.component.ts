@@ -11,7 +11,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { FolderService } from '../../services/folder.service';
 import { MatDialog } from '@angular/material/dialog';
-import { CreateFolderDialogComponent } from '../../dialog/create-folder-dialog/create-folder-dialog.component';
+import { CreateFolderDialogComponent } from '../create-folder-dialog/create-folder-dialog.component';
 import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { CommonService } from '../../services/common.service';
@@ -54,7 +54,8 @@ export class SideNavComponent implements OnInit {
   ngOnInit(): void {
     this.isLoading = true;
     const match = this.router.url.match(/\/dashboard\/([^\/]+)/);
-    const name = match ? match[1] : '';
+    let name = match ? match[1] : '';
+    name  =  name === 'card' ? 'cards': name
     this.folderType = name;
 
     this.folderService.getFoldersByType(name).subscribe({
@@ -81,7 +82,6 @@ export class SideNavComponent implements OnInit {
     this.isLoading = true
         this.folderService.createFolder({ name: result, type: this.folderType }).subscribe(
           (folder) => {
-            console.log(folder);
             this.folders.push(folder);
             this.isLoading = false;
             this.changeDetectorRef.detectChanges()

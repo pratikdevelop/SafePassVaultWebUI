@@ -33,7 +33,7 @@
     </mat-form-field>
 
     <!-- Create Folder Button (visible when folder not found) -->
-    <button *ngIf="folderNotFound" mat-raised-button color="primary" type="button" (click)="createFolder(uploadForm.get('folderName')!.value)">
+    <button *ngIf="folderNotFound" mat-flat-button color="primary" type="button" (click)="createFolder(uploadForm.get('folderName')!.value)">
       Create Folder "{{ uploadForm.get('folderName')!.value }}"
     </button>
 
@@ -69,8 +69,8 @@
 
     <!-- Submit and Cancel Buttons -->
     <div class="flex items-center justify-between">
-      <button mat-raised-button color="primary" type="submit">Upload</button>
-      <button mat-raised-button type="button" mat-dialog-close="true">Cancel</button>
+      <button mat-flat-button color="primary" type="submit">Upload</button>
+      <button mat-flat-button type="button" mat-dialog-close="true">Cancel</button>
     </div>
   </form>
 </mat-dialog-content>

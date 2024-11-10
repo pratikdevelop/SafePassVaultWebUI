@@ -28,7 +28,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { NoteService } from '../../services/note.service';
 import { FolderService } from '../../services/folder.service';
 import { map } from 'rxjs';
-import { TagFormCompoent } from '../password-form/password-form.component';
+import { TagsCreationDialogComponent } from '../../common/tags-creation-dialog/tags-creation-dialog.component';
 
 @Component({
   selector: 'app-notes-form',
@@ -158,7 +158,7 @@ export class NotesFormComponent implements OnInit {
       });
   }
   createNewTag(): void {
-    const dialogRef = this.dialog.open(TagFormCompoent, {
+    const dialogRef = this.dialog.open(TagsCreationDialogComponent, {
       width: '1400px',
     });
   }

@@ -53,7 +53,6 @@ import { SideNavComponent } from "../../common/side-nav/side-nav.component";
     SideNavComponent
 ],
   templateUrl: './notes.component.html',
-  styleUrl: './notes.component.css',
 })
 export class NotesComponent implements OnInit {
   notes: any[] = []; // Use a Subject to manage password updates
@@ -89,7 +88,7 @@ export class NotesComponent implements OnInit {
   ngOnInit(): void {
     this.getNotes();
   }
-  getNotes(): void {
+  getNotes(event: any=null): void {
     this.isLoading = true;
     this.noteService.getNotes(this.searchTerm).subscribe(
       (response: any) => {

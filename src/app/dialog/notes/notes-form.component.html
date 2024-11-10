@@ -60,7 +60,7 @@
           <mat-chip-grid #chipGrid aria-label="Tag selection">
             <ng-container *ngIf="selectedTags.length >0">
               <mat-chip-row *ngFor="let tag of selectedTags" (removed)="removeTag(tag._id)">
-                {{ tag.name }}
+                {{ tag?.name }}
                 <button matChipRemove aria-label="Remove tag">
                   <mat-icon>cancel</mat-icon>
                 </button>
@@ -77,7 +77,7 @@
               <ng-template #tagOptions>
                 <ng-container *ngIf="tags.length > 0; else noTags">
                   <mat-option *ngFor="let tag of tags" [value]="tag">
-                    {{ tag.name }}
+                    {{ tag?.name }}
                   </mat-option>
                 </ng-container>
                 <ng-template #noTags>
@@ -100,5 +100,5 @@
   </mat-dialog-content>
   <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!noteForm.valid">Save Note</button>
+    <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="!noteForm.valid">Save Note</button>
   </mat-dialog-actions>

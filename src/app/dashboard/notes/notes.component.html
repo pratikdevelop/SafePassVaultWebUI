@@ -3,6 +3,7 @@
     *ngIf="isShow"
     #drawer
     [opened]="isSidebarOpen"
+    (UpdateFiilterType)="getNotes($event)"
     [mode]="mode"
     style="
       width: 15rem !important;

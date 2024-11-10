@@ -30,6 +30,7 @@ import {
 } from '@angular/material/sidenav';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FolderService } from '../../services/folder.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-card',
@@ -50,7 +51,8 @@ import { FolderService } from '../../services/folder.service';
     FormsModule,
     HeaderComponent,
     SideNavComponent,
-    MatSidenavModule
+    MatSidenavModule,
+    MatTooltipModule
 ],
   templateUrl: './card.component.html',
   styleUrl: './card.component.css',
@@ -65,6 +67,7 @@ export class CardComponent implements OnInit {
   searchTerm: string = '';
   displayedColumns: string[] = [
     'select',
+    'favourites',
     '_id',
     'cardType',
     'cardNumber',
@@ -87,6 +90,11 @@ mode: MatDrawerMode = 'side';
 isSidebarOpen: boolean = true;
 isBreakPoint: boolean = false;
 isShow: boolean = false;
+showCardNumber = false;
+
+toggleCardNumberVisibility(): void {
+  this.showCardNumber = !this.showCardNumber;
+}
 
   ngOnInit(): void {
     this.getCardsListings();
@@ -122,7 +130,9 @@ isShow: boolean = false;
 
   getCardsListings(): void {
     this.cardSerrvice.getCards().subscribe((response: any) => {
-      this.dataSource = response;
+      console.log('ff', response);
+      
+      this.dataSource = response.cards;
       this.changeDetectorRef.detectChanges();
     });
   }

@@ -55,12 +55,19 @@
   padding: 0;
   font-family: "Kreon", serif;
   font-optical-sizing: auto;
-  font-size: 0.9rem;
+  font-size: 0.9rem; 
   font-weight: 600;
 }
+.mat-toolbar{
+  background-color: darkviolet !important; 
+}
+mat-title{
+  color: white !important;
+  font-weight:bolder !important;
+}
 
-.mat-mdc-dialog-surface {
-  border-radius: o.1em !important;
+.mdc-dialog--open .mat-mdc-dialog-surface {
+  border-radius: 0.1em !important;
 }
 .mat-mdc-unelevated-button,
 .mat-mdc-outlined-button {

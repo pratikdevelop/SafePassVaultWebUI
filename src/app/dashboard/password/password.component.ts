@@ -23,7 +23,7 @@ import { PasswordService } from '../../services/password.service';
 import { PasswordFormComponent } from '../../dialog/password-form/password-form.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { catchError, tap } from 'rxjs';
-import { ShareDialogComponent } from '../../dialog/share-dialog/share-dialog.component';
+import { ShareDialogComponent } from '../../common/share-dialog/share-dialog.component';
 import {
   MatDrawer,
   MatSidenavModule,
@@ -62,20 +62,20 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
     SideNavComponent,
   ],
   templateUrl: './password.component.html',
-  styleUrls: ['./password.component.css'],
 })
 export class PasswordComponent implements OnInit {
-  passwords: any[] = [];
-  passwordIds = [];
-  snackbar = inject(MatSnackBar);
-  selectedTags: string = 'none';
-  filter_by: string = '';
-  action: string = '';
+  @ViewChild('drawer') drawer: MatDrawer | undefined;
   private readonly changeDetectorReforRef = inject(ChangeDetectorRef);
   private readonly passwordService = inject(PasswordService);
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-
-  displayedColumns: string[] = [
+  private readonly dialog = inject(MatDialog);
+  private readonly commonService = inject(CommonService);
+  private readonly router = inject(Router);
+  private readonly breakpointObserver = inject(BreakpointObserver);
+  private readonly activateRouter = inject(ActivatedRoute);
+  private readonly snackBar = inject(MatSnackBar);
+  public readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  selection = new SelectionModel<any>(true, []);
+  public readonly displayedColumns: string[] = [
     'select',
     'favourite',
     '_id',
@@ -87,24 +87,17 @@ export class PasswordComponent implements OnInit {
     'update_at',
     'action',
   ];
-  private readonly dialog = inject(MatDialog);
-  private readonly commonService = inject(CommonService);
-  private readonly router = inject(Router);
+
   isLoading: boolean = true;
-  searchTerm: string = '';
-  selection = new SelectionModel<any>(true, []);
-  password: any[] = [];
   isOpened = false;
-  folderId: any;
-  @ViewChild('drawer') drawer: MatDrawer | undefined;
-  readonly breakpointObserver = inject(BreakpointObserver);
-  readonly activateRouter = inject(ActivatedRoute);
-  readonly service = inject(FolderService);
-  mode: MatDrawerMode = 'side';
-  folders: any[] = [];
   isSidebarOpen: boolean = true;
   isBreakPoint: boolean = false;
   isShow: boolean = false;
+  searchTerm: string = '';
+  password: any[] = [];
+  folderId: any;
+  mode: MatDrawerMode = 'side';
+  passwords: any[] = [];
 
   ngOnInit(): void {
     this.activateRouter.paramMap.subscribe((params: any) => {
@@ -141,27 +134,25 @@ export class PasswordComponent implements OnInit {
   }
 
   getPasswords(event: any = ['all']): void {
-    this.isLoading = true;    
+    this.isLoading = true;
     if (event?.folderId) {
-      this.folderId = event.folderId
+      this.folderId = event.folderId;
     }
 
-    this.passwordService
-      .getPasswords(this.searchTerm, event)
-      .subscribe({
-        next: (response: any) => {
-          this.passwords = response;
-          this.isLoading = false;
-        },
-        error: (error) => {
-          this.isLoading = false;
-          console.error(error);
-        },
-        complete: () => {
-          this.isLoading = false;
-          this.changeDetectorReforRef.detectChanges();
-        },
-      });
+    this.passwordService.getPasswords(this.searchTerm, event).subscribe({
+      next: (response: any) => {
+        this.passwords = response;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        this.isLoading = false;
+        console.error(error);
+      },
+      complete: () => {
+        this.isLoading = false;
+        this.changeDetectorReforRef.detectChanges();
+      },
+    });
   }
 
   autofill(password: any): void {
@@ -287,23 +278,23 @@ export class PasswordComponent implements OnInit {
           return pass._id;
         })
         .join(',');
-    console.log('id', ids);
 
     this.passwordService.addToFavorites(ids).subscribe(
-      (response) => {
-        console.log('Password added to favorites successfully', response);
+      () => {
+        this.snackBar.open('Password added to favorites successfully', 'OK', {
+          direction: 'ltr',
+          duration: 3000,
+        });
         this.getPasswords();
         // Handle success, e.g., update UI
       },
       (error) => {
         console.error('Error adding password to favorites', error);
-        // Handle error, e.g., display error message
       }
     );
   }
 
   viewPassword(password: any): void {
-    console.log(password);
     this.password = password;
     this.isOpened = true;
   }
@@ -313,32 +304,42 @@ export class PasswordComponent implements OnInit {
         return pass._id;
       })
       .join(',');
-    this.passwordService.exportPasswordsAsCsv(ids).subscribe((blob: Blob) => {
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'passwords.csv';
-      a.click();
-    });
-    // Implement preview functionality
+    this.passwordService
+      .exportPasswordsAsCsv(ids)
+      .pipe()
+      .subscribe({
+        next: (blob: Blob) => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'passwords.csv';
+          a.click();
+        },
+        error: (error) => {
+          console.error('Error exporting passwords', error);
+        },
+      });
   }
 
-  performAction(fileId: string): void {
-    // Implement share functionality
-  }
   searchPassword(): void {
-    console.log('dd', this.searchTerm);
-
     this.passwordService
       .getPasswords(this.searchTerm)
-      .subscribe((response: any) => {
-        this.passwords = response;
+      .pipe()
+      .subscribe({
+        next: (passwords) => {
+          this.passwords = passwords;
+        },
+        error: (error) => {
+          console.error('Error searching passwords', error);
+        },
       });
   }
   toggleSideBar(): void {
     this.commonService.toggleSideBar();
   }
   removeTag(tagId: string, element: any): void {
-    element.tags = element.tags.filter((tag: { _id: string; }) => tag._id !== tagId);
+    element.tags = element.tags.filter(
+      (tag: { _id: string }) => tag._id !== tagId
+    );
   }
 }
