@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
   ReactiveFormsModule,
-  FormsModule,
-  FormControl,
+  FormsModule
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
@@ -55,10 +54,8 @@ export class MfaSettingComponent {
       smsPhoneNumber: [{ value: '', disabled: true }],
       emailAddress: [{ value: '', disabled: true }],
     });
-    this.authService.getProfile().subscribe((response) => {
-      this.userProfile = response.user;
-      console.log('ff', response.user);
-      
+    this.authService.getProfile().subscribe((response: any) => {
+      this.userProfile = response.user;      
       this.populateFormWithUserProfile(this.userProfile);
     });
 
@@ -116,12 +113,12 @@ export class MfaSettingComponent {
   onSubmit() {
     if (this.mfaForm.valid) {
       this.authService.updateMfaSettings(this.mfaForm.value).subscribe({
-        next: (response) => {
+        next: (response: any) => {
           this.snackBar.open('MFA settings updated successfully:', 'Ok', {
             duration: 3000,
           });
         },
-        error: (error) => {
+        error: (error: { error: { message: any; }; }) => {
           this.snackBar.open(
             `Failed to update MFA settings.${error.error.message} `,
             'Ok',
@@ -138,11 +135,11 @@ export class MfaSettingComponent {
   setup2FA(): void {
 
     this.authService.setup2FA(this.userProfile.email).subscribe(
-      (response) => {
+      (response: { imageUrl: string; }) => {
         this.qrCodeUrl = response.imageUrl; // Display QR code URL to user
         this.mfaForm.controls['totpSecret'].enable();
       },
-      (error) => {
+      (error: any) => {
         console.error('Error setting up 2FA', error);
       }
     );

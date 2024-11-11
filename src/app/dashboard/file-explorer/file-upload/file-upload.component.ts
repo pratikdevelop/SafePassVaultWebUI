@@ -5,8 +5,7 @@ import {
   FormsModule,
   ReactiveFormsModule
 } from '@angular/forms';
-import { FileService } from '../../services/file.service'; // Import your file service
-import { HttpEventType } from '@angular/common/http';
+import { FileService } from '../../../services/file.service'; // Import your file service
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';

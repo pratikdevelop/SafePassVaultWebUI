@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
@@ -20,8 +20,10 @@ export class NoteService {
   }
 
   // Get all note cards
-  getNotes(searchTerm?: any): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}?search=${searchTerm}`)
+  getNotes(searchTerm?: any, event?: any): Observable<any[]> {
+
+    const params = this.createHttpParams(searchTerm, event)
+    return this.http.get<any[]>(`${this.apiUrl}`, {params})
       .pipe(catchError(this.handleError));
   }
 
@@ -44,7 +46,7 @@ export class NoteService {
   }
 
   // Error handling
-  private handleError(error: any) {
+  handleError(error: any) {
     console.error('An error occurred:', error);
     return throwError('Something bad happened; please try again later.');
   }
@@ -77,5 +79,24 @@ export class NoteService {
   addTagToPassword(passwordId: string, tagName: string): Observable<any> {
     const body = { passwordId, tagName };
     return this.http.post(`${this.apiUrl}/add-tag`, body);
+  }
+
+  createHttpParams(_search?: string, queryparams?: any): HttpParams {
+    let params = new HttpParams();
+    if (queryparams) {
+      Object.keys(queryparams).forEach((key) => {
+        if (key === 'folderId') {
+          params = params.set(key, queryparams[key].toString());
+        } else {
+          params = params.set('filter', queryparams[key]);
+        }
+      });
+    }
+
+    if (_search) {
+      params = params.set('search', _search);
+    }
+
+    return params;
   }
 }

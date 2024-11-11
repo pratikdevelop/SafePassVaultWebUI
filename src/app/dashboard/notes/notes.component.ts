@@ -11,9 +11,9 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { tap, catchError } from 'rxjs';
 import { NoteService } from '../../services/note.service';
-import { NotesFormComponent } from '../../dialog/notes/notes-form.component';
+import { NotesFormComponent } from './notes/notes-form.component';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatChipsModule } from '@angular/material/chips';
+import { MatChipListbox, MatChipsModule } from '@angular/material/chips';
 import { CommonModule } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -31,6 +31,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FolderService } from '../../services/folder.service';
 import { HeaderComponent } from '../../common/header/header.component';
 import { SideNavComponent } from "../../common/side-nav/side-nav.component";
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { NoteViewComponent } from './note-view/note-view.component';
 @Component({
   selector: 'app-notes',
   standalone: true,
@@ -85,16 +88,19 @@ export class NotesComponent implements OnInit {
   isSidebarOpen: boolean = true;
   isBreakPoint: boolean = false;
   isShow: boolean = false;
+  folderId!: string;
   ngOnInit(): void {
     this.getNotes();
   }
-  getNotes(event: any=null): void {
+  getNotes(event: any = ['all']): void {
+    if (event?.folderId) {
+      this.folderId = event.folderId;
+    }
+
     this.isLoading = true;
-    this.noteService.getNotes(this.searchTerm).subscribe(
+    this.noteService.getNotes(this.searchTerm, event).subscribe(
       (response: any) => {
         this.isLoading = false;
-        console.log('ff', response);
-
         this.notes = response.data;
         this.changedetect.detectChanges();
       },
@@ -174,8 +180,6 @@ export class NotesComponent implements OnInit {
           return pass._id;
         })
         .join(',');
-    console.log('id', ids);
-
     this.noteService.addToFavorites(ids).subscribe(
       (response) => {
         console.log('Password added to favorites successfully', response);
@@ -216,7 +220,9 @@ export class NotesComponent implements OnInit {
   }
 
   viewNotee(note: any): void {
-    this.dialog.open(ViewNoteCompoent, {
+    this.dialog.open(NoteViewComponent, {
+      width:"500px",
+      height:"600px",
       data: { note },
     });
   }
@@ -250,13 +256,4 @@ export class NotesComponent implements OnInit {
   toggleSideBar(): void {
     this.commonService.toggleSideBar()
   }
-}
-@Component({
-  selector: 'app-view-note',
-  templateUrl: './view-note.html',
-  standalone: true,
-  imports: [MatButtonModule, MatDialogModule, CommonModule],
-})
-export class ViewNoteCompoent {
-  readonly data = inject<any>(MAT_DIALOG_DATA);
 }

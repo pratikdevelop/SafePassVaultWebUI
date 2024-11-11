@@ -20,7 +20,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialog } from '@angular/material/dialog';
 import { PasswordService } from '../../services/password.service';
-import { PasswordFormComponent } from '../../dialog/password-form/password-form.component';
+import { PasswordFormComponent } from './password-form/password-form.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { catchError, tap } from 'rxjs';
 import { ShareDialogComponent } from '../../common/share-dialog/share-dialog.component';
@@ -29,12 +29,11 @@ import {
   MatSidenavModule,
   MatDrawerMode,
 } from '@angular/material/sidenav';
-import { ViewPasswordComponent } from '../../dialog/view-password/view-password.component';
+import { ViewPasswordComponent } from './view-password/view-password.component';
 import { CommonService } from '../../services/common.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { HeaderComponent } from '../../common/header/header.component';
 import { SideNavComponent } from '../../common/side-nav/side-nav.component';
-import { FolderService } from '../../services/folder.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 

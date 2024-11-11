@@ -5,7 +5,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { CommonModule } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { OrganizationComponent } from '../../../dialog/organization/organization.component';
+import { OrganizationComponent } from './organization/organization.component';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({

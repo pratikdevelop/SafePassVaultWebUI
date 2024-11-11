@@ -91,7 +91,7 @@ export class AuthService {
           return response;
         }),
         tap(() => console.log('Password reset successful')), // Log success message
-        catchError((error) => {
+        catchError((error: { message: any; }) => {
           // Handle error response
           return of({
             error: error.message || 'An error occurred during password reset.',
@@ -105,7 +105,7 @@ export class AuthService {
       switchMap((response: any) => {
         return of(response);
       }),
-      catchError((error) => {
+      catchError((error: any) => {
         return throwError(error);
       })
     );
@@ -113,11 +113,11 @@ export class AuthService {
 
   getProfile(): Observable<any> {
     return this.http.get(`${this.apiUrl}/profile`).pipe(
-      switchMap((response) => {
+      switchMap((response: any) => {
         this._userProfileSubject.next(response);
         return of(response);
       }), // You might want to process the profile data here
-      catchError((error) => {
+      catchError((error: any) => {
         return throwError(error);
       })
     );
@@ -131,12 +131,12 @@ export class AuthService {
     return this.http
       .post(`${this.apiUrl}/logout`, {}, { headers }) // Some APIs might require an empty payload for logout
       .pipe(
-        map((response) => {
+        map((response: any) => {
           // Handle successful logout response data
           this._userProfileSubject.next(null);
           return response;
         }),
-        catchError((error) => {
+        catchError((error: any) => {
           return throwError(error);
         })
       );
@@ -169,10 +169,10 @@ export class AuthService {
     return this.http
       .get(`${this.apiUrl}/resend-code/${email}`) // Some APIs might require an empty payload for logout
       .pipe(
-        switchMap((response) => {
+        switchMap((response: any) => {
           return of(response);
         }),
-        catchError((error) => {
+        catchError((error: any) => {
           return throwError(error);
         })
       );
@@ -180,10 +180,10 @@ export class AuthService {
 
   updateMfaSettings(settings: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/mfa-settings`, settings).pipe(
-      map((response) => {
+      map((response: any) => {
         return response;
       }),
-      catchError((error) => {
+      catchError((error: any) => {
         return throwError(error);
       })
     );
@@ -194,10 +194,10 @@ export class AuthService {
 
   getPlans(): Observable<any> {
     return this.http.get(`${this.apiUrl}/plans`).pipe(
-      map((response) => {
+      map((response: any) => {
         return response;
       }),
-      catchError((error) => {
+      catchError((error: any) => {
         return throwError(error);
       })
     );
@@ -213,10 +213,10 @@ export class AuthService {
         {}
       )
       .pipe(
-        map((response) => {
+        map((response: any) => {
           return response;
         }),
-        catchError((error) => {
+        catchError((error: any) => {
           return throwError(error);
         })
       );
@@ -224,10 +224,10 @@ export class AuthService {
 
   updateProfile(profile: any): Observable<any> {
     return this.http.patch(`${this.apiUrl}/profile`, profile).pipe(
-      map((response) => {
+      map((response: any) => {
         return response;
       }),
-      catchError((error) => {
+      catchError((error: any) => {
         return throwError(error);
       })
     );

@@ -3,13 +3,13 @@
     <div class="text-primary-foreground flex items-center space-x-2">
         <button mat-icon-button (click)="toggleSideBar()" class="menu-button lg:hidden">
             <mat-icon>menu</mat-icon>
-          </button>
+        </button>
         <div class="text-xl sm:text-3xl font-bold text-accent">MFA Settings</div>
 
     </div>
     <button mat-flat-button type="submit" (click)="onSubmit()">Save Changes</button>
 </nav>
-<form [formGroup]="mfaForm"  class="flex flex-col space-y-6 p-3">
+<form [formGroup]="mfaForm" class="flex flex-col space-y-6 p-3">
     <mat-slide-toggle formControlName="mfaEnabled" color="primary" (change)="toggleMFA($event.checked)">
         Enable MFA
     </mat-slide-toggle>
@@ -30,7 +30,8 @@
 
         <mat-form-field *ngIf="mfaForm.get('mfaMethod')?.value === 'totp'">
             <mat-label>Enter TOTP Secret</mat-label>
-            <input matInput  [disabled]="userProfile.totpSecret !== null" formControlName="totpSecret" placeholder="Enter your TOTP secret">
+            <input matInput [disabled]="userProfile.totpSecret !== null" formControlName="totpSecret"
+                placeholder="Enter your TOTP secret">
         </mat-form-field>
 
         <mat-form-field *ngIf="mfaForm.get('mfaMethod')?.value === 'sms'">
@@ -93,8 +94,8 @@
         </div> -->
 
         <div *ngIf="qrCodeUrl">
-        <h3>Scan this QR code with your authentication app:</h3>
-        <img [src]="qrCodeUrl" alt="QR Code" />
+            <h3>Scan this QR code with your authentication app:</h3>
+            <img [src]="qrCodeUrl" alt="QR Code" />
         </div>
     </div>
 </form>

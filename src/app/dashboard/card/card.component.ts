@@ -13,7 +13,7 @@ import {
   MatDialog,
   MatDialogModule,
 } from '@angular/material/dialog';
-import { CreditCardFormComponent } from '../../dialog/credit-card-form/credit-card-form.component';
+import { CreditCardFormComponent } from './credit-card-form/credit-card-form.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { catchError, tap } from 'rxjs';
 import { MatCheckboxModule } from '@angular/material/checkbox';

@@ -5,7 +5,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { UserFormComponent } from '../../../dialog/user-form/user-form.component';
+import { UserFormComponent } from './user-form/user-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import { OrganizationService } from '../../../services/organization.service';
 import { AuthService } from '../../../services/auth.service';

@@ -1,0 +1,89 @@
+<!-- Note Details Section -->
+<div class="flex flex-col flex-auto h-full bg-white shadow-lg overflow-auto p-6">
+    <!-- Note Details Section -->
+    <div class="mb-4">
+        <h2 class="text-2xl font-semibold mb-2">Note Details</h2>
+        <div class="p-4 bg-white rounded shadow-md space-y-4">
+            <div class="flex justify-between items-center">
+                <h3 class="text-xl font-bold">{{ note?.title }}</h3>
+                <span class="text-sm text-gray-500">{{ note?.createdAt | date: 'short' }}</span>
+            </div>
+
+            <div class="text-sm text-gray-600">
+                <div class="flex items-center space-x-2">
+                    <strong class="w-28">Content:</strong>
+                    <span>{{ note?.content }}</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <strong class="w-28">Owner:</strong>
+                    <span>{{ note?.userId?.name }}</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <strong class="w-28">Modified By:</strong>
+                    <span>{{ note?.modifiedby?.name }}</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <strong class="w-28">Updated At:</strong>
+                    <span>{{ note?.updatedAt | date: 'short' }}</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <strong class="w-28">Favorite:</strong>
+                    <span>{{ note?.isFavorite ? 'Yes' : 'No' }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tags Section -->
+    <mat-accordion>
+        <!-- Tags Expansion Panel -->
+        <mat-expansion-panel aria-expanded="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Tags
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="flex flex-col space-y-2">
+                <div class="flex flex-wrap mt-2">
+                    <span *ngFor="let tag of note?.tags" class="bg-blue-200 text-blue-800 px-2 py-1 rounded mr-2 mb-2">
+                        {{ tag.name }}
+                        <button (click)="removeTag(tag._id)" class="ml-2 text-red-600 hover:text-red-800">x</button>
+                    </span>
+                </div>
+                <div class="mt-2 flex">
+                    <input [(ngModel)]="newTag" class="border p-2 rounded flex-grow" placeholder="Add a new tag" />
+                    <button type="button" (click)="addTag()" class="bg-blue-500 text-white px-4 py-2 rounded ml-2">Add
+                        Tag</button>
+                </div>
+            </div>
+        </mat-expansion-panel>
+
+        <!-- Comments Section -->
+        <mat-expansion-panel aria-expanded="true">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Comments
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="flex flex-col space-y-2">
+                <ng-container *ngIf="note?.comments?.length; else noComments">
+                    <div *ngFor="let comment of note.comments" class="border-b py-2 flex items-center space-x-1">
+                        <p class="font-semibold">{{ comment.createdBy?.name || comment.userName }}</p>
+                        <p>{{ comment.content }}</p>
+                        <p class="text-gray-500 text-sm">{{ comment.createdAt | date }}</p>
+                    </div>
+                </ng-container>
+                <ng-template #noComments>
+                    <p class="text-gray-500">No comments yet.</p>
+                </ng-template>
+                <div class="mt-4">
+                    <textarea [(ngModel)]="newCommentText" class="border p-2 rounded w-full"
+                        placeholder="Add a new comment"></textarea>
+                    <button (click)="addComment()" class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Post
+                        Comment</button>
+                </div>
+            </div>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>

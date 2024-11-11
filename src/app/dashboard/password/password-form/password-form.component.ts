@@ -15,7 +15,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { PasswordService } from '../../services/password.service';
+import { PasswordService } from '../../../services/password.service';
 import { AES } from 'crypto-js';
 import {
   MAT_DIALOG_DATA,
@@ -26,8 +26,8 @@ import {
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FolderService } from '../../services/folder.service';
-import { TagsCreationDialogComponent } from '../../common/tags-creation-dialog/tags-creation-dialog.component';
+import { FolderService } from '../../../services/folder.service';
+import { TagsCreationDialogComponent } from '../../../common/tags-creation-dialog/tags-creation-dialog.component';
 
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';

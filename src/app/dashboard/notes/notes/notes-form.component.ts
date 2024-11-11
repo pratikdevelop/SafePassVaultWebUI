@@ -25,10 +25,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { NoteService } from '../../services/note.service';
-import { FolderService } from '../../services/folder.service';
+import { NoteService } from '../../../services/note.service';
+import { FolderService } from '../../../services/folder.service';
 import { map } from 'rxjs';
-import { TagsCreationDialogComponent } from '../../common/tags-creation-dialog/tags-creation-dialog.component';
+import { TagsCreationDialogComponent } from '../../../common/tags-creation-dialog/tags-creation-dialog.component';
 
 @Component({
   selector: 'app-notes-form',

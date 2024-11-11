@@ -9,7 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatInputModule } from '@angular/material/input';
-import { FileUploadComponent } from '../../dialog/file-upload/file-upload.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 import { CommonService } from '../../services/common.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ViewChild } from '@angular/core';

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { PasswordService } from '../../services/password.service';
+import { PasswordService } from '../../../services/password.service';
 import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
