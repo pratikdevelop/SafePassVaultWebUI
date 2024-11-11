@@ -120,6 +120,21 @@
               <button mat-icon-button (click)="onShareItem(element._id)">
                 <mat-icon>share</mat-icon>
               </button>
+              <button
+              mat-icon-button
+              matTooltip="Edit password"
+              >
+              <!-- (click)="openCardFormDialog(element)" -->
+              <mat-icon class="text-blue-500">edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              matTooltip="Delete password"
+              >
+              <!-- (click)="deleteCard(element._id)" -->
+              <mat-icon color="warn" class="text-red-600">delete</mat-icon>
+            </button>
+
             </td>
           </ng-container>
 
