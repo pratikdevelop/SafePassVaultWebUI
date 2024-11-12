@@ -1,4 +1,4 @@
-<mat-sidenav-container class="relative flex flex-uot h-[90vh]">
+<mat-sidenav-container class="relative flex flex-out h-[90vh]">
   <!-- Sidenav -->
   <mat-sidenav
     #sidenav
@@ -46,6 +46,22 @@
       (click)="setTab('plan-details')"
       > Plan And Usage</a
     >
+
+    <!-- SSO Integration -->
+    <!-- <div class="px-4 py-2 text-white text-center mt-4">
+      <p class="text-white text-lg">Sign in with:</p>
+      Google Auth Button
+      <button class="google-auth-btn my-2 p-2 w-full text-black bg-white"
+              (click)="signInWithGoogle()">Google</button>
+      Facebook Auth Button
+      <button class="facebook-auth-btn my-2 p-2 w-full text-white bg-blue-600"
+              (click)="signInWithFacebook()">Facebook</button>
+    </div> -->
+    <a
+    class="px-4 py-2 text-white block text-center cursor-pointer"
+    (click)="setTab('single-sign-on')"
+    >Single Sign-On</a
+  >
     </div>
   </mat-sidenav>
 

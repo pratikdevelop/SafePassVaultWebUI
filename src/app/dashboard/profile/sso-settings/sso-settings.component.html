@@ -1,0 +1,51 @@
+<div class="sso-settings p-4 bg-gray-900 text-white rounded">
+    <h2 class="text-lg font-semibold mb-4">Single Sign-On (SSO) Integration</h2>
+    <form (ngSubmit)="saveSettings()" #ssoForm="ngForm">
+      
+      <!-- Login URL -->
+      <mat-form-field appearance="fill" class="w-full mb-4">
+        <mat-label>Login URL</mat-label>
+        <input matInput placeholder="Login URL" [(ngModel)]="ssoSettings.loginUrl" name="loginUrl" required>
+        <mat-hint>The Azure AD authentication endpoint.</mat-hint>
+      </mat-form-field>
+  
+      <!-- Redirect URL -->
+      <mat-form-field appearance="fill" class="w-full mb-4">
+        <mat-label>Redirect URL</mat-label>
+        <input matInput placeholder="Redirect URL" [(ngModel)]="ssoSettings.redirectUrl" name="redirectUrl" required>
+        <mat-hint>The URL to provide to Azure when registering the application.</mat-hint>
+      </mat-form-field>
+  
+      <!-- Application (Client) ID -->
+      <mat-form-field appearance="fill" class="w-full mb-4">
+        <mat-label>Application (Client) ID</mat-label>
+        <input matInput placeholder="Application ID" [(ngModel)]="ssoSettings.clientId" name="clientId" required>
+        <mat-hint>The public identifier for the app in Azure.</mat-hint>
+      </mat-form-field>
+  
+      <!-- Directory (Tenant) ID -->
+      <mat-form-field appearance="fill" class="w-full mb-4">
+        <mat-label>Directory (Tenant) ID</mat-label>
+        <input matInput placeholder="Directory ID" [(ngModel)]="ssoSettings.tenantId" name="tenantId" required>
+        <mat-hint>The Azure Active Directory tenant ID.</mat-hint>
+      </mat-form-field>
+  
+      <!-- Secret -->
+      <mat-form-field appearance="fill" class="w-full mb-4">
+        <mat-label>Secret</mat-label>
+        <input matInput placeholder="Secret" [(ngModel)]="ssoSettings.secret" name="secret" type="password" required>
+        <mat-hint>Allows Azure and your app to securely share information.</mat-hint>
+      </mat-form-field>
+  
+      <!-- Secret Expiry -->
+      <mat-form-field appearance="fill" class="w-full mb-4">
+        <mat-label>Secret Expiry</mat-label>
+        <input matInput placeholder="dd/MM/yyyy" [(ngModel)]="ssoSettings.secretExpiry" name="secretExpiry" required>
+        <mat-hint>Save the expiry date and rotate it on time.</mat-hint>
+      </mat-form-field>
+  
+      <!-- Save Button -->
+      <button mat-raised-button color="primary" type="submit" [disabled]="!ssoForm.valid">Save Settings</button>
+    </form>
+  </div>
+  

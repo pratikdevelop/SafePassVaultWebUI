@@ -13,6 +13,12 @@ import { CommonService } from '../../services/common.service';
   templateUrl: './profile.component.html',
 })
 export class ProfileComponent implements OnInit {
+signInWithGoogle() {
+throw new Error('Method not implemented.');
+}
+signInWithFacebook() {
+throw new Error('Method not implemented.');
+}
   enableSecurityQuestions = false; // Flag for optional security questions
   tab = 0;
   mode: MatDrawerMode = 'side';
