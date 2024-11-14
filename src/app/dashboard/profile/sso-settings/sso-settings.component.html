@@ -1,51 +1,63 @@
-<div class="sso-settings p-4 bg-gray-900 text-white rounded">
-    <h2 class="text-lg font-semibold mb-4">Single Sign-On (SSO) Integration</h2>
-    <form (ngSubmit)="saveSettings()" #ssoForm="ngForm">
-      
-      <!-- Login URL -->
-      <mat-form-field appearance="fill" class="w-full mb-4">
-        <mat-label>Login URL</mat-label>
+<nav aria-label="Global"
+  class="flex items-center space-x-2 justify-between w-full text-primary-foreground bg-background shadow-lg p-3">
+  <div class="flex items-center space-x-2">
+    <button mat-icon-button (click)="toggleSideBar()" class="menu-button lg:hidden">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="font-bold text-xl text-slate-900 sm:text-3xl text-accent">SSO Integration</span>
+  </div>
+  <button mat-flat-button type="button" (click)="saveSettings()" [disabled]="!ssoForm.valid">Save
+    Settings</button>
+</nav>
+<div id="profile" class="flex flex-col p-3 md:p-8 bg-card md:mx-20 mt-10 shadow-xl transition-transform transform">
+  <!-- Sidebar for SSO Providers -->
+  <div class="flex flex-col space-y-6  p-4 text-white">
+    <h2 class="text-lg font-semibold mb-4">SSO Providers</h2>
+    <nav class="flex items-center space-x-5">
+      <button *ngFor="let provider of ssoProviders" (click)="selectProvider(provider)"
+        class="w-full text-left px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600"
+        [class.bg-blue-500]="provider.id === selectedProvider.id">
+        {{ provider.name }}
+      </button>
+    </nav>
+  </div>
+
+  <!-- Main content area for selected provider settings -->
+  <div class="sso-main p-6">
+    <h2 class="text-lg font-semibold mb-4">Configure {{ selectedProvider.name }}</h2>
+
+    <form #ssoForm="ngForm">
+      <!-- Conditionally displayed fields based on the selected provider -->
+
+      <mat-form-field *ngIf="selectedProvider.fields.includes('loginUrl')" appearance="outline" class="w-full mb-4">
         <input matInput placeholder="Login URL" [(ngModel)]="ssoSettings.loginUrl" name="loginUrl" required>
-        <mat-hint>The Azure AD authentication endpoint.</mat-hint>
       </mat-form-field>
-  
-      <!-- Redirect URL -->
-      <mat-form-field appearance="fill" class="w-full mb-4">
-        <mat-label>Redirect URL</mat-label>
+
+      <mat-form-field *ngIf="selectedProvider.fields.includes('redirectUrl')" appearance="outline" class="w-full mb-4">
         <input matInput placeholder="Redirect URL" [(ngModel)]="ssoSettings.redirectUrl" name="redirectUrl" required>
-        <mat-hint>The URL to provide to Azure when registering the application.</mat-hint>
       </mat-form-field>
-  
-      <!-- Application (Client) ID -->
-      <mat-form-field appearance="fill" class="w-full mb-4">
-        <mat-label>Application (Client) ID</mat-label>
-        <input matInput placeholder="Application ID" [(ngModel)]="ssoSettings.clientId" name="clientId" required>
-        <mat-hint>The public identifier for the app in Azure.</mat-hint>
+
+      <mat-form-field *ngIf="selectedProvider.fields.includes('clientId')" appearance="outline" class="w-full mb-4">
+        <input matInput placeholder="Client ID" [(ngModel)]="ssoSettings.clientId" name="clientId" required>
       </mat-form-field>
-  
-      <!-- Directory (Tenant) ID -->
-      <mat-form-field appearance="fill" class="w-full mb-4">
-        <mat-label>Directory (Tenant) ID</mat-label>
-        <input matInput placeholder="Directory ID" [(ngModel)]="ssoSettings.tenantId" name="tenantId" required>
-        <mat-hint>The Azure Active Directory tenant ID.</mat-hint>
+
+      <mat-form-field *ngIf="selectedProvider.fields.includes('tenantId')" appearance="outline" class="w-full mb-4">
+        <input matInput placeholder="Tenant ID" [(ngModel)]="ssoSettings.tenantId" name="tenantId" required>
       </mat-form-field>
-  
-      <!-- Secret -->
-      <mat-form-field appearance="fill" class="w-full mb-4">
-        <mat-label>Secret</mat-label>
+
+      <mat-form-field *ngIf="selectedProvider.fields.includes('secret')" appearance="outline" class="w-full mb-4">
         <input matInput placeholder="Secret" [(ngModel)]="ssoSettings.secret" name="secret" type="password" required>
-        <mat-hint>Allows Azure and your app to securely share information.</mat-hint>
       </mat-form-field>
-  
-      <!-- Secret Expiry -->
-      <mat-form-field appearance="fill" class="w-full mb-4">
-        <mat-label>Secret Expiry</mat-label>
+
+      <mat-form-field *ngIf="selectedProvider.fields.includes('secretExpiry')" appearance="outline" class="w-full mb-4">
         <input matInput placeholder="dd/MM/yyyy" [(ngModel)]="ssoSettings.secretExpiry" name="secretExpiry" required>
-        <mat-hint>Save the expiry date and rotate it on time.</mat-hint>
       </mat-form-field>
-  
+
+      <mat-form-field *ngIf="selectedProvider.fields.includes('scopes')" appearance="outline" class="w-full mb-4">
+        <input matInput placeholder="e.g., profile, email" [(ngModel)]="ssoSettings.scopes" name="scopes">
+      </mat-form-field>
+
       <!-- Save Button -->
-      <button mat-raised-button color="primary" type="submit" [disabled]="!ssoForm.valid">Save Settings</button>
     </form>
   </div>
-  
+</div>

@@ -9,15 +9,9 @@ import { environment } from '../../environments/environment';
 export class FileService {
   private apiUrl = `${environment.api_url}/files`; // Replace with your API URL
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  searchFolders(searchTerm: string): Observable<any> {
-    let params = new HttpParams()
-      .set('searchTerm', searchTerm)
 
-    return this.http.get(`${this.apiUrl}/folders/search`, { params });
-  }
-  
   // Fetch files and folders
   getFilesAndFolders(folderId: string): Observable<any> {
     return this.http.get(`${this.apiUrl}`);
@@ -28,14 +22,25 @@ export class FileService {
     return this.http.post(`${this.apiUrl}/folder`, { name, parentId });
   }
 
+  removeFile(fileId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/file/${fileId}`);
+  }
   // Create a new folder
   searchUsers(name: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/searchUsers/${name}`);
   }
 
+  deleteFile(fileId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${fileId}`);
+  }
+
   // Upload a file
   uploadFile(formData: FormData): Observable<any> {
     return this.http.post(`${this.apiUrl}/upload`, formData);
+  }
+
+  updateFileMetadata(fileId: string, updatedData: any): Observable<any> {
+    return this.http.put(`/api/files/${fileId}`, updatedData);
   }
 
   // Share a file or folder
@@ -45,6 +50,6 @@ export class FileService {
 
   // File preview
   getFilePreview(fileId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/preview/${fileId}`, { responseType: 'blob' });
+    return this.http.get(`${this.apiUrl}/preview/${fileId}`);
   }
 }

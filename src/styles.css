@@ -55,7 +55,7 @@
   padding: 0;
   font-family: "Kreon", serif;
   font-optical-sizing: auto;
-  font-size: 0.9rem; 
+  /* font-size: 0.9rem;  */
   font-weight: 600;
 }
 .mat-toolbar{

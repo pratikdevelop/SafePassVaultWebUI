@@ -16,7 +16,6 @@ import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { CommonService } from '../../services/common.service';
 import {
-  FormBuilder,
   FormControl,
   FormGroup,
   FormsModule,
@@ -45,23 +44,23 @@ export class SideNavComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private readonly changeDetectorRef = inject(ChangeDetectorRef)
-  @Output()UpdateFiilterType = new EventEmitter<any>();
+  @Output() UpdateFiilterType = new EventEmitter<any>();
   isLoading = true;
   folderId: string = '';
   folders: any[] = [];
-  folderType: string |undefined;
+  folderType: string | undefined;
 
   ngOnInit(): void {
     this.isLoading = true;
     const match = this.router.url.match(/\/dashboard\/([^\/]+)/);
     let name = match ? match[1] : '';
-    name  =  name === 'card' ? 'cards': name
+    name = name === 'card' ? 'cards' : name
     this.folderType = name;
 
     this.folderService.getFoldersByType(name).subscribe({
       next: (data: any) => {
         this.folders = data;
-            },
+      },
       error: (error) => {
         console.error(error);
       },
@@ -79,7 +78,7 @@ export class SideNavComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-    this.isLoading = true
+        this.isLoading = true
         this.folderService.createFolder({ name: result, type: this.folderType }).subscribe(
           (folder) => {
             this.folders.push(folder);
@@ -98,11 +97,11 @@ export class SideNavComponent implements OnInit {
 
   change(value: any): void {
     const type = ['favourite', 'all', 'shared_with_me', 'created_by_me'];
-        if (type?.includes(value[0] || '')) {
-          this.UpdateFiilterType.emit(value);
-        } else {
-          this.UpdateFiilterType.emit({folderId: value});
+    if (type?.includes(value[0] || '')) {
+      this.UpdateFiilterType.emit(value);
+    } else {
+      this.UpdateFiilterType.emit({ folderId: value });
 
-        }
+    }
   }
 }

@@ -1,28 +1,45 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { CommonService } from '../../../services/common.service';
+import { MatButton, MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-sso-settings',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, CommonModule, MatIconModule],
+  imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, CommonModule, MatIconModule, MatButtonModule],
   templateUrl: './sso-settings.component.html',
-  styleUrl: './sso-settings.component.css'
+  styleUrls: ['./sso-settings.component.css']
 })
 export class SsoSettingsComponent {
-  ssoSettings = {
-    loginUrl: '',
-    redirectUrl: '',
-    clientId: '',
-    tenantId: '',
-    secret: '',
-    secretExpiry: ''
-  };
+  private readonly commonService = inject(CommonService);
 
+  toggleSideBar(): void {
+    this.commonService.toggleProfileSideBar();
+  }
+  ssoProviders = [
+    { id: 'azure-ad', name: 'Azure AD', fields: ['redirectUrl', 'clientId', 'tenantId', 'secret', 'secretExpiry'] },
+    { id: 'google', name: 'Google', fields: ['redirectUrl', 'clientId', 'secret', 'secretExpiry', 'scopes'] },
+    { id: 'facebook', name: 'Facebook', fields: ['redirectUrl', 'clientId', 'secret', 'scopes'] },
+    { id: 'saml', name: 'SAML', fields: ['loginUrl', 'redirectUrl', 'clientId', 'secret'] }
+  ];
+
+  selectedProvider = this.ssoProviders[0]; // Default selected provider
+  ssoSettings: any = {}; // Dynamic settings based on selected provider
+
+  constructor() { }
+
+  // Method to switch between SSO providers
+  selectProvider(provider: { id: string; name: string; fields: string[]; }) {
+    this.selectedProvider = provider;
+    this.ssoSettings = {}; // Clear settings when switching providers
+  }
+
+  // Method to save settings (could be used to send data to a backend)
   saveSettings() {
-    // Here you can send the ssoSettings object to your backend API
-    console.log('SSO Settings Saved:', this.ssoSettings);
+    console.log('SSO Settings for', this.selectedProvider.name, ':', this.ssoSettings);
   }
 }

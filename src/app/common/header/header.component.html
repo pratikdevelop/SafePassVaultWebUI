@@ -3,7 +3,7 @@
     <div class="flex justify-between w-full lg:w-auto">
       <a routerLink="/" class="text-4xl">Safepassvault</a>
       <div class="flex lg:hidden">
-        <button mat-icon-button [matMenuTriggerFor]="mainMenu" >
+        <button mat-icon-button [matMenuTriggerFor]="mainMenu">
           <mat-icon>menu</mat-icon>
         </button>
       </div>
@@ -12,12 +12,16 @@
     <div class="menu-content hidden lg:flex lg:flex-row lg:space-x-4 lg:justify-end w-full lg:w-auto">
       <span class="flex flex-col lg:flex-row items-center space-y-2 lg:space-y-0 lg:space-x-4 ml-auto">
         <ng-container *ngIf="token; else loggedOutMenu">
-          <a mat-button class="menu-item" (click)="updateSideBar('passwords')" routerLink="/dashboard/passwords">Passwords</a>
-          <a mat-button class="menu-item" (click)="updateSideBar('notes')" routerLink="/dashboard/notes">Secure Notes</a>
-          <a mat-button class="menu-item" (click)="updateSideBar('card')" routerLink="/dashboard/card">Cards</a>
-          <a mat-button class="menu-item" (click)="updateSideBar('file')" routerLink="/dashboard/file">File Storage</a>
-          <a mat-button class="menu-item" (click)="updateSideBar('identity')" routerLink="/dashboard/identity">Identity</a>
-          <a mat-button class="menu-item" *ngIf="userProfile?.user.role === 'admin'" routerLink="/admin/users">Administration</a>
+          <a mat-button class="menu-item" (click)="updateSideBar('passwords')"
+            routerLink="/dashboard/passwords">Passwords</a>
+          <a mat-button class="menu-item" (click)="updateSideBar('notes')" routerLink="/dashboard/notes">Secure
+            Notes</a>
+          <a mat-button class="menu-item" (click)="updateSideBar('card')" routerLink="/dashboard/cards">Cards</a>
+          <a mat-button class="menu-item" (click)="updateSideBar('file')" routerLink="/dashboard/files">File Storage</a>
+          <a mat-button class="menu-item" (click)="updateSideBar('identity')"
+            routerLink="/dashboard/identity">Identity</a>
+          <a mat-button class="menu-item" *ngIf="userProfile?.user.role === 'admin'"
+            routerLink="/admin/users">Administration</a>
           <a mat-button class="menu-item" routerLink="/dashboard/profile/personal-details">Profile</a>
           <button mat-button class="menu-item" (click)="logout()">Logout</button>
         </ng-container>
@@ -29,7 +33,7 @@
           <a class="menu-item" mat-button routerLink="/download">Download</a>
           <a class="menu-item" mat-button routerLink="/auth/signup">Get Started</a>
           <a mat-button class="menu-item" routerLink="/auth/login">Log In</a>
-          <a mat-button class="menu-item" routerLink="/privacy-policy">Privacy policy</a>
+          <!-- <a mat-button class="menu-item" routerLink="/privacy-policy">Privacy policy</a> -->
         </ng-template>
       </span>
     </div>
@@ -41,19 +45,20 @@
         <a mat-menu-item class="menu-item" routerLink="/dashboard/card">Cards</a>
         <a mat-menu-item class="menu-item" routerLink="/dashboard/file">File Storage</a>
         <a mat-menu-item class="menu-item" routerLink="/dashboard/identity">Identity</a>
-        <a mat-menu-item class="menu-item" *ngIf="userProfile?.role === 'admin'" routerLink="/admin/users">Administration</a>
+        <a mat-menu-item class="menu-item" *ngIf="userProfile?.role === 'admin'"
+          routerLink="/admin/users">Administration</a>
         <a mat-menu-item class="menu-item" routerLink="/dashboard/profile/personal-details">Profile</a>
         <button mat-menu-item class="menu-item" (click)="logout()">Logout</button>
       </ng-container>
       <ng-template #loggedOutMenu>
-      <button mat-menu-item [matMenuTriggerFor]="productsMenu">Products</button>
-      <button mat-menu-item routerLink="/plan-pricing">Plan and Pricing</button>
-      <button mat-menu-item routerLink="/auth/signup">Get Started</button>
-      <a mat-menu-item routerLink="/privacy-policy">Privacy policy</a>
-      <a mat-menu-item routerLink="/download">Download</a>
-      <a mat-menu-item routerLink="/api-docs">API Documentation</a>
-      <a mat-menu-item routerLink="/support">Customer Support</a>
-      <button mat-menu-item routerLink="/auth/login">Log In</button>
+        <button mat-menu-item [matMenuTriggerFor]="productsMenu">Products</button>
+        <button mat-menu-item routerLink="/plan-pricing">Plan and Pricing</button>
+        <button mat-menu-item routerLink="/auth/signup">Get Started</button>
+        <a mat-menu-item routerLink="/privacy-policy">Privacy policy</a>
+        <a mat-menu-item routerLink="/download">Download</a>
+        <a mat-menu-item routerLink="/api-docs">API Documentation</a>
+        <a mat-menu-item routerLink="/support">Customer Support</a>
+        <button mat-menu-item routerLink="/auth/login">Log In</button>
       </ng-template>
     </mat-menu>
 

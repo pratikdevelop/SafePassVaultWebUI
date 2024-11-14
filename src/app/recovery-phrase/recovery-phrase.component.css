@@ -1,0 +1,74 @@
+.recovery-phrase-container {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 400px;
+  margin: auto;
+}
+
+.recovery-phrase-mask {
+  font-size: 1.2em;
+  color: #ccc;
+}
+
+.recovery-phrase {
+  font-size: 1.2em;
+  color: #333;
+  word-wrap: break-word;
+}
+
+.actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.toggle-button, .copy-button, .download-button {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.toggle-button:hover, .copy-button:hover, .download-button:hover {
+  background-color: #0056b3;
+}
+
+.key-info {
+  margin-top: 30px;
+}
+
+.key-info h4 {
+  margin: 0;
+}
+
+.key-info p {
+  font-size: 1em;
+  color: #333;
+}
+
+
+.public-key-block {
+  background-color: #f7fafc; /* Light gray background */
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto; /* Enables horizontal scrolling if content is too wide */
+}
+
+blockquote {
+  font-family: 'Courier New', monospace; /* Ensure monospace font for public key */
+  white-space: pre-wrap; /* Wrap long lines correctly */
+  word-wrap: break-word; /* Allow breaking of words if necessary */
+  gap: .5rem;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.text-sm {
+  font-size: 0.875rem;
+}

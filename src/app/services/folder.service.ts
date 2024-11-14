@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { tap } from 'rxjs/operators';
@@ -81,5 +81,12 @@ export class FolderService {
         this.folderBehaviourSubject.next(updatedFolders);
       })
     );
+  }
+
+  searchFolders(searchTerm: string, type: string): Observable<any> {
+    let params = new HttpParams()
+      .append('searchTerm', searchTerm).append('type', type)
+
+    return this.http.get(`${this.apiUrl}/search`, { params });
   }
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit, signal, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -20,6 +20,7 @@ import { OrganizationService } from '../../services/organization.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthService } from '../../services/auth.service';
 import { SecurityQuestionService } from '../../services/security-question.service';
+import zxcvbn from 'zxcvbn';
 
 @Component({
   selector: 'app-invitation-accept',
@@ -46,12 +47,15 @@ export class InvitationAcceptComponent implements OnInit {
   emailForm: FormGroup;
   securityForm: FormGroup;
   invitationId!: string;
-  organizationServie = inject(OrganizationService);
+  public hide = signal(true);
+
+  readonly organizationServie = inject(OrganizationService);
   readonly snacBar = inject(MatSnackBar);
   readonly authService = inject(AuthService);
   readonly router = inject(Router);
   readonly securityQuestionService = inject(SecurityQuestionService);
   readonly route = inject(ActivatedRoute);
+  readonly changeDetetorRef = inject(ChangeDetectorRef)
   readonly fb = inject(FormBuilder);
 
   constructor() {
@@ -85,11 +89,13 @@ export class InvitationAcceptComponent implements OnInit {
   passwordMatchValidator(formGroup: FormGroup) {
     const password = formGroup?.get('password')?.value;
     const confirmPassword = formGroup.get('confirmPassword')?.value;
-    console.log('fff', password === confirmPassword);
-
     return password === confirmPassword ? null : { mismatch: true };
   }
 
+  clickEvent(event: MouseEvent) {
+    this.hide.set(!this.hide());
+    event.stopPropagation();
+  }
   onSubmitPassword(): void {
     if (this.passwordForm.valid) {
       const password = this.passwordForm.get('password')?.value;
@@ -98,6 +104,7 @@ export class InvitationAcceptComponent implements OnInit {
         .updateInvitationStatus(this.invitationId, password, email)
         .subscribe((res) => {
           console.log(res);
+          this.stepper.next();
           this.snacBar.open(
             'Invitation Accepted successfully, Please verify email'
           );
@@ -113,6 +120,7 @@ export class InvitationAcceptComponent implements OnInit {
     this.authService.emailVerification(payload).subscribe(
       (response) => {
         localStorage.setItem('token', response.token);
+        this.stepper.next();
         this.snacBar.open(
           'Email Verified, Add the security question or Skip these Step',
           'close',
@@ -136,7 +144,7 @@ export class InvitationAcceptComponent implements OnInit {
           this.snacBar.open('Security question added successfully', 'close', {
             duration: 3000,
           });
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/dashboard/passwords']);
         },
         error: (error) => {
           console.error('error', error);
@@ -146,4 +154,17 @@ export class InvitationAcceptComponent implements OnInit {
         },
       });
   }
+  generatePassword(): void {
+    const passwords = Array(10)
+      .fill(
+        '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@-#$'
+      )
+      .map((x) => x[Math.floor(Math.random() * x.length)])
+      .join('');
+    this.passwordForm.get('password')?.setValue(passwords);
+    this.passwordForm.get('confirmPassword')?.setValue(passwords);
+    const result = zxcvbn(passwords);
+    this.changeDetetorRef.detectChanges();
+  }
+
 }

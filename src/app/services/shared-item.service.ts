@@ -14,4 +14,10 @@ export class SharedItemService {
   shareItem(data: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, data);
   }
+  sendEmail(email: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl + '/send-email', email);
+  }
+  generateLink(data: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl + '/generate-link', data);
+  }
 }

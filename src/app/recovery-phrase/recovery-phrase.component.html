@@ -1,0 +1,49 @@
+<nav aria-label="Global"
+    class="flex items-center  justify-between w-full text-primary-foreground bg-background shadow-lg p-3">
+    <span class="flex items-center space-x-2">
+        <button mat-icon-button class="menu-button lg:hidden">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span class="font-bold  text-xl sm:text-3xl text-accent"> Key Inspector</span>
+
+    </span>
+    <div class="flex items-center justify-start space-x-6">
+        <button class="download-button" (click)="downloadKey('public')">Download Public Key</button>
+        <button class="download-button" (click)="downloadKey('private')">Download Private Key</button>
+    </div>
+</nav>
+<div id="profile" class="flex flex-col md:flex-row md:items-center md:justify-between p-8  bg-card mt-10 shadow-xl">
+    <div class="flex flex-col w-2/4 space-y-6 p-6 bg-slate-800 text-white flex-auto">
+        <!-- Title and Download Buttons -->
+        <div class="text-4xl font-bold capitalize">Information of Public and Private Key</div>
+
+
+        <!-- Key Info Section -->
+        <div class="key-info space-y-8">
+            <div><strong>Fingerprint:</strong> {{ publicKeyFingerprint }}</div>
+            <div><strong>Created:</strong> {{ publicKeyCreatedDate }}</div>
+            <div><strong>Expires:</strong> {{ publicKeyExpiresDate }}</div>
+            <div><strong>Key Length:</strong> {{ publicKeyLength }}</div>
+            <div><strong>Algorithm:</strong> {{ publicKeyAlgorithm }}</div>
+        </div>
+    </div>
+
+    <!-- Public Key Section -->
+    <div class="flex flex-col space-y-3 w-2/4 bg-slate-800 p-6">
+        <h4 class="text-xl font-semibold">Public Key Block</h4>
+
+        <!-- Public Key Block with Scrollable Area -->
+        <div class="public-key-block bg-gray-100 p-4 rounded-md overflow-x-auto">
+            <blockquote class="text-sm font-mono text-gray-800 whitespace-pre-wrap">
+                <span class="text-xl font-bold text-center block">
+                    ------------- Begin Public Key ---------------
+                </span>
+                <!-- The public key will be wrapped here -->
+                <span class="block leading-8">
+                    {{ publicKey }}
+                </span>
+            </blockquote>
+        </div>
+    </div>
+
+</div>

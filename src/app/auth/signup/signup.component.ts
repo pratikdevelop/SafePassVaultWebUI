@@ -9,10 +9,7 @@ import {
 import {
   FormBuilder,
   FormControl,
-  FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
+  FormGroup, FormsModule, ReactiveFormsModule, Validators
 } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
@@ -26,7 +23,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatSliderModule } from '@angular/material/slider';
@@ -39,18 +36,15 @@ import { CommonModule } from '@angular/common';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import countries from '../../country';
-import { StepperOptions, StepperOrientation } from '@angular/cdk/stepper';
+import { StepperOrientation } from '@angular/cdk/stepper';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
   imports: [
-    ReactiveFormsModule,
-    FormsModule,
     MatSnackBarModule,
     RouterModule,
     MatButtonModule,
-    CommonModule,
     MatStepperModule,
     MatOptionModule,
     MatFormFieldModule,
@@ -63,6 +57,10 @@ import { StepperOptions, StepperOrientation } from '@angular/cdk/stepper';
     MatSliderModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    FormsModule
   ],
   templateUrl: './signup.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -97,6 +95,7 @@ export class SignupComponent {
   public stepperOrientation: StepperOrientation = 'horizontal';
   filteredCities!: any[];
   filteredStates!: any[];
+
   constructor() {
     this.signupForm = this.formBuilder.group({
       name: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -111,6 +110,7 @@ export class SignupComponent {
         this.passwordValidator.bind(this),
       ]),
     });
+
     this.billingForm = this.formBuilder.group({
       billingAddress: new FormControl('', Validators.required),
       city: new FormControl('', Validators.required),
@@ -118,14 +118,17 @@ export class SignupComponent {
       postalCode: new FormControl('', Validators.required),
       country: new FormControl('', Validators.required),
     });
+
     this.paymentForm = this.formBuilder.group({
       planType: new FormControl(''),
       planId: new FormControl(''),
       plan_action: new FormControl(''),
     });
+
     this.OTPForm = this.formBuilder.group({
       confirmationCode: new FormControl('', Validators.required),
     });
+
     this.securityForm = this.formBuilder.group({
       securityQuestion1: new FormControl(''),
       securityAnswer1: new FormControl(''),
@@ -137,17 +140,14 @@ export class SignupComponent {
       .observe([Breakpoints.Handset])
       .subscribe((result) => {
         this.stepperOrientation = result.matches ? 'vertical' : 'horizontal';
-        console.log('gfhghg', this.stepperOrientation);
         this.changeDetetorRef.detectChanges();
       });
   }
 
   ngOnInit(): void {
-    this.initPasswordStrengthWatcher();
     this.route.queryParams.subscribe((params: any) => {
       this.isPaidPlan = params['plan'] && params.plan !== 'free';
       this.paymentForm.get('planType')?.setValue(params.plan);
-
       const planId = params['planId'];
       if (planId) {
         this.paymentForm.get('planId')?.setValue(planId);
@@ -351,8 +351,11 @@ export class SignupComponent {
     });
   }
 
+
+
   onSubmit(): void {
     this.initConfig();
+
 
     if (
       this.signupForm.valid &&
@@ -401,11 +404,17 @@ export class SignupComponent {
     }
   }
 
-  createUser(): void {
+  async createUser(): Promise<void> {
+    const recoveryPhrase = await this.generateRecoveryPhrase();
+    const encryptedRecoveryPhrase = await this.encryptRecoveryPhrase(recoveryPhrase);
+    const keyPair = await this.generateKeyPair();
+    const publicKey = await this.exportPublicKey(keyPair);
     const userDetails = {
       ...this.signupForm.value,
       ...this.billingForm.value,
       ...this.paymentForm.value,
+      recoveryPhrase: encryptedRecoveryPhrase, // Include encrypted recovery phrase
+      publicKey
     };
     this.authService.signup(userDetails).subscribe({
       next: (response: any) => {
@@ -415,10 +424,6 @@ export class SignupComponent {
             'User registered. A confirmation email has been sent.',
             'close',
             { duration: 3000 }
-          );
-          localStorage.setItem(
-            'email',
-            this.signupForm.value.email?.toString()
           );
           this.stepper.next(); // Moves to the next step
         }
@@ -445,7 +450,7 @@ export class SignupComponent {
 
   onConfirmOTP(): void {
     if (this.OTPForm.invalid) return;
-    const payload ={
+    const payload = {
       confirmationCode: this.OTPForm.value.confirmationCode,
       email: this.signupForm.value.email
     }
@@ -485,6 +490,16 @@ export class SignupComponent {
 
   addSecurityQuestion(): void {
     if (this.securityForm.invalid) return;
+    const securityQuestions = [
+      {
+        question: this.securityForm.value.securityQuestion1,
+        answer: this.securityForm.value.securityAnswer1
+      },
+      {
+        question: this.securityForm.value.securityQuestion2,
+        answer: this.securityForm.value.securityAnswer2
+      }
+    ];
     this.securityQuestionService
       .createSecurityQuestion(this.securityForm.value)
       .subscribe({
@@ -502,6 +517,89 @@ export class SignupComponent {
         },
       });
   }
+  async generateRecoveryPhrase(): Promise<string> {
+    const recoveryPhrase = this.generateRandomMnemonic();
+    return recoveryPhrase;
+  }
+
+  // Example of generating a recovery phrase (12-word mnemonic)
+  generateRandomMnemonic(): string {
+    const words = [
+      "apple", "banana", "cherry", "date", "elephant", "fox", "grape", "house",
+      "ice", "jungle", "kite", "lemon", "moon", "night", "orange", "peach",
+      "queen", "rose", "sun", "tiger", "umbrella", "violet", "water", "xylophone",
+      "yellow", "zebra"
+    ];
+    return Array(12)
+      .fill(null)
+      .map(() => words[Math.floor(Math.random() * words.length)])
+      .join(" ");
+  }
+
+  async encryptRecoveryPhrase(phrase: string): Promise<string> {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(phrase);
+    const key = await this.generateEncryptionKey();
+    const iv = crypto.getRandomValues(new Uint8Array(16));
+
+    const encryptedData = await crypto.subtle.encrypt(
+      {
+        name: "AES-GCM",
+        iv: iv
+      },
+      key,
+      data
+    );
+
+    const encryptedBuffer = new Uint8Array(encryptedData);
+    const encryptedBase64 = this.arrayBufferToBase64(encryptedBuffer);
+
+    return encryptedBase64;
+  }
+
+  async generateEncryptionKey(): Promise<CryptoKey> {
+    return await crypto.subtle.generateKey(
+      {
+        name: "AES-GCM",
+        length: 256
+      },
+      true,
+      ["encrypt", "decrypt"]
+    );
+  }
+
+  arrayBufferToBase64(buffer: Uint8Array): string {
+    let binary = '';
+    const bytes = new Uint8Array(buffer);
+    const length = bytes.byteLength;
+    for (let i = 0; i < length; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
+  }
+
+
+  async generateKeyPair(): Promise<any> {
+    const keyPair = await window.crypto.subtle.generateKey(
+      {
+        name: "RSA-PSS",
+        modulusLength: 2048,
+        publicExponent: new Uint8Array([1, 0, 1]),
+        hash: "SHA-256",
+      },
+      true,
+      ["sign", "verify"]
+    );
+    return keyPair;
+  }
+
+  // Export the public key (to send to the backend)
+  async exportPublicKey(keyPair: { publicKey: CryptoKey; }) {
+    const exportedKey = await window.crypto.subtle.exportKey("spki", keyPair.publicKey);
+    const exportedKeyBase64 = btoa(String.fromCharCode(...new Uint8Array(exportedKey)));
+    return exportedKeyBase64;
+  }
+
 
   logData(): void {
     console.log(this.signupForm);

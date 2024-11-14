@@ -1,0 +1,31 @@
+<div class="bg-gray-800 p-6 rounded-md shadow-md text-white">
+    <h2 class="text-xl font-semibold mb-4">OAuth 2.0 Configuration</h2>
+    <form (ngSubmit)="saveOAuth2Settings()">
+        <mat-form-field class="w-full mb-4">
+            <mat-label>Client ID</mat-label>
+            <input matInput [(ngModel)]="oauth2Settings.clientId" name="clientId" required>
+        </mat-form-field>
+
+        <mat-form-field class="w-full mb-4">
+            <mat-label>Client Secret</mat-label>
+            <input matInput [(ngModel)]="oauth2Settings.clientSecret" name="clientSecret" type="password" required>
+        </mat-form-field>
+
+        <mat-form-field class="w-full mb-4">
+            <mat-label>Authorization URL</mat-label>
+            <input matInput [(ngModel)]="oauth2Settings.authorizationUrl" name="authorizationUrl" required>
+        </mat-form-field>
+
+        <mat-form-field class="w-full mb-4">
+            <mat-label>Token URL</mat-label>
+            <input matInput [(ngModel)]="oauth2Settings.tokenUrl" name="tokenUrl" required>
+        </mat-form-field>
+
+        <mat-form-field class="w-full mb-4">
+            <mat-label>Redirect URI</mat-label>
+            <input matInput [(ngModel)]="oauth2Settings.redirectUri" name="redirectUri" required>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit">Save</button>
+    </form>
+</div>

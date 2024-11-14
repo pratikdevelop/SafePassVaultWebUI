@@ -1,39 +1,64 @@
+<nav aria-label="Global"
+    class="flex items-center  justify-between w-full text-primary-foreground bg-background shadow-lg p-3">
+    <span class="flex items-center space-x-2">
+        <button mat-icon-button (click)="toggleSideBar()" class="menu-button lg:hidden">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span class="font-bold  text-xl sm:text-3xl text-accent"> Security Questions</span>
 
-    <nav aria-label="Global" class="flex items-center  justify-between w-full text-primary-foreground bg-background shadow-lg p-3">
-        <span class="flex items-center space-x-2">
-            <button mat-icon-button (click)="toggleSideBar()" class="menu-button lg:hidden">
-                <mat-icon>menu</mat-icon>
-              </button>
-            <span class="font-bold  text-xl sm:text-3xl text-accent"> Security Questions</span>
+    </span>
+    <button mat-flat-button type="submit" (click)="onSubmit()">Save Changes</button>
+</nav>
+<form method="post" [formGroup]="securityForm" class="flex flex-col w-full space-y-6 p-5">
+    <mat-form-field appearance="outline">
+        <mat-select placeholder="Select your first security question" formControlName="securityQuestion1" required>
+            <mat-option value="firstPet">What was the name of your first pet?</mat-option>
+            <mat-option value="firstSchool">What was the name of your first school?</mat-option>
+            <mat-option value="motherMaiden">What is your mother's maiden name?</mat-option>
+            <mat-option value="favoriteColor">What is your favorite color?</mat-option>
+        </mat-select>
+        <mat-error *ngIf="
+                                securityForm.get('securityQuestion1')?.hasError('required') ||
+                                securityForm.get('securityQuestion1')?.touched
+                              ">
+            Security Question 1 is required
+        </mat-error>
+    </mat-form-field>
 
-        </span>
-        <button mat-flat-button type="submit" (click)="onSubmit()">Save Changes</button>
-      </nav>
-    <form method="post" [formGroup]="securityForm" class="flex flex-col w-full space-y-6 p-5">
-        <mat-form-field appearance="fill">
-            <mat-label>Question 1</mat-label>
-            <mat-select formControlName="securityQuestion1">
-            <mat-option value="What is your mother's maiden name?">What is your mother's maiden name?</mat-option>
-            <mat-option value="What is your favorite pet's name?">What is your favorite pet's name?</mat-option>
-            <mat-option value="What is your childhood nickname?">What is your childhood nickname?</mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-            <mat-label>Answer 1</mat-label>
-            <input matInput type="text" formControlName="securityAnswer1">
-        </mat-form-field>
+    <mat-form-field appearance="outline">
+        <input matInput placeholder="Your answer" formControlName="securityAnswer1" required />
+        <mat-error *ngIf="
+                                securityForm.get('securityAnswer1')?.hasError('required') ||
+                                securityForm.get('securityAnswer1')?.touched
+                              ">
+            Answer is required
+        </mat-error>
+    </mat-form-field>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Question 2</mat-label>
-            <mat-select formControlName="securityQuestion2">
-            <mat-option value="What is your favorite food?">What is your favorite food?</mat-option>
-            <mat-option value="What is your favorite travel destination?">What is your favorite travel destination?</mat-option>
-            <mat-option value="What is your favorite hobby?">What is your favorite hobby?</mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-            <mat-label>Answer 2</mat-label>
-            <input matInput type="text" formControlName="securityAnswer2">
-        </mat-form-field>
+    <!-- Second Security Question -->
+    <mat-form-field appearance="outline">
+        <mat-select placeholder="Select your second security question" formControlName="securityQuestion2" required>
+            <mat-option value="favoriteBook">What is your favorite book?</mat-option>
+            <mat-option value="streetGrewUp">What street did you grow up on?</mat-option>
+            <mat-option value="bestFriend">What is the name of your best friend?</mat-option>
+            <mat-option value="firstJob">What was your first job?</mat-option>
+        </mat-select>
+        <mat-error *ngIf="
+                                securityForm.get('securityQuestion2')?.hasError('required') ||
+                                securityForm.get('securityQuestion2')?.touched
+                              ">
+            Security Question 2 is required
+        </mat-error>
+    </mat-form-field>
 
-    </form>
+    <mat-form-field appearance="outline">
+        <input matInput placeholder="Your answer" formControlName="securityAnswer2" required />
+        <mat-error *ngIf="
+                                securityForm.get('securityAnswer2')?.hasError('required') ||
+                                securityForm.get('securityAnswer2')?.touched
+                              ">
+            Answer is required
+        </mat-error>
+    </mat-form-field>
+
+</form>

@@ -1,37 +1,86 @@
 <mat-toolbar color="primary">
-    <h2 mat-dialog-title>Share {{ data.itemType }}</h2>
-  </mat-toolbar>
-<div mat-dialog-content>
-    <form  [formGroup]="shareForm" class="flex flex-col space-y-6 p-6">
-        <mat-form-field>
-          <mat-label>Search Users</mat-label>
-          <input matInput formControlName="users" [matAutocomplete]="auto">
-          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
-            <mat-option *ngFor="let user of filteredUsers" [value]="user.recipient">
-              {{ user. recipient.name }}
+  <h2 mat-dialog-title>Share {{ data.itemType }}</h2>
+</mat-toolbar>
 
+<div mat-dialog-content>
+  <form [formGroup]="shareForm" class="flex flex-col space-y-6 p-6">
+    <!-- Select sharing method (Email or Link) -->
+    <mat-form-field>
+      <mat-label>Share via</mat-label>
+      <mat-select formControlName="shareMethod" (selectionChange)="updateTerm($event)">
+        <mat-option value="user">Existing User</mat-option>
+        <mat-option value="email">Email</mat-option>
+        <mat-option value="link">Link</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Email Composition UI (only shown when sharing via email) -->
+    <div *ngIf="shareForm.get('shareMethod')?.value === 'email'">
+      <!-- Recipient Email -->
+      <mat-form-field>
+        <mat-label>Recipient Email</mat-label>
+        <input matInput formControlName="recipientEmail" placeholder="Enter recipient's email" required>
+      </mat-form-field>
+
+      <!-- Subject -->
+      <mat-form-field>
+        <mat-label>Subject</mat-label>
+        <input matInput formControlName="subject" placeholder="Subject of the email" required>
+      </mat-form-field>
+
+      <!-- Message Body -->
+      <mat-form-field>
+        <mat-label>Message</mat-label>
+        <textarea matInput formControlName="message" placeholder="Enter your message" rows="4" required></textarea>
+      </mat-form-field>
+
+      <!-- Password Protection (Optional) -->
+      <mat-checkbox formControlName="usePassword" (change)="togglePasswordField($event)">
+        Set a password for access
+      </mat-checkbox>
+
+      <mat-form-field *ngIf="shareForm.get('usePassword')?.value">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" type="password" placeholder="Enter password" required>
+      </mat-form-field>
+    </div>
+
+    <!-- Search Users (only shown when sharing via existing user) -->
+    <mat-form-field *ngIf="shareForm.get('shareMethod')?.value === 'user'">
+      <mat-label>Search Users</mat-label>
+      <input matInput formControlName="users" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+        <mat-option *ngFor="let user of filteredUsers" [value]="user.recipient">
+          {{ user.recipient.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-list role="list" *ngIf="shareForm.get('shareMethod')?.value === 'user'"
+      style="display: flex; justify-content: space-between; align-items: center;">
+      <mat-list-item *ngFor="let user of selectedUsers" role="listitem">
+        {{ user.name }}
+        <mat-form-field>
+          <mat-label>Permissions</mat-label>
+          <mat-select formControlName="permissions" multiple>
+            <mat-option *ngFor="let permission of availablePermissions" [value]="permission">
+              {{ permission }}
             </mat-option>
-          </mat-autocomplete>
+          </mat-select>
         </mat-form-field>
-      
-        <mat-chip-grid>
-          <mat-chip *ngFor="let user of selectedUsers" (removed)="removeUser(user)">
-            {{ user.name }}
-            <mat-icon matChipRemove>cancel</mat-icon>
-          </mat-chip>
-        </mat-chip-grid>
-      
-        <mat-form-field >
-            <mat-label>Permissions</mat-label>
-            <mat-select formControlName="permissions" multiple>
-              <mat-option *ngFor="let permission of availablePermissions" [value]="permission">
-                {{ permission }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-    </form>
+      </mat-list-item>
+    </mat-list>
+
+    <!-- Link field (only shown when sharing via link) -->
+    <mat-form-field *ngIf="shareForm.get('shareMethod')?.value === 'link'">
+      <mat-label>Sharing Link</mat-label>
+      <input matInput formControlName="shareLink" [readonly]="true">
+    </mat-form-field>
+
+  </form>
 </div>
-<div mat-dialog-actions>
+
+<mat-dialog-actions>
   <button mat-flat-button (click)="close()">Cancel</button>
   <button mat-flat-button (click)="share()">Share</button>
-</div>
+</mat-dialog-actions>
