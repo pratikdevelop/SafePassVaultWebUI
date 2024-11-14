@@ -517,12 +517,13 @@ export class SignupComponent {
         },
       });
   }
+
+  // Generate a recovery phrase (12-word mnemonic)
   async generateRecoveryPhrase(): Promise<string> {
-    const recoveryPhrase = this.generateRandomMnemonic();
-    return recoveryPhrase;
+    return this.generateRandomMnemonic();
   }
 
-  // Example of generating a recovery phrase (12-word mnemonic)
+  // Generates a random 12-word mnemonic phrase
   generateRandomMnemonic(): string {
     const words = [
       "apple", "banana", "cherry", "date", "elephant", "fox", "grape", "house",
@@ -530,12 +531,14 @@ export class SignupComponent {
       "queen", "rose", "sun", "tiger", "umbrella", "violet", "water", "xylophone",
       "yellow", "zebra"
     ];
+
     return Array(12)
       .fill(null)
       .map(() => words[Math.floor(Math.random() * words.length)])
       .join(" ");
   }
 
+  // Encrypt the recovery phrase using AES-GCM encryption
   async encryptRecoveryPhrase(phrase: string): Promise<string> {
     const encoder = new TextEncoder();
     const data = encoder.encode(phrase);
@@ -557,17 +560,19 @@ export class SignupComponent {
     return encryptedBase64;
   }
 
+  // Generate an AES-GCM encryption key
   async generateEncryptionKey(): Promise<CryptoKey> {
     return await crypto.subtle.generateKey(
       {
         name: "AES-GCM",
         length: 256
       },
-      true,
+      true,  // The key is extractable
       ["encrypt", "decrypt"]
     );
   }
 
+  // Convert an ArrayBuffer to a Base64 string
   arrayBufferToBase64(buffer: Uint8Array): string {
     let binary = '';
     const bytes = new Uint8Array(buffer);
@@ -578,28 +583,26 @@ export class SignupComponent {
     return window.btoa(binary);
   }
 
-
-  async generateKeyPair(): Promise<any> {
-    const keyPair = await window.crypto.subtle.generateKey(
+  // Generate an RSA key pair (for signing and verifying)
+  async generateKeyPair(): Promise<CryptoKeyPair> {
+    return await window.crypto.subtle.generateKey(
       {
         name: "RSA-PSS",
-        modulusLength: 2048,
-        publicExponent: new Uint8Array([1, 0, 1]),
-        hash: "SHA-256",
+        modulusLength: 2048,    // Key length (2048 bits)
+        publicExponent: new Uint8Array([1, 0, 1]),  // Standard public exponent
+        hash: "SHA-256"  // Hash algorithm used in PSS
       },
-      true,
-      ["sign", "verify"]
+      true,   // Whether the key can be exported
+      ["sign", "verify"]  // Key usage: sign and verify
     );
-    return keyPair;
   }
 
-  // Export the public key (to send to the backend)
-  async exportPublicKey(keyPair: { publicKey: CryptoKey; }) {
+  // Export the public key of an RSA key pair
+  async exportPublicKey(keyPair: { publicKey: CryptoKey }): Promise<string> {
     const exportedKey = await window.crypto.subtle.exportKey("spki", keyPair.publicKey);
     const exportedKeyBase64 = btoa(String.fromCharCode(...new Uint8Array(exportedKey)));
     return exportedKeyBase64;
   }
-
 
   logData(): void {
     console.log(this.signupForm);

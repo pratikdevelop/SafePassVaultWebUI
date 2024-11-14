@@ -1,0 +1,41 @@
+<div class="flex flex-col space-y-6 p-8">
+    <!-- Page Title -->
+    <h2 class="text-3xl font-semibold text-center mb-8">Account Recovery</h2>
+
+    <!-- Recovery Phrase Section -->
+    <div class="bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-2xl font-semibold mb-4">Enter Your Recovery Phrase</h3>
+
+        <div class="space-y-4">
+            <!-- Recovery Phrase Input -->
+            <div class="flex flex-col space-y-2">
+                <label for="recovery-phrase" class="text-sm font-medium">Recovery Phrase</label>
+                <textarea id="recovery-phrase" class="w-full p-3 border rounded-md" rows="4"
+                    placeholder="Enter your recovery phrase here..." [(ngModel)]="recoveryPhrase"></textarea>
+            </div>
+
+            <!-- Private Key Input (optional for extra security) -->
+            <!-- <div class="flex flex-col space-y-2">
+                <label for="private-key" class="text-sm font-medium">Private Key (optional)</label>
+                <textarea id="private-key" class="w-full p-3 border rounded-md" rows="4"
+                    placeholder="Enter your private key here..." [(ngModel)]="privateKey"></textarea>
+            </div> -->
+
+            <!-- Recovery Action Buttons -->
+            <div class="flex justify-between mt-4">
+                <button class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                    (click)="recoverAccount()">
+                    Recover Account
+                </button>
+            </div>
+        </div>
+
+        <!-- Status or Feedback -->
+        <div *ngIf="recoveryStatus" class="mt-6 text-center">
+            <p class="text-lg font-semibold"
+                [ngClass]="{'text-green-600': recoverySuccess, 'text-red-600': !recoverySuccess}">
+                {{ recoveryStatus }}
+            </p>
+        </div>
+    </div>
+</div>

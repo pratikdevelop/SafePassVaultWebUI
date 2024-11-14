@@ -244,4 +244,15 @@ export class AuthService {
   resendMagicLink(email: string) {
     return this.http.post(`${this.apiUrl}/resend-magic-link`, { email });
   }
+
+  recoverAccount(key?: String): Observable<any> {
+    return this.http.post(`${this.apiUrl}/recover-account`, { key }).pipe(
+      map((response: any) => {
+        return response;
+      }),
+      catchError((error: any) => {
+        return throwError(error);
+      })
+    );
+  }
 }

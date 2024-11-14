@@ -12,14 +12,15 @@
         <button class="download-button" (click)="downloadKey('private')">Download Private Key</button>
     </div>
 </nav>
-<div id="profile" class="flex flex-col md:flex-row md:items-center md:justify-between p-8  bg-card mt-10 shadow-xl">
+<div id="profile"
+    class="flex flex-col md:flex-row md:items-center md:justify-between p-8  space-x-6 bg-card mt-10 shadow-xl">
     <div class="flex flex-col w-2/4 space-y-6 p-6 bg-slate-800 text-white flex-auto">
         <!-- Title and Download Buttons -->
         <div class="text-4xl font-bold capitalize">Information of Public and Private Key</div>
 
 
         <!-- Key Info Section -->
-        <div class="key-info space-y-8">
+        <div class="key-info space-y-6">
             <div><strong>Fingerprint:</strong> {{ publicKeyFingerprint }}</div>
             <div><strong>Created:</strong> {{ publicKeyCreatedDate }}</div>
             <div><strong>Expires:</strong> {{ publicKeyExpiresDate }}</div>
@@ -29,7 +30,7 @@
     </div>
 
     <!-- Public Key Section -->
-    <div class="flex flex-col space-y-3 w-2/4 bg-slate-800 p-6">
+    <div class="flex flex-col space-y-6 w-2/4 bg-slate-800 p-6">
         <h4 class="text-xl font-semibold">Public Key Block</h4>
 
         <!-- Public Key Block with Scrollable Area -->

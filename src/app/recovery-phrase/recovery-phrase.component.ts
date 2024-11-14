@@ -48,7 +48,7 @@ export class RecoveryPhraseComponent {
           this.privateKey = profile.user.recoveryPhrase;
 
           // Set fingerprint (example, in real case you'd calculate it or get from backend)
-          this.publicKeyFingerprint = this.publicKey;
+          this.publicKeyFingerprint = this.calculateFingerprint(this.publicKey);
           this.privateKeyFingerprint = this.calculateFingerprint(this.privateKey);
 
           // Set key creation and expiration dates (example values)
@@ -79,7 +79,7 @@ export class RecoveryPhraseComponent {
   // Utility function to calculate fingerprint (this is just a mock for demonstration)
   calculateFingerprint(key: string): string {
     // Normally, you'd use a library or backend to calculate the actual fingerprint of the key
-    return key.substring(0, 8) + '...';  // Mock fingerprint
+    return key.substring(0, 45).toString()  // Mock fingerprint
   }
 
   // Download the key (public or private)
