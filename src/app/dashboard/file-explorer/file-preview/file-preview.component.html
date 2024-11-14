@@ -15,11 +15,13 @@
             <div *ngIf="file.location" class="mt-4">
                 <div class="file-preview">
                     <img *ngIf="file.filename.endsWith('.jpg') || file.filename.endsWith('.png') || file.filename.endsWith('.jpeg')"
-                        [src]="file.location" alt="File Preview" class="w-full h-auto rounded-lg">
-                    <iframe *ngIf="file.filename.endsWith('.pdf')" [src]="file.location"
-                        class="w-full h-64 border border-gray-300 rounded-lg"></iframe>
+                         [src]="getSanitizedImageUrl(file)" alt="File Preview" class="w-full h-auto rounded-lg">
+                         
+                    <iframe *ngIf="file.filename.endsWith('.pdf')" [src]="getSanitizedPdfUrl(file)"
+                            class="w-full h-64 border border-gray-300 rounded-lg"></iframe>
                 </div>
             </div>
+            
 
             <hr class="my-4 border-gray-300">
         </div>

@@ -134,9 +134,9 @@ export class PasswordService {
       );
   }
 
-  sharePassword(passwordId: string): Observable<{ shareLink: string }> {
+  sharePassword(email: any): Observable<{ shareLink: string }> {
     return this.http
-      .post<{ shareLink: string }>(`${this.apiUrl}/share/${passwordId}`, {})
+      .post<{ shareLink: string }>(`${this.apiUrl}/share/`, email)
       .pipe(
         catchError((error: any) => {
           console.error('Error generating share link:', error);
@@ -162,6 +162,11 @@ export class PasswordService {
     const body = { passwordId, tagName };
     return this.http.post(`${this.apiUrl}/add-tag`, body);
   }
+  // sharePassword(data: any): Observable<any> {
+  //   return this.http.post(this.apiUrl, data, {
+  //     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  //   });
+  // }
   postComment(passwordId: string, content: string): Observable<any> {
     return this.http
       .post(`${this.apiUrl}/${passwordId}/comments`, { content })

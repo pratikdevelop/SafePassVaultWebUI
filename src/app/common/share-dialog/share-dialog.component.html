@@ -10,7 +10,7 @@
       <mat-select formControlName="shareMethod" (selectionChange)="updateTerm($event)">
         <mat-option value="user">Existing User</mat-option>
         <mat-option value="email">Email</mat-option>
-        <mat-option value="link">Link</mat-option>
+        <!-- <mat-option value="link">Link</mat-option> -->
       </mat-select>
     </mat-form-field>
 
@@ -72,10 +72,10 @@
     </mat-list>
 
     <!-- Link field (only shown when sharing via link) -->
-    <mat-form-field *ngIf="shareForm.get('shareMethod')?.value === 'link'">
+    <!-- <mat-form-field *ngIf="shareForm.get('shareMethod')?.value === 'link'">
       <mat-label>Sharing Link</mat-label>
       <input matInput formControlName="shareLink" [readonly]="true">
-    </mat-form-field>
+    </mat-form-field> -->
 
   </form>
 </div>

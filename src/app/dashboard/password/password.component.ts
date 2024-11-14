@@ -19,7 +19,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { PasswordService } from '../../services/password.service';
 import { PasswordFormComponent } from './password-form/password-form.component';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -39,6 +44,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
+import { SharedItemService } from '../../services/shared-item.service';
 
 @Component({
   selector: 'app-password',
@@ -64,7 +70,7 @@ import { MatOptionModule } from '@angular/material/core';
     SideNavComponent,
     MatSelectModule,
     MatOptionModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   templateUrl: './password.component.html',
 })
@@ -78,6 +84,7 @@ export class PasswordComponent implements OnInit {
   private readonly breakpointObserver = inject(BreakpointObserver);
   private readonly activateRouter = inject(ActivatedRoute);
   private readonly snackBar = inject(MatSnackBar);
+  private readonly shareServie = inject(SharedItemService);
   public readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   selection = new SelectionModel<any>(true, []);
   public readonly displayedColumns: string[] = [
@@ -103,12 +110,6 @@ export class PasswordComponent implements OnInit {
   folderId: any;
   mode: MatDrawerMode = 'side';
   passwords: any[] = [];
-
-  shareMethod: string = 'user';
-  selectedUser: string = '';
-  shareLink: string = '';
-  emailRecipient: string = '';
-
 
   ngOnInit(): void {
     this.activateRouter.paramMap.subscribe((params: any) => {
@@ -235,11 +236,30 @@ export class PasswordComponent implements OnInit {
           return pass._id;
         })
         .join(',');
-    this.dialog.open(ShareDialogComponent, {
+    const dialogRef = this.dialog.open(ShareDialogComponent, {
       width: '500px',
       data: {
         items,
         itemType: 'password',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe({
+      next: (result) => {
+        result.passwordIds = passwordId;
+        console.log(result);
+        
+        if (result) {
+          this.passwordService.sharePassword(result).subscribe({
+            next: (result) => {
+              console.log(result);
+            },
+            error: (error) => {
+              console.error('err', error);
+              this.changeDetectorReforRef.detectChanges();
+            },
+          });
+        }
       },
     });
   }
@@ -276,8 +296,9 @@ export class PasswordComponent implements OnInit {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row._id + 1
-      }`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
+      row._id + 1
+    }`;
   }
 
   updateFavourites(passwordId?: string): void {
@@ -352,50 +373,4 @@ export class PasswordComponent implements OnInit {
       (tag: { _id: string }) => tag._id !== tagId
     );
   }
-  openShareDialog(password: any) {
-    // const dialogRef = this.dialog.open(SharePasswordDialog, {
-    //   data: { password }
-    // });
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('Share dialog closed', result);
-    // });
-  }
-
-  // Method to share with an existing user
-  shareWithUser() {
-    if (this.selectedUser) {
-      // Implement backend logic to share the password with the selected user
-      console.log('Password shared with user:', this.selectedUser);
-    }
-  }
-
-  // Method to generate and share via a link
-  shareViaLink() {
-    // Assuming we have some backend API that generates a secure shareable link
-    this.shareLink = `https://yourapp.com/share/password/${this.generateUniqueLink()}`;
-    console.log('Generated share link:', this.shareLink);
-  }
-
-  // Method to generate unique link (for demonstration purposes)
-  generateUniqueLink() {
-    return Math.random().toString(36).substring(7);  // Simple random string
-  }
-
-  // Method to send via email
-  shareViaEmail() {
-    if (this.emailRecipient) {
-      // Implement logic to send email with the password details
-      console.log('Password shared via email to:', this.emailRecipient);
-    }
-  }
 }
-
-// // Dialog component for sharing password
-// @Component({
-//   selector: 'share-password-dialog',
-//   imports:
-// })
-// export class SharePasswordDialog {
-//   constructor(public dialogRef: MatDialogRef<SharePasswordDialog>, @Inject(MAT_DIALOG_DATA) public data: any) { }
-// }

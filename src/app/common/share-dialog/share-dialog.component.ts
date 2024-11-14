@@ -101,39 +101,25 @@ export class ShareDialogComponent {
     const permissions = formData.permissions;
 
     if (formData.shareMethod === 'user') {
-      this.sharedItemService.shareItem({
-        itemId: this.data.items,
-        itemType: this.data.itemType,
-        users: this.selectedUsers.map(user => ({ userId: user._id, permissions }))
-      }).subscribe(() => {
-        this.dialogRef.close(true);
-      });
+      // this.sharedItemService.shareItem({
+      //   itemId: this.data.items,
+      //   itemType: this.data.itemType,
+      //   users: this.selectedUsers.map(user => ({ userId: user._id, permissions }))
+      // }).subscribe(() => {
+      //   this.dialogRef.close(true);
+      // });
     } else if (formData.shareMethod === 'email') {
-      // Prepare email data to send
       const emailData = {
         itemId: this.data.items,
         itemType: this.data.itemType,
         recipientEmail: formData.recipientEmail,
         subject: formData.subject,
         message: formData.message,
-        permissions: permissions,
         password: formData.usePassword ? formData.password : null // Send password if set
       };
 
-      this.sharedItemService.sendEmail(emailData).subscribe(() => {
-        this.dialogRef.close(true);
-      });
-    } else if (formData.shareMethod === 'link') {
-      // Logic to handle link sharing
-      this.sharedItemService.generateLink({
-        itemId: this.data.items,
-        itemType: this.data.itemType,
-        permissions: permissions
-      }).subscribe(link => {
-        this.shareForm.get('shareLink')?.setValue(link);
-        this.dialogRef.close(true);
-      });
-    }
+        this.dialogRef.close(emailData);
+    } 
   }
 
   close() {

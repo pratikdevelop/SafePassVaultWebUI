@@ -153,7 +153,6 @@ export class FileExplorerComponent implements OnInit {
         console.log(response);
         this.file = response;
         this.isFilePreviewOpen = true;
-        this.fileDownloadUrl = response.location; // Assuming location is the file's download URL
         this.changeDetectorRef.detectChanges();
       },
       error: (error: any) => {
