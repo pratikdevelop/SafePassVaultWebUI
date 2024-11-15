@@ -9,7 +9,8 @@
     "start": "ng serve",
     "start-forke": "electron-forge start",
     "electron": "ng build --configuration=electron --base-href ./ && electron .",
-    "build": "INLINE_RUNTIME_CHUNK= false && ng build",
+    "build": " ng build",
+    "build:chrome": "ng build --base-href='./'",
     "build:electron": "ng build --base-href ./ && electron-builder",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
@@ -90,6 +91,7 @@
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
+    "@angular-builders/custom-webpack": "^18.0.0",
     "@angular-devkit/build-angular": "^18.0.2",
     "@angular/cli": "^18.0.2",
     "@angular/compiler-cli": "^18.0.0",
@@ -110,7 +112,7 @@
     "@types/swagger-ui-dist": "^3.30.5",
     "@types/uuid": "^9.0.8",
     "@types/zxcvbn": "^4.4.4",
-    "autoprefixer": "^10.4.19",
+    "autoprefixer": "^10.4.20",
     "electron": "^32.0.1",
     "electron-reload": "^2.0.0-alpha.1",
     "jasmine-core": "~5.1.0",
@@ -119,8 +121,8 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "postcss": "^8.4.38",
-    "tailwindcss": "^3.4.4",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15",
     "tslib": "^2.6.3",
     "typescript": "~5.4.2"
   }
