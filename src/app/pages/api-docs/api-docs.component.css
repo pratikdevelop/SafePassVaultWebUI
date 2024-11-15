@@ -1,35 +1,80 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #1f1f1f;
+  color: #ffffff;
+}
 
-  
-  /* Customize the Swagger UI container */
-  #swagger-ui {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    color: slategrey !important;
-  }
-  
-  /* Change the font style */
-  .topbar {
-    background-color: #4A90E2;
-  }
-  
-  .topbar-wrapper {
-    color: #fff;
-  }
-  
-  /* Customize the buttons */
-  .btn {
-    background-color: #4A90E2;
-    color: #fff;
-  }
-  
-  .btn:hover {
-    background-color: #357ABD;
-  }
-  
-  /* Modify headers */
-  h1, h2, h3 {
-    font-family: 'Arial', sans-serif;
-  }
-  
+h1, h2, h3, h4, h5, h6 {
+  color: #f5f5f5;
+}
+
+.flex {
+  display: flex;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.h-screen {
+  height: 100vh;
+}
+
+.bg-gray-900 {
+  background-color: #1f1f1f;
+}
+
+.bg-gray-800 {
+  background-color: #333333;
+}
+
+.bg-gray-700 {
+  background-color: #4b4b4b;
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.text-green-400 {
+  color: #00d08a;
+}
+
+.p-4, .p-6, .p-3 {
+  padding: 1rem;
+}
+
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.rounded {
+  border-radius: 0.5rem;
+}
+
+.mt-2, .mb-4, .mt-4, .mb-6 {
+  margin: 0.5rem 0;
+}
+
+.list-disc {
+  list-style-type: disc;
+}
+
+.list-none {
+  list-style-type: none;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.font-bold {
+  font-weight: bold;
+}

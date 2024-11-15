@@ -1,826 +1,419 @@
 {
-  "openapi": "3.0.0",
-  "info": {
-    "title": "User Management API",
-    "version": "1.0.0",
-    "description": "API documentation for user management operations."
-  },
-  "servers": [
-    {
-      "url": "http://localhost:4200",
-      "description": "Local server"
+    "openapi": "3.0.0",
+    "x-stoplight": {
+        "id": "b0l8ada8niadl"
+    },
+    "info": {
+        "title": "User Management API",
+        "version": "1.0.0",
+        "description": "API for managing users, authentication, and organizations."
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000",
+            "description": "Local server"
+        }
+    ],
+    "paths": {
+        "/api/auth/users": {
+            "get": {
+                "summary": "Get a list of users",
+                "description": "Retrieve a list of users from the database.",
+                "responses": {
+                    "200": {
+                        "description": "Successful response with a list of users."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "rnv3b0dczvab2"
+                }
+            }
+        },
+        "/api/auth/register": {
+            "post": {
+                "summary": "Register a new user",
+                "description": "Create a new user account by providing the necessary details.",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "body",
+                        "required": true,
+                        "type": "string",
+                        "description": "User 's email address."
+                    },
+                    {
+                        "name": "password",
+                        "in": "body",
+                        "required": true,
+                        "type": "string",
+                        "description": "User 's password."
+                    },
+                    {
+                        "name": "name",
+                        "in": "body",
+                        "required": true,
+                        "type": "string",
+                        "description": "Full name of the user."
+                    },
+                    {
+                        "name": "phone",
+                        "in": "body",
+                        "required": false,
+                        "type": "string",
+                        "description": "User 's phone number."
+                    },
+                    {
+                        "name": "billingAddress",
+                        "in": "body",
+                        "required": false,
+                        "type": "string",
+                        "description": "Billing address of the user."
+                    },
+                    {
+                        "name": "city",
+                        "in": "body",
+                        "required": false,
+                        "type": "string",
+                        "description": "City of residence."
+                    },
+                    {
+                        "name": "state",
+                        "in": "body",
+                        "required": false,
+                        "type": "string",
+                        "description": "State of residence."
+                    },
+                    {
+                        "name": "postalCode",
+                        "in": "body",
+                        "required": false,
+                        "type": "string",
+                        "description": "Postal code."
+                    },
+                    {
+                        "name": "country",
+                        "in": "body",
+                        "required": false,
+                        "type": "string",
+                        "description": "Country of residence."
+                    },
+                    {
+                        "name": "publicKey",
+                        "in": "body",
+                        "required": true,
+                        "type": "string",
+                        "description": "Public key from the client (assumed passed in request body)."
+                    },
+                    {
+                        "name": "recoveryPhrase",
+                        "in": "body",
+                        "required": false,
+                        "type": "string",
+                        "description": "Recovery phrase for account recovery."
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "User  successfully registered."
+                    },
+                    "400": {
+                        "description": "Bad request, validation errors."
+                    },
+                    "409": {
+                        "description": "Conflict, user already exists."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "at8adnrydnf03"
+                }
+            }
+        },
+        "/api/auth/confirm-email": {
+            "post": {
+                "summary": "Confirm user email",
+                "description": "Confirms the user's email address.",
+                "responses": {
+                    "200": {
+                        "description": "Email successfully confirmed."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "zbgojkg3qkm04"
+                }
+            }
+        },
+        "/api/auth/login": {
+            "post": {
+                "summary": "User login",
+                "description": "Logs in a user with the provided credentials.",
+                "responses": {
+                    "200": {
+                        "description": "User successfully logged in."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "regravf0yu10h"
+                }
+            }
+        },
+        "/api/auth/logout": {
+            "post": {
+                "summary": "User logout",
+                "description": "Logs out the currently authenticated user.",
+                "responses": {
+                    "200": {
+                        "description": "User successfully logged out."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "m0v4tgrdkeiqe"
+                }
+            }
+        },
+        "/api/auth/profile": {
+            "get": {
+                "summary": "Get user profile",
+                "description": "Retrieve the profile details of the authenticated user.",
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved user profile."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "6a7bzcm1xuhix"
+                }
+            },
+            "patch": {
+                "summary": "Update user profile",
+                "description": "Update the profile details of the authenticated user.",
+                "responses": {
+                    "200": {
+                        "description": "User profile updated successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "txihm1tkj7hah"
+                }
+            },
+            "delete": {
+                "summary": "Delete user profile",
+                "description": "Delete the profile of the authenticated user.",
+                "responses": {
+                    "200": {
+                        "description": "User profile deleted successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "i3et4yrsm4gq9"
+                }
+            }
+        },
+        "/api/auth/reset-password": {
+            "post": {
+                "summary": "Reset password",
+                "description": "Sends a reset password email to the user.",
+                "responses": {
+                    "200": {
+                        "description": "Reset password email sent successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "rmtmlj27vvtdq"
+                }
+            }
+        },
+        "/api/auth/change-password/{id}": {
+            "patch": {
+                "summary": "Change password",
+                "description": "Change the password for the user with the given ID.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "ID of the user.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Password changed successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "xqordbhxwiw1h"
+                }
+            }
+        },
+        "/api/auth/verify-reset-link": {
+            "get": {
+                "summary": "Verify reset link",
+                "description": "Verifies the reset password link sent to the user.",
+                "responses": {
+                    "200": {
+                        "description": "Reset link verified successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "3zrw6kcu9ht0n"
+                }
+            }
+        },
+        "/api/auth/organization": {
+            "post": {
+                "summary": "Create organization",
+                "description": "Creates a new organization.",
+                "responses": {
+                    "201": {
+                        "description": "Organization created successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "4otihqstad8c8"
+                }
+            }
+        },
+        "/api/auth/organizations": {
+            "get": {
+                "summary": "Get organizations",
+                "description": "Retrieve a list of organizations.",
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved list of organizations."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "3tvzob4l5p18q"
+                }
+            }
+        },
+        "/api/auth/organizations/{organizationId}/invitations": {
+            "post": {
+                "summary": "Send invitation",
+                "description": "Sends an invitation to a user to join an organization.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "organizationId",
+                        "required": true,
+                        "description": "ID of the organization.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Invitation sent successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "2wmgt8vk6otx7"
+                }
+            }
+        },
+        "/api/auth/accept-invitation": {
+            "post": {
+                "summary": "Accept invitation",
+                "description": "Accepts an invitation to join an organization.",
+                "responses": {
+                    "200": {
+                        "description": "Invitation accepted successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "1fcl7ubekx6n4"
+                }
+            }
+        },
+        "/api/auth/mfa-settings": {
+            "post": {
+                "summary": "Save MFA settings",
+                "description": "Save the multi-factor authentication settings for a user.",
+                "responses": {
+                    "200": {
+                        "description": "MFA settings saved successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "9dovh4rkkkts6"
+                }
+            }
+        },
+        "/api/auth/verify-mfa": {
+            "post": {
+                "summary": "Verify MFA code",
+                "description": "Verify the multi-factor authentication code provided by the user.",
+                "responses": {
+                    "200": {
+                        "description": "MFA code verified successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "z5br5kwcxlyd1"
+                }
+            }
+        },
+        "/api/auth/resend-invitation/{organizationId}/{recipientId}": {
+            "post": {
+                "summary": "Resend invitation",
+                "description": "Resend an invitation to join an organization.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "organizationId",
+                        "required": true,
+                        "description": "ID of the organization.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "recipientId",
+                        "required": true,
+                        "description": "ID of the recipient.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Invitation resent successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "h3ajpzhi24uhg"
+                }
+            }
+        },
+        "/api/auth/resend-code/{email}": {
+            "get": {
+                "summary": "Resend confirmation code",
+                "description": "Resend the confirmation code to the user's email.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "email",
+                        "required": true,
+                        "description": "User's email address.",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Confirmation code resent successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "j0bss8os9c732"
+                }
+            }
+        }
     }
-  ],
-  "paths": {
-    "/register": {
-      "post": {
-        "summary": "Register a new user",
-        "description": "Creates a new user in the system.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "username": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "password": {
-                    "type": "string"
-                  }
-                },
-                "required": ["username", "email", "password"],
-                "example": {
-                  "username": "newuser",
-                  "email": "user@example.com",
-                  "password": "securepassword"
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "User registered successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "username": {
-                      "type": "string"
-                    }
-                  },
-                  "example": {
-                    "id": "12345",
-                    "username": "newuser"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-curl": "curl -X POST 'http://localhost:4200/register' -H 'Content-Type: application/json' -d '{ \"username\": \"newuser\", \"email\": \"user@example.com\", \"password\": \"securepassword\" }'"
-      }
-    },
-    "/confirm-email": {
-      "post": {
-        "summary": "Confirm user email",
-        "description": "Confirms the user's email address.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string"
-                  },
-                  "confirmationCode": {
-                    "type": "string"
-                  }
-                },
-                "required": ["email", "confirmationCode"],
-                "example": {
-                  "email": "user@example.com",
-                  "confirmationCode": "123456"
-                }
-              }
-            }
-          },
-          "responses": {
-            "200": {
-              "description": "Email successfully confirmed.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "message": {
-                        "type": "string"
-                      }
-                    },
-                    "example": {
-                      "message": "Email confirmed successfully."
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "x-curl": "curl -X POST 'http://localhost:4200/confirm-email' -H 'Content-Type: application/json' -d '{ \"email\": \"user@example.com\", \"confirmationCode\": \"123456\" }'"
-        }
-      }
-    },
-    "/login": {
-      "post": {
-        "summary": "User login",
-        "description": "Logs in a user with the provided credentials.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string"
-                  },
-                  "password": {
-                    "type": "string"
-                  }
-                },
-                "required": ["email", "password"],
-                "example": {
-                  "email": "user@example.com",
-                  "password": "securepassword"
-                }
-              }
-            }
-          },
-          "responses": {
-            "200": {
-              "description": "User successfully logged in.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "token": {
-                        "type": "string"
-                      }
-                    },
-                    "example": {
-                      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "x-curl": "curl -X POST 'http://localhost:4200/login' -H 'Content-Type: application/json' -d '{ \"email\": \"user@example.com\", \"password\": \"securepassword\" }'"
-        }
-      }
-    },
-    "/logout": {
-      "post": {
-        "summary": "User logout",
-        "description": "Logs out the currently authenticated user.",
-        "responses": {
-          "200": {
-            "description": "User successfully logged out.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  },
-                  "example": {
-                    "message": "Logged out successfully."
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-curl": "curl -X POST 'http://localhost:4200/logout' -H 'Authorization: Bearer <your_token>'"
-      }
-    },
-    "/profile": {
-      "get": {
-        "summary": "Get user profile",
-        "description": "Retrieve the profile details of the authenticated user.",
-        "responses": {
-          "200": {
-            "description": "Successfully retrieved user profile.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "username": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    }
-                  },
-                  "example": {
-                    "id": "12345",
-                    "username": "newuser",
-                    "email": "user@example.com"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-curl": "curl -X GET 'http://localhost:4200/profile' -H 'Authorization: Bearer <your_token>'"
-      },
-      "patch": {
-        "summary": "Update user profile",
-        "description": "Update the profile details of the authenticated user.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "username": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  }
-                },
-                "example": {
-                  "username": "updateduser",
-                  "email": "updated@example.com"
-                }
-              }
-            }
-          },
-          "responses": {
-            "200": {
-              "description": "User profile updated successfully.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "message": {
-                        "type": "string"
-                      }
-                    },
-                    "example": {
-                      "message": "Profile updated successfully."
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "x-curl": "curl -X PATCH 'http://localhost:4200/profile' -H 'Content-Type: application/json' -H 'Authorization: Bearer <your_token>' -d '{ \"username\": \"updateduser\", \"email\": \"updated@example.com\" }'"
-        }
-      },
-      "delete": {
-        "summary": "Delete user profile",
-        "description": "Delete the profile of the authenticated user.",
-        "responses": {
-          "200": {
-            "description": "User profile deleted successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  },
-                  "example": {
-                    "message": "Profile deleted successfully."
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-curl": "curl -X DELETE 'http://localhost:4200/profile' -H 'Authorization: Bearer <your_token>'"
-      }
-    },
-    "/reset-password": {
-      "post": {
-        "summary": "Reset password",
-        "description": "Sends a reset password email to the user.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string"
-                  }
-                },
-                "required": ["email"],
-                "example": {
-                  "email": "user@example.com"
-                }
-              }
-            }
-          },
-          "responses": {
-            "200": {
-              "description": "Reset password email sent successfully.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "message": {
-                        "type": "string"
-                      }
-                    },
-                    "example": {
-                      "message": "Reset password email sent."
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "x-curl": "curl -X POST 'http://localhost:4200/reset-password' -H 'Content-Type: application/json' -d '{ \"email\": \"user@example.com\" }'"
-        }
-      }
-    },
-    "/change-password/{id}": {
-      "patch": {
-        "summary": "Change password",
-        "description": "Change the password for the user with the given ID.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "ID of the user.",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "newPassword": {
-                    "type": "string"
-                  }
-                },
-                "required": ["newPassword"],
-                "example": {
-                  "newPassword": "newsecurepassword"
-                }
-              }
-            }
-          },
-          "responses": {
-            "200": {
-              "description": "Password changed successfully.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "message": {
-                        "type": "string"
-                      }
-                    },
-                    "example": {
-                      "message": "Password changed successfully."
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "x-curl": "curl -X PATCH 'http://localhost:4200/change-password/{id}' -H 'Content-Type: application/json' -H 'Authorization: Bearer <your_token>' -d '{ \"newPassword\": \"newsecurepassword\" }'"
-        }
-      }
-    },
-    "/verify-reset-link": {
-      "get": {
-        "summary": "Verify reset link",
-        "description": "Verifies the reset password link sent to the user.",
-        "parameters": [
-          {
-            "name": "token",
-            "in": "query",
-            "required": true,
-            "description": "Reset password token.",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Reset link verified successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  },
-                  "example": {
-                    "message": "Reset link verified."
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-curl": "curl -X GET 'http://localhost:4200/verify-reset-link?token=<your_token>'"
-      }
-    },
-    "/organization": {
-      "post": {
-        "summary": "Create organization",
-        "description": "Creates a new organization.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  }
-                },
-                "required": ["name"],
-                "example": {
-                  "name": "New Organization"
-                }
-              }
-            }
-          },
-          "responses": {
-            "201": {
-              "description": "Organization created successfully.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "string"
-                      },
-                      "name": {
-                        "type": "string"
-                      }
-                    },
-                    "example": {
-                      "id": "org12345",
-                      "name": "New Organization"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "x-curl": "curl -X POST 'http://localhost:4200/organization' -H 'Content-Type: application/json' -d '{ \"name\": \"New Organization\" }'"
-        }
-      }
-    },
-    "/organizations": {
-      "get": {
-        "summary": "Get organizations",
-        "description": "Retrieve a list of organizations.",
-        "responses": {
-          "200": {
-            "description": "Successfully retrieved list of organizations.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "id": { "type": "string" },
-                      "name": { "type": "string" }
-                    },
-                    "example": {
-                      "id": "org12345",
-                      "name": "Existing Organization"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-curl": "curl -X GET 'http://localhost:4200/organizations' -H 'Authorization: Bearer <your_token>'"
-      }
-    },
-    "/organizations/{organizationId}/invitations": {
-      "post": {
-        "summary": "Send invitation",
-        "description": "Sends an invitation to a user to join an organization.",
-        "parameters": [
-          {
-            "name": "organizationId",
-            "in": "path",
-            "required": true,
-            "description": "ID of the organization.",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string"
-                  }
-                },
-                "required": ["email"],
-                "example": {
-                  "email": "invitee@example.com"
-                }
-              }
-            }
-          },
-          "responses": {
-            "200": {
-              "description": "Invitation sent successfully.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "message": {
-                        "type": "string"
-                      }
-                    },
-                    "example": {
-                      "message": "Invitation sent successfully."
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "x-curl": "curl -X POST 'http://localhost:4200/organizations/{organizationId}/invitations' -H 'Content-Type: application/json' -H 'Authorization: Bearer <your_token>' -d '{ \"email\": \"invitee@example.com\" }'"
-        }
-      }
-    },
-    "/accept-invitation": {
-      "post": {
-        "summary": "Accept invitation",
-        "description": "Accepts an invitation to join an organization.",
-        "responses": {
-          "200": {
-            "description": "Invitation accepted successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  },
-                  "example": {
-                    "message": "Invitation accepted."
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-curl": "curl -X POST 'http://localhost:4200/accept-invitation' -H 'Authorization: Bearer <your_token>'"
-      }
-    },
-    "/users": {
-      "get": {
-        "summary": "Get all users",
-        "description": "Retrieve a list of all users in the system.",
-        "responses": {
-          "200": {
-            "description": "Successfully retrieved list of users.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "id": { "type": "string" },
-                      "username": { "type": "string" },
-                      "email": { "type": "string" }
-                    },
-                    "example": {
-                      "id": "user12345",
-                      "username": "existinguser",
-                      "email": "existing@example.com"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-curl": "curl -X GET 'http://localhost:4200/users' -H 'Authorization: Bearer <your_token>'"
-      }
-    },
-    "/mfa-settings": {
-      "post": {
-        "summary": "Save MFA settings",
-        "description": "Save the multi-factor authentication settings for a user.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "enabled": {
-                    "type": "boolean"
-                  },
-                  "method": {
-                    "type": "string"
-                  }
-                },
-                "required": ["enabled", "method"],
-                "example": {
-                  "enabled": true,
-                  "method": "email"
-                }
-              }
-            }
-          },
-          "responses": {
-            "200": {
-              "description": "MFA settings saved successfully.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "message": {
-                        "type": "string"
-                      }
-                    },
-                    "example": {
-                      "message": "MFA settings saved."
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "x-curl": "curl -X POST 'http://localhost:4200/mfa-settings' -H 'Content-Type: application/json' -H 'Authorization: Bearer <your_token>' -d '{ \"enabled\": true, \"method\": \"email\" }'"
-        }
-      }
-    },
-    "/verify-mfa": {
-      "post": {
-        "summary": "Verify MFA code",
-        "description": "Verify the multi-factor authentication code provided by the user.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "code": {
-                    "type": "string"
-                  }
-                },
-                "required": ["code"],
-                "example": {
-                  "code": "123456"
-                }
-              }
-            }
-          },
-          "responses": {
-            "200": {
-              "description": "MFA code verified successfully.",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object",
-                    "properties": {
-                      "message": {
-                        "type": "string"
-                      }
-                    },
-                    "example": {
-                      "message": "MFA code verified."
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "x-curl": "curl -X POST 'http://localhost:4200/verify-mfa' -H 'Content-Type: application/json' -d '{ \"code\": \"123456\" }'"
-        }
-      }
-    },
-    "/resend-invitation/{organizationId}/{recipientId}": {
-      "post": {
-        "summary": "Resend invitation",
-        "description": "Resend an invitation to join an organization.",
-        "parameters": [
-          {
-            "name": "organizationId",
-            "in": "path",
-            "required": true,
-            "description": "ID of the organization.",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "recipientId",
-            "in": "path",
-            "required": true,
-            "description": "ID of the recipient.",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Invitation resent successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  },
-                  "example": {
-                    "message": "Invitation resent successfully."
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-curl": "curl -X POST 'http://localhost:4200/resend-invitation/{organizationId}/{recipientId}' -H 'Authorization: Bearer <your_token>'"
-      }
-    },
-    "/resend-code/{email}": {
-      "get": {
-        "summary": "Resend confirmation code",
-        "description": "Resend the confirmation code to the user's email.",
-        "parameters": [
-          {
-            "name": "email",
-            "in": "path",
-            "required": true,
-            "description": "User's email address.",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Confirmation code resent successfully.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string"
-                    }
-                  },
-                  "example": {
-                    "message": "Confirmation code resent."
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-curl": "curl -X GET 'http://localhost:4200/resend-code/{email}'"
-      }
-    }
-  }
 }

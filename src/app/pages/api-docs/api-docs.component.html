@@ -1,29 +1,67 @@
-<div class="flex w-full h-[100vh] bg-gray-900 text-white overflow-y-auto">
+<!-- <div class="flex w-full h-screen bg-gray-900 text-white">
 
-     <!-- Sidebar -->
-     <nav class="w-64 bg-gray-800 p-4">
-        <ul>
-          <li class="mb-2">
-            <a href="#get-multiple-groups" class="block p-2 hover:bg-gray-700 rounded">Get multiple groups</a>
-          </li>
-          <li class="mb-2">
-            <a href="#create-a-group" class="block p-2 hover:bg-gray-700 rounded">Create a group</a>
-          </li>
-          <li class="mb-2">
-            <a href="#get-a-group" class="block p-2 hover:bg-gray-700 rounded">Get a group</a>
-          </li>
-          <!-- Add more API navigation links here -->
-        </ul>
-      </nav>
-    <!-- Main content -->
-    <div class="flex-1 p-6 flex-auto overflow-y-auto">
-      <h1 class="text-3xl font-bold mb-4">API Documentation</h1>
+  
+  <aside class="w-64 bg-gray-800 p-4 overflow-y-auto">
+    <h1 class="text-xl font-bold mb-4">API Documentation</h1>
+    <ul>
+      <li class="py-2"><a href="#" class="text-green-400">Authentication (GPGAuth)</a></li>
+      <li class="py-2"><a href="#">Avatars</a></li>
+      <li class="py-2"><a href="#">Comments</a></li>
+      <li class="py-2"><a href="#">Favorites</a></li>
+    </ul>
+  </aside>
+
+  <main class="flex-1 p-6 overflow-y-auto">
+    <h2 class="text-3xl font-bold mb-6">{{ apiDocs.info.title }}</h2>
+    <p class="mb-4">{{ apiDocs.info.description }}</p>
+
+    <div *ngFor="let path of getPaths()" class="mb-6">
+      <h3 class="text-xl font-semibold text-green-400">{{ path }}</h3>
+
+      <div *ngFor="let method of getMethods(path)" class="bg-gray-800 p-4 rounded mb-4">
+        <h4 class="text-lg font-bold text-green-400">{{ method.toUpperCase() }} {{ path }}</h4>
+        <p>{{ getSummary(path, method) }}</p>
+
+        <div *ngIf="getParameters(path, method).length > 0" class="mt-4">
+          <h5 class="font-semibold">Parameters</h5>
+          <ul class="list-disc list-inside ml-4">
+            <li *ngFor="let param of getParameters(path, method)">
+              <span class="text-gray-400">{{ param.name }} ({{ param.in }})</span> - {{ param.description }}
+            </li>
+          </ul>
+        </div>
+
         <div class="mt-4">
-          <div id="swagger-ui">
-            <!-- Swagger UI will be rendered here -->
-             
+          <h5 class="font-semibold">Request Samples</h5>
+          <div class="flex mt-2 space-x-2">
+            <button class="bg-gray-700 text-white px-2 py-1 rounded" (click)="setRequestTab('Payload')">Payload</button>
+            <button class="bg-gray-700 text-white px-2 py-1 rounded" (click)="setRequestTab('cURL')">cURL</button>
+            <button class="bg-gray-700 text-white px-2 py-1 rounded"
+              (click)="setRequestTab('JavaScript')">JavaScript</button>
+            <button class="bg-gray-700 text-white px-2 py-1 rounded" (click)="setRequestTab('PHP')">PHP</button>
+          </div>
+          <div class="bg-gray-900 p-4 mt-2 rounded">
+            <pre>{{ getRequestSample(path, method, selectedRequestTab) }}</pre>
           </div>
         </div>
+
+        <div *ngIf="getResponses(path, method)?.length > 0" class="mt-4">
+          <h5 class="font-semibold">Response Samples</h5>
+          <ul class="list-none">
+            <li *ngFor="let response of getResponses(path, method)">
+              <div class="bg-gray-700 p-3 mt-2 rounded">
+                <h6 class="text-green-400">{{ response?.status }}</h6>
+                <pre>{{ response?.content }}</pre>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
-  </div>
+  </main>
+</div> -->
+<elements-api apiDescriptionUrl="swagger.json" basePath="/api-docs"></elements-api>
+
+<!-- <stoplight-api
   
+  router="hash" layout="sidebar"></stoplight-api> -->

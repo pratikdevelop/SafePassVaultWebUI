@@ -1,36 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit } from '@angular/core';
 import SwaggerUI, { SwaggerUIBundle } from 'swagger-ui-dist';
+import { CommonService } from '../../services/common.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-api-docs',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './api-docs.component.html',
-  styleUrl: './api-docs.component.css'
+  styleUrl: './api-docs.component.css',
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class ApiDocsComponent implements OnInit {
 
-  constructor() { 
-  }
-
   ngOnInit(): void {
-    this.loadSwaggerUI(); 
-    
-  }
-  
-  loadSwaggerUI() {
-    const ui = SwaggerUI.SwaggerUIBundle({
-      url: 'swagger.json', // Replace with your Swagger JSON URL
-      dom_id: '#swagger-ui',
-      presets: [
-        SwaggerUI.SwaggerUIBundle['presets'].apis,
-        SwaggerUI.SwaggerUIBundle['SwaggerUIStandalonePreset']
-      ],
-     
-      plugins: [
-        SwaggerUI.SwaggerUIBundle['plugins'].DownloadUrl
-      ],
-    });
 
   }
 }
+
