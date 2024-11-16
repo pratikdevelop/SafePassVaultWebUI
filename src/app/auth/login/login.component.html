@@ -4,11 +4,12 @@
     <div class="flex flex-col lg:px-48 space-y-6">
       <div class="text-center text-4xl mb-8">Login with your account</div>
 
-      <!-- Toggle between password and passwordless login -->
-      <mat-button-toggle-group class="mx-auto" (change)="updateLoginPage($event)" [(ngModel)]="loginMode" aria-label="Login Mode Toggle">
-        <mat-button-toggle value="password">Login with Password</mat-button-toggle>
-        <mat-button-toggle value="passwordless">Login with Email Link</mat-button-toggle>
-      </mat-button-toggle-group>
+      <button mat-button class="ml-auto" *ngIf="loginMode === 'password'"
+        (click)="toggleLoginMode('passwordless')">Login
+        with Magic Link</button>
+      <button mat-button class="ml-auto" *ngIf="loginMode === 'passwordless'"
+        (click)="toggleLoginMode('password')">Login
+        with Password</button>
 
       <!-- Email Input -->
       <mat-form-field appearance="outline">
@@ -19,21 +20,14 @@
         </mat-error>
       </mat-form-field>
 
+
       <!-- Password Input (only shown if loginMode is password) -->
       <ng-container *ngIf="loginMode === 'password'">
         <mat-form-field appearance="outline">
           <!-- <mat-label>Password</mat-label> -->
-          <input
-            matInput
-            formControlName="password"
-            [type]="hide() ? 'password' : 'text'"
-          />
-          <button
-            mat-icon-button
-            matSuffix
-            (click)="togglePasswordVisibility($event)"
-            [attr.aria-label]="'Hide password'"
-          >
+          <input matInput formControlName="password" [type]="hide() ? 'password' : 'text'" />
+          <button mat-icon-button matSuffix (click)="togglePasswordVisibility($event)"
+            [attr.aria-label]="'Hide password'">
             <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
           </button>
           <mat-error *ngIf="loginForm.get('password')?.invalid">
@@ -47,51 +41,39 @@
         <div class="flex items-center justify-center">
           <span>
             Don't have an account yet?
-            <a
-              routerLink="/auth/signup"
-              class="text-sm text-blue-700 hover:text-blue-900"
-            >
+            <a routerLink="/auth/signup" class="text-sm text-blue-700 hover:text-blue-900">
               Sign up now
             </a>
           </span>
         </div>
-        <button
-        type="button"
-        mat-flat-button
-        [disabled]="loginForm.invalid || loading"
-        (click)="onSubmit()"
-      >
-        <mat-icon *ngIf="loading">
-          <mat-spinner diameter="20"></mat-spinner>
-        </mat-icon>
-        {{ loginMode === 'password' ? 'Login Now' : 'Send Login Link' }}
-      </button>
+        <button type="button" mat-flat-button [disabled]="loginForm.invalid || loading" (click)="onSubmit()">
+          <mat-icon *ngIf="loading">
+            <mat-spinner diameter="20"></mat-spinner>
+          </mat-icon>
+          {{ loginMode === 'password' ? 'Login Now' : 'Send Login Link' }}
+        </button>
         <div class="flex  items-center justify-center">
           <span>
             Forgot your password?
-            <a
-              routerLink="/auth/reset-password"
-              class="text-sm text-blue-700 hover:text-blue-900"
-            >
+            <a routerLink="/auth/reset-password" class="text-sm text-blue-700 hover:text-blue-900">
               Reset it here.
             </a>
-          </span>      
+          </span>
         </div>
       </div>
     </div>
   </form>
 
   <div class="relative hidden sm:flex sm:w-1/2 h-[100vh] flex-auto">
-    <img
-      class="w-full h-full object-cover"
+    <img class="w-full h-full object-cover"
       src="https://t4.ftcdn.net/jpg/09/37/66/01/240_F_937660151_LricXbj6vPIjAJzn2KoHZdG1LSrZc1Qm.jpg"
-      alt="Background Image"
-    />
+      alt="Background Image" />
     <div class="absolute inset-0 flex items-center justify-center z-5">
       <div class="flex flex-col items-center text-center text-white p-6">
         <h1 class="text-6xl mb-4">Welcome to Safepassvault!</h1>
         <p class="text-lg text-center">
-          Safepassvault is your ultimate password manager, designed for securely storing, generating, and sharing passwords across all your devices.
+          Safepassvault is your ultimate password manager, designed for securely storing, generating, and sharing
+          passwords across all your devices.
         </p>
       </div>
     </div>

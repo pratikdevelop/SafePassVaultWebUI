@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CommonService } from '../../../services/common.service';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { SSOSettingsService } from '../../../services/ssosettings.service';
 
 @Component({
   selector: 'app-sso-settings',
@@ -16,6 +17,8 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class SsoSettingsComponent {
   private readonly commonService = inject(CommonService);
+  private readonly ssoSettingsService = inject(SSOSettingsService);
+  message!: string;
 
   toggleSideBar(): void {
     this.commonService.toggleProfileSideBar();
@@ -40,6 +43,16 @@ export class SsoSettingsComponent {
 
   // Method to save settings (could be used to send data to a backend)
   saveSettings() {
-    console.log('SSO Settings for', this.selectedProvider.name, ':', this.ssoSettings);
+
+    this.ssoSettingsService.saveSettings(this.ssoSettings).subscribe(
+      (response) => {
+        this.message = 'Settings saved successfully!';
+        console.log('Saved:', response);
+      },
+      (error) => {
+        this.message = 'Failed to save settings.';
+        console.error('Error:', error);
+      }
+    );
   }
 }

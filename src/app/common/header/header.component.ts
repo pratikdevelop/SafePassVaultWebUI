@@ -24,54 +24,49 @@ import { CommonModule } from '@angular/common';
     MatInputModule,
   ],
   templateUrl: './header.component.html',
-//   styles: `
-
-//   /* Show complete menu on larger screens */
-//   @media (min-width: 768px) {
-//     .menu-content {
-//       display: flex;
-//       flex-direction: column;
-//       align-items: center;
-//       width: 100%;
-//     }
-//     .menu-item {
-//       margin: 5px 0;
-//     }
-//   }
-// `,
 })
 export class HeaderComponent implements OnInit {
   token = localStorage.getItem('token')?.toString();
-  @Output()updateSideBarFF = new EventEmitter<string>()
+  @Output() updateSideBarFF = new EventEmitter<string>()
   private readonly authService = inject(AuthService);
   private readonly snackbar = inject(MatSnackBar);
   private readonly router = inject(Router);
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
+  isLoading: boolean = true;
   userProfile: any;
   ngOnInit(): void {
+    this.isLoading = true;
     this.authService.userProfile$.subscribe({
       next: (response) => {
         this.userProfile = response;
         console.log('df', this.userProfile);
-        
+        this.isLoading = false;
         this.changeDetectorRef.detectChanges();
       },
       error: (error) => {
         console.error(error);
+        this.isLoading = false;
+        this.changeDetectorRef.detectChanges();
       },
+      complete: () => {
+        this.isLoading = false;
+        this.changeDetectorRef.detectChanges();
+      }
     });
   }
 
   logout(): void {
+    this.isLoading = true;
     this.authService.logout().subscribe({
       next: () => {
+        this.userProfile = null;
         this.authService._userProfileSubject.next(null);
         localStorage.removeItem('token');
         this.snackbar.open('Logout successful', 'Ok', {
           duration: 2000,
         });
-        this.changeDetectorRef.detectChanges();
-        this.router.navigateByUrl('/');
+        this.isLoading = false;
+
       },
       error: (error) => {
         console.error('Error logging out:', error);
@@ -82,13 +77,18 @@ export class HeaderComponent implements OnInit {
             duration: 2000,
           }
         );
-        this.changeDetectorRef.detectChanges();
+        this.isLoading = false;
+
       },
+      complete: () => {
+        this.changeDetectorRef.detectChanges();
+        this.router.navigateByUrl('/');
+      }
     });
   }
 
 
-  updateSideBar(type: string):void {
+  updateSideBar(type: string): void {
     this.updateSideBarFF.emit(type);
   }
 }

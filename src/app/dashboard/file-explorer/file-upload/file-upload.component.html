@@ -4,7 +4,7 @@
 <mat-dialog-content class="mat-typography p-6">
   <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" class="flex flex-col space-y-4">
     <!-- File Upload Input -->
-    <mat-form-field>
+    <mat-form-field appearance="outline">
       <mat-label>File</mat-label>
       <button type="button" mat-icon-button matPrefix (click)="f_input.click()" *ngIf="!isEditMode || !fileData">
         <mat-icon>attach_file</mat-icon>
@@ -26,7 +26,7 @@
 
 
     <!-- Folder Selection Input -->
-    <mat-form-field>
+    <mat-form-field appearance="outline">
       <mat-label>Folder</mat-label>
       <input type="text" matInput formControlName="folderName" [matAutocomplete]="auto"
         (input)="onFolderSearch($event)" />

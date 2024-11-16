@@ -1,10 +1,7 @@
 <h2 mat-dialog-title>Create Organization</h2>
 <mat-dialog-content>
-  <form
-    [formGroup]="organizationForm"
-    class="flex flex-col space-y-10"
-  >
-    <mat-form-field appearance="fill">
+  <form [formGroup]="organizationForm" class="flex flex-col space-y-10">
+    <mat-form-field appearance="outline">
       <mat-label>Organization Name</mat-label>
       <input matInput type="text" formControlName="organization_name" />
       @if(organizationForm.get('organization_name')?.hasError('required')) {
@@ -12,7 +9,7 @@
       }
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Organization Description (optional)</mat-label>
       <input matInput type="text" formControlName="organization_description" />
     </mat-form-field>
@@ -21,13 +18,8 @@
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Cancel</button>
 
-  <button
-    mat-flat-button
-    color="primary"
-    type="button"
-    (click)="addOrganization()"
-    [disabled]="!organizationForm.valid"
-  >
+  <button mat-flat-button color="primary" type="button" (click)="addOrganization()"
+    [disabled]="!organizationForm.valid">
     Create Organization
   </button>
 </mat-dialog-actions>

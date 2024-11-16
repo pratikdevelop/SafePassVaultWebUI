@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
   loading = false;
 
   // Track the selected login mode
-  loginMode: 'password' | 'passwordless' = 'password';
+  loginMode: string = 'password';
 
   // Define the login form
   loginForm: FormGroup = new FormGroup({
@@ -82,7 +82,7 @@ export class LoginComponent implements OnInit {
 
   updateLoginPage(event: any): void {
     console.log('fff', event);
-    
+
     this.loginMode = event.value;
     this.changeDetectorRef.detectChanges()
   }
@@ -160,5 +160,26 @@ export class LoginComponent implements OnInit {
   togglePasswordVisibility(event: MouseEvent) {
     this.hide.set(!this.hide());
     event.stopPropagation();
+  }
+
+  updateValidation() {
+    if (this.loginMode === 'passwordless') {
+      // Remove password validation when login mode is 'magicLink'
+      this.loginForm.controls['password'].clearValidators();
+    } else {
+      // Add password validation back for regular password login
+      this.loginForm.controls['password'].setValidators([
+        Validators.required,
+        this.passwordValidator,
+      ]);
+    }
+    // Mark password control as dirty so that validation is immediately applied
+    this.loginForm.controls['password'].updateValueAndValidity();
+  }
+
+  // Toggle between password and magic link login modes
+  toggleLoginMode(mode: string) {
+    this.loginMode = mode;
+    this.updateValidation(); // Update validation whenever login mode changes
   }
 }

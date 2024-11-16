@@ -34,7 +34,7 @@ export const dashboardRoutes: Routes = [
           import('./card/card.component').then((m) => m.CardComponent),
       },
       {
-        path: 'Proof',  // New path for proof without folderId
+        path: 'identity',  // New path for proof without folderId
         canActivate: [authGuard],
         loadComponent: () =>
           import('./id-proof/id-proof.component').then(

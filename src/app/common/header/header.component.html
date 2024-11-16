@@ -1,4 +1,4 @@
-<header class="fixed inset-x-0 top-0 z-10 mb-20">
+<header class="fixed inset-x-0 top-0 z-10 mb-20" *ngIf="!isLoading">
   <nav class="flex flex-col lg:flex-row items-center bg-gray-900 p-5 justify-between text-white relative">
     <div class="flex justify-between w-full lg:w-auto">
       <a routerLink="/" class="text-4xl">Safepassvault</a>
@@ -38,7 +38,7 @@
       </span>
     </div>
 
-    <mat-menu #mainMenu="matMenu">
+    <mat-menu #mainMenu="matMenu" class="flex flex-col">
       <ng-container *ngIf="token; else loggedOutMenu">
         <a mat-menu-item class="menu-item" routerLink="/dashboard/passwords">Passwords</a>
         <a mat-menu-item class="menu-item" routerLink="/dashboard/notes">Secure Notes</a>

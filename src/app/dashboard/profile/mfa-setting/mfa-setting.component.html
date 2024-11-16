@@ -15,8 +15,7 @@
     </mat-slide-toggle>
 
     <div *ngIf="mfaForm.get('mfaEnabled')?.value" class="flex flex-col">
-        <mat-form-field>
-            <mat-label>Select MFA Method</mat-label>
+        <mat-form-field appearance="outline">
             <mat-select formControlName="mfaMethod" (selectionChange)="selectMFAMethod($event)">
                 <mat-option value="totp">Time-Based One-Time Password (TOTP)</mat-option>
                 <mat-option value="sms">SMS Authentication</mat-option>
@@ -28,19 +27,16 @@
             </mat-select>
         </mat-form-field>
 
-        <mat-form-field *ngIf="mfaForm.get('mfaMethod')?.value === 'totp'">
-            <mat-label>Enter TOTP Secret</mat-label>
+        <mat-form-field appearance="outline" *ngIf="mfaForm.get('mfaMethod')?.value === 'totp'">
             <input matInput [disabled]="userProfile.totpSecret !== null" formControlName="totpSecret"
                 placeholder="Enter your TOTP secret">
         </mat-form-field>
 
-        <mat-form-field *ngIf="mfaForm.get('mfaMethod')?.value === 'sms'">
-            <mat-label>Phone Number</mat-label>
+        <mat-form-field appearance="outline" *ngIf="mfaForm.get('mfaMethod')?.value === 'sms'">
             <input matInput formControlName="smsPhoneNumber" placeholder="Enter your phone number">
         </mat-form-field>
 
-        <mat-form-field *ngIf="mfaForm.get('mfaMethod')?.value === 'email'">
-            <mat-label>Email Address</mat-label>
+        <mat-form-field appearance="outline" *ngIf="mfaForm.get('mfaMethod')?.value === 'email'">
             <input matInput formControlName="emailAddress" placeholder="Enter your email address">
         </mat-form-field>
 
