@@ -45,11 +45,10 @@ export class RecoveryPhraseComponent {
 
           // Set public and private keys
           this.publicKey = profile.user.publicKey;
-          this.privateKey = profile.user.recoveryPhrase;
+          this.privateKey = profile.user.privateKey;
 
           // Set fingerprint (example, in real case you'd calculate it or get from backend)
-          this.publicKeyFingerprint = this.calculateFingerprint(this.publicKey);
-          this.privateKeyFingerprint = this.calculateFingerprint(this.privateKey);
+          this.publicKeyFingerprint =this.calculateFingerprint( profile.user.fingerPrint);
 
           // Set key creation and expiration dates (example values)
           this.publicKeyCreatedDate = '2022-01-01';

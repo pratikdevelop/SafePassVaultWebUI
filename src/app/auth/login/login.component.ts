@@ -13,7 +13,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -37,7 +37,8 @@ import { MatButtonModule } from '@angular/material/button';
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    RouterModule
   ],
   templateUrl: './login.component.html',
 })
@@ -81,8 +82,6 @@ export class LoginComponent implements OnInit {
   }
 
   updateLoginPage(event: any): void {
-    console.log('fff', event);
-
     this.loginMode = event.value;
     this.changeDetectorRef.detectChanges()
   }

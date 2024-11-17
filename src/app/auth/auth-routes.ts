@@ -8,8 +8,8 @@ export const authRoutes: Routes = [
 
     },
     {
-        path: 'reset-password',
-        loadComponent: () => import("./reset-password/reset-password.component").then((m) => m.ResetPasswordComponent)
+        path: 'account-recovery',
+        loadComponent: () => import("./account-recovery/account-recovery.component").then((m) => m.AccountRecoveryComponent)
 
     },
     {
@@ -22,8 +22,8 @@ export const authRoutes: Routes = [
             m.InvitationAcceptComponent),
     },
     {
-        path: 'change-password',
-        loadComponent: () => import("./password-change/password-change.component").then((m) => m.PasswordChangeComponent)
+        path: 'reset-password',
+        loadComponent: () => import("./reset-password/reset-password.component").then((m) => m.ResetPasswordComponent)
     },
     {
         path: 'mfa-verification',
@@ -32,9 +32,9 @@ export const authRoutes: Routes = [
     },
     { path: 'magic-link', loadComponent: () => import('./magic-link-verification/magic-link-verification.component').then((m) => m.MagicLinkVerificationComponent) },
     {
-        path: 'account-recovery',
+        path: 'recovery-verify',
         loadComponent: () =>
-            import("./account-recovery/account-recovery.component").then((m) => m.AccountRecoveryComponent)
+            import("./recovery/recovery.component").then((m) => m.RecoveryComponent)
     }
 ]
 

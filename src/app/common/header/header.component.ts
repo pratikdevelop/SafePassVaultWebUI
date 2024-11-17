@@ -26,7 +26,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit {
-  token = localStorage.getItem('token')?.toString();
+  token: string| null| undefined = localStorage.getItem('token')?.toString();
   @Output() updateSideBarFF = new EventEmitter<string>()
   private readonly authService = inject(AuthService);
   private readonly snackbar = inject(MatSnackBar);
@@ -60,15 +60,22 @@ export class HeaderComponent implements OnInit {
     this.authService.logout().subscribe({
       next: () => {
         this.userProfile = null;
+        this.token = null;
+        localStorage.removeItem('token')
+
         this.authService._userProfileSubject.next(null);
         localStorage.removeItem('token');
         this.snackbar.open('Logout successful', 'Ok', {
           duration: 2000,
         });
         this.isLoading = false;
+        this.changeDetectorRef.detectChanges();
+
 
       },
       error: (error) => {
+        localStorage.removeItem('token')
+
         console.error('Error logging out:', error);
         this.snackbar.open(
           `Error in logout, please try sometimes later`,
@@ -78,11 +85,12 @@ export class HeaderComponent implements OnInit {
           }
         );
         this.isLoading = false;
-
+        this.changeDetectorRef.detectChanges();
       },
       complete: () => {
+        this.router.navigate(['/']);
         this.changeDetectorRef.detectChanges();
-        this.router.navigateByUrl('/');
+
       }
     });
   }

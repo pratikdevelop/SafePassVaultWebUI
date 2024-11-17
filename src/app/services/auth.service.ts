@@ -255,4 +255,7 @@ export class AuthService {
       })
     );
   }
+  verifyRecovery(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/recovery-verify`, data);
+  }
 }

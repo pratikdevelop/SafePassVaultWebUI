@@ -8,10 +8,13 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-reset-password',
@@ -25,47 +28,92 @@ import { CommonModule } from '@angular/common';
     RouterLink,
     MatFormFieldModule,
     MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCardModule,
   ],
   templateUrl: './reset-password.component.html',
 })
 export class ResetPasswordComponent implements OnInit {
 
-  isTokenSent: any;
-  emailForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-  });
-  isResettingPassowrd: boolean = false;
-  linkVerified = false;
-  loading = true;
-
-  
-  tokenForm = new FormGroup({
-    token: new FormControl(''),
-  });
-  snackbar = inject(MatSnackBar);
   service = inject(AuthService);
-  route = inject(ActivatedRoute);
-  changeDetectorRef = inject(ChangeDetectorRef);
-  ngOnInit(): void {}
-  
-  sendResetToken(): void {
-    if (this.emailForm.invalid) return;
-    this.service.resetPassword(this.emailForm.value.email).subscribe(
-      (response: any) => {
-        this.snackbar.open('Password reset Link is send to your email.', '', {
-          duration: 300,
-          direction: 'rtl',
+  readonly snackBar = inject(MatSnackBar);
+  readonly changeDetectorRef = inject(ChangeDetectorRef);
+  router = inject(Router);
+  activeRoute = inject(ActivatedRoute);
+
+  passwordForm = new FormGroup({
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+      this.passwordValidator
+    ]),
+    confirmPassword: new FormControl('', [
+      Validators.required,
+      this.confirmPasswordMatchValidator
+    ]),
+  });
+
+  private userId: string = '';
+  private resetToken: string = '';
+  linkVerified: boolean = false;
+  showPassword: boolean = false;
+  showConfirmPassword: boolean = false;
+
+  ngOnInit(): void {
+   
+  }
+
+  passwordValidator(control: FormControl): { [s: string]: boolean } | null {
+    const passwordValidation =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w\s]).{8,}$/;
+    const password = control.value;
+    if (password && !passwordValidation.test(password)) {
+      return { invalidPassword: true };
+    }
+    return null;
+  }
+
+  confirmPasswordMatchValidator(
+    control: FormControl
+  ): { [key: string]: boolean } | null {
+    if (control.parent && control.parent.get('password')) {
+      // Compare password and confirmPassword values
+      if (control.value !== control.parent?.get('password')?.value) {
+        return { confirmPasswordMismatch: true };
+      }
+    }
+    return null;
+  }
+
+  resetPassword(): void {
+    if (this.passwordForm.invalid) return;
+    const payload = {
+      password: this.passwordForm.get('password')?.value,
+      confirmPassword: this.passwordForm.get('confirmPassword')?.value,
+    
+    }
+
+    this.service.changePassword(payload, this.userId).subscribe(
+
+      (res: any) => {
+        this.snackBar.open('Password reset successfully', '', {
+          duration: 3000,
         });
+        this.router.navigate(['/auth/login']); // Redirect to login after successful reset
       },
       (error) => {
-        this.snackbar.open('Your Email was not found', '', {
-          duration: 300,
-          direction: 'rtl',
+        this.snackBar.open(error.message, '', {
+          duration: 3000,
         });
       }
     );
   }
-  
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
 
-
+  toggleConfirmPasswordVisibility(): void {
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
 }

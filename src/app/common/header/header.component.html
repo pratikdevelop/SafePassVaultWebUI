@@ -28,7 +28,7 @@
         <ng-template #loggedOutMenu>
           <button mat-button [matMenuTriggerFor]="productsMenu">Products</button>
           <a class="menu-item" mat-button routerLink="/plan-pricing">Plan and Pricing</a>
-          <a class="menu-item" mat-button routerLink="/api-docs">API Documentation</a>
+          <a class="menu-item" mat-button [matMenuTriggerFor]="productsMenu"> Documentation</a>
           <a class="menu-item" mat-button routerLink="/support">Customer Support</a>
           <a class="menu-item" mat-button routerLink="/download">Download</a>
           <a class="menu-item" mat-button routerLink="/auth/signup">Get Started</a>
@@ -64,6 +64,12 @@
 
     <mat-menu #productsMenu="matMenu">
       <button mat-menu-item routerLink="/generator">Password Generator</button>
+      <button mat-menu-item routerLink="/password-strength">Password Checker</button>
+      <button mat-menu-item routerLink="/dashboard/passwords">Password Vault</button>
+      <button mat-menu-item routerLink="/dashboard/file">File Storage</button>
+    </mat-menu>
+    <mat-menu #documentationMenu="matMenu">
+      <button mat-menu-item routerLink="/api-docs">API Guide</button>
       <button mat-menu-item routerLink="/password-strength">Password Checker</button>
       <button mat-menu-item routerLink="/dashboard/passwords">Password Vault</button>
       <button mat-menu-item routerLink="/dashboard/file">File Storage</button>

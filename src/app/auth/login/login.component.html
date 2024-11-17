@@ -1,7 +1,7 @@
 <!-- Main Container -->
 <div class="h-[100vh] relative w-full flex items-center justify-center overflow-hidden">
-  <form [formGroup]="loginForm" class="p-8 w-full sm:w-1/2 flex flex-col space-y-6">
-    <div class="flex flex-col lg:px-48 space-y-6">
+  <form [formGroup]="loginForm" class="p-8 w-full sm:w-1/2 flex justify-center space-y-6">
+    <div class="flex flex-col  space-y-6">
       <div class="text-center text-4xl mb-8">Login with your account</div>
 
       <button mat-button class="ml-auto" *ngIf="loginMode === 'password'"
@@ -41,7 +41,7 @@
         <div class="flex items-center justify-center">
           <span>
             Don't have an account yet?
-            <a routerLink="/auth/signup" class="text-sm text-blue-700 hover:text-blue-900">
+            <a  routerLink="/auth/signup" class="text-sm cursor-pointer text-blue-700 hover:text-blue-900">
               Sign up now
             </a>
           </span>
@@ -55,7 +55,7 @@
         <div class="flex  items-center justify-center">
           <span>
             Forgot your password?
-            <a routerLink="/auth/reset-password" class="text-sm text-blue-700 hover:text-blue-900">
+            <a  routerLink="/auth/account-recovery" class="text-sm cursor-pointer text-blue-700 hover:text-blue-900">
               Reset it here.
             </a>
           </span>

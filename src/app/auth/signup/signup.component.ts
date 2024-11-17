@@ -404,21 +404,22 @@ export class SignupComponent {
     }
   }
 
-  async createUser(): Promise<void> {
-    const recoveryPhrase = await this.generateRecoveryPhrase();
-    const encryptedRecoveryPhrase = await this.encryptRecoveryPhrase(recoveryPhrase);
-    const keyPair = await this.generateKeyPair();
-    const publicKey = await this.exportPublicKey(keyPair);
+  createUser(): void {
     const userDetails = {
       ...this.signupForm.value,
       ...this.billingForm.value,
       ...this.paymentForm.value,
-      recoveryPhrase: encryptedRecoveryPhrase, // Include encrypted recovery phrase
-      publicKey
     };
     this.authService.signup(userDetails).subscribe({
       next: (response: any) => {
         this.userId = response.userId;
+        const blob = new Blob([response.privateKeyPEM], { type: 'text/plain' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'private-key.pem';
+        a.click();
+        window.URL.revokeObjectURL(url);
         if (!this.isPaidPlan) {
           this.snackbar.open(
             'User registered. A confirmation email has been sent.',
@@ -518,6 +519,7 @@ export class SignupComponent {
       });
   }
 
+  /*
   // Generate a recovery phrase (12-word mnemonic)
   async generateRecoveryPhrase(): Promise<string> {
     return this.generateRandomMnemonic();
@@ -602,7 +604,7 @@ export class SignupComponent {
     const exportedKey = await window.crypto.subtle.exportKey("spki", keyPair.publicKey);
     const exportedKeyBase64 = btoa(String.fromCharCode(...new Uint8Array(exportedKey)));
     return exportedKeyBase64;
-  }
+  }*/
 
   logData(): void {
     console.log(this.signupForm);

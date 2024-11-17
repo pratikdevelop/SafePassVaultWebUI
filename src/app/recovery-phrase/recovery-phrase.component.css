@@ -51,7 +51,6 @@
 
 
 .public-key-block {
-  background-color: #f7fafc; /* Light gray background */
   padding: 16px;
   border-radius: 8px;
   overflow-x: auto; /* Enables horizontal scrolling if content is too wide */
