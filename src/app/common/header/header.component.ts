@@ -26,14 +26,17 @@ import { CommonModule } from '@angular/common';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit {
-  token: string| null| undefined = localStorage.getItem('token')?.toString();
+  token: string | null | undefined = localStorage.getItem('token')?.toString();
   @Output() updateSideBarFF = new EventEmitter<string>()
+
   private readonly authService = inject(AuthService);
   private readonly snackbar = inject(MatSnackBar);
   private readonly router = inject(Router);
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
+
   isLoading: boolean = true;
   userProfile: any;
+
   ngOnInit(): void {
     this.isLoading = true;
     this.authService.userProfile$.subscribe({

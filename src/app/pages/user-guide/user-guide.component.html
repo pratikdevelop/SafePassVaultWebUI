@@ -1,0 +1,224 @@
+<!-- src/app/app.component.html -->
+<mat-sidenav-container class="h-[100vh] flex-auto overflow-hidden">
+    <mat-sidenav #drawer opened="true" mode="side" style="
+    border-radius: 0% !important;
+    background-color: rgb(1, 7, 24);
+    display: flex !important;
+    flex-direction: column !important;
+    column-gap: 3rem !important;
+    color: white !important;
+  ">
+        <div class="flex flex-col space-y-6 text-white h-full py-10 ">
+            <a class="text-slate-800 py-4 cursor-pointer px-auto flex items-center space-x-4 justify-center"
+                [ngClass]="{'bg-white border-l-2 border-l-slate-900': type === 'introduction'}"
+                (click)="toggleData('introduction')">
+                <mat-icon>home</mat-icon>
+                <span>
+                    Introduction
+
+                </span>
+            </a>
+            <a class="text-slate-800 py-4 cursor-pointer px-auto flex items-center space-x-4 justify-center"
+                [ngClass]="{'bg-white border-l-2 border-l-slate-900': type === 'about'}" (click)="toggleData('about')">
+                <mat-icon>info</mat-icon>
+                <span>
+                    About
+                </span>
+            </a>
+            <a class="text-slate-800 py-4 cursor-pointer px-auto flex items-center space-x-4 justify-center"
+                [ngClass]="{'bg-white border-l-2 border-l-slate-900': type === 'setup'}" (click)="toggleData('setup')">
+                <mat-icon>play_circle_filled</mat-icon>
+                <span>
+                    Start
+                </span>
+
+            </a>
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content class="flex flex-col flex-auto">
+        <div class="container mx-auto p-6" *ngIf="type === 'introduction'">
+            <mat-card class="rounded-lg shadow-lg">
+                <mat-card-header>
+                    <span class="text-4xl font-extrabold">Welcome to the SafePassVault User
+                        Guide!</span>
+                </mat-card-header>
+                <mat-card-content class="p-4 space-y-6">
+                    <p class="text-lg">
+                        Thank you for choosing SafePassVault! This guide is your go-to resource for learning how to use
+                        SafePassVault, the secure password management solution designed to help organizations store,
+                        manage, and
+                        share passwords safely.
+                        Whether you are a new user or an experienced one, this guide will help you navigate
+                        SafePassVault's
+                        features and ensure you can make the most of the platform.
+                    </p>
+
+                    <h2 class="text-2xl font-semibold">What’s Included in This Guide?</h2>
+                    <ul class="list-disc ml-6">
+                        <li><strong>User Guide</strong>: The section you’re reading now, which explains how to use
+                            SafePassVault’s core features.</li>
+                        <li><strong>Admin Guide</strong>: For admins, it covers how to manage users, configure system
+                            settings,
+                            and more.</li>
+                        <li><strong>Hosting Guide</strong>: Everything you need to know about setting up and maintaining
+                            your
+                            self-hosted SafePassVault server.</li>
+                        <li><strong>Development Guide</strong>: Information on how to interact with SafePassVault’s
+                            backend API.
+                        </li>
+                        <li><strong>API Guide</strong>: Low-level documentation for developers on SafePassVault’s API
+                            endpoints.
+                        </li>
+                    </ul>
+
+                    <h2 class="text-2xl font-semibold">User vs. Admin Roles</h2>
+                    <p class="text-lg">
+                        SafePassVault distinguishes between two main roles: <strong>users</strong> and
+                        <strong>admins</strong>.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-2">
+                            <mat-icon>person</mat-icon>
+                            <h3 class="text-xl font-semibold">Users</h3>
+                        </div>
+                        <p>
+                            As a standard user, you will have access to all of SafePassVault’s core functionality,
+                            including
+                            storing passwords, organizing them in your vault, and securely sharing them with others in
+                            your
+                            organization.
+                            Your experience may vary slightly depending on the settings and permissions defined by your
+                            organization.
+                        </p>
+
+                        <div class="flex items-center space-x-2">
+                            <mat-icon>admin_panel_settings</mat-icon>
+                            <h3 class="text-xl font-semibold">Admins</h3>
+                        </div>
+                        <p>
+                            In addition to the features available to users, admins have extra responsibilities such as
+                            managing
+                            user access, configuring security settings, controlling the user interface, and overseeing
+                            the
+                            overall administration of your SafePassVault instance.
+                        </p>
+                    </div>
+
+                    <h2 class="text-2xl font-semibold">Important Note</h2>
+                    <p>
+                        Since SafePassVault offers a wide range of configuration options, your experience as an end user
+                        may
+                        differ depending on how your organization has set up SafePassVault. If you're unable to perform
+                        a
+                        certain action or encounter any limitations, please reach out to your system administrator or
+                        the person
+                        responsible for managing SafePassVault in your organization.
+                    </p>
+
+                    <div class="flex justify-center mt-6">
+                        <button mat-raised-button color="primary" class="py-2 px-4 rounded-lg shadow-md">Get
+                            Started</button>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="container mx-auto p-6" *ngIf="type === 'about'">
+            <mat-card class="bg-white shadow-lg p-6 rounded-lg" appearance="raised">
+                <mat-card-header class="flex items-start space-x-3">
+                    <div mat-card-avatar class="bg-indigo-800 flex justify-center items-center ">
+                        <mat-icon class="text-white">lock</mat-icon>
+                    </div>
+                    <mat-card-title class="text-xl  font-bold text-gray-800">
+                        <span class="text-3xl font-extrabold">
+                            Welcome to SafePassVault
+                        </span></mat-card-title>
+                    <mat-card-subtitle class="text-gray-600">The Secure Credential Manager for Teams</mat-card-subtitle>
+                </mat-card-header>
+
+                <mat-card-content>
+                    <p class="text-gray-700">
+                        <strong>SafePassVault</strong> is an open-source password manager that helps organizations
+                        securely
+                        store, manage, and share sensitive information. It’s designed to address the challenge of
+                        handling
+                        credentials within teams, ensuring security without compromising collaboration.
+                    </p>
+                    <p class="mt-4 text-gray-700">
+                        With <strong>SafePassVault</strong>, you can easily store passwords, generate secure login
+                        credentials,
+                        and share them with authorized team members. All of this is done using end-to-end encryption,
+                        which
+                        ensures that only the intended users have access to your data.
+                    </p>
+
+                    <div class="mt-6">
+                        <h3 class="text-lg font-semibold text-gray-800">What Makes SafePassVault Essential?</h3>
+                        <ul class="list-disc pl-6 mt-2 text-gray-700">
+                            <li>Secure storage and sharing of passwords and sensitive data.</li>
+                            <li>Password generation to prevent the reuse of weak or common passwords.</li>
+                            <li>Easy collaboration with team members by sharing credentials securely.</li>
+                            <li>Password rotation for enhanced security, especially during employee transitions.</li>
+                            <li>Centralized credential management to prevent loss of vital data and avoid manual
+                                recovery.</li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-6">
+                        <h3 class="text-lg font-semibold text-gray-800">How SafePassVault Works</h3>
+                        <ol class="list-decimal pl-6 mt-2 text-gray-700">
+                            <li>Data is encrypted before it ever leaves your device, ensuring only authorized users can
+                                decrypt
+                                it.</li>
+                            <li>Passwords and credentials can be securely shared with your team with strict permissions
+                                and
+                                access controls.</li>
+                            <li>Password generation tools help create strong, unique passwords, preventing the use of
+                                easily
+                                guessable or repeated passwords.</li>
+                            <li>The user interface is designed to be simple and intuitive, making it easy to manage and
+                                access
+                                your credentials.</li>
+                        </ol>
+                    </div>
+
+                    <div class="mt-6">
+                        <h3 class="text-lg font-semibold text-gray-800">How to Access SafePassVault</h3>
+                        <ul class="list-disc pl-6 mt-2 text-gray-700">
+                            <li><strong>Using the Browser:</strong> First set up your account using a web browser and
+                                then
+                                access your credentials via the browser extension or login page.</li>
+                            <li><strong>Browser Extension:</strong> After setup, you can use the SafePassVault browser
+                                extension
+                                for quick access to your credentials.</li>
+                            <li><strong>Email Invitation:</strong> Check your inbox for an invitation email and follow
+                                the link
+                                to get started.</li>
+                            <li><strong>Visit SafePassVault’s Website:</strong> Go to <a
+                                    href="https://www.safepassvault.com" class="text-blue-500">www.safepassvault.com</a>
+                                and click "Sign in" to be redirected to your
+                                login page.</li>
+                            <li><strong>Contact Your Administrator:</strong> If you're unsure, ask the administrator who
+                                invited
+                                you to SafePassVault for assistance.</li>
+                        </ul>
+                    </div>
+
+                    <div class="mt-6">
+                        <h3 class="text-lg font-semibold text-gray-800">Need Help?</h3>
+                        <p class="text-gray-700">
+                            If you're having trouble or need more information about using SafePassVault, don't hesitate
+                            to reach
+                            out to your administrator for assistance.
+                        </p>
+                    </div>
+                </mat-card-content>
+
+                <mat-card-actions>
+                    <button mat-button class="bg-indigo-600 text-white rounded-full py-2 px-4 hover:bg-indigo-700">Get
+                        Started</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+
+    </mat-sidenav-content>
+</mat-sidenav-container>

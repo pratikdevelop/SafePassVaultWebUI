@@ -4,9 +4,15 @@ services:
   angular-app:
     build: .
     ports:
-      - "4900:80"  # Maps host port 4800 to container port 80
+      - "4900:80"   # Exposes port 4900 on the host machine and maps it to port 80 in the container
     volumes:
-      - .:/app
+      - .:/app      # Mounts the current directory (app code) to the container for development (optional)
     environment:
-      - NODE_ENV=development  # Make sure to use the correct environment if needed
-    restart: always
+      - NODE_ENV=production  # Set the environment to production for a production build
+    restart: always   # Ensures the container restarts if it crashes or the server reboots
+    networks:
+      - safe-network   # Connects the container to a custom network (optional)
+      
+networks:
+  safe-network:
+    driver: bridge

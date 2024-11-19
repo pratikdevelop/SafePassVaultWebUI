@@ -58,6 +58,13 @@ export const adminRoutes: Routes = [
         ]
     },
     {
+        path: 'user-guide',
+        loadComponent: () =>
+            import('./user-guide/user-guide.component').then(
+                (m) => m.UserGuideComponent
+            )
+    },
+    {
         path: 'support',
         loadComponent: () => import('../support/support.component').then((m) => m.SupportComponent)
     }
