@@ -56,6 +56,12 @@ export const dashboardRoutes: Routes = [
         loadChildren: () =>
           import('./profile/profile-route').then((m) => m.profileRoutes),
       },
+      {
+        path: 'address',
+        canActivate: [authGuard],
+        loadComponent: () =>
+          import('./address/address.component').then((m) => m.AddressComponent),
+      }
 
     ],
   },
