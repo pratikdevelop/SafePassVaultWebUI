@@ -21,19 +21,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FolderService } from '../../services/folder.service';
 import { HeaderComponent } from "../../common/header/header.component";
 import { SideNavComponent } from "../../common/side-nav/side-nav.component";
-export interface IdProof {
-  _id: string;
-  idType: string;
-  idNumber: string;
-  issuedBy: string;
-  issueDate: string;
-  expiryDate: string;
-  userId: string;
-  documentImageUrl: string;
-  createdAt: string;
-  updatedAt: string;
-  createdBy: string;
-}
+import { Identity } from '../../interfaces/identity';
+
 @Component({
   selector: 'app-id-proof',
   standalone: true,
@@ -47,82 +36,81 @@ export class IdProofComponent implements OnInit {
   readonly breakpointObserver = inject(BreakpointObserver);
   readonly commonService = inject(CommonService);
   readonly router = inject(Router);
-  readonly activateRouter = inject(ActivatedRoute)
-  readonly service  = inject(FolderService);
+  readonly activateRouter = inject(ActivatedRoute);
+  readonly service = inject(FolderService);
+  readonly idProofService = inject(ProofIdService);
+  readonly changeDetetorRef = inject(ChangeDetectorRef);
+  readonly dialog = inject(MatDialog);
   mode: MatDrawerMode = 'side';
   folders: any[] = [];
   isSidebarOpen: boolean = true;
   isBreakPoint: boolean = false;
   isShow: boolean = false;
   displayedColumns: string[] = [
-    'idType', 
-    'idNumber', 
-    'issuedBy', 
-    'issueDate', 
-    'expiryDate', 
+    'idType',
+    'idNumber',
+    'issuedBy',
+    'issueDate',
+    'expiryDate',
     'createdAt',    // Add this column
     'createdBy',    // Add this column
     'actions'
   ];
-  dataSource!: MatTableDataSource<IdProof>;
-  constructor(private proofIdService: ProofIdService, private cdr: ChangeDetectorRef,
-    private dialog: MatDialog)
-   {
+  dataSource!: MatTableDataSource<Identity>;
+
+  constructor() {
     this.breakpointObserver
-    .observe(['(max-width: 600px)'])
-    .subscribe((result) => {
-      if (result.breakpoints['(max-width: 600px)']) {
-        this.isBreakPoint = true;
-        this.isSidebarOpen = false;
-        this.mode = 'over';
-      } else {
-        this.isSidebarOpen = true;
-        this.isBreakPoint = false;
-        this.mode = 'side';
+      .observe(['(max-width: 600px)'])
+      .subscribe((result) => {
+        if (result.breakpoints['(max-width: 600px)']) {
+          this.isBreakPoint = true;
+          this.isSidebarOpen = false;
+          this.mode = 'over';
+        } else {
+          this.isSidebarOpen = true;
+          this.isBreakPoint = false;
+          this.mode = 'side';
+        }
+      });
+
+    this.commonService.sideBarOpen.subscribe((res) => {
+      if (this.isBreakPoint) {
+        this.isSidebarOpen = res;
       }
     });
-    
-    this.activateRouter.data.subscribe((response: any) => {
-      console.log('resolver data',  response);
-      
-    })
-  this.commonService.sideBarOpen.subscribe((res) => {
-    if (this.isBreakPoint) {
-      this.isSidebarOpen = res;
+    if (this.router.url.includes('profile')) {
+      this.isShow = false;
+    } else {
+      this.isShow = true;
     }
-  });
-  if(this.router.url.includes('profile')) {
-    this.isShow = false;
-  }else {
-    this.isShow = true;
-  } 
 
 
-   }
-
-openIdProofFormDialog(proof: any) {
-  const dialogRef = this.dialog.open(IdproofformComponent, {
-    width: '500px',
-    data: { proof: proof }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog closed');
-      });
-}
-performAction(arg0: string) {
-throw new Error('Method not implemented.');
-}
-  idProofService = inject(ProofIdService)
-  changeDetetorRef = inject(ChangeDetectorRef)
-
+  }
   ngOnInit(): void {
-    this.idProofService.getProofIds().subscribe((response: any)=>{
+    this.idProofService.getProofIds().subscribe((response: any) => {
       this.dataSource = new MatTableDataSource(response.proofIds);
       this.changeDetetorRef.detectChanges()
     })
   }
 
+  openIdProofFormDialog(proof: any) {
+    const dialogRef = this.dialog.open(IdproofformComponent, {
+      width: '500px',
+      data: { proof: proof }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed');
+    });
+  }
+  performAction(arg0: string) {
+    throw new Error('Method not implemented.');
+  }
+
+
+
+
   toggleSideBar(): void {
     this.commonService.toggleSideBar();
   }
+
 }

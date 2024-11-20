@@ -1,0 +1,133 @@
+<mat-toolbar>
+    <h1 class="text-2xl font-semibold text-gray-800">{{ data.isEditMode ? 'Edit Address' : 'Create
+        Address'
+        }}
+    </h1>
+</mat-toolbar>
+<mat-dialog-content>
+    <form [formGroup]="addressForm">
+        <div class="grid gap-6 grid-cols-1">
+            <!-- Name -->
+            <mat-form-field appearance="outline" class="w-full">
+                <input matInput placeholder="Name" formControlName="name" required />
+                <mat-error *ngIf="addressForm.controls['name'].hasError('required')">
+                    Name is required
+                </mat-error>
+            </mat-form-field>
+
+            <!-- Folder -->
+            <mat-form-field appearance="outline">
+                <mat-label>Folder</mat-label>
+                <input type="text" matInput formControlName="folderName" [matAutocomplete]="auto"
+                    (input)="onFolderSearch($event)" />
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option (click)="change(folder)" *ngFor="let folder of filteredFolders" [value]="folder.name">
+                        {{ folder.name }}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+
+
+            <!-- Title -->
+            <mat-form-field appearance="outline" class="w-full">
+                <input matInput placeholder="Title" formControlName="title" />
+            </mat-form-field>
+
+            <!-- First Name -->
+            <mat-form-field appearance="outline" class="w-full">
+                <input matInput placeholder="First Name" formControlName="firstName" />
+            </mat-form-field>
+
+            <!-- Middle Name -->
+            <mat-form-field appearance="outline" class="w-full">
+                <input matInput placeholder="Middle Name" formControlName="middleName" />
+            </mat-form-field>
+
+            <!-- Last Name -->
+            <mat-form-field appearance="outline" class="w-full">
+                <input matInput placeholder="Last Name" formControlName="lastName" />
+            </mat-form-field>
+
+            <!-- Gender -->
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-select formControlName="gender">
+                    <mat-option value="Male">Male</mat-option>
+                    <mat-option value="Female">Female</mat-option>
+                    <mat-option value="Other">Other</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- Email -->
+            <mat-form-field appearance="outline" class="w-full">
+                <input matInput placeholder="Email" formControlName="email" />
+            </mat-form-field>
+
+            <!-- Address 1 -->
+            <mat-form-field appearance="outline" class="w-full">
+                <input matInput placeholder="Address Line 1" formControlName="address1" />
+            </mat-form-field>
+
+            <!-- Address 2 -->
+            <mat-form-field appearance="outline" class="w-full">
+                <input matInput placeholder="Address Line 2" formControlName="address2" />
+            </mat-form-field>
+
+            <!-- City -->
+            <mat-form-field appearance="outline" class="w-full">
+                <input matInput placeholder="City" formControlName="city" />
+            </mat-form-field>
+
+            <!-- State -->
+            <mat-form-field appearance="outline" class="w-full">
+                <input matInput placeholder="State" formControlName="state" />
+            </mat-form-field>
+
+            <!-- Zip Code -->
+            <mat-form-field appearance="outline" class="w-full">
+                <input matInput placeholder="Zip Code" formControlName="zipCode" />
+            </mat-form-field>
+
+            <!-- Country -->
+            <mat-form-field appearance="outline" class="w-full">
+                <input matInput placeholder="Country" formControlName="country" />
+            </mat-form-field>
+
+            <div class="flex items-center w-full space-x-4">
+                <mat-form-field appearance="outline" class="w-4/12">
+                    <mat-select formControlName="phoneExtension">
+                        <ng-container *ngFor="let country of countries">
+                            <mat-option selecte [value]="country.code">{{country.code}}
+                                ({{country.shortName}})</mat-option>
+
+                        </ng-container>
+                    </mat-select>
+                </mat-form-field>
+                <!-- Phone -->
+                <mat-form-field appearance="outline" class="w-8/12">
+                    <input matInput placeholder="Phone" formControlName="phone" />
+                </mat-form-field>
+
+            </div>
+
+            <!-- Advanced Settings (Attachments) -->
+            <!-- <div formGroupName="advancedSettings">
+                            <mat-form-field appearance="outline" class="w-full">
+                                <input matInput placeholder="Attachment Name" formControlName="attachments" />
+                            </mat-form-field>
+                        </div> -->
+
+
+        </div>
+    </form>
+
+</mat-dialog-content>
+<mat-dialog-actions>
+    <div class="flex justify-end space-x-4">
+        <button mat-flat-button color="primary" type="button" (click)="onSubmit()" [disabled]="addressForm.invalid">
+            {{ data.isEditMode ? 'Update Address' : 'Create Address' }}
+        </button>
+        <button mat-flat-button color="warn" type="button" mat-dialog-close>
+            Cancel
+        </button>
+    </div>
+</mat-dialog-actions>

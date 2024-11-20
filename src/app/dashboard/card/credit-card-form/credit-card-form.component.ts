@@ -70,10 +70,10 @@ export class CreditCardFormComponent {
   private readonly dialog = inject(MatDialog);
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
   private readonly folderService = inject(FolderService);
-  selectedTags: any[]=[];
+  selectedTags: any[] = [];
   tags: any[] = [];
   isLoading: boolean = false;
-  folders: any[]=[];
+  folders: any[] = [];
 
   constructor() {
     this.creditCardForm = this.fb.group({
@@ -129,7 +129,7 @@ export class CreditCardFormComponent {
     }
   }
 
-  searchFolders(): void {}
+  searchFolders(): void { }
 
   onFolderSelected($event: MatAutocompleteSelectedEvent) {
     this.creditCardForm.get('folderId')?.setValue($event.option.value._id);
