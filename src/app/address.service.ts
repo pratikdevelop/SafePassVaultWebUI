@@ -15,8 +15,8 @@ export class AddressService {
   constructor(private http: HttpClient) { }
 
   // Get all addresses
-  getAddresses(): Observable<Address[]> {
-    return this.http.get<Address[]>(this.apiUrl);
+  getAddresses(): Observable<any> {
+    return this.http.get<any>(this.apiUrl);
   }
 
   // Get address by ID

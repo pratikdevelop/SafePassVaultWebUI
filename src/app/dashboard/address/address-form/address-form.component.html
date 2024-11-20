@@ -1,7 +1,6 @@
 <mat-toolbar>
-    <h1 class="text-2xl font-semibold text-gray-800">{{ data.isEditMode ? 'Edit Address' : 'Create
-        Address'
-        }}
+    <h1 class="text-2xl font-semibold text-gray-800">{{ data.isEditMode ? 'Edit Address' : 'CreateAddress'
+ }}
     </h1>
 </mat-toolbar>
 <mat-dialog-content>
@@ -17,15 +16,34 @@
 
             <!-- Folder -->
             <mat-form-field appearance="outline">
-                <mat-label>Folder</mat-label>
-                <input type="text" matInput formControlName="folderName" [matAutocomplete]="auto"
-                    (input)="onFolderSearch($event)" />
-                <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option (click)="change(folder)" *ngFor="let folder of filteredFolders" [value]="folder.name">
-                        {{ folder.name }}
-                    </mat-option>
+                <input
+                  matInput
+                  formControlName="searchFolders"
+                  placeholder="Search Folders"
+                  [matAutocomplete]="folderAuto"
+                  (input)="onFolderSearch($event)"
+                />
+                <mat-autocomplete #folderAuto="matAutocomplete" (optionSelected)="onFolderSelected($event)">
+                  <ng-container *ngIf="isLoading; else folderOptions">
+                    <mat-option disabled>Loading folders...</mat-option>
+                  </ng-container>
+                  <ng-template #folderOptions>
+                    <ng-container *ngIf="folders.length > 0; else noFolders">
+                      <mat-option *ngFor="let folder of folders" [value]="folder">
+                        {{ folder.label }}
+                      </mat-option>
+                    </ng-container>
+                    <ng-template #noFolders>
+                      <mat-option>
+                        No matching folder found.
+                        <button mat-mini-fab color="primary" (click)="createNewFolder()">
+                          <mat-icon>add_circle_outline</mat-icon>
+                        </button>
+                      </mat-option>
+                    </ng-template>
+                  </ng-template>
                 </mat-autocomplete>
-            </mat-form-field>
+              </mat-form-field>
 
 
             <!-- Title -->
@@ -96,7 +114,7 @@
                 <mat-form-field appearance="outline" class="w-4/12">
                     <mat-select formControlName="phoneExtension">
                         <ng-container *ngFor="let country of countries">
-                            <mat-option selecte [value]="country.code">{{country.code}}
+                            <mat-option  [value]="country.code">{{country.code}}
                                 ({{country.shortName}})</mat-option>
 
                         </ng-container>
