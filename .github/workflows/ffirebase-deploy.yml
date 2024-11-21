@@ -69,50 +69,50 @@ jobs:
           projectId: 'management-45'
           channelId: live
 
-kubernetes-deploy:
-  runs-on: ubuntu-latest
-  needs: docker-build-and-push
-  steps:
-    - name: Checkout Repo
-      uses: actions/checkout@v3
+  kubernetes-deploy:
+    runs-on: ubuntu-latest
+    needs: docker-build-and-push
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
 
-    - name: Set up kubectl
-      uses: azure/setup-kubectl@v1
-      with:
-        version: 'latest'
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v1
+        with:
+          version: 'latest'
 
-    - name: Set up Helm
-      uses: azure/setup-helm@v1
-      with:
-        version: 'v3.9.0'  # Specify your Helm version
+      - name: Set up Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: 'v3.9.0'  # Specify your Helm version
 
-    - name: Configure Kubernetes Context
-      run: |
-        # Ensure base64 encoding for K8S_CA_CERT if needed
-        echo "${{ secrets.K8S_CA_CERT }}" | base64 --decode > ca.crt
+      - name: Configure Kubernetes Context
+        run: |
+          # Ensure base64 encoding for K8S_CA_CERT if needed
+          echo "${{ secrets.K8S_CA_CERT }}" | base64 --decode > ca.crt
 
-        # Set Kubernetes cluster using the secrets
-        kubectl config set-cluster minikube \
-          --server=${{ secrets.K8S_API_URL }} \
-          --certificate-authority=ca.crt
+          # Set Kubernetes cluster using the secrets
+          kubectl config set-cluster minikube \
+            --server=${{ secrets.K8S_API_URL }} \
+            --certificate-authority=ca.crt
 
-        # Set Kubernetes credentials (using token authentication)
-        kubectl config set-credentials minikube --token=${{ secrets.K8S_TOKEN }}
+          # Set Kubernetes credentials (using token authentication)
+          kubectl config set-credentials minikube --token=${{ secrets.K8S_TOKEN }}
 
-        # Set the context
-        kubectl config set-context minikube-context --cluster=minikube --user=minikube
-        kubectl config use-context minikube-context
+          # Set the context
+          kubectl config set-context minikube-context --cluster=minikube --user=minikube
+          kubectl config use-context minikube-context
 
-    - name: Verify Kubernetes Connection
-      run: |
-        kubectl cluster-info
-        kubectl get nodes
+      - name: Verify Kubernetes Connection
+        run: |
+          kubectl cluster-info
+          kubectl get nodes
 
-    - name: Deploy to Kubernetes with Helm
-      run: |
-        helm upgrade --install angular-app ./helm-chart \
-          --set image.repository=developerhacker/angular-app \
-          --set image.tag=${{ steps.docker_image.outputs.image }}
+      - name: Deploy to Kubernetes with Helm
+        run: |
+          helm upgrade --install angular-app ./helm-chart \
+            --set image.repository=developerhacker/angular-app \
+            --set image.tag=${{ steps.docker_image.outputs.image }}
 
 
   publish_on_linux:
