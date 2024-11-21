@@ -31,6 +31,9 @@
           <a class="menu-item" mat-button [matMenuTriggerFor]="documentationMenu"> Documentation</a>
 
           <a class="menu-item" mat-button routerLink="/support">Customer Support</a>
+          <a class="menu-item" mat-button routerLink="/roadmap">
+            Roadmap
+          </a>
           <a class="menu-item" mat-button routerLink="/download">Download</a>
           <a class="menu-item" mat-button routerLink="/auth/signup">Get Started</a>
           <a mat-button class="menu-item" routerLink="/auth/login">Log In</a>
@@ -56,6 +59,7 @@
         <button mat-menu-item routerLink="/plan-pricing">Plan and Pricing</button>
         <button mat-menu-item routerLink="/auth/signup">Get Started</button>
         <a mat-menu-item routerLink="/download">Download</a>
+
         <a mat-menu-item [matMenuTriggerFor]="documentationMenu"> Documentation</a>
         <a mat-menu-item routerLink="/support">Customer Support</a>
         <button mat-menu-item routerLink="/auth/login">Log In</button>

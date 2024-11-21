@@ -67,5 +67,13 @@ export const adminRoutes: Routes = [
     {
         path: 'support',
         loadComponent: () => import('../support/support.component').then((m) => m.SupportComponent)
+    },
+    {
+        path: 'roadmap',
+        loadComponent: () =>
+            import('./roadmap/roadmap.component').then
+                ((m) => m.RoadmapComponent)
+
+
     }
 ];

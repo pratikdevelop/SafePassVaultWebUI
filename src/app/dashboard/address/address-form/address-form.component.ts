@@ -100,7 +100,10 @@ export class AddressFormComponent {
     }
   }
 
-
+  change(folder: any): void {
+    this.addressForm.get('folder')?.setValue(folder._id);
+    this.addressForm.get('folderName')?.setValue(folder.name)
+  }
   onSubmit(): void {
     if (this.addressForm.invalid) {
       return;

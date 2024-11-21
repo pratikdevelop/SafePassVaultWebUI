@@ -1,13 +1,14 @@
-name: Build, Push Docker Image, and Deploy to Firebase
+name: Build, Push Docker Image, and Deploy to Firebase and Kubernetes
 
 on:
   push:
-    branches: [main]  # Replace with your main branch name
+    branches: [main]
 
 jobs:
-  build-and-push:
+  build:
     runs-on: ubuntu-latest
-
+    outputs:
+      docker_image: ${{ steps.docker_image.outputs.image }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
@@ -15,13 +16,20 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # Ensure Node.js version is appropriate for your Angular version
+          node-version: '18'
 
       - name: Install Dependencies
         run: npm install
 
       - name: Build Angular App
         run: npm run build --prod
+
+  docker-build-and-push:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -33,14 +41,16 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Build Docker Image
-        run: docker build -t developerhacker/angular-app .
+        id: docker_image
+        run: |
+          docker build -t developerhacker/angular-app .
 
       - name: Push Docker Image
         run: docker push developerhacker/angular-app
 
   deploy-to-firebase:
     runs-on: ubuntu-latest
-    
+    needs: docker-build-and-push
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
@@ -59,44 +69,93 @@ jobs:
           projectId: 'management-45'
           channelId: live
 
+kubernetes-deploy:
+  runs-on: ubuntu-latest
+  needs: docker-build-and-push
+  steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v3
+
+    - name: Set up kubectl
+      uses: azure/setup-kubectl@v1
+      with:
+        version: 'latest'
+
+    - name: Set up Helm
+      uses: azure/setup-helm@v1
+      with:
+        version: 'v3.9.0'  # Specify your Helm version
+
+    - name: Configure Kubernetes Context
+      run: |
+        # Ensure base64 encoding for K8S_CA_CERT if needed
+        echo "${{ secrets.K8S_CA_CERT }}" | base64 --decode > ca.crt
+
+        # Set Kubernetes cluster using the secrets
+        kubectl config set-cluster minikube \
+          --server=${{ secrets.K8S_API_URL }} \
+          --certificate-authority=ca.crt
+
+        # Set Kubernetes credentials (using token authentication)
+        kubectl config set-credentials minikube --token=${{ secrets.K8S_TOKEN }}
+
+        # Set the context
+        kubectl config set-context minikube-context --cluster=minikube --user=minikube
+        kubectl config use-context minikube-context
+
+    - name: Verify Kubernetes Connection
+      run: |
+        kubectl cluster-info
+        kubectl get nodes
+
+    - name: Deploy to Kubernetes with Helm
+      run: |
+        helm upgrade --install angular-app ./helm-chart \
+          --set image.repository=developerhacker/angular-app \
+          --set image.tag=${{ steps.docker_image.outputs.image }}
+
+
   publish_on_linux:
     runs-on: ubuntu-latest
+    needs: deploy-to-firebase
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
-      
+
       - name: Install Dependencies
         run: npm install
-      
+
       - name: Publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}  # Ensure the token is named GH_TOKEN
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: npm run publish
 
   publish_on_mac:
     runs-on: macos-latest
+    needs: deploy-to-firebase
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
-      
+
       - name: Install Dependencies
         run: npm install
-      
+
       - name: Publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}  # Same token for GitHub
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: npm run publish
 
   publish_on_win:
     runs-on: windows-latest
+    needs: deploy-to-firebase
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
-      
+
       - name: Install Dependencies
         run: npm install
-      
+
       - name: Publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}  # GitHub token for authentication
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: npm run publish

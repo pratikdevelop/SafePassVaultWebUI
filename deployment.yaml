@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: angular-k8s-demo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: angular-k8s-demo
+  template:
+    metadata:
+      labels:
+        app: angular-k8s-demo
+    spec:
+      containers:
+      - name: angular-k8s-demo
+        image: developerhacker/angular-app:latest
+        ports:
+        - containerPort: 80
