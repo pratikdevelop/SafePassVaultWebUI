@@ -57,6 +57,12 @@ export const profileRoutes: Routes = [
         path: 'key-inspector',
         canActivate: [authGuard],
         loadComponent: () => import('../../recovery-phrase/recovery-phrase.component').then(m => m.RecoveryPhraseComponent)
+      },
+      {
+        path: 'passwordless-option',
+        canActivate: [authGuard],
+        loadComponent: () =>
+          import('./passwordless-options/passwordless-options.component').then((m) => m.PasswordlessOptionsComponent)
       }
     ],
   },

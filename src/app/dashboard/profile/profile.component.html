@@ -10,7 +10,8 @@
       column-gap: 3rem !important;
     ">
     <div class="flex flex-col space-y-2">
-      <a class="px-4 py-2 text-white block text-center cursor-pointer" (click)="setTab('personal-details')">Personal
+      <a class="px-4 py-2 text-white block text-center cursor-pointer" (click)="setTab('personal-details')">
+        Personal
         Details</a>
       <a class="px-4 py-2 text-white block text-center cursor-pointer" (click)="setTab('security')">Security Token</a>
       <a class="px-4 py-2 text-white block text-center cursor-pointer" (click)="setTab('privacy')">Change Password</a>
@@ -20,6 +21,9 @@
         Authentication</a>
       <a class="px-4 py-2 text-white block text-center cursor-pointer" (click)="setTab('plan-details')"> Plan And
         Usage</a>
+        <a class="px-4 py-2 text-white block text-center cursor-pointer" (click)="setTab('passwordless-option')"> 
+          Passwordless Option
+        </a>
 
       <!-- SSO Integration -->
       <!-- <div class="px-4 py-2 text-white text-center mt-4">
@@ -42,4 +46,4 @@
   <mat-sidenav-content class="p-4">
     <router-outlet></router-outlet>
   </mat-sidenav-content>
-</mat-sidenav-container>
+</mat-sidenav-container>  

@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
-  Inject,
   inject,
   OnInit,
   ViewChild,
