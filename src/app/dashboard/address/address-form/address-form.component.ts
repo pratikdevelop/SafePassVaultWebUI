@@ -18,7 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-address-form',
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule,MatIconModule, MatDialogModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, FormsModule, MatSelectModule, MatOptionModule, CommonModule, MatAutocompleteModule],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatDialogModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, FormsModule, MatSelectModule, MatOptionModule, CommonModule, MatAutocompleteModule],
   templateUrl: './address-form.component.html',
   styleUrl: './address-form.component.css'
 })
@@ -30,18 +30,18 @@ export class AddressFormComponent implements OnInit {
   countries = countries;
   readonly folderService = inject(FolderService);
   readonly changeDetectorRef = inject(ChangeDetectorRef)
-  folders: any[]=[];
+  folders: any[] = [];
   filteredFolders: any;
   folderNotFound: boolean = false;
   isLoading: any;
 
   constructor(private formBuilder: FormBuilder) {
     this.addressForm = this.formBuilder.group({
-      
+
       name: ['', Validators.required],
       folder: [''],
       searchFolders: [''],
-      folderName:[],
+      folderName: [],
       title: [''],
       firstName: [''],
       middleName: [''],
@@ -66,10 +66,10 @@ export class AddressFormComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('address', this.data.address);
-    
+
     this.addressForm.patchValue(this.data.address)
   }
-  
+
 
   onFolderSelected($event: MatAutocompleteSelectedEvent) {
     this.addressForm.get('folder')?.setValue($event.option.value._id);
@@ -106,7 +106,7 @@ export class AddressFormComponent implements OnInit {
         },
         error: () => {
           // this.snackBar.open('Error searching folders.', 'Close');
-          this.isLoading=false;
+          this.isLoading = false;
           this.changeDetectorRef.detectChanges()
         },
         complete: () => {
@@ -116,17 +116,13 @@ export class AddressFormComponent implements OnInit {
     }
   }
 
-  change(folder: any): void {
-    this.addressForm.get('folder')?.setValue(folder._id);
-    this.addressForm.get('folderName')?.setValue(folder.name)
-  }
   onSubmit(): void {
     if (this.addressForm.invalid) {
       return;
     }
 
     const addressData: Address = this.addressForm.value;
-    
+
     if (this.data.isEditMode && this.data.address._id) {
       // Update existing address
       this.addressService.updateAddress(this.data.address._id, addressData).subscribe({
