@@ -77,11 +77,14 @@ mat-title{
   font-weight: bold !important;
   padding: .5rem 2rem !important;
 }
-.mdc-list-item__primary-text {
+.mdc-list-item__primary-text,.mat-mdc-dialog-title {
   font-size: 1.2rem !important;
   color: white !important;
   font-weight: bold !important;
   font-family: "Kreon", serif !important;
+}
+.mat-mdc-dialog-title{
+  font-size: 1.8rem !important;
 }
 .mat-mdc-option .mdc-list-item__primary-text{
   color: rgb(24, 23, 23)
@@ -89,6 +92,6 @@ mat-title{
 }
 
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-.mat-mdc-input-element{
+.mat-mdc-input-element, input{
   background-color: white !important;
 }

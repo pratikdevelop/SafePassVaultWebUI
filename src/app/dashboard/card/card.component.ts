@@ -19,18 +19,16 @@ import { catchError, tap } from 'rxjs';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FormsModule } from '@angular/forms';
 import { CommonService } from '../../services/common.service';
-import { HeaderComponent } from "../../common/header/header.component";
-import { SideNavComponent } from "../../common/side-nav/side-nav.component";
+import { HeaderComponent } from '../../common/header/header.component';
+import { SideNavComponent } from '../../common/side-nav/side-nav.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ViewChild } from '@angular/core';
-import {
-  MatDrawer,
-  MatDrawerMode
-} from '@angular/material/sidenav';
+import { MatDrawer, MatDrawerMode } from '@angular/material/sidenav';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FolderService } from '../../services/folder.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-card',
@@ -52,18 +50,19 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     HeaderComponent,
     SideNavComponent,
     MatSidenavModule,
-    MatTooltipModule
-],
+    MatTooltipModule,
+    MatProgressSpinnerModule,
+  ],
   templateUrl: './card.component.html',
   styleUrl: './card.component.css',
 })
 export class CardComponent implements OnInit {
-  readonly matDialog = inject(MatDialog);
-  readonly changeDetectorRef = inject(ChangeDetectorRef);
-  readonly cardSerrvice = inject(CardService);
-  readonly commonService = inject(CommonService)
+  private readonly matDialog = inject(MatDialog);
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
+  private readonly cardSerrvice = inject(CardService);
+  private readonly commonService = inject(CommonService);
   selection = new SelectionModel<any>(true, []);
-  dataSource: any[] = [];
+  cards: any[] = [];
   searchTerm: string = '';
   displayedColumns: string[] = [
     'select',
@@ -79,61 +78,62 @@ export class CardComponent implements OnInit {
     'created_by',
     'action',
   ];
-folders: any;
-@ViewChild('drawer') drawer: MatDrawer | undefined;
-readonly dialog = inject(MatDialog);
-readonly breakpointObserver = inject(BreakpointObserver);
-readonly router = inject(Router);
-readonly activateRouter = inject(ActivatedRoute)
-readonly service  = inject(FolderService);
-mode: MatDrawerMode = 'side';
-isSidebarOpen: boolean = true;
-isBreakPoint: boolean = false;
-isShow: boolean = false;
-showCardNumber = false;
+  folders: any;
+  @ViewChild('drawer') drawer: MatDrawer | undefined;
+  private readonly breakpointObserver = inject(BreakpointObserver);
+  private readonly router = inject(Router);
+  mode: MatDrawerMode = 'side';
+  isSidebarOpen: boolean = true;
+  isBreakPoint: boolean = false;
+  isShow: boolean = false;
+  showCardNumber = false;
+  isLoading: boolean = false;
 
-toggleCardNumberVisibility(): void {
-  this.showCardNumber = !this.showCardNumber;
-}
+  toggleCardNumberVisibility(): void {
+    this.showCardNumber = !this.showCardNumber;
+  }
 
   ngOnInit(): void {
     this.getCardsListings();
     this.breakpointObserver
-    .observe(['(max-width: 600px)'])
-    .subscribe((result) => {
-      if (result.breakpoints['(max-width: 600px)']) {
-        this.isBreakPoint = true;
-        this.isSidebarOpen = false;
-        this.mode = 'over';
-      } else {
-        this.isSidebarOpen = true;
-        this.isBreakPoint = false;
-        this.mode = 'side';
+      .observe(['(max-width: 600px)'])
+      .subscribe((result) => {
+        if (result.breakpoints['(max-width: 600px)']) {
+          this.isBreakPoint = true;
+          this.isSidebarOpen = false;
+          this.mode = 'over';
+        } else {
+          this.isSidebarOpen = true;
+          this.isBreakPoint = false;
+          this.mode = 'side';
+        }
+      });
+
+    this.commonService.sideBarOpen.subscribe((res) => {
+      if (this.isBreakPoint) {
+        this.isSidebarOpen = res;
       }
     });
-    
-    this.activateRouter.data.subscribe((response: any) => {
-      console.log('resolver data',  response);
-      
-    })
-  this.commonService.sideBarOpen.subscribe((res) => {
-    if (this.isBreakPoint) {
-      this.isSidebarOpen = res;
+    if (this.router.url.includes('profile')) {
+      this.isShow = false;
+    } else {
+      this.isShow = true;
     }
-  });
-  if(this.router.url.includes('profile')) {
-    this.isShow = false;
-  }else {
-    this.isShow = true;
-  }
   }
 
   getCardsListings(): void {
-    this.cardSerrvice.getCards().subscribe((response: any) => {
-      console.log('ff', response);
-      
-      this.dataSource = response.cards;
-      this.changeDetectorRef.detectChanges();
+    this.isLoading = true;
+    this.cardSerrvice.getCards().subscribe({
+      next: (data: any) => {
+        this.cards = data.cards;
+        this.isLoading = false;
+        this.changeDetectorRef.detectChanges();
+      },
+      error: (error: any) => {
+        console.error('Error:', error);
+        this.isLoading = false;
+        this.changeDetectorRef.detectChanges();
+      },
     });
   }
   openCardFormDialog(card: any) {
@@ -214,7 +214,7 @@ toggleCardNumberVisibility(): void {
   }
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.length;
+    const numRows = this.cards.length;
     return numSelected === numRows;
   }
 
@@ -224,7 +224,7 @@ toggleCardNumberVisibility(): void {
       return;
     }
 
-    this.selection.select(...this.dataSource);
+    this.selection.select(...this.cards);
   }
 
   checkboxLabel(row?: any): string {
@@ -237,11 +237,14 @@ toggleCardNumberVisibility(): void {
   }
 
   transform(cardNumber: string): string {
-    return cardNumber.replace(/\s+/g, '').replace(/(\d{4})/g, '$1 ').trim();
-}
-toggleSideBar(): void {
-    this.commonService.toggleSideBar()
-}
+    return cardNumber
+      .replace(/\s+/g, '')
+      .replace(/(\d{4})/g, '$1 ')
+      .trim();
+  }
+  toggleSideBar(): void {
+    this.commonService.toggleSideBar();
+  }
 }
 
 @Component({
@@ -254,6 +257,6 @@ export class viewCardDetailsComponent implements OnInit {
   readonly data = inject<any>(MAT_DIALOG_DATA);
   card: any;
   ngOnInit(): void {
-  this.card = this.data.cardDetails  
+    this.card = this.data.cardDetails;
   }
 }

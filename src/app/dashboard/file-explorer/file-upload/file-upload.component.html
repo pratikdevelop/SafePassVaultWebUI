@@ -1,20 +1,54 @@
 <mat-toolbar color="primary">
-  <h2 mat-dialog-title>{{ isEditMode ? 'Edit File' : 'Upload File' }}</h2>
+  <h2 mat-dialog-title class="text-white">{{ isEditMode ? 'Edit File' : 'Upload File' }}</h2>
+  <mat-icon mat-flat-button mat-dialog-close="true" class="ml-auto text-white">
+    close
+  </mat-icon>
 </mat-toolbar>
 <mat-dialog-content class="mat-typography p-6">
   <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" class="flex flex-col space-y-4">
     <!-- File Upload Input -->
-    <mat-form-field appearance="outline">
-      <mat-label>File</mat-label>
-      <button type="button" mat-icon-button matPrefix (click)="f_input.click()" *ngIf="!isEditMode || !fileData">
-        <mat-icon>attach_file</mat-icon>
+    <div
+    class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center transition-all duration-300 hover:border-blue-500"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (drop)="onFileDrop($event)"
+    [class.bg-blue-50]="isFileOver"
+    [class.border-blue-500]="isFileOver"
+  >
+    <div class="flex flex-col items-center space-y-4">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-12 w-12 text-gray-500"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3 16l4-4m0 0l4 4m-4-4v12M13 8h8m0 0l-4-4m4 4l-4 4"
+        />
+      </svg>
+      <p class="text-gray-700">Drag and drop file here</p>
+      <p class="text-gray-500">or</p>
+      <button
+        class="bg-red-500 text-white py-2 px-4 rounded-md shadow-md hover:bg-red-600"
+        (click)="fileInput.click()"
+      >
+        Browse for file
       </button>
-      <input type="text" readonly matInput [value]="fileData?.filename || 'No file selected'" [disabled]="isEditMode" />
-      <input type="file" multiple hidden #f_input (change)="onFileChange($event)" [disabled]="isEditMode && fileData" />
-      <mat-error *ngIf="uploadForm.get('file')?.hasError('required')">
-        This field is required
-      </mat-error>
-    </mat-form-field>
+      <input
+        #fileInput
+        type="file"
+        hidden
+        multiple
+        (change)="onFileChange($event)"
+      />
+    </div>
+  </div>
+  
+  
 
     <!-- Button to clear or remove file (for editing purposes) -->
     <ng-container *ngIf="isEditMode && fileData">
@@ -23,12 +57,12 @@
       </button>
     </ng-container>
 
-
-
+    <mat-form-field  appearance="outline">
+      <input type="text" matInput placeholder="File name" formControlName="name" />
+    </mat-form-field>
     <!-- Folder Selection Input -->
     <mat-form-field appearance="outline">
-      <mat-label>Folder</mat-label>
-      <input type="text" matInput formControlName="folderName" [matAutocomplete]="auto"
+      <input type="text" matInput placeholder="Select the folder" formControlName="folderName" [matAutocomplete]="auto"
         (input)="onFolderSearch($event)" />
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option (click)="change(folder)" *ngFor="let folder of filteredFolders" [value]="folder.name">
@@ -44,28 +78,9 @@
     </button>
 
     <!-- Shared With Input -->
-    <mat-form-field class="shared-with-field">
-      <mat-chip-grid #chipGrid aria-label="Shared With">
-        <mat-chip-row *ngFor="let user of selectedUsers" [removable]="true" (removed)="removeUser(user)">
-          {{ user }}
-          <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip-row>
-      </mat-chip-grid>
-      <input type="text" matInput placeholder="Shared With" formControlName="sharedWith"
-        [matAutocomplete]="autoSharedWith" [matChipInputFor]="chipGrid" (input)="searchUsers($event)"
-        [value]="selectedUsers.join(', ')" />
-      <mat-autocomplete #autoSharedWith="matAutocomplete" (optionSelected)="selected($event)">
-        <mat-option *ngFor="let option of filteredUsers" [value]="option">
-          {{ option }}
-        </mat-option>
-      </mat-autocomplete>
+    <mat-form-field  appearance="outline">
+      <input type="text" matInput placeholder="Enter the note" formControlName="notes" />
     </mat-form-field>
-
-    <!-- Additional Options -->
-    <div class="flex items-center justify-between">
-      <mat-checkbox formControlName="encrypted">Encrypted</mat-checkbox>
-      <mat-checkbox formControlName="offlineAccess">Offline Access</mat-checkbox>
-    </div>
 
     <!-- Submit and Cancel Buttons -->
     <div class="flex items-center justify-between">

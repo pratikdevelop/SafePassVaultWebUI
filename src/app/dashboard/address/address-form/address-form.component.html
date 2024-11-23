@@ -28,9 +28,9 @@
                     <mat-option disabled>Loading folders...</mat-option>
                   </ng-container>
                   <ng-template #folderOptions>
-                    <ng-container *ngIf="folders.length > 0; else noFolders">
-                      <mat-option *ngFor="let folder of folders" [value]="folder">
-                        {{ folder.label }}
+                    <ng-container *ngIf="!folderNotFound else noFolders">
+                      <mat-option *ngFor="let folder of filteredFolders" [value]="folder">
+                        {{ folder.name }}
                       </mat-option>
                     </ng-container>
                     <ng-template #noFolders>

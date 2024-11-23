@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { IdproofformComponent } from './idproofform/idproofform.component';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { CommonModule } from '@angular/common';
@@ -15,32 +15,40 @@ import { ViewChild } from '@angular/core';
 import {
   MatDrawer,
   MatDrawerMode,
-  MatSidenavModule
+  MatSidenavModule,
 } from '@angular/material/sidenav';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FolderService } from '../../services/folder.service';
-import { HeaderComponent } from "../../common/header/header.component";
-import { SideNavComponent } from "../../common/side-nav/side-nav.component";
+import { Router } from '@angular/router';
+import { HeaderComponent } from '../../common/header/header.component';
+import { SideNavComponent } from '../../common/side-nav/side-nav.component';
 import { Identity } from '../../interfaces/identity';
 
 @Component({
   selector: 'app-id-proof',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, MatMenuModule, MatDialogModule, MatTableModule, MatSortModule, MatPaginatorModule, CommonModule, HeaderComponent, SideNavComponent, MatSidenavModule],
+  imports: [
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    MatDialogModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    CommonModule,
+    HeaderComponent,
+    SideNavComponent,
+    MatSidenavModule,
+  ],
   templateUrl: './id-proof.component.html',
-  styleUrl: './id-proof.component.css'
+  styleUrl: './id-proof.component.css',
 })
-
 export class IdProofComponent implements OnInit {
   @ViewChild('drawer') drawer: MatDrawer | undefined;
-  readonly breakpointObserver = inject(BreakpointObserver);
-  readonly commonService = inject(CommonService);
-  readonly router = inject(Router);
-  readonly activateRouter = inject(ActivatedRoute);
-  readonly service = inject(FolderService);
-  readonly idProofService = inject(ProofIdService);
-  readonly changeDetetorRef = inject(ChangeDetectorRef);
-  readonly dialog = inject(MatDialog);
+  private readonly breakpointObserver = inject(BreakpointObserver);
+  private readonly commonService = inject(CommonService);
+  private readonly router = inject(Router);
+  private readonly idProofService = inject(ProofIdService);
+  private readonly changeDetetorRef = inject(ChangeDetectorRef);
+  private readonly dialog = inject(MatDialog);
   mode: MatDrawerMode = 'side';
   folders: any[] = [];
   isSidebarOpen: boolean = true;
@@ -52,11 +60,11 @@ export class IdProofComponent implements OnInit {
     'issuedBy',
     'issueDate',
     'expiryDate',
-    'createdAt',    // Add this column
-    'createdBy',    // Add this column
-    'actions'
+    'createdAt', // Add this column
+    'createdBy', // Add this column
+    'actions',
   ];
-  dataSource!: MatTableDataSource<Identity>;
+  idProofs: Identity[] = [];
 
   constructor() {
     this.breakpointObserver
@@ -71,6 +79,8 @@ export class IdProofComponent implements OnInit {
           this.isBreakPoint = false;
           this.mode = 'side';
         }
+        this.changeDetetorRef.detectChanges();
+
       });
 
     this.commonService.sideBarOpen.subscribe((res) => {
@@ -83,22 +93,32 @@ export class IdProofComponent implements OnInit {
     } else {
       this.isShow = true;
     }
-
-
   }
   ngOnInit(): void {
-    this.idProofService.getProofIds().subscribe((response: any) => {
-      this.dataSource = new MatTableDataSource(response.proofIds);
-      this.changeDetetorRef.detectChanges()
-    })
+    this.getIdentities();
+  }
+  getIdentities(): void {
+    this.idProofService.getProofIds().subscribe({
+      next: (data: any) => {
+        this.idProofs = data.proofIds;
+        console.log(data.proofIds);
+        this.changeDetetorRef.detectChanges();
+      },
+      error: (error) => {
+        console.error(error);
+      },
+      complete: () => {
+        console.log('complete');
+      },
+    });
   }
 
   openIdProofFormDialog(proof: any) {
     const dialogRef = this.dialog.open(IdproofformComponent, {
       width: '500px',
-      data: { proof: proof }
+      data: { proof: proof },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log('Dialog closed');
     });
   }
@@ -106,11 +126,7 @@ export class IdProofComponent implements OnInit {
     throw new Error('Method not implemented.');
   }
 
-
-
-
   toggleSideBar(): void {
     this.commonService.toggleSideBar();
   }
-
 }

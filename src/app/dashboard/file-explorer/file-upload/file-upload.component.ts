@@ -1,23 +1,34 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   FormsModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 import { FileService } from '../../../services/file.service'; // Import your file service
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogModule,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatChipListbox, MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { CommonModule } from '@angular/common';
 import { FolderService } from '../../../services/folder.service';
+import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-file-upload',
@@ -25,8 +36,6 @@ import { FolderService } from '../../../services/folder.service';
   imports: [
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatChipsModule,
-    MatChipListbox,
     MatAutocompleteModule,
     MatButtonModule,
     MatToolbarModule,
@@ -37,10 +46,11 @@ import { FolderService } from '../../../services/folder.service';
     MatDialogModule,
     MatCheckboxModule,
     CommonModule,
+    DragDropModule,
   ],
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FileUploadComponent implements OnInit {
   uploadForm: FormGroup;
@@ -55,29 +65,30 @@ export class FileUploadComponent implements OnInit {
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
   private readonly dialogRef = inject(MatDialogRef<FileUploadComponent>);
   private readonly folderService = inject(FolderService);
+  private readonly data = inject<any>(MAT_DIALOG_DATA);
 
   isEditMode: boolean = false;
   fileData: any; // To hold file data if editing
+  isFileOver: boolean = false;
 
   constructor() {
     this.uploadForm = this.fb.group({
       _Id: [''],
+      name: ['', Validators.required],
       file: [''],
       folderId: [''],
       folderName: [''],
-      sharedWith: [''],
-      encrypted: [false],
-      offlineAccess: [false],
+      notes: [''],
     });
   }
 
   ngOnInit(): void {
     // Check if we're editing an existing file
-    if (this.dialogRef._containerInstance?._config?.data) {
-      console.log('dd', this.dialogRef);
-      this.isEditMode = true;
+    if (this.data) {
+      console.log('ddd', this.data);
 
-      this.fileData = this.dialogRef._containerInstance._config.data; // The file data passed from the parent
+      this.isEditMode = true;
+      this.fileData = this.data; // The file data passed from the parent
       this.preFillForm();
     }
   }
@@ -87,32 +98,32 @@ export class FileUploadComponent implements OnInit {
     if (this.fileData) {
       this.uploadForm.patchValue({
         _id: this.fileData._id,
-        folderId: this.fileData.folderId._id,
-        folderName: this.fileData.folderId.name,
-        sharedWith: this.fileData.sharedWith,
-        encrypted: this.fileData.encrypted,
-        offlineAccess: this.fileData.offlineAccess,
+        folderId: this.fileData.folderId?._id,
+        folderName: this.fileData.folderId?.name,
+        name: this.fileData.name,
+        notes: this.fileData.notes,
       });
-      this.selectedUsers = this.fileData.sharedWith || [];
     }
   }
 
   createFolder(folderName: string): void {
-    this.folderService.createFolder({
-      name: folderName,
-      type: "files"
-    }).subscribe(
-      (folder: any) => {
-        this.snackBar.open(`Folder "${folderName}" created.`, 'Close');
-        this.filteredFolders.push(folder);
-        this.folderNotFound = false;
-        this.uploadForm.get('folderId')?.setValue(folder._id);
-        this.uploadForm.get('folderName')?.setValue(folder.name);
-      },
-      () => {
-        this.snackBar.open('Error creating folder.', 'Close');
-      }
-    );
+    this.folderService
+      .createFolder({
+        name: folderName,
+        type: 'files',
+      })
+      .subscribe(
+        (folder: any) => {
+          this.snackBar.open(`Folder "${folderName}" created.`, 'Close');
+          this.filteredFolders.push(folder);
+          this.folderNotFound = false;
+          this.uploadForm.get('folderId')?.setValue(folder._id);
+          this.uploadForm.get('folderName')?.setValue(folder.name);
+        },
+        () => {
+          this.snackBar.open('Error creating folder.', 'Close');
+        }
+      );
   }
   removeFile(): void {
     this.fileService.removeFile(this.fileData._id).subscribe({
@@ -128,12 +139,11 @@ export class FileUploadComponent implements OnInit {
       },
       complete: () => {
         // Optionally, close the dialog or take additional actions after file is removed
-      }
+      },
     });
   }
 
   onFileChange(event: any): void {
-
     if (event.target.files.length > 0) {
       this.fileToUpload = event.target.files[0];
     }
@@ -157,16 +167,12 @@ export class FileUploadComponent implements OnInit {
     }
   }
 
-  searchUsers(event: any): void {
-    const input = event.target.value;
-    this.fileService.searchUsers(input).subscribe((response) => {
-      this.filteredUsers = response;
-    });
-  }
-
   onSubmit(): void {
     if (this.uploadForm.invalid || (!this.fileToUpload && !this.isEditMode)) {
-      this.snackBar.open('Please fill in all required fields and select a file.', 'Close');
+      this.snackBar.open(
+        'Please fill in all required fields and select a file.',
+        'Close'
+      );
       return;
     }
 
@@ -178,9 +184,8 @@ export class FileUploadComponent implements OnInit {
 
     formData.append('folderId', this.uploadForm.get('folderId')?.value || '');
     formData.append('ownerId', this.uploadForm.get('ownerId')?.value);
-    formData.append('sharedWith', JSON.stringify(this.uploadForm.get('sharedWith')?.value));
-    formData.append('encrypted', this.uploadForm.get('encrypted')?.value);
-    formData.append('offlineAccess', this.uploadForm.get('offlineAccess')?.value);
+    formData.append('notes', this.uploadForm.get('notes')?.value);
+    formData.append('name', this.uploadForm.get('name')?.value);
 
     if (this.isEditMode) {
       this.updateFile(formData); // Edit existing file
@@ -208,45 +213,52 @@ export class FileUploadComponent implements OnInit {
     });
   }
 
-  updateFile(formData: FormData): void {
-
-    this.fileService.updateFileMetadata(this.uploadForm.value._id, formData).subscribe({
-      next: (event) => {
-        this.snackBar.open('File updated successfully!', 'Close');
-        this.uploadForm.reset();
-        this.fileToUpload = null;
-      },
-      error: (error) => {
-        this.snackBar.open('Error updating file.', 'Close', {
-          duration: 2000,
-        });
-      },
-      complete: () => {
-        this.changeDetectorRef.detectChanges();
-        this.dialogRef.close(true);
-      },
-    });
+  updateFile(formData: FormData): void {    
+    this.fileService
+      .updateFileMetadata(this.uploadForm.value._id, formData)
+      .subscribe({
+        next: (event) => {
+          this.snackBar.open('File updated successfully!', 'Close');
+          this.uploadForm.reset();
+          this.fileToUpload = null;
+        },
+        error: (error) => {
+          this.snackBar.open('Error updating file.', 'Close', {
+            duration: 2000,
+          });
+        },
+        complete: () => {
+          this.changeDetectorRef.detectChanges();
+          this.dialogRef.close(true);
+        },
+      });
   }
 
-  removeUserOrFolder(name: string): void {
-    const index = this.uploadForm.value.sharedWith.indexOf(name);
-    if (index >= 0) {
-      this.uploadForm.value.sharedWith.splice(index, 1);
+  change(folder: any): void {
+    this.uploadForm.patchValue({ folderId: folder._id, nmae: folder.name });
+
+  }
+  onFileDrop(event: DragEvent): void {
+    event.preventDefault();
+    this.isFileOver = false;
+
+    if (event.dataTransfer?.files && event.dataTransfer.files.length > 0) {
+      const file = event.dataTransfer.files[0];
+      this.fileData = { filename: file.name, file };
+      this.fileToUpload = file;
+
+      // Log the file information (optional)
+      console.log(`File dropped: ${file.name}`);
     }
   }
 
-  selected(event: any): void {
-    this.selectedUsers.push(event.option.viewValue);
+  onDragOver(event: DragEvent): void {
+    event.preventDefault();
+    this.isFileOver = true;
   }
 
-  removeUser(user: string): void {
-    const index = this.selectedUsers.indexOf(user);
-    if (index >= 0) {
-      this.selectedUsers.splice(index, 1);
-    }
-  }
-
-  change(folder: { id: string }): void {
-    this.uploadForm.patchValue({ folderId: folder.id });
+  onDragLeave(event: DragEvent): void {
+    event.preventDefault();
+    this.isFileOver = false;
   }
 }

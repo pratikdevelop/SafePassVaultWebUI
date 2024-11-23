@@ -1,36 +1,59 @@
 <mat-drawer-container class="h-[100vh] flex-auto overflow-hidden">
-  <mat-drawer *ngIf="isShow" #drawer [opened]="isSidebarOpen" [mode]="mode" style="
+  <mat-drawer
+    *ngIf="isShow"
+    #drawer
+    [opened]="isSidebarOpen"
+    [mode]="mode"
+    style="
       width: 15rem !important;
       border-radius: 0% !important;
       display: flex !important;
       flex-direction: column !important;
       column-gap: 3rem !important;
-    ">
+    "
+  >
     <app-side-nav></app-side-nav>
-
   </mat-drawer>
 
   <mat-drawer-content class="flex flex-col flex-auto">
     <app-header></app-header>
     <mat-drawer-container class="relative flex flex-auto h-full">
-
       <mat-drawer-content>
         <div class="file-explorer">
-          <nav aria-label="Global"
-            class="flex flex-col sm:flex-row sm:items-center justify-between w-full text-primary-foreground bg-slate-800 shadow-lg p-3">
+          <nav
+            aria-label="Global"
+            class="flex flex-col sm:flex-row sm:items-center justify-between w-full text-primary-foreground bg-slate-800 shadow-lg p-3"
+          >
             <div class="flex items-center space-x-2">
-              <button mat-icon-button (click)="toggleSideBar()" class="menu-button lg:hidden">
+              <button
+                mat-icon-button
+                (click)="toggleSideBar()"
+                class="menu-button lg:hidden"
+              >
                 <mat-icon>menu</mat-icon>
               </button>
-              <span class="text-xl sm:text-3xl font-bold text-white">File Explorer</span>
+              <span class="text-xl sm:text-3xl font-bold text-white"
+                >File Explorer</span
+              >
             </div>
-            <div class="flex sm:items-center space-x-1 sm:w-6/12 sm:justify-end">
+            <div
+              class="flex sm:items-center space-x-1 sm:w-6/12 sm:justify-end"
+            >
               <!-- Add Menu -->
-              <input matInput type="text" placeholder="Search the password" aria-label="Search the password"
-                class="w-8/12 py-2 px-3 border-2 border-slate-900 text-gray-500" />
+              <input
+                matInput
+                type="text"
+                placeholder="Search the password"
+                aria-label="Search the password"
+                class="w-8/12 py-2 px-3 border-2 border-slate-900 text-gray-500"
+              />
               <!-- Add Menu -->
               <div class="flex flex-col items-start p-2">
-                <button mat-icon (click)="openFileDialog()" aria-label="Add new item">
+                <button
+                  mat-icon
+                  (click)="openFileDialog()"
+                  aria-label="Add new item"
+                >
                   <mat-icon class="text-slate-50">add_circle_outline</mat-icon>
                 </button>
               </div>
@@ -38,122 +61,207 @@
 
               <!-- Actions Menu -->
               <div class="flex flex-col items-start p-2">
-                <button mat-icon [matMenuTriggerFor]="actionMenu" aria-label="Actions menu">
+                <button
+                  mat-icon
+                  [matMenuTriggerFor]="actionMenu"
+                  aria-label="Actions menu"
+                >
                   <mat-icon class="text-slate-50">settings</mat-icon>
                 </button>
                 <mat-menu #actionMenu="matMenu">
                   <button mat-menu-item (click)="performAction('delete')">
                     Delete
                   </button>
-                  <button mat-menu-item (click)="performAction('add_favorites')">
+                  <button
+                    mat-menu-item
+                    (click)="performAction('add_favorites')"
+                  >
                     Add to Favourites
                   </button>
                   <button mat-menu-item (click)="performAction('share')">
                     Share
                   </button>
-
                 </mat-menu>
               </div>
             </div>
           </nav>
 
           <!-- Mat Table Section -->
-          <div class="file-table">
-            <table mat-table [dataSource]="dataSource" matSort>
-              <!-- Filename Column -->
-              <ng-container matColumnDef="select">
-                <th mat-header-cell *matHeaderCellDef>
-                  <mat-checkbox (change)="$event ? toggleAllRows() : null"
-                    [checked]="selection.hasValue() && isAllSelected()"
-                    [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
-                  </mat-checkbox>
-                </th>
-                <td mat-cell *matCellDef="let row">
-                  <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-                    [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
-                  </mat-checkbox>
-                </td>
-              </ng-container>
-              <ng-container matColumnDef="favourites">
-                <th mat-header-cell *matHeaderCellDef>
-                  <span>favorite</span>
-                </th>
-                <td mat-cell *matCellDef="let element">
-                  <button mat-icon-button matTooltip="Add to favourites" color="accent"
-                    (click)="updateFavourites(element._id)">
-                    <mat-icon [ngStyle]="{
-                                    color: element.isFavorite ? '#F59E0B' : '#4B5563'
-                                  }">star</mat-icon>
-                  </button>
-                </td>
+          <ng-container *ngIf="dataSource.length > 0; else elseTemplate">
+            <div class="file-table">
+              <table mat-table [dataSource]="dataSource" matSort>
+                <!-- Filename Column -->
+                <ng-container matColumnDef="select">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <mat-checkbox
+                      (change)="$event ? toggleAllRows() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()"
+                      [aria-label]="checkboxLabel()"
+                    >
+                    </mat-checkbox>
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    <mat-checkbox
+                      (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)"
+                      [aria-label]="checkboxLabel(row)"
+                    >
+                    </mat-checkbox>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="favourites">
+                  <th mat-header-cell *matHeaderCellDef>
+                    <span>favorite</span>
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    <button
+                      mat-icon-button
+                      matTooltip="Add to favourites"
+                      color="accent"
+                      (click)="updateFavourites(element._id)"
+                    >
+                      <mat-icon
+                        [ngStyle]="{
+                          color: element.isFavorite ? '#F59E0B' : '#4B5563'
+                        }"
+                        >star</mat-icon
+                      >
+                    </button>
+                  </td>
+                </ng-container>
 
-              </ng-container>
+                <!-- ID Column -->
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef>S.No</th>
+                  <td mat-cell *matCellDef="let element; let i = index">
+                    {{ i + 1 }}
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="filename">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Filename
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.originalName || element.filename }}
+                  </td>
+                </ng-container>
 
-              <!-- ID Column -->
-              <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef>S.No</th>
-                <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
-              </ng-container>
-              <ng-container matColumnDef="filename">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Filename</th>
-                <td mat-cell *matCellDef="let element">
-                  {{ element.originalName || element.filename }}
-                </td>
-              </ng-container>
+                <!-- Size Column -->
+                <ng-container matColumnDef="size">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Size
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.size | number : "1.0-2" }} KB
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="uploaded_by">
+                  <th mat-header-cell *matHeaderCellDef>Owner</th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.ownerId?.name }}
+                  </td>
+                </ng-container>
 
-              <!-- Size Column -->
-              <ng-container matColumnDef="size">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Size</th>
-                <td mat-cell *matCellDef="let element">
-                  {{ element.size | number : "1.0-2" }} KB
-                </td>
-              </ng-container>
-              <ng-container matColumnDef="uploaded_by">
-                <th mat-header-cell *matHeaderCellDef>Owner</th>
-                <td mat-cell *matCellDef="let element">{{ element.ownerId?.name }}</td>
-              </ng-container>
+                <!-- Uploaded At Column -->
+                <ng-container matColumnDef="uploadedAt">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Uploaded At
+                  </th>
+                  <td mat-cell *matCellDef="let element">
+                    {{ element.uploadedAt | date : "short" }}
+                  </td>
+                </ng-container>
 
-              <!-- Uploaded At Column -->
-              <ng-container matColumnDef="uploadedAt">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                  Uploaded At
-                </th>
-                <td mat-cell *matCellDef="let element">
-                  {{ element.uploadedAt | date : "short" }}
-                </td>
-              </ng-container>
+                <!-- Action Column -->
+                <ng-container matColumnDef="actions">
+                  <th mat-header-cell *matHeaderCellDef>Actions</th>
+                  <td
+                    mat-cell
+                    *matCellDef="let element"
+                    class="flex items-center py-2"
+                  >
+                    <!-- <button mat-icon-button (click)="onPreviewFile(element._id)">
+                      <mat-icon>visibility</mat-icon>
+                    </button> -->
+                    <button mat-icon-button (click)="onShareItem(element._id)">
+                      <mat-icon>share</mat-icon>
+                    </button>
+                    <button
+                     mat-icon-button
+                      matTooltip="Edit password"
+                      (click)="onEditFile(element._id)"
+                    >
+                      <mat-icon class="text-blue-500">edit</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="downloadFile(element._id)">
+                      <mat-icon>cloud_download</mat-icon>
+                    </button>
+                    <button
+                     mat-icon-button
+                      matTooltip="Delete password"
+                      (click)="deleteFile(element._id)"
+                    >
+                      <mat-icon color="warn" class="text-red-600"
+                        >delete</mat-icon
+                      >
+                    </button>
+                  </td>
+                </ng-container>
 
-              <!-- Action Column -->
-              <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef>Actions</th>
-                <td mat-cell *matCellDef="let element" class="flex items-center space-x-4 py-2">
-                  <!-- <button mat-mini-fab (click)="onPreviewFile(element._id)">
-                    <mat-icon>visibility</mat-icon>
-                  </button> -->
-                  <button mat-mini-fab (click)="onShareItem(element._id)">
-                    <mat-icon>share</mat-icon>
-                  </button>
-                  <button mat-mini-fab matTooltip="Edit password" (click)="onEditFile(element._id)">
-                    <mat-icon class="text-blue-500">edit</mat-icon>
-                  </button>
-                  <button mat-mini-fab (click)="downloadFile(element._id)">
-                    <mat-icon>cloud_download</mat-icon>
-                  </button>
-                  <button mat-mini-fab matTooltip="Delete password" (click)="deleteFile(element._id)">
-                    <mat-icon color="warn" class="text-red-600">delete</mat-icon>
-                  </button>
-
-                </td>
-              </ng-container>
-
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns" style="padding: 2rem 0 !important;"></tr>
-            </table>
-          </div>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr
+                  mat-row
+                  *matRowDef="let row; columns: displayedColumns"
+                  style="padding: 2rem 0 !important"
+                ></tr>
+              </table>
+            </div>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <div
+              class="flex items-center justify-center flex-col text-center p-6 h-[90vh] overflow-hidden"
+            >
+              <img
+                src="https://placehold.co/150"
+                alt="error-icon"
+                class="w-24 h-24 text-primary mb-4 animate-bounce"
+              />
+              <p class="text-primary font-extrabold text-2xl mt-2">
+                Oops! Data not found
+              </p>
+              <p class="text-muted-foreground text-sm mt-1">
+                It seems like we couldn't locate the information you requested.
+              </p>
+              <div class="flex space-x-6 mt-6">
+                <button
+                mat-flat-button
+                >
+                  Retry
+                </button>
+                <button
+                mat-flat-button
+                  (click)="openFileDialog()"
+                >
+                  Add
+                </button>
+              </div>
+            </div>
+          </ng-template>
         </div>
       </mat-drawer-content>
-      <mat-drawer #drawer [opened]="isFilePreviewOpen" mode="over" position="end"
-        style="border-radius: 0% !important; display: flex !important; flex-direction: column !important;">
+      <mat-drawer
+        #drawer
+        [opened]="isFilePreviewOpen"
+        mode="over"
+        position="end"
+        style="
+          border-radius: 0% !important;
+          display: flex !important;
+          flex-direction: column !important;
+        "
+      >
         <app-file-preview [file]="file"></app-file-preview>
       </mat-drawer>
     </mat-drawer-container>
