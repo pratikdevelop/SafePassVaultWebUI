@@ -1,12 +1,10 @@
 <!-- Main Container -->
 <div
-  class="w-full flex flex-col flex-auto items-center justify-center flex-auto p-6 h-full relative overflow-y-auto overflow-x-hidden"
->
+  class="w-full flex flex-col flex-auto items-center justify-center flex-auto p-6 h-full relative overflow-y-auto overflow-x-hidden">
   <!-- Signup Card Content -->
   <div class="flex flex-col space-y-2">
-    <span class="text-xl sm:text-3xl font-extrabold text-slate-900 text-center text-wrap"
-    >Start Your Credential Management Journey with SafePassVault</span
-  >
+    <span class="text-xl sm:text-3xl font-extrabold text-slate-900 text-center text-wrap">Start Your Credential
+      Management Journey with SafePassVault</span>
 
     <mat-stepper [orientation]="stepperOrientation" [linear]="true" #stepper color="accent">
       <!-- Step 1: User Details -->
@@ -15,54 +13,34 @@
           <ng-template matStepLabel>Personal Information</ng-template>
 
           <mat-form-field appearance="outline">
-            <input
-              autocapitalize="false"
-              autocomplete="off"
-              matInput
-              placeholder="Full Name"
-              formControlName="name"
-              required
-            />
-            <mat-error
-              *ngIf="
-                signupForm.get('name')?.hasError('required') ||
-                signupForm.get('name')?.touched
-              "
-            >
+            <input autocapitalize="false" autocomplete="off" matInput placeholder="Full Name" formControlName="name"
+              required />
+            <mat-error *ngIf="
+                  signupForm.get('name')?.hasError('required') ||
+                  signupForm.get('name')?.touched
+                ">
               Name is required
             </mat-error>
-            <mat-error
-              *ngIf="
-                signupForm.get('name')?.hasError('minlength') ||
-                signupForm.get('name')?.touched
-              "
-            >
+            <mat-error *ngIf="
+                  signupForm.get('name')?.hasError('minlength') ||
+                  signupForm.get('name')?.touched
+                ">
               Name must be at least 3 characters
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <input
-              matInput
-              placeholder="Email Address"
-              formControlName="email"
-              required
-              type="email"
-            />
-            <mat-error
-              *ngIf="
-                signupForm.get('email')?.hasError('required') ||
-                signupForm.get('email')?.touched
-              "
-            >
+            <input matInput placeholder="Email Address" formControlName="email" required type="email" />
+            <mat-error *ngIf="
+                  signupForm.get('email')?.hasError('required') ||
+                  signupForm.get('email')?.touched
+                ">
               Email is required
             </mat-error>
-            <mat-error
-              *ngIf="
-                signupForm.get('email')?.hasError('email') ||
-                signupForm.get('email')?.touched
-              "
-            >
+            <mat-error *ngIf="
+                  signupForm.get('email')?.hasError('email') ||
+                  signupForm.get('email')?.touched
+                ">
               Please enter a valid email address
             </mat-error>
           </mat-form-field>
@@ -75,38 +53,27 @@
                   <mat-option selecte [value]="country.code">{{country.code}} ({{country.name}})</mat-option>
 
                 </ng-container>
-                        </mat-select>
-              <mat-error
-                *ngIf="
-                  securityForm.get('countryCode')?.hasError('required') ||
-                  securityForm.get('countryCode')?.touched
-                "
-              >
+              </mat-select>
+              <mat-error *ngIf="
+                    securityForm.get('countryCode')?.hasError('required') ||
+                    securityForm.get('countryCode')?.touched
+                  ">
                 Country Code is required
               </mat-error>
             </mat-form-field>
-  
+
             <mat-form-field appearance="outline" class="flex-1">
-              <input
-                matInput
-                placeholder="Your phone number"
-                formControlName="phone"
-                required
-              />
-              <mat-error
-                *ngIf="
-                  securityForm.get('phone')?.hasError('required') ||
-                  securityForm.get('phone')?.touched
-                "
-              >
+              <input matInput placeholder="Your phone number" formControlName="phone" required />
+              <mat-error *ngIf="
+                    securityForm.get('phone')?.hasError('required') ||
+                    securityForm.get('phone')?.touched
+                  ">
                 Phone number is required
               </mat-error>
-              <mat-error
-                *ngIf="
-                  securityForm.get('phone')?.hasError('pattern') &&
-                  securityForm.get('phone')?.touched
-                "
-              >
+              <mat-error *ngIf="
+                    securityForm.get('phone')?.hasError('pattern') &&
+                    securityForm.get('phone')?.touched
+                  ">
                 Phone number must be between 10 and 15 digits.
               </mat-error>
             </mat-form-field>
@@ -114,77 +81,48 @@
           </div>
 
           <mat-form-field appearance="outline" class="flex flex-row items-center">
-            <input
-              matInput
-              [type]="hide() ? 'password' : 'text'"
-              id="password-input"
-              formControlName="password"
-              placeholder="Create a Password"
-              class="w-10/12"
-              required
-            />
-            <div class="flex items-center w-2/12">
-              <button
-                mat-icon-button
-                type="button"
-                matSuffix
-                (click)="clickEvent($event)"
-                [attr.aria-label]="'Toggle password visibility'"
-                [attr.aria-pressed]="hide()"
-              >
-                <mat-icon>{{
-                  hide() ? "visibility_off" : "visibility"
+            <input matInput [type]="hide() ? 'password' : 'text'" id="password-input" formControlName="password"
+              placeholder="Create a Password" required (keyup)="initPasswordStrengthWatcher()" />
+            <button mat-icon-button type="button" matSuffix (click)="clickEvent($event)"
+              [attr.aria-label]="'Toggle password visibility'" [attr.aria-pressed]="hide()">
+              <mat-icon>{{
+                hide() ? "visibility_off" : "visibility"
                 }}</mat-icon>
-              </button>
-              <button
-                mat-icon-button
-                type="button"
-                matSuffix
-                (click)="generatePassword()"
-                aria-label="Generate a strong password"
-              >
-                <mat-icon>filter</mat-icon>
-              </button>
+            </button>
+            <button mat-icon-button type="button" matSuffix (click)="generatePassword()"
+              aria-label="Generate a strong password">
+              <mat-icon>filter</mat-icon>
+            </button>
 
-            </div>
-            <mat-error
-              *ngIf="
-                signupForm.get('password')?.hasError('required') ||
-                signupForm.get('password')?.touched
-              "
-            >
+            <mat-error *ngIf="
+                  signupForm.get('password')?.hasError('required') ||
+                  signupForm.get('password')?.touched
+                ">
               Password is required
             </mat-error>
           </mat-form-field>
-          <mat-hint
-            >Password must contain numbers, letters, and special
-            characters.</mat-hint
-          >
+          <mat-hint>Password must contain numbers, letters, and special
+            characters.</mat-hint>
 
           <div class="flex flex-col">
-            <mat-progress-bar
-              class="example-margin"
-              [value]="value"
-            ></mat-progress-bar>
+            <mat-progress-bar class="example-margin" [value]="value"></mat-progress-bar>
           </div>
 
           <span class="text-sm font-bold">
             Password Strength:
-            <span
-              [ngClass]="{
-                'text-red-500': strength === 0 || strength === 1,
-                'text-yellow-500': strength === 2,
-                'text-green-500': strength === 3,
-                'text-blue-500': strength === 4
-              }"
-            >
+            <span [ngClass]="{
+                  'text-red-500': strength === 0 || strength === 1,
+                  'text-yellow-500': strength === 2,
+                  'text-green-500': strength === 3,
+                  'text-blue-500': strength === 4
+                }">
               {{ getPasswordStrengthLabel(strength) }}
             </span>
           </span>
 
           <div class="flex flex-col  sm:flex-row  sm:items-center sm:justify-between">
 
-            <button mat-flat-button matStepperNext (click)="logData()">Next</button>
+            <button mat-flat-button matStepperNext>Next</button>
             <span>Already have an account? <button mat-button routerLink="/auth/login">login</button> </span>
           </div>
         </form>
@@ -194,19 +132,17 @@
       <mat-step [stepControl]="billingForm">
         <form [formGroup]="billingForm" class="flex flex-col space-y-6 p-6">
           <ng-template matStepLabel>Billing Information</ng-template>
-      
+
           <mat-form-field appearance="outline">
             <mat-select formControlName="country" required (selectionChange)="onCountryChange($event.value)">
               <mat-option *ngFor="let country of countries" [value]="country.shortName">
                 {{ country.name }}
               </mat-option>
             </mat-select>
-            <mat-error
-              *ngIf="
-                billingForm.get('country')?.hasError('required') ||
-                billingForm.get('country')?.touched
-              "
-            >
+            <mat-error *ngIf="
+                  billingForm.get('country')?.hasError('required') ||
+                  billingForm.get('country')?.touched
+                ">
               Country is required
             </mat-error>
           </mat-form-field>
@@ -216,75 +152,57 @@
                 {{ state.state }}
               </mat-option>
             </mat-select>
-            <mat-error
-              *ngIf="
-                billingForm.get('state')?.hasError('required') ||
-                billingForm.get('state')?.touched
-              "
-            >
+            <mat-error *ngIf="
+                  billingForm.get('state')?.hasError('required') ||
+                  billingForm.get('state')?.touched
+                ">
               State/Province is required
             </mat-error>
           </mat-form-field>
-      
+
           <mat-form-field appearance="outline">
             <mat-select formControlName="city" required>
               <mat-option *ngFor="let city of filteredCities" [value]="city.name">
                 {{ city.name }}
               </mat-option>
             </mat-select>
-            <mat-error
-              *ngIf="
-                billingForm.get('city')?.hasError('required') ||
-                billingForm.get('city')?.touched
-              "
-            >
+            <mat-error *ngIf="
+                  billingForm.get('city')?.hasError('required') ||
+                  billingForm.get('city')?.touched
+                ">
               City is required
             </mat-error>
           </mat-form-field>
-      
 
-      
+
+
           <mat-form-field appearance="outline">
-            <input
-              matInput
-              formControlName="billingAddress"
-              placeholder="Street Address"
-              required
-            />
-            <mat-error
-              *ngIf="
-                billingForm.get('billingAddress')?.hasError('required') ||
-                billingForm.get('billingAddress')?.touched
-              "
-            >
+            <input matInput formControlName="billingAddress" placeholder="Street Address" required />
+            <mat-error *ngIf="
+                  billingForm.get('billingAddress')?.hasError('required') ||
+                  billingForm.get('billingAddress')?.touched
+                ">
               Billing address is required
             </mat-error>
           </mat-form-field>
-      
+
           <mat-form-field appearance="outline">
-            <input
-              matInput
-              formControlName="postalCode"
-              placeholder="Postal Code"
-              required
-            />
-            <mat-error
-              *ngIf="
-                billingForm.get('postalCode')?.hasError('required') ||
-                billingForm.get('postalCode')?.touched
-              "
-            >
+            <input matInput formControlName="postalCode" placeholder="Postal Code" required />
+            <mat-error *ngIf="
+                  billingForm.get('postalCode')?.hasError('required') ||
+                  billingForm.get('postalCode')?.touched
+                ">
               Postal Code is required
             </mat-error>
           </mat-form-field>
-      
+
           <div class="flex flex-1 items-center justify-between">
             <button mat-flat-button matStepperPrevious>Back</button>
-            <button mat-flat-button (click)="onSubmit()">Next</button>
+            <button mat-flat-button (click)="onSubmit()">Create account</button>
           </div>
         </form>
       </mat-step>
-      
+
 
       <!-- Step 3: Payment Information -->
       <mat-step [stepControl]="paymentForm" *ngIf="isPaidPlan">
@@ -309,31 +227,80 @@
           <ng-template matStepLabel>Email Confirmation</ng-template>
 
           <mat-form-field appearance="outline">
-            <input
-              matInput
-              placeholder="Enter OTP Code"
-              formControlName="confirmationCode"
-              required
-              type="text"
-            />
-            <mat-error
-              *ngIf="
-                OTPForm.get('confirmationCode')?.hasError('required') ||
-                OTPForm.get('confirmationCode')?.touched
-              "
-            >
+            <input matInput placeholder="Enter OTP Code" formControlName="confirmationCode" required type="text" />
+            <mat-error *ngIf="
+                        OTPForm.get('confirmationCode')?.hasError('required') ||
+                        OTPForm.get('confirmationCode')?.touched
+                      ">
               OTP Code is required
             </mat-error>
           </mat-form-field>
           <div class="text-sm text-slate-500 mt-4">Didn't receive code? <a type="button" (click)="resendCode()"
-            class="font-medium text-indigo-500 hover:text-indigo-600">Resend</a></div>
+              class="font-medium text-indigo-500 hover:text-indigo-600">Resend</a></div>
 
           <div>
-            <button mat-flat-button matStepperPrevious>Back</button>
             <button mat-flat-button (click)="onConfirmOTP()">Confirm</button>
           </div>
         </form>
       </mat-step>
+
+      <mat-step [stepControl]="recoryPhasephraseForm">
+        <form [formGroup]="recoryPhasephraseForm" class="flex flex-col space-y-6">
+          <ng-template matStepLabel>Passphrase Setup</ng-template>
+
+          <!-- Email Field -->
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Enter your email" formControlName="email" required type="email" />
+            <mat-error
+              *ngIf="recoryPhasephraseForm.get('email')?.hasError('required') && recoryPhasephraseForm.get('email')?.touched">
+              Email is required
+            </mat-error>
+            <mat-error
+              *ngIf="recoryPhasephraseForm.get('email')?.hasError('email') && recoryPhasephraseForm.get('email')?.touched">
+              Invalid email format
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Passphrase Field -->
+          <mat-form-field appearance="outline">
+            <input matInput placeholder="Enter passphrase" formControlName="passphrase" required type="password" />
+            <mat-hint
+              *ngIf="recoryPhasephraseForm.get('passphrase')?.hasError('required') && recoryPhasephraseForm.get('passphrase')?.touched">
+              Passphrase is required
+            </mat-hint>
+            <mat-hint
+              *ngIf="recoryPhasephraseForm.get('passphrase')?.hasError('minLength') && recoryPhasephraseForm.get('passphrase')?.touched">
+              Passphrase must be at least 8 characters long
+            </mat-hint>
+            <mat-hint
+              *ngIf="recoryPhasephraseForm.get('passphrase')?.hasError('uppercase') && recoryPhasephraseForm.get('passphrase')?.touched">
+              Passphrase must contain at least one uppercase letter
+            </mat-hint>
+            <mat-hint
+              *ngIf="recoryPhasephraseForm.get('passphrase')?.hasError('lowercase') && recoryPhasephraseForm.get('passphrase')?.touched">
+              Passphrase must contain at least one lowercase letter
+            </mat-hint>
+            <mat-hint
+              *ngIf="recoryPhasephraseForm.get('passphrase')?.hasError('number') && recoryPhasephraseForm.get('passphrase')?.touched">
+              Passphrase must contain at least one number
+            </mat-hint>
+            <mat-hint
+              *ngIf="recoryPhasephraseForm.get('passphrase')?.hasError('specialChar') && recoryPhasephraseForm.get('passphrase')?.touched">
+              Passphrase must contain at least one special character
+            </mat-hint>
+            <mat-hint
+              *ngIf="recoryPhasephraseForm.get('passphrase')?.hasError('leet') && recoryPhasephraseForm.get('passphrase')?.touched">
+              Passphrase must contain at least one "leet" character (e.g., 3, 4, 0)
+            </mat-hint>
+          </mat-form-field>
+
+          <!-- Submit and Back Buttons -->
+          <div>
+            <button mat-flat-button (click)="onSubmitPassphrase()">Submit</button>
+          </div>
+        </form>
+      </mat-step>
+
 
       <!-- Step 5: Security Questions -->
       <mat-step [stepControl]="securityForm">
@@ -342,92 +309,52 @@
 
           <!-- First Security Question -->
           <mat-form-field appearance="outline">
-            <mat-select
-              placeholder="Select your first security question"
-              formControlName="securityQuestion1"
-              required
-            >
-              <mat-option value="firstPet"
-                >What was the name of your first pet?</mat-option
-              >
-              <mat-option value="firstSchool"
-                >What was the name of your first school?</mat-option
-              >
-              <mat-option value="motherMaiden"
-                >What is your mother's maiden name?</mat-option
-              >
-              <mat-option value="favoriteColor"
-                >What is your favorite color?</mat-option
-              >
+            <mat-select placeholder="Select your first security question" formControlName="securityQuestion1" required>
+              <mat-option value="firstPet">What was the name of your first pet?</mat-option>
+              <mat-option value="firstSchool">What was the name of your first school?</mat-option>
+              <mat-option value="motherMaiden">What is your mother's maiden name?</mat-option>
+              <mat-option value="favoriteColor">What is your favorite color?</mat-option>
             </mat-select>
-            <mat-error
-              *ngIf="
-                securityForm.get('securityQuestion1')?.hasError('required') ||
-                securityForm.get('securityQuestion1')?.touched
-              "
-            >
+            <mat-error *ngIf="
+                  securityForm.get('securityQuestion1')?.hasError('required') ||
+                  securityForm.get('securityQuestion1')?.touched
+                ">
               Security Question 1 is required
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <input
-              matInput
-              placeholder="Your answer"
-              formControlName="securityAnswer1"
-              required
-            />
-            <mat-error
-              *ngIf="
-                securityForm.get('securityAnswer1')?.hasError('required') ||
-                securityForm.get('securityAnswer1')?.touched
-              "
-            >
+            <input matInput placeholder="Your answer" formControlName="securityAnswer1" required />
+            <mat-error *ngIf="
+                  securityForm.get('securityAnswer1')?.hasError('required') ||
+                  securityForm.get('securityAnswer1')?.touched
+                ">
               Answer is required
             </mat-error>
           </mat-form-field>
 
           <!-- Second Security Question -->
           <mat-form-field appearance="outline">
-            <mat-select
-              placeholder="Select your second security question"
-              formControlName="securityQuestion2"
-              required
-            >
-              <mat-option value="favoriteBook"
-                >What is your favorite book?</mat-option
-              >
-              <mat-option value="streetGrewUp"
-                >What street did you grow up on?</mat-option
-              >
-              <mat-option value="bestFriend"
-                >What is the name of your best friend?</mat-option
-              >
+            <mat-select placeholder="Select your second security question" formControlName="securityQuestion2" required>
+              <mat-option value="favoriteBook">What is your favorite book?</mat-option>
+              <mat-option value="streetGrewUp">What street did you grow up on?</mat-option>
+              <mat-option value="bestFriend">What is the name of your best friend?</mat-option>
               <mat-option value="firstJob">What was your first job?</mat-option>
             </mat-select>
-            <mat-error
-              *ngIf="
-                securityForm.get('securityQuestion2')?.hasError('required') ||
-                securityForm.get('securityQuestion2')?.touched
-              "
-            >
+            <mat-error *ngIf="
+                  securityForm.get('securityQuestion2')?.hasError('required') ||
+                  securityForm.get('securityQuestion2')?.touched
+                ">
               Security Question 2 is required
             </mat-error>
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <input
-              matInput
-              placeholder="Your answer"
-              formControlName="securityAnswer2"
-              required
-            />
-            <mat-error
-              *ngIf="
-                securityForm.get('securityAnswer2')?.hasError('required') ||
-                securityForm.get('securityAnswer2')?.touched
-              "
-            >
+            <input matInput placeholder="Your answer" formControlName="securityAnswer2" required />
+            <mat-error *ngIf="
+                  securityForm.get('securityAnswer2')?.hasError('required') ||
+                  securityForm.get('securityAnswer2')?.touched
+                ">
               Answer is required
             </mat-error>
           </mat-form-field>

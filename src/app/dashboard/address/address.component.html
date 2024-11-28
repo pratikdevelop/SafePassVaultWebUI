@@ -52,8 +52,7 @@
                 </div>
             </div>
         </nav>
-        <ng-container *ngIf="addresses.length > 0; else elseTemplate">
-          <table mat-table  [dataSource]="addresses" class="table-auto w-full mat-elevation-z8 text-left" [dataSource]="addresses" [trackBy]="trackById">
+       <table mat-table  [dataSource]="addresses" class="table-auto w-full mat-elevation-z8 text-left" [dataSource]="addresses" [trackBy]="trackById">
             <ng-container matColumnDef="select">
               <th mat-header-cell *matHeaderCellDef>
                 <mat-checkbox (change)="$event ? toggleAllRows() : null"
@@ -125,60 +124,22 @@
           
             <ng-container matColumnDef="actions">
               <th mat-header-cell *matHeaderCellDef>Actions</th>
-              <td mat-cell *matCellDef="let row" class="">
-                <div class="
-                flex items-center py-3">
-                <button mat-icon-button matTooltip="Edit address" (click)="OpenaddressFormDialog(row)">
+              <td mat-cell *matCellDef="let row">
+                <button mat-mini-fab matTooltip="Edit address" (click)="OpenaddressFormDialog(row)">
                   <mat-icon class="text-blue-500">edit</mat-icon>
                 </button>
-                <button mat-icon-button matTooltip="Delete address" (click)="onDelete(row._id)">
+                <button mat-mini-fab matTooltip="Delete address" (click)="onDelete(row._id)">
                   <mat-icon color="warn" class="text-red-600">delete</mat-icon>
                 </button>
-                <button mat-icon-button matTooltip="View address" (click)="viewCardDetails(row)">
+                <button mat-mini-fab matTooltip="View address" (click)="viewCardDetails(row)">
                   <mat-icon class="text-tertiary">remove_red_eye</mat-icon>
                 </button>
-              </div>
               </td>
             </ng-container>
           
-            <tr mat-header-row class="py-3" *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
-        </ng-container>
-        <ng-template #elseTemplate>
-          <ng-container *ngIf="isLoading; else elseTemplate">
-            <div
-            class="flex items-center justify-center flex-col text-center p-6 h-[90vh] overflow-hidden"
-          >
-            <mat-spinner></mat-spinner>
-            </div>
-          </ng-container>
-          <ng-template #elseTemplate>
-            <div
-              class="flex items-center justify-center flex-col text-center p-6 h-[90vh] overflow-hidden"
-            >
-              <img
-                src="https://placehold.co/150"
-                alt="error-icon"
-                class="w-24 h-24 text-primary mb-4 animate-bounce"
-              />
-              <p class="text-primary font-extrabold text-2xl mt-2">
-                Oops! Data not found
-              </p>
-              <p class="text-muted-foreground text-sm mt-1">
-                It seems like we couldn't locate the information you requested.
-              </p>
-              <div class="flex space-x-6 mt-6">
-                <button mat-flat-button (click)="loadAddresses()">Retry</button>
-                <button mat-flat-button (click)="OpenaddressFormDialog(null)">
-                  Add
-                </button>
-              </div>
-            </div>
-          </ng-template>
-        </ng-template>
-        
-  
           
     </mat-sidenav-content>
 </mat-sidenav-container>

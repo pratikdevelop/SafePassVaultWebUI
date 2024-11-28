@@ -94,14 +94,11 @@ export class AddressFormComponent implements OnInit {
   }
 
   onFolderSearch(event: any): void {
-    
     const input = event.target.value;
     if (input) {
       this.isLoading = true;
       this.folderService.searchFolders(input, 'address').subscribe({
         next: (folders) => {
-          console.log('ff', folders);
-          
           this.filteredFolders = folders;
           this.folderNotFound = folders.length === 0;
           this.isLoading = false
@@ -151,10 +148,8 @@ export class AddressFormComponent implements OnInit {
       });
     }
   }
-  change(folder: { _id: string , name: string}): void {
-    this.addressForm.patchValue({ folder: folder._id , 
-      searchFolders: folder.name
-    });
+  change(folder: { id: string }): void {
+    this.addressForm.patchValue({ folder: folder.id });
   }
 
 }

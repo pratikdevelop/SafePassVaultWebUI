@@ -40,7 +40,7 @@ export class FileService {
   }
 
   updateFileMetadata(fileId: string, updatedData: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${fileId}`, updatedData);
+    return this.http.put(`/api/files/${fileId}`, updatedData);
   }
 
   // Share a file or folder

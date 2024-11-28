@@ -24,9 +24,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+
+const defaultAddress: Address = { name: '', city: '', state: '', zipCode: '', country: '' };
 
 @Component({
   selector: 'app-address',
@@ -53,40 +52,78 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     MatSelectModule,
     MatOptionModule,
     MatTableModule,
-    MatPaginatorModule,
-    MatProgressBarModule,
-    MatProgressSpinnerModule,
-    MatSnackBarModule,
+MatPaginatorModule
+
   ],
   templateUrl: './address.component.html',
-  styleUrls: ['./address.component.scss'],
+  styleUrls: ['./address.component.scss']
 })
 export class AddressComponent implements OnInit {
-  selection = new SelectionModel<any>(true, []);
+checkboxLabel(row: any =null) {
+throw new Error('Method not implemented.');
+}
+toggleAllRows() {
+throw new Error('Method not implemented.');
+}
+updateFavourites(arg0: any) {
+throw new Error('Method not implemented.');
+}
+removeTag(arg0: any,_t149: any) {
+throw new Error('Method not implemented.');
+}
+selection = new SelectionModel<any>(true, []);
+performAction(arg0: string) {
+throw new Error('Method not implemented.');
+}
   mode: MatDrawerMode = 'side';
   isSideBarOpen = true;
-  addresses!: any[];
-  isLoading: boolean = true;
-  selectedAddress?: Address;
+  addresses!: any[]
+
+  selectedAddress = { ...defaultAddress };
   isEditMode = false;
   isShow = false;
-  private readonly router = inject(Router);
-  private readonly dialog = inject(MatDialog);
-  private readonly changeDetectorRef = inject(ChangeDetectorRef);
-  private readonly addressService = inject(AddressService);
-  private readonly snackBar = inject(MatSnackBar);
-  displayedColumns: string[] = [
-    'select',
-    'favourite',
-    '_id',
-    'name',
-    'city',
-    'state',
-    'zipCode',
-    'country',
-    'tags',
-    'actions',
-  ];
+
+  readonly router = inject(Router);
+  readonly dialog = inject(MatDialog);
+  readonly changeDetectorRef = inject(ChangeDetectorRef);
+  displayedColumns: string[] = ['select', 'favourite', '_id', 'name', 'city', 'state', 'zipCode', 'country', 'tags', 'actions'];
+  constructor(private addressService: AddressService) {
+  // const initialData = [
+  //   {
+  //     "_id": "673dc3a66a11d2fbaf8ed7c0",
+  //     "userId": "6727432b5dc08625220cc722",
+  //     "name": "ssa",
+  //     "folder": "",
+  //     "title": "",
+  //     "firstName": "",
+  //     "middleName": "",
+  //     "lastName": "",
+  //     "username": "",
+  //     "gender": "Male",
+  //     "birthday": null,
+  //     "company": "",
+  //     "address1": "",
+  //     "address2": "",
+  //     "city": "",
+  //     "county": "",
+  //     "state": "",
+  //     "zipCode": "",
+  //     "country": "",
+  //     "timezone": "",
+  //     "email": "",
+  //     "phone": "",
+  //     "phoneExtension": "",
+  //     "eveningPhone": null,
+  //     "eveningPhoneExtension": null,
+  //     "createdAt": "2024-11-20T11:10:30.860Z",
+  //     "updatedAt": "2024-11-20T11:10:30.860Z",
+  //     "__v": 0
+  //   }
+  // ];
+
+  // // Wrap the array in MatTableDataSource
+  // this.addresses = new MatTableDataSource(initialData);
+  }
 
   ngOnInit(): void {
     this.loadAddresses();
@@ -94,42 +131,66 @@ export class AddressComponent implements OnInit {
   }
 
   loadAddresses(): void {
-    this.isLoading = true;
     this.addressService.getAddresses().subscribe({
       next: (response: any) => {
+        // this.addresses = [
+          
+        // ];
         this.addresses = Object.values(response.addresses); // Convert object to array
-        this.isLoading = false;
-        this.changeDetectorRef.detectChanges();
+
+        // this.addresses = new MatTableDataSource(response.addresses);
+
+        console.log('API Response:', response);
+            console.log('Is Array:', Array.isArray(response)); //
+      this.changeDetectorRef.detectChanges();
       },
-      error: (error) => {
-        console.error('Error fetching addresses:', error);
-		this.snackBar.open('Error fetching the address records', 'close', {
-			duration: 2000,
-			direction:"ltr"
-		})
-        this.isLoading = false;
-        this.changeDetectorRef.detectChanges();
-      },
+      error: (error) => console.error('Error fetching addresses:', error)
     });
+  }
+
+  onCreate(): void {
+    this.addressService.createAddress(this.selectedAddress).subscribe({
+      next: () => {
+        this.loadAddresses();
+        this.selectedAddress = { ...defaultAddress };
+      },
+      error: (error) => console.error('Error creating address:', error)
+    });
+  }
+
+  onUpdate(): void {
+    if (this.selectedAddress._id) {
+      this.addressService.updateAddress(this.selectedAddress._id, this.selectedAddress).subscribe({
+        next: () => {
+          this.loadAddresses();
+          this.selectedAddress = { ...defaultAddress };
+          this.isEditMode = false;
+        },
+        error: (error) => console.error('Error updating address:', error)
+      });
+    }
   }
 
   OpenaddressFormDialog(address: any): void {
     const dialogRef = this.dialog.open(AddressFormComponent, {
       width: '900px',
       data: {
-        address: address ? { ...address } : {},
-        isEditMode: !!address?._id,
-      },
+        address: address ? { ...address } : { ...defaultAddress },
+        isEditMode: !!address?._id
+      }
     });
 
     dialogRef.afterClosed().subscribe({
       next: (result) => {
         if (result) {
-
-          this.loadAddresses();
+          if (result._id) {
+            this.addressService.updateAddress(result._id, result).subscribe(() => this.loadAddresses());
+          } else {
+            this.addressService.createAddress(result).subscribe(() => this.loadAddresses());
+          }
         }
       },
-      error: (err) => console.error('Error closing dialog:', err),
+      error: (err) => console.error('Error closing dialog:', err)
     });
   }
 
@@ -139,26 +200,8 @@ export class AddressComponent implements OnInit {
 
   onDelete(id: string): void {
     this.addressService.deleteAddress(id).subscribe({
-      next: () => {
-        this.loadAddresses();
-		this.snackBar.open(`
-			Address deleted successfully`,
-			`close
-			`, {
-				duration: 2000,
-				direction:"ltr"
-				})
-        this.changeDetectorRef.detectChanges();
-      },
-      error: (error) => {
-        console.error('Error deleting address:', error);
-		this.snackBar.open('Error deleting the address', 'close', {
-			duration: 2000,
-			direction:"ltr"
-			})
-			
-        this.changeDetectorRef.detectChanges();
-      },
+      next: () => this.loadAddresses(),
+      error: (error) => console.error('Error deleting address:', error)
     });
   }
 
@@ -167,32 +210,15 @@ export class AddressComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.selectedAddress = {};
+    this.selectedAddress = { ...defaultAddress };
     this.isEditMode = false;
   }
   trackById(index: number, item: any): number {
     return item?._id;
   }
-  isAllSelected(): boolean {
-    const numSelected = this.addresses.filter(
-      (address: { selected: any }) => address.selected
-    ).length;
-    const numRows = this.addresses.length;
-    return numSelected === numRows;
-  }
-  checkboxLabel(row: any = null) {
-    throw new Error('Method not implemented.');
-  }
-  toggleAllRows() {
-    throw new Error('Method not implemented.');
-  }
-  updateFavourites(arg0: any) {
-    throw new Error('Method not implemented.');
-  }
-  removeTag(arg0: any, _t149: any) {
-    throw new Error('Method not implemented.');
-  }
-  performAction(arg0: string) {
-    throw new Error('Method not implemented.');
+  isAllSelected(): boolean{
+    // const numSelected = this.addresses.filter((address: { selected: any; }) => address.selected).length;
+    // const numRows = this.addresses.length;
+    return true;
   }
 }

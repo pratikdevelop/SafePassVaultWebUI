@@ -7,9 +7,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
-  FormGroup, FormsModule, ReactiveFormsModule, Validators
+  FormGroup, FormsModule, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators
 } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute, RouterModule } from '@angular/router';
@@ -66,6 +67,7 @@ import { StepperOrientation } from '@angular/cdk/stepper';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignupComponent {
+
   @ViewChild('stepper') stepper!: MatStepper; // Access the stepper
   public readonly countries = countries;
   private readonly snackbar = inject(MatSnackBar);
@@ -92,6 +94,7 @@ export class SignupComponent {
   paymentForm: FormGroup;
   OTPForm: FormGroup;
   securityForm: FormGroup;
+  recoryPhasephraseForm: FormGroup;
   public stepperOrientation: StepperOrientation = 'horizontal';
   filteredCities!: any[];
   filteredStates!: any[];
@@ -128,6 +131,12 @@ export class SignupComponent {
     this.OTPForm = this.formBuilder.group({
       confirmationCode: new FormControl('', Validators.required),
     });
+
+    this.recoryPhasephraseForm = new FormGroup({
+      email: new FormControl(this.signupForm.value.email, [Validators.required]),
+      passphrase: new FormControl('', [Validators.required, this.passphraseValidator()])
+      // Apply the custom passphrase validator
+    })
 
     this.securityForm = this.formBuilder.group({
       securityQuestion1: new FormControl(''),
@@ -413,13 +422,6 @@ export class SignupComponent {
     this.authService.signup(userDetails).subscribe({
       next: (response: any) => {
         this.userId = response.userId;
-        const blob = new Blob([response.privateKeyPEM], { type: 'text/plain' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'private-key.pem';
-        a.click();
-        window.URL.revokeObjectURL(url);
         if (!this.isPaidPlan) {
           this.snackbar.open(
             'User registered. A confirmation email has been sent.',
@@ -442,7 +444,7 @@ export class SignupComponent {
     return result.score < 3 ? { weakPassword: true } : null;
   }
 
-  private initPasswordStrengthWatcher(): void {
+  initPasswordStrengthWatcher(): void {
     this.signupForm.get('password')?.valueChanges.subscribe((password) => {
       const result = zxcvbn(password);
       this.strength = (result.score + 1) * 20; // Update password strength bar
@@ -518,95 +520,71 @@ export class SignupComponent {
         },
       });
   }
+  passphraseValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
 
-  /*
-  // Generate a recovery phrase (12-word mnemonic)
-  async generateRecoveryPhrase(): Promise<string> {
-    return this.generateRandomMnemonic();
+      // Check if passphrase is long enough (e.g., at least 8 characters)
+      const minLengthValid = value && value.length >= 8;
+      if (!minLengthValid) {
+        return { minLength: 'Passphrase must be at least 8 characters long' };
+      }
+
+      // Check for at least one uppercase letter
+      const uppercaseValid = /[A-Z]/.test(value);
+      if (!uppercaseValid) {
+        return { uppercase: 'Passphrase must contain at least one uppercase letter' };
+      }
+
+      // Check for at least one lowercase letter
+      const lowercaseValid = /[a-z]/.test(value);
+      if (!lowercaseValid) {
+        return { lowercase: 'Passphrase must contain at least one lowercase letter' };
+      }
+
+      // Check for at least one number
+      const numberValid = /\d/.test(value);
+      if (!numberValid) {
+        return { number: 'Passphrase must contain at least one number' };
+      }
+
+      // Check for at least one special character
+      const specialCharValid = /[!@#$%^&*(),.?":{}|<>]/.test(value);
+      if (!specialCharValid) {
+        return { specialChar: 'Passphrase must contain at least one special character' };
+      }
+
+
+      return null; // Passphrase is valid
+    };
   }
-
-  // Generates a random 12-word mnemonic phrase
-  generateRandomMnemonic(): string {
-    const words = [
-      "apple", "banana", "cherry", "date", "elephant", "fox", "grape", "house",
-      "ice", "jungle", "kite", "lemon", "moon", "night", "orange", "peach",
-      "queen", "rose", "sun", "tiger", "umbrella", "violet", "water", "xylophone",
-      "yellow", "zebra"
-    ];
-
-    return Array(12)
-      .fill(null)
-      .map(() => words[Math.floor(Math.random() * words.length)])
-      .join(" ");
-  }
-
-  // Encrypt the recovery phrase using AES-GCM encryption
-  async encryptRecoveryPhrase(phrase: string): Promise<string> {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(phrase);
-    const key = await this.generateEncryptionKey();
-    const iv = crypto.getRandomValues(new Uint8Array(16));
-
-    const encryptedData = await crypto.subtle.encrypt(
-      {
-        name: "AES-GCM",
-        iv: iv
-      },
-      key,
-      data
-    );
-
-    const encryptedBuffer = new Uint8Array(encryptedData);
-    const encryptedBase64 = this.arrayBufferToBase64(encryptedBuffer);
-
-    return encryptedBase64;
-  }
-
-  // Generate an AES-GCM encryption key
-  async generateEncryptionKey(): Promise<CryptoKey> {
-    return await crypto.subtle.generateKey(
-      {
-        name: "AES-GCM",
-        length: 256
-      },
-      true,  // The key is extractable
-      ["encrypt", "decrypt"]
-    );
-  }
-
-  // Convert an ArrayBuffer to a Base64 string
-  arrayBufferToBase64(buffer: Uint8Array): string {
-    let binary = '';
-    const bytes = new Uint8Array(buffer);
-    const length = bytes.byteLength;
-    for (let i = 0; i < length; i++) {
-      binary += String.fromCharCode(bytes[i]);
+  onSubmitPassphrase(): void {
+    if (this.recoryPhasephraseForm.invalid) {
+      return;
     }
-    return window.btoa(binary);
-  }
-
-  // Generate an RSA key pair (for signing and verifying)
-  async generateKeyPair(): Promise<CryptoKeyPair> {
-    return await window.crypto.subtle.generateKey(
-      {
-        name: "RSA-PSS",
-        modulusLength: 2048,    // Key length (2048 bits)
-        publicExponent: new Uint8Array([1, 0, 1]),  // Standard public exponent
-        hash: "SHA-256"  // Hash algorithm used in PSS
+    this.authService.generatePrivateKey(this.recoryPhasephraseForm.value).subscribe({
+      next: (response) => {
+        const blob = new Blob([response.privateKeyPEM], { type: 'text/plain' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'private-key.pem';
+        a.click();
+        window.URL.revokeObjectURL(url);
+        this.snackbar.open(
+          'Private key generated successfully and downlaoded in your machine',
+          'Close',
+          {
+            duration: 5000,
+          }
+        )
+        this.recoryPhasephraseForm.reset();
+        this.stepper.next();
+        this.changeDetetorRef.detectChanges();
       },
-      true,   // Whether the key can be exported
-      ["sign", "verify"]  // Key usage: sign and verify
-    );
-  }
-
-  // Export the public key of an RSA key pair
-  async exportPublicKey(keyPair: { publicKey: CryptoKey }): Promise<string> {
-    const exportedKey = await window.crypto.subtle.exportKey("spki", keyPair.publicKey);
-    const exportedKeyBase64 = btoa(String.fromCharCode(...new Uint8Array(exportedKey)));
-    return exportedKeyBase64;
-  }*/
-
-  logData(): void {
-    console.log(this.signupForm);
+      error: (error) => {
+        console.error(error);
+      }
+    })
   }
 }
