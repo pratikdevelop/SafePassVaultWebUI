@@ -9,8 +9,13 @@ import {
   throwError,
   map,
   BehaviorSubject,
+  from,
 } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { startRegistration } from '@simplewebauthn/browser';
+
+
+
 
 @Injectable({
   providedIn: 'root',
@@ -263,4 +268,203 @@ export class AuthService {
       `${this.apiUrl}/generate-private-key`, formData
     )
   }
+
+
+  startBiometricRegistration(): Observable<any> {
+    // Step 1: Get challenge from the server for WebAuthn using RxJS
+    return this.http.get<{ challenge: string }>(`${this.apiUrl}/completeWebAuthRegisteration`).pipe(
+      // Map the response to handle the challenge
+      map((challengeResponse: any) => {
+        const options = challengeResponse;
+        return options
+        // console.log(
+        //   "Challenge received from the server for WebAuthn registration: ",
+        //   challengeResponse
+        // );
+
+        // if (challengeResponse && challengeResponse.options) {
+        //   // // Fix for URL-safe Base64 decoding
+        //   // const challenge = new Uint8Array(
+        //   //   atob(challengeResponse.challenge.replace(/-/g, '+').replace(/_/g, '/')).split('')
+        //   //     .map((c) => c.charCodeAt(0))
+        //   // );
+        //   return challengeResponse.options;
+        // } else {
+        //   throw new Error('Challenge not received from server');
+        // }
+        // }),
+        // Step 2: Configure WebAuthn options for fingerprint/face recognition
+        // switchMap((options: any) => {
+        /*const publicKeyCredentialCreationOptions: PublicKeyCredentialCreationOptions = {
+          challenge: challenge,
+          rp: { name: 'Demo App' },
+          user: {
+            id: new TextEncoder().encode(email), // Use email as user ID
+            name: email,
+            displayName: name,
+          },
+          pubKeyCredParams: [{ type: 'public-key', alg: -7 }],
+          authenticatorSelection: { authenticatorAttachment: 'platform' },
+          timeout: 60000,
+        };return from(
+          navigator.credentials.create({ publicKey: publicKeyCredentialCreationOptions })).pipe(
+          map((credential: any) => {
+            console.log('Credential created successfully', credential);
+            return credential;
+          }),
+          catchError((err) => {
+            console.error('WebAuthn registration error:', err);
+            throw new Error('WebAuthn registration failed');
+          })
+        );*/
+
+
+      }),
+      // Step 4: Send the registration data to the server for saving (including the webAuthnId)
+      // switchMap((credential: PublicKeyCredential) => {
+      //   console.log('Credential to send to server', credential);
+
+      //   return this.http
+      //     .post(`${this.apiUrl}/complete-webauth-register`, { credential })
+      //     .pipe(
+      //       map(() => {
+      //         console.log('Biometric registration complete for ' + method);
+      //       }),
+      //       catchError((err) => {
+      //         console.error('Error completing WebAuthn registration:', err);
+      //         throw new Error('Error completing WebAuthn registration');
+      //       })
+      //     );
+      // }),
+      // Catch any errors from the entire stream
+      catchError((err) => {
+        console.error('Error in WebAuthn registration process:', err);
+        throw new Error('WebAuthn registration process failed');
+      })
+    );
+  }
+
+  verifywebAuthentication(credential: PublicKeyCredential): Observable<any> {
+    return this.http
+      .post(`${this.apiUrl}/complete-webauth-register`, { credential })
+      .pipe(
+        map(() => {
+          return true
+        }),
+        catchError((err) => {
+          console.error('Error completing WebAuthn registration:', err);
+          throw new Error('Error completing WebAuthn registration');
+        })
+      );
+  }
+
+
+  startWebAuthnAuthentication(challange: string, credential: any): Observable<any> {
+    // Convert challenge to a Uint8Array, handle URL-safe Base64
+    // const challengeBuffer = new Uint8Array(
+    //   atob('pOhGhZfwHxX5Dm5sh6c2Tyzbue/8EV1bVobjqANweME='.replace(/-/g, '+').replace(/_/g, '/')).split('')
+    //     .map((c) => c.charCodeAt(0))
+    // );
+
+    // const publicKeyCredentialRequestOptions: PublicKeyCredentialRequestOptions = {
+    //   challenge: challengeBuffer,
+    //   allowCredentials: [], // Can be populated with stored credentials for the user
+    //   timeout: 60000,
+    // };
+
+    // return new Observable((observer) => {
+    // Get the credential from the user (biometric/fingerprint/face recognition)
+    // navigator.credentials.get({ publicKey:  })
+    //   .then((assertion: any) => {
+    //     // Send the WebAuthn response to the server for verification
+    //     this.http.post(`${this.apiUrl}/webauthn/complete-authenticate`, {
+    //       credential: assertion,
+    //       challenge: challenge, // Send the same challenge that was used for authentication
+    //     }).subscribe(
+    //       (response) => {
+    //         observer.next(response);
+    //         observer.complete();
+    //       },
+    //       (error) => {
+    //         observer.error(error);
+    //       }
+    //     );
+    //   })
+    //   .catch((error) => {
+    //     observer.error('WebAuthn authentication failed: ' + error);
+    //   });
+    // });
+
+    return this.http.post(`${this.apiUrl}/webauthn/complete-authenticate`, {
+      credential, challange
+    }).pipe(map(
+      (response) => {
+        return response
+      },
+      () => {
+        throw new Error('Error completing WebAuthn authentication');
+      }
+    ));
+  }
+
+  createWebAuthnCredential(options: any): Observable<any> {
+    let authenticationResult;
+    startRegistration({ ...options }).then((res) => {
+      authenticationResult = res;
+    })
+    console.log(authenticationResult)
+    return of(authenticationResult)
+
+  }
+
+
+  // generateRegistrationOptions(): Observable<any> {
+  //   return this.http.get(`${this.apiUrl}/createWebAuthRegisteration`);
+  // }
+
+  // // Verify WebAuthn registration response with backend
+  // completeWebAuthRegistration(credential: any): Observable<any> {
+  //   return this.http.post(`${this.apiUrl}/completeWebAuthRegisteration`, { credential });
+  // }
+
+  // // WebAuthn registration process
+  // async register() {
+  //   try {
+  //     const options = await this.generateRegistrationOptions().toPromise();
+  //     const attResp = await startRegistration(options);
+  //     if (attResp) {
+  //       const verification = await this.completeWebAuthRegistration(attResp);
+  //       return verification;
+  //     }
+  //   } catch (error) {
+  //     console.error('Error during registration:', error);
+  //     throw error;
+  //   }
+  // }
+
+  // // Generate WebAuthn authentication options from backend
+  // generateAuthenticationOptions(): Observable<any> {
+  //   return this.http.get(`${this.apiUrl}/generate-authentication-options`);
+  // }
+
+  // // Verify WebAuthn authentication response with backend
+  // completeWebAuthnAuthentication(credential: any): Observable<any> {
+  //   return this.http.post(`${this.apiUrl}/completeWebAuthnAuthentication`, { credential });
+  // }
+
+  // // WebAuthn authentication process
+  // async authenticate():  {
+  //   try {
+  //     const options = await this.generateAuthenticationOptions().toPromise();
+  //     const authResp = await startAuthentication(options);
+  //     if (authResp) {
+  //       const verification = await this.completeWebAuthnAuthentication(authResp);
+  //       return verification;
+  //     }
+  //   } catch (error) {
+  //     console.error('Error during authentication:', error);
+  //     throw error;
+  //   }
+  // }
+
 }

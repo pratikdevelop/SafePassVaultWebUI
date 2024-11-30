@@ -17,6 +17,8 @@ import { AuthService } from '../../../services/auth.service';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonService } from '../../../services/common.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { startRegistration } from '@simplewebauthn/browser';
 
 @Component({
   selector: 'app-mfa-setting',
@@ -34,6 +36,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     MatSlideToggleModule,
     MatIconModule,
     MatSnackBarModule,
+    HttpClientModule
   ],
   templateUrl: './mfa-setting.component.html',
   styleUrls: ['./mfa-setting.component.css'],
@@ -44,6 +47,7 @@ export class MfaSettingComponent {
   readonly snackBar = inject(MatSnackBar);
   readonly commonService = inject(CommonService);
   readonly authService = inject(AuthService);
+  readonly http = inject(HttpClient);
   qrCodeUrl: string = '';
 
   constructor(private fb: FormBuilder) {
@@ -55,7 +59,7 @@ export class MfaSettingComponent {
       emailAddress: [{ value: '', disabled: true }],
     });
     this.authService.getProfile().subscribe((response: any) => {
-      this.userProfile = response.user;      
+      this.userProfile = response.user;
       this.populateFormWithUserProfile(this.userProfile);
     });
 
@@ -146,5 +150,30 @@ export class MfaSettingComponent {
   }
   toggleSideBar(): void {
     this.commonService.toggleProfileSideBar();
+  }
+
+
+  startFingerprintRegistration() {
+    // this.startRegistration('fingerprint');
+  }
+
+  startFaceRecognitionRegistration() {
+    // this.startRegistration('face');
+  }
+
+  onRegister(): void {
+    try {
+      this.authService.startBiometricRegistration().subscribe((options) => {
+        startRegistration({ optionsJSON: options.options }).then((result: any) => {
+          this.authService.verifywebAuthentication(result).subscribe({
+            next: (response: any) => {
+              console.log(response)
+            }
+          })
+        })
+      })
+    } catch (error) {
+      console.error('Error during registration:', error);
+    }
   }
 }

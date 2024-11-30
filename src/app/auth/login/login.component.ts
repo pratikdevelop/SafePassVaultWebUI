@@ -22,6 +22,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { startAuthentication } from '@simplewebauthn/browser';
 
 @Component({
   selector: 'app-login',
@@ -130,9 +131,38 @@ export class LoginComponent implements OnInit {
   // Handle successful login response
   private processLoginResponse(response: any) {
     if (response.mfaRequired) {
-      this.router.navigateByUrl(
-        `/auth/mfa-verification?mfaMethod=${response.mfaMethod}&email=${this.loginForm.value.username}`
-      );
+      if (response.mfaMethod === 'webauthn') {
+        console.log(
+          'WebAuthn MFA required. Please use the WebAuthn authenticator to complete thelogin process.',
+          response
+        );
+
+        startAuthentication({ optionsJSON: response.challenge }).then((response1) => {
+
+          this.auth.startWebAuthnAuthentication(response.challenge, response1).subscribe(
+            (authResponse: any) => {
+              console.log('MFA Authentication Successful', authResponse);
+              localStorage.setItem('token', response.token);
+              this.auth.getProfile().subscribe(() => {
+                this.snackbar.open('Login successful', 'close', {
+                  duration: 2000,
+                });
+                this.router.navigate(['/dashboard/passwords']);
+              });
+            },
+            (error) => {
+              console.error('WebAuthn MFA failed', error);
+            }
+          );
+
+        }).catch(error => {
+          console.error('WebAuthn MFA failed', error);
+        })
+      } else {
+        this.router.navigateByUrl(
+          `/auth/mfa-verification?mfaMethod=${response.mfaMethod}&email=${this.loginForm.value.username}`
+        );
+      }
     } else {
       localStorage.setItem('token', response.token);
       this.auth.getProfile().subscribe(() => {
@@ -141,9 +171,10 @@ export class LoginComponent implements OnInit {
         });
         this.router.navigate(['/dashboard/passwords']);
       });
+      // }
+      this.loading = false;
+      this.changeDetectorRef.detectChanges();
     }
-    this.loading = false;
-    this.changeDetectorRef.detectChanges();
   }
 
   // Handle login error

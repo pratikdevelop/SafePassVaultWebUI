@@ -5,10 +5,10 @@
             <mat-icon>menu</mat-icon>
         </button>
         <div class="text-xl sm:text-3xl font-bold text-accent">MFA Settings</div>
-
     </div>
     <button mat-flat-button type="submit" (click)="onSubmit()">Save Changes</button>
 </nav>
+
 <form [formGroup]="mfaForm" class="flex flex-col space-y-6 p-3">
     <mat-slide-toggle formControlName="mfaEnabled" color="primary" (change)="toggleMFA($event.checked)">
         Enable MFA
@@ -20,13 +20,16 @@
                 <mat-option value="totp">Time-Based One-Time Password (TOTP)</mat-option>
                 <mat-option value="sms">SMS Authentication</mat-option>
                 <mat-option value="email">Email Authentication</mat-option>
-                <!-- <mat-option value="duo">Duo Authentication</mat-option>
                 <mat-option value="fingerprint">Fingerprint Authentication</mat-option>
-                <mat-option value="face">Face Recognition Authentication</mat-option> -->
-                <!-- <mat-option value="securityKey">Security Key (FIDO2/U2F)</mat-option> -->
+                <mat-option value="face">Face Recognition Authentication</mat-option>
+                <mat-option value="webauthn">
+                    WebAuthn (Web Authentication)
+
+                </mat-option>
             </mat-select>
         </mat-form-field>
 
+        <!-- Form fields for each MFA method -->
         <mat-form-field appearance="outline" *ngIf="mfaForm.get('mfaMethod')?.value === 'totp'">
             <input matInput [disabled]="userProfile.totpSecret !== null" formControlName="totpSecret"
                 placeholder="Enter your TOTP secret">
@@ -40,54 +43,23 @@
             <input matInput formControlName="emailAddress" placeholder="Enter your email address">
         </mat-form-field>
 
-        <!-- <div *ngIf="mfaForm.get('mfaMethod')?.value === 'duo'" class="setup-instructions">
-            <h3>Duo Authentication Setup</h3>
-            <p>Follow these steps to set up Duo Authentication:</p>
-            <ol>
-                <li>Log in to your Duo Admin Panel.</li>
-                <li>Navigate to the "Applications" section and click "Protect an Application."</li>
-                <li>Select the appropriate application from the list and follow the instructions to configure it.</li>
-                <li>Copy the integration key, secret key, and API hostname provided.</li>
-                <li>Enter these details into the Duo setup form in your application settings.</li>
-                <li>Save your changes and test the Duo integration to ensure it's working correctly.</li>
-            </ol>
-        </div>
-
         <div *ngIf="mfaForm.get('mfaMethod')?.value === 'fingerprint'" class="setup-instructions">
-            <h3>Fingerprint Authentication Setup</h3>
-            <p>Follow these steps to set up Fingerprint Authentication:</p>
-            <ol>
-                <li>Ensure your device has a fingerprint scanner and necessary drivers installed.</li>
-                <li>Go to the "Security" settings on your device and register your fingerprint.</li>
-                <li>In your application settings, enable Fingerprint Authentication and configure it as needed.</li>
-                <li>Follow any additional instructions provided by your application for verification.</li>
-                <li>Test the setup to ensure it recognizes your fingerprint accurately.</li>
-            </ol>
+            <!-- WebAuthn Fingerprint Registration -->
+            <button mat-button (click)="startFingerprintRegistration()">Register Fingerprint</button>
         </div>
 
         <div *ngIf="mfaForm.get('mfaMethod')?.value === 'face'" class="setup-instructions">
-            <h3>Face Recognition Authentication Setup</h3>
-            <p>Follow these steps to set up Face Recognition Authentication:</p>
-            <ol>
-                <li>Ensure your device has a camera that supports face recognition.</li>
-                <li>Go to the "Security" settings on your device and set up Face Recognition.</li>
-                <li>In your application settings, enable Face Recognition Authentication and follow the setup instructions.</li>
-                <li>Complete any required configuration and calibration steps.</li>
-                <li>Test the face recognition feature to ensure it functions correctly.</li>
-            </ol>
+            <!-- WebAuthn Face Registration -->
+            <button mat-button (click)="startFaceRecognitionRegistration()">Register Face</button>
         </div>
-
-        <div *ngIf="mfaForm.get('mfaMethod')?.value === 'securityKey'" class="setup-instructions">
-            <h3>Security Key (FIDO2/U2F) Setup</h3>
-            <p>Follow these steps to set up a Security Key:</p>
-            <ol>
-                <li>Plug in your FIDO2/U2F security key into a USB port or connect it via Bluetooth.</li>
-                <li>Go to the "Security" settings in your application.</li>
-                <li>Select "Add Security Key" and follow the instructions to register your key.</li>
-                <li>Perform any necessary actions on the security key, such as pressing a button or touching the device.</li>
-                <li>Verify the setup by testing the security key with your application.</li>
-            </ol>
-        </div> -->
+        <div *ngIf="mfaForm.get('mfaMethod')?.value === ''" class="setup-instructions">
+            <!-- WebAuthn Face Registration -->
+            <button mat-button (click)="startFaceRecognitionRegistration()">Register Face</button>
+        </div>
+        <div *ngIf="mfaForm.get('mfaMethod')?.value === 'webauthn'" class="setup-instructions">
+            <!-- WebAuthn Registration -->
+            <button mat-button (click)="onRegister()">Register WebAuthn</button>
+        </div>
 
         <div *ngIf="qrCodeUrl">
             <h3>Scan this QR code with your authentication app:</h3>
