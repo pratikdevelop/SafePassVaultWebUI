@@ -1,163 +1,79 @@
-
-    <nav aria-label="Global" class="flex items-center justify-between w-full text-primary-foreground bg-background shadow-lg rounded-md p-3">
-    <div class="text-primary-foreground flex items-center space-x-2">
-        <button class="menu-button lg:hidden p-2 rounded-md hover:bg-muted transition duration-200">
-            <img aria-hidden="true" alt="menu-icon" src="https://openui.fly.dev/openui/24x24.svg?text=☰" />
-        </button>
-        <div class="text-xl sm:text-3xl font-bold">Billing and Plan Details</div>
-    </div>
-    <button mat-flat-button onclick="location.href='/account/upgrade?plan=premium&action=update'">
-        Update Plan
+<nav
+  aria-label="Global"
+  class="flex items-center justify-between w-full text-primary-foreground bg-background shadow-lg rounded-md p-3"
+>
+  <div class="text-primary-foreground flex items-center space-x-2">
+    <button class="menu-button lg:hidden p-2 rounded-md hover:bg-muted transition duration-200">
+      <img aria-hidden="true" alt="menu-icon" src="https://openui.fly.dev/openui/24x24.svg?text=☰" />
     </button>
+    <div class="text-xl sm:text-3xl font-bold">Billing and Plan Details</div>
+  </div>
+  <button
+    mat-flat-button
+    *ngIf="planDetails?.queryParams"
+    [routerLink]="['/account/upgrade']"
+    [queryParams]="planDetails.queryParams"
+  >
+    Update Plan
+  </button>
 </nav>
-<div class="bg-card shadow mt-4 p-4 rounded-lg transition duration-200 hover:shadow-lg">
-    <div class="flex items-center">
-        <div class="mr-3">
-            <img aria-hidden="true" alt="star-icon" src="https://openui.fly.dev/openui/24x24.svg?text=⭐" />
-        </div>
-        <div class="flex-1">
-            <h3 class="text-lg font-semibold">Premium Plan (yearly)</h3>
-            <div class="text-sm text-muted-foreground">Best value for advanced users</div>
-        </div>
+
+<div *ngIf="planDetails" class="bg-card shadow mt-4 p-4 rounded-lg transition duration-200 hover:shadow-lg">
+  <div class="flex items-center">
+    <div class="mr-3">
+      <img aria-hidden="true" alt="star-icon" src="https://openui.fly.dev/openui/24x24.svg?text=⭐" />
     </div>
-    <div class="mt-4 flex flex-col space-y-2">
-        <p class="font-bold text-xl">Price: $60.00/year</p>
-        <p class="text-sm text-muted-foreground">Features included:</p>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-                <ul class="list-none">
-                    <li class="mb-2 flex items-center">
-                        <img aria-hidden="true" alt="check-icon" src="https://openui.fly.dev/openui/24x24.svg?text=✔️" class="text-green-500 mr-2" />5 GB Storage
-                    </li>
-                    <li class="mb-2 flex items-center">
-                        <img aria-hidden="true" alt="check-icon" src="https://openui.fly.dev/openui/24x24.svg?text=✔️" class="text-green-500 mr-2" />Store passwords, notes, cards, ID proofs
-                    </li>
-                    <li class="mb-2 flex items-center">
-                        <img aria-hidden="true" alt="check-icon" src="https://openui.fly.dev/openui/24x24.svg?text=✔️" class="text-green-500 mr-2" />10 Organizations
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <ul class="list-none">
-                    <li class="mb-2 flex items-center">
-                        <img aria-hidden="true" alt="check-icon" src="https://openui.fly.dev/openui/24x24.svg?text=✔️" class="text-green-500 mr-2" />100 User Invitations
-                    </li>
-                    <li class="mb-2 flex items-center">
-                        <img aria-hidden="true" alt="check-icon" src="https://openui.fly.dev/openui/24x24.svg?text=✔️" class="text-green-500 mr-2" />100 Shares
-                    </li>
-                </ul>
-            </div>
-        </div>
+    <div class="flex-1">
+      <h3 class="text-lg font-semibold">{{ planDetails.planName }}</h3>
+      <div class="text-sm text-muted-foreground">{{ planDetails.description || 'No description available' }}</div>
     </div>
+  </div>
+
+  <div class="mt-4 flex flex-col space-y-2">
+    <p class="font-bold text-xl">
+      Price: {{ planDetails.amount/100 | currency }}
+    </p>
+    <p class="text-sm text-muted-foreground">Features included:</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div *ngFor="let feature of planDetails.features">
+        <ul class="list-none">
+          <li class="mb-2 flex items-center">
+            <img
+              aria-hidden="true"
+              alt="check-icon"
+              src="https://openui.fly.dev/openui/24x24.svg?text=✔️"
+              class="text-green-500 mr-2"
+            />
+            {{ feature.text }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="mt-6">
-    <h4 class="text-lg font-semibold text-primary-foreground">Frequently Asked Questions</h4>
-  
-    <mat-accordion class="bg-card p-4 rounded-lg shadow mt-2">
-  
-      <!-- Question 1 -->
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>What happens when I upgrade?</mat-panel-title>
-        </mat-expansion-panel-header>
-        <p class="text-muted-foreground pl-4">
-          When you upgrade, you will gain access to all premium features immediately.
-        </p>
-      </mat-expansion-panel>
-  
-      <!-- Question 2 -->
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>Can I cancel my subscription?</mat-panel-title>
-        </mat-expansion-panel-header>
-        <p class="text-muted-foreground pl-4">
-          Yes, you can cancel your subscription at any time from your account settings.
-        </p>
-      </mat-expansion-panel>
-  
-      <!-- Additional questions on plan upgrades and billing -->
-  
-      <!-- Question 3 -->
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>Is there a refund policy for plan upgrades?</mat-panel-title>
-        </mat-expansion-panel-header>
-        <p class="text-muted-foreground pl-4">
-          Refunds are available within the first 7 days after upgrading your plan. If you’re eligible, contact support to process your refund.
-        </p>
-      </mat-expansion-panel>
-  
-      <!-- Question 4 -->
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>Will my data be saved if I downgrade my plan?</mat-panel-title>
-        </mat-expansion-panel-header>
-        <p class="text-muted-foreground pl-4">
-          Yes, your data will be saved if you downgrade, but some features might be disabled based on your new plan’s limitations.
-        </p>
-      </mat-expansion-panel>
-  
-      <!-- Question 5 -->
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>What payment methods do you accept?</mat-panel-title>
-        </mat-expansion-panel-header>
-        <p class="text-muted-foreground pl-4">
-          We accept all major credit cards, PayPal, and certain international payment options. Please check the billing page for the latest information.
-        </p>
-      </mat-expansion-panel>
-  
-      <!-- Question 6 -->
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>Will I be charged immediately when I upgrade?</mat-panel-title>
-        </mat-expansion-panel-header>
-        <p class="text-muted-foreground pl-4">
-          Yes, upgrading triggers an immediate charge based on the chosen plan. The billing cycle resets, and your new plan's features are available instantly.
-        </p>
-      </mat-expansion-panel>
-  
-      <!-- Question 7 -->
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>What happens at the end of my billing cycle?</mat-panel-title>
-        </mat-expansion-panel-header>
-        <p class="text-muted-foreground pl-4">
-          At the end of your billing cycle, your subscription will automatically renew unless you choose to cancel or change your plan before the renewal date.
-        </p>
-      </mat-expansion-panel>
-  
-      <!-- Question 8 -->
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>Is there a free trial available for premium plans?</mat-panel-title>
-        </mat-expansion-panel-header>
-        <p class="text-muted-foreground pl-4">
-          Yes, we offer a 14-day free trial for new users. During the trial, you’ll have access to all premium features, allowing you to explore the full potential of our service.
-        </p>
-      </mat-expansion-panel>
-  
-      <!-- Question 9 -->
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>How can I change my billing information?</mat-panel-title>
-        </mat-expansion-panel-header>
-        <p class="text-muted-foreground pl-4">
-          You can update your billing information by visiting the billing section in your account settings. All changes will apply from the next billing cycle.
-        </p>
-      </mat-expansion-panel>
-  
-      <!-- Question 10 -->
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>What if I have more questions?</mat-panel-title>
-        </mat-expansion-panel-header>
-        <p class="text-muted-foreground pl-4">
-          For further assistance, please contact our support team via email or chat. We’re here to help!
-        </p>
-      </mat-expansion-panel>
-  
-    </mat-accordion>
-  </div>
-  
+  <h4 class="text-lg font-semibold text-primary-foreground">Frequently Asked Questions</h4>
+
+  <mat-accordion *ngIf="planDetails" class="bg-card p-4 rounded-lg shadow mt-2">
+    <!-- Question 1 -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>What happens when I upgrade?</mat-panel-title>
+      </mat-expansion-panel-header>
+      <p class="text-muted-foreground pl-4">
+        When you upgrade, you will gain access to all premium features immediately.
+      </p>
+    </mat-expansion-panel>
+
+    <!-- Question 2 -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Can I cancel my subscription?</mat-panel-title>
+      </mat-expansion-panel-header>
+      <p class="text-muted-foreground pl-4">
+        Yes, you can cancel your subscription at any time from your account settings.
+      </p>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

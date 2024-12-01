@@ -2,6 +2,7 @@
   <!-- Sidenav -->
   <mat-sidenav #sidenav [mode]="mode" [opened]="isSidebarOpen" class="sm: sidenav.closee()" style="
       padding: 2rem 0 !important;
+      width: 20rem !important; 
       background-color: rgb(37, 36, 44);
       color: white !important;
       border-radius: 0% !important;
@@ -21,9 +22,9 @@
         Authentication</a>
       <a class="px-4 py-2 text-white block text-center cursor-pointer" (click)="setTab('plan-details')"> Plan And
         Usage</a>
-        <a class="px-4 py-2 text-white block text-center cursor-pointer" (click)="setTab('passwordless-option')"> 
+        <!-- <a class="px-4 py-2 text-white block text-center cursor-pointer" (click)="setTab('passwordless-option')"> 
           Passwordless Option
-        </a>
+        </a> -->
 
       <!-- SSO Integration -->
       <!-- <div class="px-4 py-2 text-white text-center mt-4">

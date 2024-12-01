@@ -34,21 +34,20 @@ export class RecoveryPhraseComponent {
   constructor() { }
 
   ngOnInit(): void {
-    // Subscribe to the user profile and fetch the recovery phrase and keys
+    this.isLoading = true;
     this.userService._userProfileSubject.pipe().subscribe({
       next: (profile) => {
-        console.log('User Profile:', profile);
+        console.log('User Profile:', profile.user);
 
-        if (profile?.user?.recoveryPhrase) {
           // Set recovery phrase
-          this.recoveryPhrase = profile.user.recoveryPhrase;
+          // this.recoveryPhrase = profile.user.recoveryPhrase;
 
           // Set public and private keys
           this.publicKey = profile.user.publicKey;
           this.privateKey = profile.user.privateKey;
 
           // Set fingerprint (example, in real case you'd calculate it or get from backend)
-          this.publicKeyFingerprint =this.calculateFingerprint( profile.user.fingerPrint);
+          this.publicKeyFingerprint =this.calculateFingerprint(profile.user.fingerPrint);
 
           // Set key creation and expiration dates (example values)
           this.publicKeyCreatedDate = '2022-01-01';
@@ -63,7 +62,8 @@ export class RecoveryPhraseComponent {
           // Set algorithms (RSA in this case)
           this.publicKeyAlgorithm = 'RSA';
           this.privateKeyAlgorithm = 'RSA';
-        }
+          this.isLoading = false;
+          this.changeDetectorRef.detectChanges()
       },
       error: (error) => {
         console.error('Error fetching user profile:', error);

@@ -1,7 +1,7 @@
 <header class="fixed inset-x-0 top-0 z-10 mb-20" *ngIf="!isLoading">
   <nav class="flex flex-col lg:flex-row items-center bg-gray-900 p-5 justify-between text-white relative">
     <div class="flex justify-between w-full lg:w-auto">
-      <!-- <a routerLink="/" class="text-4xl">Safepassvault</a> -->
+      <a routerLink="/" class="text-4xl">Safepassvault</a>
       <div class="flex lg:hidden">
         <button mat-icon-button [matMenuTriggerFor]="mainMenu">
           <mat-icon>menu</mat-icon>
@@ -56,24 +56,24 @@
           <button mat-button class="menu-item" (click)="logout()">Logout</button>
         </ng-container>
         <ng-template #loggedOutMenu>
-          <button mat-button [matMenuTriggerFor]="productsMenu">Products</button>
-          <a class="menu-item" mat-button routerLink="/plan-pricing">Plan and Pricing</a>
-          <a class="menu-item" mat-button [matMenuTriggerFor]="documentationMenu"> Documentation</a>
-
-          <a class="menu-item" mat-button routerLink="/support">Customer Support</a>
-          <a class="menu-item" mat-button routerLink="/roadmap">
-            Roadmap
-          </a>
-          <a class="menu-item" mat-button routerLink="/download">Download</a>
-          <a class="menu-item" mat-button routerLink="/auth/signup">Get Started</a>
-          <a mat-button class="menu-item" routerLink="/auth/login">Log In</a>
-          <!-- <a mat-button class="menu-item" routerLink="/privacy-policy">Privacy policy</a> -->
+            <button mat-button [matMenuTriggerFor]="productsMenu">Products</button>
+            <a class="menu-item" mat-button routerLink="/plan-pricing">Plan and Pricing</a>
+            <a class="menu-item" mat-button [matMenuTriggerFor]="documentationMenu"> Documentation</a>
+  
+            <a class="menu-item" mat-button routerLink="/support">Customer Support</a>
+            <a class="menu-item" mat-button routerLink="/roadmap">
+              Roadmap
+            </a>
+            <a class="menu-item" mat-button routerLink="/download">Download</a>
+            <a class="menu-item" mat-button routerLink="/auth/signup">Get Started</a>
+            <a mat-button class="menu-item" routerLink="/auth/login">Log In</a>
+            <!-- <a mat-button class="menu-item" routerLink="/privacy-policy">Privacy policy</a> -->
         </ng-template>
       </span>
     </div>
 
     <mat-menu #mainMenu="matMenu" class="flex flex-col">
-      <ng-container *ngIf="token; else loggedOutMenu">
+      <ng-container *ngIf="token">
         <a mat-menu-item class="menu-item" routerLink="/dashboard/passwords">Passwords</a>
         <a mat-menu-item class="menu-item" routerLink="/dashboard/notes">Secure Notes</a>
         <a mat-menu-item class="menu-item" routerLink="/dashboard/card">Cards</a>
@@ -84,8 +84,9 @@
         <a mat-menu-item class="menu-item" routerLink="/dashboard/profile/personal-details">Profile</a>
         <button mat-menu-item class="menu-item" (click)="logout()">Logout</button>
       </ng-container>
-      <ng-template #loggedOutMenu class="flex flex-col space-y-3">
-        <button mat-menu-item [matMenuTriggerFor]="productsMenu">Products</button>
+      <ng-container *ngIf="!token">
+      <div class="flex flex-col">
+        <button mat-menu-item [matMenuTriggerFor]="productsMenu" >Products</button>
         <button mat-menu-item routerLink="/plan-pricing">Plan and Pricing</button>
         <button mat-menu-item routerLink="/auth/signup">Get Started</button>
         <a mat-menu-item routerLink="/download">Download</a>
@@ -93,7 +94,8 @@
         <a mat-menu-item [matMenuTriggerFor]="documentationMenu"> Documentation</a>
         <a mat-menu-item routerLink="/support">Customer Support</a>
         <button mat-menu-item routerLink="/auth/login">Log In</button>
-      </ng-template>
+      </div>
+      </ng-container>
     </mat-menu>
 
     <mat-menu #productsMenu="matMenu">

@@ -30,7 +30,21 @@ export class AppComponent implements OnInit {
   readonly translate = inject(TranslateService);
   hideHeader: boolean = false;
   
+
   ngOnInit(): void {
+    this.authService.requestPermission().subscribe({
+      next: (token) => {
+        console.log('Device token received:', token);
+        // You can now proceed with saving the token or any other operation
+      },
+      error: (error) => {
+        console.error('Error getting device token:', error);
+        // Handle the error here (e.g., show an error message)
+      },
+      complete: () => {
+        console.log('Push notification setup process complete.');
+      }
+    });
     this.translate.addLangs(['en', 'klingon']);
     this.translate.setDefaultLang('en');
     this.translate.use('en');
@@ -44,7 +58,6 @@ export class AppComponent implements OnInit {
     });
     if (this.token) {
       this.authService.getProfile().subscribe((res) => {
-
       })
     }
   }

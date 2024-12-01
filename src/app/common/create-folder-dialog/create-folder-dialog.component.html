@@ -6,14 +6,13 @@
   </button>
 </mat-toolbar>
 
-<mat-dialog-content>
-  <mat-form-field appearance="outline">
-    <mat-label>Folder Name</mat-label>
+<mat-dialog-content class="flex flex-col w-full">
+  <mat-form-field appearance="outline" class="w-full">
     <input matInput placeholder="Folder Name" [(ngModel)]="folderName">
   </mat-form-field>
 </mat-dialog-content>
 
 <mat-dialog-actions>
   <button mat-button (click)="onCancel()">Cancel</button>
-  <button mat-button color="primary" (click)="onCreate()">Create</button>
+  <button mat-flat-button color="primary" (click)="onCreate()">Create</button>
 </mat-dialog-actions>

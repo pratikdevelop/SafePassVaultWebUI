@@ -20,16 +20,19 @@
                 <mat-option value="totp">Time-Based One-Time Password (TOTP)</mat-option>
                 <mat-option value="sms">SMS Authentication</mat-option>
                 <mat-option value="email">Email Authentication</mat-option>
-                <mat-option value="fingerprint">Fingerprint Authentication</mat-option>
-                <mat-option value="face">Face Recognition Authentication</mat-option>
-                <mat-option value="webauthn">
-                    WebAuthn (Web Authentication)
-
-                </mat-option>
+                <!-- <mat-option value="fingerprint">Fingerprint Authentication</mat-option> -->
+                <!-- <mat-option value="face">Face Recognition Authentication</mat-option> -->
+                <mat-option value="webauthn">WebAuthn (Web Authentication)</mat-option>
+                <!-- <mat-option value="push">Push Notification Authentication</mat-option> -->
             </mat-select>
         </mat-form-field>
 
-        <!-- Form fields for each MFA method -->
+        <!-- Push Notification Setup -->
+        <div *ngIf="mfaForm.get('mfaMethod')?.value === 'push'" class="setup-instructions">
+            <p>To enable push notifications, you must grant permission and register your device.</p>
+            <button mat-button (click)="setupPushNotification()">Setup Push Notification</button>
+        </div>
+
         <mat-form-field appearance="outline" *ngIf="mfaForm.get('mfaMethod')?.value === 'totp'">
             <input matInput [disabled]="userProfile.totpSecret !== null" formControlName="totpSecret"
                 placeholder="Enter your TOTP secret">
@@ -44,20 +47,14 @@
         </mat-form-field>
 
         <div *ngIf="mfaForm.get('mfaMethod')?.value === 'fingerprint'" class="setup-instructions">
-            <!-- WebAuthn Fingerprint Registration -->
             <button mat-button (click)="startFingerprintRegistration()">Register Fingerprint</button>
         </div>
 
         <div *ngIf="mfaForm.get('mfaMethod')?.value === 'face'" class="setup-instructions">
-            <!-- WebAuthn Face Registration -->
             <button mat-button (click)="startFaceRecognitionRegistration()">Register Face</button>
         </div>
-        <div *ngIf="mfaForm.get('mfaMethod')?.value === ''" class="setup-instructions">
-            <!-- WebAuthn Face Registration -->
-            <button mat-button (click)="startFaceRecognitionRegistration()">Register Face</button>
-        </div>
+
         <div *ngIf="mfaForm.get('mfaMethod')?.value === 'webauthn'" class="setup-instructions">
-            <!-- WebAuthn Registration -->
             <button mat-button (click)="onRegister()">Register WebAuthn</button>
         </div>
 

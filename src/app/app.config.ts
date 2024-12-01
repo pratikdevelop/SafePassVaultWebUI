@@ -11,6 +11,9 @@ import { HttpClient, provideHttpClient, withInterceptors } from '@angular/common
 import { apiInterceptor } from './api.interceptor';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
+import { environment } from '../environments/environment';
 
 function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -31,7 +34,8 @@ export const appConfig: ApplicationConfig = {
           deps: [HttpClient]
           }
       }
-    )]),
+    )], AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireMessagingModule, ) 
   ],
 };
 

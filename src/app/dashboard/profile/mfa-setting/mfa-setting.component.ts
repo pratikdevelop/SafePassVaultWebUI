@@ -57,6 +57,7 @@ export class MfaSettingComponent {
       totpSecret: [{ value: '', disabled: true }],
       smsPhoneNumber: [{ value: '', disabled: true }],
       emailAddress: [{ value: '', disabled: true }],
+      deviceToken: ['']
     });
     this.authService.getProfile().subscribe((response: any) => {
       this.userProfile = response.user;
@@ -175,5 +176,21 @@ export class MfaSettingComponent {
     } catch (error) {
       console.error('Error during registration:', error);
     }
+  }
+  setupPushNotification(): void {
+    this.authService.requestPermission().subscribe({
+      next: (token) => {
+        console.log('Device token received:', token);
+        // You can now proceed with saving the token or any other operation
+        this.mfaForm.get('deviceToken')?.setValue(token)
+      },
+      error: (error) => {
+        console.error('Error getting device token:', error);
+        // Handle the error here (e.g., show an error message)
+      },
+      complete: () => {
+        console.log('Push notification setup process complete.');
+      }
+    });
   }
 }

@@ -139,10 +139,10 @@ export class LoginComponent implements OnInit {
 
         startAuthentication({ optionsJSON: response.challenge }).then((response1) => {
 
-          this.auth.startWebAuthnAuthentication(response.challenge, response1).subscribe(
+          this.auth.startWebAuthnAuthentication(response.challenge, response1,  this.loginForm.value.username).subscribe(
             (authResponse: any) => {
               console.log('MFA Authentication Successful', authResponse);
-              localStorage.setItem('token', response.token);
+              localStorage.setItem('token', authResponse.token);
               this.auth.getProfile().subscribe(() => {
                 this.snackbar.open('Login successful', 'close', {
                   duration: 2000,
