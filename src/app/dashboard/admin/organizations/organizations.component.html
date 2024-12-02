@@ -52,7 +52,30 @@
     <mat-cell *matCellDef="let element"> {{element.updatedAt | date:'short'}} </mat-cell>
   </ng-container>
 
+  <ng-container matColumnDef="action">
+    <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <div class="flex items-center space-x-2">
+        <button mat-mini-fab color="secondary" (click)="openOrganizationDialog(element)">
+          <mat-icon>
+           edit
+          </mat-icon>
+          
+        </button>
+        <button mat-mini-fab color="warn" (click)="deleteOrganization(element._id)">
+          <mat-icon>
+            delete
+          </mat-icon>
+  
+        </button>
+
+      </div>
+
+    </mat-cell>
+  </ng-container>
+  
+
   <!-- Header and Row Definitions -->
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;" class="p-2"></mat-row>
 </mat-table>

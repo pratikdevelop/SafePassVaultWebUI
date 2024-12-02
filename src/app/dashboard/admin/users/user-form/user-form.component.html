@@ -1,16 +1,14 @@
 <h1 mat-dialog-title>Create User</h1>
 <div mat-dialog-content>
   <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="fill" class="w-full">
-      <mat-label>Name</mat-label>
+    <mat-form-field appearance="outline" class="w-full">
       <input matInput formControlName="name" placeholder="John Doe" required>
       <mat-error *ngIf="userForm.get('name')?.hasError('required')">
         Name is required
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="w-full">
-      <mat-label>Email</mat-label>
+    <mat-form-field appearance="outline" class="w-full">
       <input matInput formControlName="email" placeholder="name@company.com" required>
       <mat-error *ngIf="userForm.get('email')?.hasError('required')">
         Email is required
@@ -20,13 +18,11 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="w-full">
-      <mat-label>Phone Number</mat-label>
+    <mat-form-field appearance="outline" class="w-full">
       <input matInput  type="number" formControlName="phone" placeholder="123-456-7890">
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="w-full">
-      <mat-label>Organization</mat-label>
+    <mat-form-field appearance="outline" class="w-full">
       <mat-select formControlName="organization" placeholder="Select an organization">
         <mat-option *ngFor="let org of organizations" [value]="org?._id">
           {{ org.name }}
