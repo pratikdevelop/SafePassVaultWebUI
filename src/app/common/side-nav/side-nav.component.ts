@@ -49,14 +49,13 @@ export class SideNavComponent implements OnInit {
   folderId: string = '';
   folders: any[] = [];
   folderType: string | undefined;
+  tags: any = [];
 
   ngOnInit(): void {
     this.isLoading = true;
     const match = this.router.url.match(/\/dashboard\/([^\/]+)/);
     let name = match ? match[1] : '';
-    name = name === 'card' ? 'cards' : name
-    this.folderType = name;
-
+    this.folderType = name
     this.folderService.getFoldersByType(name).subscribe({
       next: (data: any) => {
         this.folders = data;
@@ -65,6 +64,19 @@ export class SideNavComponent implements OnInit {
         console.error(error);
       },
     });
+    this.commonService.getAllTagsByType(name).subscribe({
+      next: (data: any) => {
+        console.log(
+          'tags',
+          data
+        );
+
+        this.tags = data.tags;
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    })
     this.isLoading = false;
   }
 
@@ -103,5 +115,10 @@ export class SideNavComponent implements OnInit {
       this.UpdateFiilterType.emit({ folderId: value });
 
     }
+  }
+
+  openCreateTags($event: MouseEvent, arg1: string) {
+    $event.stopPropagation();
+
   }
 }

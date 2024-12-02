@@ -42,7 +42,6 @@ export class HeaderComponent implements OnInit {
     this.authService.userProfile$.subscribe({
       next: (response) => {
         this.userProfile = response;
-        console.log('df', this.userProfile);
         this.isLoading = false;
         this.changeDetectorRef.detectChanges();
       },

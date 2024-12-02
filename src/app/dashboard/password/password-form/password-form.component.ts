@@ -60,9 +60,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   templateUrl: './password-form.component.html',
 })
 export class PasswordFormComponent implements OnInit {
-searchFolders() {
-throw new Error('Method not implemented.');
-}
   isLoading = false;
   passwordForm: FormGroup;
   searchTermSubject = new Subject<string>();
@@ -76,6 +73,7 @@ throw new Error('Method not implemented.');
   tags: any[] = [];
   folders: any[] = [];
   selectedTags: any[] = [];
+  filterFolders: any[] = [];
 
   constructor() {
     this.passwordForm = this.formbuilder.group({
@@ -96,26 +94,41 @@ throw new Error('Method not implemented.');
   }
 
   ngOnInit(): void {
-    this.passwordForm.patchValue(this.data.password);
-    this.selectedTags = [...this.data.password?.tags];
+    // this.passwordForm.patchValue(this.data.password);
+    // this.selectedTags = [...this.data.password?.tags];
 
-    this.folderService.folderSubject$.subscribe((folders: any) => {
-      this.folders = folders || [];
-      const currentFolderId = this.passwordForm.controls['folderId'].value;
-      const folder = this.folders.find((f: any) => f._id === currentFolderId);
+    this.folderService.getFoldersByType('passwords').subscribe(
+      (folders) => {
+        console.log(
+          'folders',
+          folders
+        );
 
-      if (folder) {
-        this.passwordForm.patchValue({
-          folderId: folder._id,
-          searchFolders: folder.label,
-        });
-      } else if (this.folders.length > 0) {
-        this.passwordForm.patchValue({
-          folderId: this.folders[0]._id,
-          searchFolders: this.folders[0].label,
-        });
-      }
-    });
+        this.folders = folders;
+        this.filterFolders = folders;
+        console.log(
+          'folders',
+          this.folders
+        );
+
+      },
+    )
+    //   next: (data: any) => {
+    //     this.folders = data;
+    //     this.filterFolders = [...data];
+    //     console.log(
+    //       'Folders:',
+    //       data,
+    //     );
+
+    //   },
+    //   error: (error) => {
+    //     console.error(error);
+    //   },
+    //   complete: () => {
+    //     console.log('complete', this.data)
+    //   }
+    // })
   }
 
   onTagSelected(event: MatAutocompleteSelectedEvent): void {
@@ -248,4 +261,15 @@ throw new Error('Method not implemented.');
       return urlRegex.test(control.value) ? null : { url: true };
     };
   }
+  searchFolders(): void {
+    const searchTerm = this.passwordForm.value.searchFolders
+    console.log(
+      this.passwordForm.value
+    );
+
+    this.folderService.searchFolders(searchTerm, 'passwords').subscribe((folders: any[]) => {
+      this.folders = folders;
+    });
+  }
+
 }

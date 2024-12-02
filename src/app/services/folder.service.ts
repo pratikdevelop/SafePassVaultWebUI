@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 // Define the Folder model
 export interface Folder {
@@ -25,7 +25,7 @@ export class FolderService {
   private folderBehaviourSubject = new BehaviorSubject<Folder[] | null>(null);
   public folderSubject$: Observable<Folder[] | null> = this.folderBehaviourSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Load folders initially and set BehaviorSubject
   loadUserFolders(): void {
@@ -48,10 +48,16 @@ export class FolderService {
   }
 
   // Get folders by type and update BehaviorSubject
-  getFoldersByType(type: string): Observable<Folder[]> {
-    return this.http.get<Folder[]>(`${this.apiUrl}/type/${type}`).pipe(
-      tap(folders => this.folderBehaviourSubject.next(folders))
-    );
+  getFoldersByType(type: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/type/${type}`).pipe(map(response => {
+      console.log(
+        'Folders by type response:', response
+      );
+
+      const folders = response;
+      this.folderBehaviourSubject.next(folders);
+      return folders;
+    }))
   }
 
   // Get folder by ID

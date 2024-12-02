@@ -16,7 +16,7 @@ export class PlanService {
       currency: 'USD',
       interval: 'month',
       intervalCount: 1,
-     
+
     },
     {
       id: 'P-6XR17625JV867584NM3WGF7I',
@@ -25,7 +25,7 @@ export class PlanService {
       currency: 'USD',
       interval: 'year',
       intervalCount: 1,
-     
+
     },
     {
       id: 'P-5GV04444VF2894031M3VR2MY',
@@ -50,7 +50,7 @@ export class PlanService {
       currency: 'USD',
       interval: 'month',
       intervalCount: 1,
-     
+
     },
     {
       id: 'P-683760842Y234025BM3WGQ6Y',
@@ -69,7 +69,90 @@ export class PlanService {
       intervalCount: 1,
     },
   ];
-  constructor(private http: HttpClient) {}
+  planDetails = [
+    {
+      "plan": "Free Plan",
+      "features": {
+        "organization": 2,
+        "file_storage": "None",
+        "password_shares": "None",
+        "user_invitations": 4,
+        "detailed_log_report": false,
+        "api_integration": false,
+        "passwordless_sso": false
+      }
+    },
+    {
+      "plan": "Premium Plan (Yearly)",
+      "features": {
+        "organization": 10,
+        "file_storage": "5 GB",
+        "password_shares": 100,
+        "user_invitations": 100,
+        "detailed_log_report": true,
+        "api_integration": true
+      }
+    },
+    {
+      "plan": "Premium Plan (Monthly)",
+      "features": {
+        "organization": 10,
+        "file_storage": "5 GB",
+        "password_shares": 100,
+        "user_invitations": 100,
+        "detailed_log_report": true,
+        "api_integration": true
+      }
+    },
+    {
+      "plan": "Basic Plan (Yearly)",
+      "features": {
+        "organization": 5,
+        "file_storage": "1 GB",
+        "password_shares": 15,
+        "user_invitations": 15,
+        "detailed_log_report": true,
+        "api_integration": true
+      }
+    },
+    {
+      "plan": "Basic Plan (Monthly)",
+      "features": {
+        "organization": 5,
+        "file_storage": "1 GB",
+        "password_shares": 15,
+        "user_invitations": 15,
+        "detailed_log_report": true,
+        "api_integration": true
+      }
+    },
+    {
+      "plan": "Enterprise Plan (Yearly)",
+      "features": {
+        "organization": "Unlimited",
+        "file_storage": "10 GB",
+        "password_shares": "Unlimited",
+        "user_invitations": "Unlimited",
+        "detailed_log_report": true,
+        "api_integration": true,
+        "passwordless_sso": true
+      }
+    },
+    {
+      "plan": "Enterprise Plan (Monthly)",
+      "features": {
+        "organization": "Unlimited",
+        "file_storage": "10 GB",
+        "password_shares": "Unlimited",
+        "user_invitations": "Unlimited",
+        "detailed_log_report": true,
+        "api_integration": true,
+        "passwordless_sso": true
+      }
+    }
+  ]
+
+  constructor(private http: HttpClient) { }
 
   // Fetch all plans
   getPlans(): Observable<any> {
