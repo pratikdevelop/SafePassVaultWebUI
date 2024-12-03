@@ -7,6 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { OrganizationService } from '../../../../services/organization.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import countries from '../../../../country';
 
 @Component({
   selector: 'app-user-form',
@@ -18,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class UserFormComponent {
   userForm: FormGroup;
   organizations: any[] = [];
+  coutries = countries;
 
   constructor(
     private fb: FormBuilder,
@@ -28,7 +30,8 @@ export class UserFormComponent {
     this.userForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      phone: [''],
+      phoneExtension: ['', Validators.required],
+      phone: ['', Validators.required],
       organization: ['', Validators.required]
     });
   }
@@ -51,7 +54,7 @@ export class UserFormComponent {
   onSubmit(): void {
     if (this.userForm.valid) {
       // Handle form submission logic here
-      this.organizationService.sendInvitation(this.userForm.value.organization, this.userForm.value).subscribe((res)=>{
+      this.organizationService.sendInvitation(this.userForm.value.organization, this.userForm.value).subscribe((res) => {
         this.dialogRef.close(this.userForm.value);
 
       })

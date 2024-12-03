@@ -17,10 +17,27 @@
         Enter a valid email
       </mat-error>
     </mat-form-field>
+    <div class="flex flex-row">
+      <mat-form-field appearance="outline" class="w-1/4">
+        <mat-select formControlName="countryCode" required>
+          <ng-container *ngFor="let country of coutries">
+            <mat-option selecte [value]="country.code">{{country.code}} ({{country.name}})</mat-option>
 
-    <mat-form-field appearance="outline" class="w-full">
-      <input matInput  type="number" formControlName="phone" placeholder="123-456-7890">
-    </mat-form-field>
+          </ng-container>
+        </mat-select>
+        <mat-error *ngIf="
+                          userForm.get('countryCode')?.hasError('required') ||
+                          userForm.get('countryCode')?.touched
+                        ">
+          Country Code is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-3/4">
+        <input matInput type="number" formControlName="phone" placeholder="123-456-7890">
+      </mat-form-field>
+
+    </div>
 
     <mat-form-field appearance="outline" class="w-full">
       <mat-select formControlName="organization" placeholder="Select an organization">
