@@ -23,7 +23,7 @@ export class NoteService {
   getNotes(searchTerm?: any, event?: any): Observable<any[]> {
 
     const params = this.createHttpParams(searchTerm, event)
-    return this.http.get<any[]>(`${this.apiUrl}`, {params})
+    return this.http.get<any[]>(`${this.apiUrl}`, { params })
       .pipe(catchError(this.handleError));
   }
 
@@ -52,7 +52,7 @@ export class NoteService {
   }
 
   sharePassword(passwordId: string): Observable<{ shareLink: string }> {
-    return this.http.post<{ shareLink: string }>(`${this.apiUrl}/share/${passwordId}`,{})
+    return this.http.post<{ shareLink: string }>(`${this.apiUrl}/share/${passwordId}`, {})
       .pipe(
         catchError((error: any) => {
           console.error('Error generating share link:', error);
@@ -69,7 +69,7 @@ export class NoteService {
   }
 
   searchTags(name: string): Observable<any> {
-    return this.http.get(`${environment.api_url}/tags/search/${name}`);
+    return this.http.get(`${environment.api_url}/tags/search/notes/${name}`);
   }
 
   addTag(payload: any): Observable<any> {

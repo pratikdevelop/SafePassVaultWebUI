@@ -12,14 +12,19 @@
     <div class="menu-content hidden lg:flex lg:flex-row lg:space-x-4 lg:justify-end w-full lg:w-auto">
       <span class="flex flex-col lg:flex-row items-center space-y-2 lg:space-y-0 lg:space-x-4 ml-auto">
         <ng-container *ngIf="token; else loggedOutMenu">
-          
-          <button mat-button [matMenuTriggerFor]="pagesMenu">
+
+          <button mat-raised-button [matMenuTriggerFor]="pagesMenu">
             pages
           </button>
+          <!-- Custom Tailwind classes added to buttons -->
+          <button routerLink="/dashboard/log-report" mat-raised-button
+            class="bg-blue-500 text-white hover:bg-blue-600 px-4 py-2 rounded-lg">
+            View Details
+          </button>
+
           <mat-menu #pagesMenu="matMenu">
-          
-            <a mat-menu-item class="menu-item" (click)="updateSideBar('passwords')"
-              routerLink="/dashboard/passwords">
+
+            <a mat-menu-item class="menu-item" (click)="updateSideBar('passwords')" routerLink="/dashboard/passwords">
               <mat-icon>
                 lock
               </mat-icon>
@@ -30,44 +35,43 @@
               </mat-icon>
               Secure
               Notes</a>
-              <a mat-menu-item class="menu-item" (click)="updateSideBar('card')" routerLink="/dashboard/cards">
-                <mat-icon>
-                  credit_card
-                </mat-icon>
-                Cards</a>
-              <a mat-menu-item class="menu-item" (click)="updateSideBar('card')" routerLink="/dashboard/address">
-                <mat-icon>
-                  location_city
-                </mat-icon>
-                Address</a>
+            <a mat-menu-item class="menu-item" (click)="updateSideBar('card')" routerLink="/dashboard/cards">
+              <mat-icon>
+                credit_card
+              </mat-icon>
+              Cards</a>
+            <a mat-menu-item class="menu-item" (click)="updateSideBar('card')" routerLink="/dashboard/address">
+              <mat-icon>
+                location_city
+              </mat-icon>
+              Address</a>
             <a mat-menu-item class="menu-item" (click)="updateSideBar('file')" routerLink="/dashboard/files">
               <mat-icon>
                 attach_file
               </mat-icon>
               File Storage</a>
-            <a mat-menu-item class="menu-item" (click)="updateSideBar('identity')"
-              routerLink="/dashboard/identity">
+            <a mat-menu-item class="menu-item" (click)="updateSideBar('identity')" routerLink="/dashboard/identity">
               <mat-icon>perm_identity</mat-icon>
               Identity</a>
           </mat-menu>
-          <a mat-button class="menu-item" *ngIf="userProfile?.user.role === 'admin'"
+          <a mat-raised-button class="menu-item" *ngIf="userProfile?.user.role === 'admin'"
             routerLink="/admin/users">Administration</a>
-          <a mat-button class="menu-item" routerLink="/dashboard/profile/personal-details">Profile</a>
-          <button mat-button class="menu-item" (click)="logout()">Logout</button>
+          <a mat-raised-button class="menu-item" routerLink="/dashboard/profile/personal-details">Profile</a>
+          <button mat-raised-button class="menu-item" (click)="logout()">Logout</button>
         </ng-container>
         <ng-template #loggedOutMenu>
-            <button mat-button [matMenuTriggerFor]="productsMenu">Products</button>
-            <a class="menu-item" mat-button routerLink="/plan-pricing">Plan and Pricing</a>
-            <a class="menu-item" mat-button [matMenuTriggerFor]="documentationMenu"> Documentation</a>
-  
-            <a class="menu-item" mat-button routerLink="/support">Customer Support</a>
-            <a class="menu-item" mat-button routerLink="/roadmap">
-              Roadmap
-            </a>
-            <a class="menu-item" mat-button routerLink="/download">Download</a>
-            <a class="menu-item" mat-button routerLink="/auth/signup">Get Started</a>
-            <a mat-button class="menu-item" routerLink="/auth/login">Log In</a>
-            <!-- <a mat-button class="menu-item" routerLink="/privacy-policy">Privacy policy</a> -->
+          <button mat-raised-button [matMenuTriggerFor]="productsMenu">Products</button>
+          <a class="menu-item" mat-raised-button routerLink="/plan-pricing">Plan and Pricing</a>
+          <a class="menu-item" mat-raised-button [matMenuTriggerFor]="documentationMenu"> Documentation</a>
+
+          <a class="menu-item" mat-raised-button routerLink="/support">Customer Support</a>
+          <a class="menu-item" mat-raised-button routerLink="/roadmap">
+            Roadmap
+          </a>
+          <a class="menu-item" mat-raised-button routerLink="/download">Download</a>
+          <a class="menu-item" mat-raised-button routerLink="/auth/signup">Get Started</a>
+          <a mat-raised-button class="menu-item" routerLink="/auth/login">Log In</a>
+          <!-- <a mat-raised-button class="menu-item" routerLink="/privacy-policy">Privacy policy</a> -->
         </ng-template>
       </span>
     </div>
@@ -85,16 +89,16 @@
         <button mat-menu-item class="menu-item" (click)="logout()">Logout</button>
       </ng-container>
       <ng-container *ngIf="!token">
-      <div class="flex flex-col">
-        <button mat-menu-item [matMenuTriggerFor]="productsMenu" >Products</button>
-        <button mat-menu-item routerLink="/plan-pricing">Plan and Pricing</button>
-        <button mat-menu-item routerLink="/auth/signup">Get Started</button>
-        <a mat-menu-item routerLink="/download">Download</a>
+        <div class="flex flex-col">
+          <button mat-menu-item [matMenuTriggerFor]="productsMenu">Products</button>
+          <button mat-menu-item routerLink="/plan-pricing">Plan and Pricing</button>
+          <button mat-menu-item routerLink="/auth/signup">Get Started</button>
+          <a mat-menu-item routerLink="/download">Download</a>
 
-        <a mat-menu-item [matMenuTriggerFor]="documentationMenu"> Documentation</a>
-        <a mat-menu-item routerLink="/support">Customer Support</a>
-        <button mat-menu-item routerLink="/auth/login">Log In</button>
-      </div>
+          <a mat-menu-item [matMenuTriggerFor]="documentationMenu"> Documentation</a>
+          <a mat-menu-item routerLink="/support">Customer Support</a>
+          <button mat-menu-item routerLink="/auth/login">Log In</button>
+        </div>
       </ng-container>
     </mat-menu>
 

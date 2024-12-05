@@ -62,6 +62,11 @@ export const dashboardRoutes: Routes = [
         canActivate: [authGuard],
         loadComponent: () =>
           import('./address/address.component').then((m) => m.AddressComponent),
+      },
+      {
+        path: "log-report",
+        loadComponent: () =>
+          import('./log-report/log-report.component').then((m) => m.LogReportComponent),
       }
 
     ],
