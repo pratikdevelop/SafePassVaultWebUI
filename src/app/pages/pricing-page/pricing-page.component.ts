@@ -27,9 +27,9 @@ export class PricingPageComponent implements OnInit {
   plans: any[] = [];
   planLoading = true;
   planTypes: any[] = [];
-  detectorRef = inject(ChangeDetectorRef);
-  router = inject(Router)
-  service = inject(PlanService);
+  private readonly detectorRef = inject(ChangeDetectorRef);
+  private readonly router = inject(Router)
+  private readonly service = inject(PlanService);
   selectedInterval: string = 'month';
 
   ngOnInit(): void {
@@ -51,11 +51,6 @@ export class PricingPageComponent implements OnInit {
   }
 
   navigateToPlan(buttonLink: string, queryParams: any, planId: string): void {
-    // Add the plan ID to the query parameters
-    console.log(buttonLink);
-    console.log(queryParams);
-    console.log(planId);
-    
     const updatedQueryParams = { ...queryParams, planId };
     this.router.navigate([buttonLink], { queryParams: updatedQueryParams });
   }

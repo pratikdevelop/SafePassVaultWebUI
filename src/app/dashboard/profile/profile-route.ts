@@ -63,6 +63,13 @@ export const profileRoutes: Routes = [
         canActivate: [authGuard],
         loadComponent: () =>
           import('./passwordless-options/passwordless-options.component').then((m) => m.PasswordlessOptionsComponent)
+      },
+      {
+        path: 'upgrade',
+        loadComponent: () =>
+          import('./billing-details/plan-upgrade/plan-upgrade.component').then(m => m.PlanUpgradeComponent)
+
+
       }
     ],
   },

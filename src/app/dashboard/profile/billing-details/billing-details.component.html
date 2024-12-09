@@ -1,19 +1,13 @@
-<nav
-  aria-label="Global"
-  class="flex items-center justify-between w-full text-primary-foreground bg-background shadow-lg rounded-md p-3"
->
+<nav aria-label="Global"
+  class="flex items-center justify-between w-full text-primary-foreground bg-background shadow-lg rounded-md p-3">
   <div class="text-primary-foreground flex items-center space-x-2">
     <button class="menu-button lg:hidden p-2 rounded-md hover:bg-muted transition duration-200">
       <img aria-hidden="true" alt="menu-icon" src="https://openui.fly.dev/openui/24x24.svg?text=☰" />
     </button>
     <div class="text-xl sm:text-3xl font-bold">Billing and Plan Details</div>
   </div>
-  <button
-    mat-flat-button
-    *ngIf="planDetails?.queryParams"
-    [routerLink]="['/account/upgrade']"
-    [queryParams]="planDetails.queryParams"
-  >
+  <button mat-flat-button *ngIf="planDetails?.queryParams" [routerLink]="['/dashboard/profile/upgrade']"
+    [queryParams]="planDetails.queryParams">
     Update Plan
   </button>
 </nav>
@@ -38,12 +32,8 @@
       <div *ngFor="let feature of planDetails.features">
         <ul class="list-none">
           <li class="mb-2 flex items-center">
-            <img
-              aria-hidden="true"
-              alt="check-icon"
-              src="https://openui.fly.dev/openui/24x24.svg?text=✔️"
-              class="text-green-500 mr-2"
-            />
+            <img aria-hidden="true" alt="check-icon" src="https://openui.fly.dev/openui/24x24.svg?text=✔️"
+              class="text-green-500 mr-2" />
             {{ feature.text }}
           </li>
         </ul>

@@ -213,4 +213,7 @@ export class PlanService {
     // Throw the error so it can be caught in components using this service
     return throwError(() => new Error(errorMessage));
   }
+  upgradePlan(planId: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/upgrade`, { planId });
+  }
 }
