@@ -35,17 +35,17 @@
               </mat-icon>
               Secure
               Notes</a>
-            <a mat-menu-item class="menu-item" (click)="updateSideBar('card')" routerLink="/dashboard/cards">
+            <a mat-menu-item class="menu-item" (click)="updateSideBar('cards')" routerLink="/dashboard/cards">
               <mat-icon>
                 credit_card
               </mat-icon>
               Cards</a>
-            <a mat-menu-item class="menu-item" (click)="updateSideBar('card')" routerLink="/dashboard/address">
+            <a mat-menu-item class="menu-item" (click)="updateSideBar('address')" routerLink="/dashboard/address">
               <mat-icon>
                 location_city
               </mat-icon>
               Address</a>
-            <a mat-menu-item class="menu-item" (click)="updateSideBar('file')" routerLink="/dashboard/files">
+            <a mat-menu-item class="menu-item" (click)="updateSideBar('files')" routerLink="/dashboard/files">
               <mat-icon>
                 attach_file
               </mat-icon>
@@ -53,6 +53,13 @@
             <a mat-menu-item class="menu-item" (click)="updateSideBar('identity')" routerLink="/dashboard/identity">
               <mat-icon>perm_identity</mat-icon>
               Identity</a>
+
+            <a mat-menu-item class="menu-item" (click)="updateSideBar('secrets')" routerLink="/dashboard/secrets">
+              <mat-icon>
+                secrets
+              </mat-icon>
+              Secrets</a>
+
           </mat-menu>
           <a mat-raised-button class="menu-item" *ngIf="userProfile?.user.role === 'admin'"
             routerLink="/admin/users">Administration</a>
@@ -71,7 +78,6 @@
           <a class="menu-item" mat-raised-button routerLink="/download">Download</a>
           <a class="menu-item" mat-raised-button routerLink="/auth/signup">Get Started</a>
           <a mat-raised-button class="menu-item" routerLink="/auth/login">Log In</a>
-          <!-- <a mat-raised-button class="menu-item" routerLink="/privacy-policy">Privacy policy</a> -->
         </ng-template>
       </span>
     </div>

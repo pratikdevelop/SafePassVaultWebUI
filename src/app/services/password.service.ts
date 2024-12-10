@@ -145,9 +145,7 @@ export class PasswordService {
       );
   }
 
-  searchTags(name: string): Observable<any> {
-    return this.http.get(`${environment.api_url}/tags/search/passwords/${name}`);
-  }
+
 
   addTag(payload: any): Observable<any> {
     return this.http.post<any>(`${environment.api_url}/tags/tag`, payload);

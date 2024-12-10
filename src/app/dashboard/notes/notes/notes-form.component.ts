@@ -27,8 +27,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NoteService } from '../../../services/note.service';
 import { FolderService } from '../../../services/folder.service';
-import { map } from 'rxjs';
+import { catchError, debounceTime, map, Observable, switchMap } from 'rxjs';
 import { TagsCreationDialogComponent } from '../../../common/tags-creation-dialog/tags-creation-dialog.component';
+import { CommonService } from '../../../services/common.service';
 
 @Component({
   selector: 'app-notes-form',
@@ -58,6 +59,8 @@ export class NotesFormComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly folderService = inject(FolderService);
   private readonly changeDetectorRef = inject(ChangeDetectorRef);
+  private readonly commonService = inject(CommonService);
+
   isLoading: any;
   folders: any[] = [];
   selectedTags: any[] = [];
@@ -110,32 +113,85 @@ export class NotesFormComponent implements OnInit {
   }
 
   searchTags(): void {
-    const searchTerm = this.noteForm.value.searchTerm?.trim().toLowerCase();
-    if (searchTerm) {
-      this.isLoading = true;
-      this.noteService
-        .searchTags(searchTerm)
-        .pipe(
-          map((value: any[]) =>
-            value.map((tag: any) => ({ name: tag.name, _id: tag._id }))
-          )
-        )
-        .subscribe({
-          next: (tags: any[]) => {
-            this.tags = tags;
+    this.noteForm
+      .get('searchTerm')
+      ?.valueChanges.pipe(
+        debounceTime(500), // Wait for 500ms after the user stops typing
+        switchMap((searchTerm: string) => {
+          if (searchTerm.trim()) {
+            // Only make the API call if the search term is not empty
+            this.isLoading = true;
+            return this.commonService
+              .searchTags(searchTerm.trim().toLowerCase(), 'notes')
+              .pipe(
+                map((tags: any[]) =>
+                  tags.map((tag) => ({ name: tag.name, _id: tag._id }))
+                ),
+                catchError((error) => {
+                  console.error('Error searching tags:', error);
+                  this.isLoading = false;
+                  return []; // Return an empty array in case of error
+                })
+              );
+          } else {
+            // If the search term is empty, return an empty array and stop loading
             this.isLoading = false;
-          },
-          error: (error: any) => {
-            console.error('Error searching tags:', error);
-            this.isLoading = false;
-          },
-        });
-    } else {
-      this.tags = []; // Clear tags if search term is empty
-      this.isLoading = false;
-    }
+            return new Observable<any[]>((observer) => {
+              observer.next([]); // Emit an empty array
+              observer.complete();
+            });
+          }
+        })
+      )
+      .subscribe({
+        next: (tags: any[]) => {
+          this.tags = tags;
+          this.isLoading = false;
+        },
+        error: (error) => {
+          console.error('Search error:', error);
+          this.isLoading = false;
+        },
+      });
   }
-  searchFolders(): void {}
+  searchFolders(): void {
+    this.noteForm
+      .get('searchFolders')
+      ?.valueChanges.pipe(
+        debounceTime(500), // Wait for 500ms after the user stops typing
+        switchMap((searchFolders: string) => {
+          if (searchFolders.trim()) {
+            // Only make the API call if the search term is not empty
+            this.isLoading = true;
+            return this.folderService
+              .searchFolders(searchFolders.trim().toLowerCase(), 'notes')
+              .pipe(
+                catchError((error) => {
+                  console.error('Error searching folders:', error);
+                  this.isLoading = false;
+                  return []; // Return an empty array in case of error
+                })
+              );
+          } else {
+            this.isLoading = false;
+            return new Observable<any[]>((observer) => {
+              observer.next([]); // Emit an empty array
+              observer.complete();
+            });
+          }
+        })
+      )
+      .subscribe({
+        next: (folders: any[]) => {
+          this.folders = folders;
+          this.isLoading = false;
+        },
+        error: (error) => {
+          console.error('Search error:', error);
+          this.isLoading = false;
+        },
+      });
+  }
 
   onFolderSelected($event: MatAutocompleteSelectedEvent) {
     this.noteForm.get('folderId')?.setValue($event.option.value._id);
@@ -158,8 +214,12 @@ export class NotesFormComponent implements OnInit {
       });
   }
   createNewTag(): void {
-    const dialogRef = this.dialog.open(TagsCreationDialogComponent, {
+    this.dialog.open(TagsCreationDialogComponent, {
       width: '1400px',
+      data: {
+        name: this.noteForm.value.searchTerm,
+        type: 'notes'
+      }
     });
   }
 

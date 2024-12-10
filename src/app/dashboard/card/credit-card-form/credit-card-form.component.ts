@@ -156,6 +156,10 @@ export class CreditCardFormComponent {
   createNewTag(): void {
     this.dialog.open(TagsCreationDialogComponent, {
       width: '1400px',
+      data: {
+        name: this.creditCardForm.value.searchTerm,
+        type: 'cards'
+      }
     });
   }
 
