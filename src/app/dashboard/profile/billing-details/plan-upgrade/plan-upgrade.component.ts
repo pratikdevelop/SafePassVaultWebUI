@@ -81,11 +81,16 @@ export class PlanUpgradeComponent implements OnInit {
   // Handle plan selection and initialize PayPal configuration
   selectPlan(plan: any): void {
     this.selectedPlan = plan;
+    console.log(
+      this.selectedPlan,
+      'fdfdfds'
+    );
+    
     this.initPayPalConfig();
   }
 
   // Initialize PayPal configuration dynamically based on the selected plan
-  private initPayPalConfig(): void {
+  initPayPalConfig(): void {
     this.payPalConfig = {
       currency: 'USD',
       clientId: 'AXBL_2Bz7P3ArXfpL-gwlNjeXwz38eiNCrvTfrUA5efGicHbISs-ZHAW7c3q7iNzwQAFxD3HQczoXIKA', // Your PayPal client ID
@@ -143,6 +148,10 @@ export class PlanUpgradeComponent implements OnInit {
         layout: 'vertical',
       },
       onApprove: (data, actions) => {
+        console.log(
+          'PayPal Payment Method approved. PaymentMethod ID:',
+        );
+        
         actions.order.get().then((details: any) => {
           this.createSubscription(details);
         });
@@ -152,6 +161,10 @@ export class PlanUpgradeComponent implements OnInit {
       },
       onCancel: () => {
         this.showCancel = true;
+        console.log(
+          'The payment method was canceled',
+        );
+        
       },
       onError: (err) => {
         this.showError = true;
@@ -166,6 +179,10 @@ export class PlanUpgradeComponent implements OnInit {
     this.showSuccess = false;
     this.showCancel = false;
     this.showError = false;
+    console.log(
+      'Resetting status flags',
+    );
+    
   }
 
   // Handle subscription creation after PayPal order approval
