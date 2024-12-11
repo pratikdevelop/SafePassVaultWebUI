@@ -6,8 +6,7 @@
     </button>
     <div class="text-xl sm:text-3xl font-bold">Billing and Plan Details</div>
   </div>
-  <button mat-flat-button *ngIf="planDetails?.queryParams" [routerLink]="['/dashboard/profile/upgrade']"
-    [queryParams]="planDetails.queryParams">
+  <button mat-flat-button [routerLink]="['/dashboard/profile/upgrade']">
     Update Plan
   </button>
 </nav>

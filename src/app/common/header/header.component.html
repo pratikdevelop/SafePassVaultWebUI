@@ -12,96 +12,162 @@
     <div class="menu-content hidden lg:flex lg:flex-row lg:space-x-4 lg:justify-end w-full lg:w-auto">
       <span class="flex flex-col lg:flex-row items-center space-y-2 lg:space-y-0 lg:space-x-4 ml-auto">
         <ng-container *ngIf="token; else loggedOutMenu">
-
-          <button mat-raised-button [matMenuTriggerFor]="pagesMenu">
-            pages
-          </button>
-          <!-- Custom Tailwind classes added to buttons -->
-          <button routerLink="/dashboard/log-report" mat-raised-button
-            class="bg-blue-500 text-white hover:bg-blue-600 px-4 py-2 rounded-lg">
-            View Details
-          </button>
+          <a class="text-sm font-extrabold capitalize cursor-pointer" [matMenuTriggerFor]="pagesMenu">
+            Products
+          </a>
+          <!-- Custom Tailwind classes added to as -->
+          <a class="text-sm font-extrabold capitalize cursor-pointer" routerLink="/dashboard/log-report">Log Report</a>
 
           <mat-menu #pagesMenu="matMenu">
-
-            <a mat-menu-item class="menu-item" (click)="updateSideBar('passwords')" routerLink="/dashboard/passwords">
-              <mat-icon>
-                lock
-              </mat-icon>
+            <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer"
+              (click)="updateSideBar('passwords')" routerLink="/dashboard/passwords">
+              <mat-icon> lock </mat-icon>
               Passwords</a>
-            <a mat-menu-item class="menu-item" (click)="updateSideBar('notes')" routerLink="/dashboard/notes">
-              <mat-icon>
-                note
-              </mat-icon>
-              Secure
-              Notes</a>
-            <a mat-menu-item class="menu-item" (click)="updateSideBar('cards')" routerLink="/dashboard/cards">
-              <mat-icon>
-                credit_card
-              </mat-icon>
+            <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" (click)="updateSideBar('notes')"
+              routerLink="/dashboard/notes">
+              <mat-icon> note </mat-icon>
+              Secure Notes</a>
+            <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" (click)="updateSideBar('card')"
+              routerLink="/dashboard/cards">
+              <mat-icon> credit_card </mat-icon>
               Cards</a>
-            <a mat-menu-item class="menu-item" (click)="updateSideBar('address')" routerLink="/dashboard/address">
-              <mat-icon>
-                location_city
-              </mat-icon>
+            <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" (click)="updateSideBar('card')"
+              routerLink="/dashboard/address">
+              <mat-icon> location_city </mat-icon>
               Address</a>
-            <a mat-menu-item class="menu-item" (click)="updateSideBar('files')" routerLink="/dashboard/files">
-              <mat-icon>
-                attach_file
-              </mat-icon>
+            <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" (click)="updateSideBar('file')"
+              routerLink="/dashboard/files">
+              <mat-icon> attach_file </mat-icon>
               File Storage</a>
-            <a mat-menu-item class="menu-item" (click)="updateSideBar('identity')" routerLink="/dashboard/identity">
+            <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer"
+              (click)="updateSideBar('identity')" routerLink="/dashboard/identity">
               <mat-icon>perm_identity</mat-icon>
               Identity</a>
-
-            <a mat-menu-item class="menu-item" (click)="updateSideBar('secrets')" routerLink="/dashboard/secrets">
-              <mat-icon>
-                secrets
-              </mat-icon>
+            <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" (click)="updateSideBar('secrets')"
+              routerLink="/dashboard/secrets">
+              <mat-icon>security</mat-icon>
               Secrets</a>
-
           </mat-menu>
-          <a mat-raised-button class="menu-item" *ngIf="userProfile?.user.role === 'admin'"
+          <a class="text-sm font-extrabold capitalize cursor-pointer" *ngIf="userProfile?.user.role === 'admin'"
             routerLink="/admin/users">Administration</a>
-          <a mat-raised-button class="menu-item" routerLink="/dashboard/profile/personal-details">Profile</a>
-          <button mat-raised-button class="menu-item" (click)="logout()">Logout</button>
+          <a class="text-sm font-extrabold capitalize cursor-pointer"
+            routerLink="/dashboard/profile/personal-details">Profile</a>
+          <a class="text-sm font-extrabold capitalize cursor-pointer" (click)="logout()">
+            Logout
+          </a>
         </ng-container>
         <ng-template #loggedOutMenu>
-          <button mat-raised-button [matMenuTriggerFor]="productsMenu">Products</button>
-          <a class="menu-item" mat-raised-button routerLink="/plan-pricing">Plan and Pricing</a>
-          <a class="menu-item" mat-raised-button [matMenuTriggerFor]="documentationMenu"> Documentation</a>
+          <a [matMenuTriggerFor]="productsMenu">Products</a>
+          <a class="text-sm font-extrabold capitalize cursor-pointer" routerLink="/plan-pricing">Plan and Pricing</a>
+          <a class="text-sm font-extrabold capitalize cursor-pointer" [matMenuTriggerFor]="documentationMenu">
+            Documentation</a>
 
-          <a class="menu-item" mat-raised-button routerLink="/support">Customer Support</a>
-          <a class="menu-item" mat-raised-button routerLink="/roadmap">
-            Roadmap
-          </a>
-          <a class="menu-item" mat-raised-button routerLink="/download">Download</a>
-          <a class="menu-item" mat-raised-button routerLink="/auth/signup">Get Started</a>
-          <a mat-raised-button class="menu-item" routerLink="/auth/login">Log In</a>
+          <a class="text-sm font-extrabold capitalize cursor-pointer" routerLink="/support">Customer Support</a>
+          <a class="text-sm font-extrabold capitalize cursor-pointer" routerLink="/roadmap"> Roadmap </a>
+          <a class="text-sm font-extrabold capitalize cursor-pointer" routerLink="/download">Download</a>
+          <a class="text-sm font-extrabold capitalize cursor-pointer" routerLink="/auth/signup">Get Started</a>
+          <a class="text-sm font-extrabold capitalize cursor-pointer" routerLink="/auth/login">Log In</a>
         </ng-template>
       </span>
     </div>
 
-    <mat-menu #mainMenu="matMenu" class="flex flex-col">
+    <mat-menu #mainMenu="matMenu">
       <ng-container *ngIf="token">
-        <a mat-menu-item class="menu-item" routerLink="/dashboard/passwords">Passwords</a>
-        <a mat-menu-item class="menu-item" routerLink="/dashboard/notes">Secure Notes</a>
-        <a mat-menu-item class="menu-item" routerLink="/dashboard/card">Cards</a>
-        <a mat-menu-item class="menu-item" routerLink="/dashboard/file">File Storage</a>
-        <a mat-menu-item class="menu-item" routerLink="/dashboard/identity">Identity</a>
-        <a mat-menu-item class="menu-item" *ngIf="userProfile?.role === 'admin'"
-          routerLink="/admin/users">Administration</a>
-        <a mat-menu-item class="menu-item" routerLink="/dashboard/profile/personal-details">Profile</a>
-        <button mat-menu-item class="menu-item" (click)="logout()">Logout</button>
+        <div class="flex flex-col">
+          <!-- <a
+            mat-menu-item
+            class="text-sm font-extrabold capitalize cursor-pointer"
+            routerLink="/dashboard/passwords"
+            >Passwords</a
+          >
+          <a
+            mat-menu-item
+            class="text-sm font-extrabold capitalize cursor-pointer"
+            routerLink="/dashboard/notes"
+            >Secure Notes</a
+          >
+          <a
+            mat-menu-item
+            class="text-sm font-extrabold capitalize cursor-pointer"
+            routerLink="/dashboard/card"
+            >Cards</a
+          >
+          <a
+            mat-menu-item
+            class="text-sm font-extrabold capitalize cursor-pointer"
+            routerLink="/dashboard/file"
+            >File Storage</a
+          >
+          <a
+            mat-menu-item
+            class="text-sm font-extrabold capitalize cursor-pointer"
+            routerLink="/dashboard/identity"
+            >Identity</a
+          > -->
+          <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" [matMenuTriggerFor]="pagesMenu">
+            Products
+          </a>
+          <!-- Custom Tailwind classes added to as -->
+
+          <mat-menu #pagesMenu="matMenu">
+            <div class="flex flex-col">
+
+              <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer"
+                (click)="updateSideBar('passwords')" routerLink="/dashboard/passwords">
+                <mat-icon> lock </mat-icon>
+                Passwords</a>
+              <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" (click)="updateSideBar('notes')"
+                routerLink="/dashboard/notes">
+                <mat-icon> note </mat-icon>
+                Secure Notes</a>
+              <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" (click)="updateSideBar('card')"
+                routerLink="/dashboard/cards">
+                <mat-icon> credit_card </mat-icon>
+                Cards</a>
+              <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" (click)="updateSideBar('card')"
+                routerLink="/dashboard/address">
+                <mat-icon> location_city </mat-icon>
+                Address</a>
+              <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" (click)="updateSideBar('file')"
+                routerLink="/dashboard/files">
+                <mat-icon> attach_file </mat-icon>
+                File Storage</a>
+              <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer"
+                (click)="updateSideBar('identity')" routerLink="/dashboard/identity">
+                <mat-icon>perm_identity</mat-icon>
+                Identity</a>
+              <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer"
+                (click)="updateSideBar('secrets')" routerLink="/dashboard/secrets">
+                <mat-icon>security</mat-icon>
+                Secrets</a>
+            </div>
+          </mat-menu>
+          <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer"
+            routerLink="/dashboard/log-report">Log Report</a>
+
+          <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer"
+            *ngIf="userProfile?.role === 'admin'" routerLink="/admin/users">Administration</a>
+          <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer"
+            routerLink="/dashboard/profile/personal-details">Profile</a>
+          <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" (click)="logout()">
+            Logout
+          </a>
+
+        </div>
       </ng-container>
       <ng-container *ngIf="!token">
         <div class="flex flex-col">
-          <button mat-menu-item [matMenuTriggerFor]="productsMenu">Products</button>
-          <button mat-menu-item routerLink="/plan-pricing">Plan and Pricing</button>
+          <button mat-menu-item [matMenuTriggerFor]="productsMenu">
+            Products
+          </button>
+          <button mat-menu-item routerLink="/plan-pricing">
+            Plan and Pricing
+          </button>
           <button mat-menu-item routerLink="/auth/signup">Get Started</button>
           <a mat-menu-item routerLink="/download">Download</a>
 
-          <a mat-menu-item [matMenuTriggerFor]="documentationMenu"> Documentation</a>
+          <a mat-menu-item [matMenuTriggerFor]="documentationMenu">
+            Documentation</a>
           <a mat-menu-item routerLink="/support">Customer Support</a>
           <button mat-menu-item routerLink="/auth/login">Log In</button>
         </div>
@@ -110,8 +176,12 @@
 
     <mat-menu #productsMenu="matMenu">
       <button mat-menu-item routerLink="/generator">Password Generator</button>
-      <button mat-menu-item routerLink="/password-strength">Password Checker</button>
-      <button mat-menu-item routerLink="/dashboard/passwords">Password Vault</button>
+      <button mat-menu-item routerLink="/password-strength">
+        Password Checker
+      </button>
+      <button mat-menu-item routerLink="/dashboard/passwords">
+        Password Vault
+      </button>
       <button mat-menu-item routerLink="/dashboard/file">File Storage</button>
     </mat-menu>
     <mat-menu #documentationMenu="matMenu">
