@@ -8,6 +8,12 @@ import { MatInputModule } from '@angular/material/input';
 import { SecretService } from '../../../../services/secret.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-secrets-management-form',
@@ -21,7 +27,17 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatButtonModule,
     MatDialogModule,
     MatTooltipModule,
-    MatToolbarModule
+    MatToolbarModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatSlideToggleModule,
+    MatCardModule,
+    MatNativeDateModule,
   ],
   templateUrl: './secrets-management-form.component.html',
   styleUrl: './secrets-management-form.component.css'
@@ -33,13 +49,24 @@ export class SecretsManagementFormComponent {
   private readonly secretService =inject(SecretService);
   private readonly formBuilder = inject(FormBuilder);
   newSecret: FormGroup;
+  hideValue: boolean = true;
+  categories: string[] = ['API Keys', 'Passwords', 'Personal Notes', 'Certificates'];
+  currentUser: string = 'John Doe'; // Example user; replace with actual data
+  currentDate: Date = new Date();
+
 
   constructor() {
     this.newSecret = this.formBuilder.group({
       name: new FormControl(''),
       type: new FormControl(''),
       value: new FormControl(''),
-      description: new FormControl('')
+      description: new FormControl(''),
+      encrypt: [false],
+      category: [''],
+      expirationDate: [''],
+      createdBy: [this.currentUser],
+      createdDate: [this.currentDate],
+    
     });
 
   }
@@ -59,4 +86,22 @@ export class SecretsManagementFormComponent {
       }
       });
   }
+
+  onReset() {
+    this.newSecret.reset({
+      name: '',
+      type: '',
+      value: '',
+      encrypt: false,
+      description: '',
+      category: '',
+      expirationDate: '',
+      createdBy: this.currentUser,
+      createdDate: this.currentDate,
+    });
+  }
+  toggleValueVisibility() {
+    this.hideValue = !this.hideValue;
+  }
+
 }
