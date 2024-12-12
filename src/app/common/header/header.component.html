@@ -18,6 +18,11 @@
           <!-- Custom Tailwind classes added to as -->
           <a class="text-sm font-extrabold capitalize cursor-pointer" routerLink="/dashboard/log-report">Log Report</a>
 
+          <!-- New Ticket System Button -->
+          <a class="text-sm font-extrabold capitalize cursor-pointer" routerLink="/tickets">
+            Report an Issue
+          </a>
+
           <mat-menu #pagesMenu="matMenu">
             <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer"
               (click)="updateSideBar('passwords')" routerLink="/dashboard/passwords">
@@ -61,7 +66,6 @@
           <a class="text-sm font-extrabold capitalize cursor-pointer" routerLink="/plan-pricing">Plan and Pricing</a>
           <a class="text-sm font-extrabold capitalize cursor-pointer" [matMenuTriggerFor]="documentationMenu">
             Documentation</a>
-
           <a class="text-sm font-extrabold capitalize cursor-pointer" routerLink="/support">Customer Support</a>
           <a class="text-sm font-extrabold capitalize cursor-pointer" routerLink="/roadmap"> Roadmap </a>
           <a class="text-sm font-extrabold capitalize cursor-pointer" routerLink="/download">Download</a>
@@ -74,44 +78,11 @@
     <mat-menu #mainMenu="matMenu">
       <ng-container *ngIf="token">
         <div class="flex flex-col">
-          <!-- <a
-            mat-menu-item
-            class="text-sm font-extrabold capitalize cursor-pointer"
-            routerLink="/dashboard/passwords"
-            >Passwords</a
-          >
-          <a
-            mat-menu-item
-            class="text-sm font-extrabold capitalize cursor-pointer"
-            routerLink="/dashboard/notes"
-            >Secure Notes</a
-          >
-          <a
-            mat-menu-item
-            class="text-sm font-extrabold capitalize cursor-pointer"
-            routerLink="/dashboard/card"
-            >Cards</a
-          >
-          <a
-            mat-menu-item
-            class="text-sm font-extrabold capitalize cursor-pointer"
-            routerLink="/dashboard/file"
-            >File Storage</a
-          >
-          <a
-            mat-menu-item
-            class="text-sm font-extrabold capitalize cursor-pointer"
-            routerLink="/dashboard/identity"
-            >Identity</a
-          > -->
           <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" [matMenuTriggerFor]="pagesMenu">
             Products
           </a>
-          <!-- Custom Tailwind classes added to as -->
-
           <mat-menu #pagesMenu="matMenu">
             <div class="flex flex-col">
-
               <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer"
                 (click)="updateSideBar('passwords')" routerLink="/dashboard/passwords">
                 <mat-icon> lock </mat-icon>
@@ -142,9 +113,14 @@
                 Secrets</a>
             </div>
           </mat-menu>
+
+          <!-- New Ticket System Button -->
+          <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" routerLink="/dashboard/tickets">
+            Report an Issue
+          </a>
+
           <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer"
             routerLink="/dashboard/log-report">Log Report</a>
-
           <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer"
             *ngIf="userProfile?.role === 'admin'" routerLink="/admin/users">Administration</a>
           <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer"
