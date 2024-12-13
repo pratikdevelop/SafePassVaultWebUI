@@ -1,71 +1,98 @@
 <div class="p-6 bg-gray-100 min-h-screen flex justify-center items-center">
-    <div class="w-full max-w-2xl bg-white shadow-md rounded-lg p-6">
-      <h1 class="text-2xl font-bold text-gray-800 mb-4">Report an Issue</h1>
-      <form (ngSubmit)="submitIssue()">
-        <!-- Name Field -->
-        <mat-form-field appearance="fill" class="w-full mb-4">
-          <mat-label>Your Name</mat-label>
-          <input matInput placeholder="Enter your name" [(ngModel)]="ticket.name" name="name" required />
-        </mat-form-field>
-  
-        <!-- Email Field -->
-        <mat-form-field appearance="fill" class="w-full mb-4">
-          <mat-label>Your Email</mat-label>
-          <input
-            matInput
-            type="email"
-            placeholder="Enter your email"
-            [(ngModel)]="ticket.email"
-            name="email"
-            required
-          />
-        </mat-form-field>
-  
-        <!-- Issue Category -->
-        <mat-form-field appearance="fill" class="w-full mb-4">
-          <mat-label>Category</mat-label>
-          <mat-select [(ngModel)]="ticket.category" name="category" required>
-            <mat-option value="bug">Bug</mat-option>
-            <mat-option value="feature-request">Feature Request</mat-option>
-            <mat-option value="general-feedback">General Feedback</mat-option>
-          </mat-select>
-        </mat-form-field>
-  
-        <!-- Description Field -->
-        <mat-form-field appearance="fill" class="w-full mb-4">
-          <mat-label>Describe the issue</mat-label>
-          <textarea
-            matInput
-            rows="5"
-            placeholder="Provide detailed information"
-            [(ngModel)]="ticket.description"
-            name="description"
-            required
-          ></textarea>
-        </mat-form-field>
-  
-        <!-- Priority -->
-        <div class="flex items-center space-x-4 mb-4">
-          <span class="font-medium text-gray-600">Priority:</span>
-          <mat-radio-group [(ngModel)]="ticket.priority" name="priority" class="flex flex-row space-x-4">
-            <mat-radio-button value="low">Low</mat-radio-button>
-            <mat-radio-button value="medium">Medium</mat-radio-button>
-            <mat-radio-button value="high">High</mat-radio-button>
-          </mat-radio-group>
-        </div>
-  
-        <!-- Submit Button -->
-        <div class="flex justify-end">
-          <button
-            mat-raised-button
-            color="primary"
-            class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg"
-            type="submit"
-          >
-            Submit
-          </button>
-        </div>
-      </form>
-    </div>
+  <div class="w-full max-w-2xl bg-white shadow-md rounded-lg p-6">
+    <h1 class="text-2xl font-bold text-gray-800 mb-4">Report an Issue</h1>
+    <form [formGroup]="ticketForm">
+      <!-- Issue Category -->
+      <mat-form-field appearance="outline" class="w-full mb-4">
+        <mat-select formControlName="category" name="category" required>
+          <mat-option value="" [ariaSelected]="true">
+            Select a category
+          </mat-option>
+          <mat-option value="bug">Bug</mat-option>
+          <mat-option value="feature-request">Feature Request</mat-option>
+          <mat-option value="general-feedback">General Feedback</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Category Subtype -->
+      <mat-form-field appearance="outline" class="w-full mb-4">
+        <input matInput placeholder="Specify the subtype" formControlName="categorySubtype" name="categorySubtype" />
+      </mat-form-field>
+
+      <!-- Description Field -->
+      <mat-form-field appearance="outline" class="w-full mb-4">
+        <textarea matInput rows="5" placeholder="Provide detailed information" formControlName="description"
+          name="description" required></textarea>
+      </mat-form-field>
+
+      <!-- Priority -->
+      <div class="flex items-center space-x-4 mb-4">
+        <span class="font-medium text-gray-600">Priority:</span>
+        <mat-radio-group formControlName="priority" name="priority" class="flex flex-row space-x-4">
+          <mat-radio-button value="Low">Low</mat-radio-button>
+          <mat-radio-button value="Medium">Medium</mat-radio-button>
+          <mat-radio-button value="High">High</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <!-- Severity -->
+      <div class="flex items-center space-x-4 mb-4">
+        <span class="font-medium text-gray-600">Severity:</span>
+        <mat-radio-group formControlName="severity" name="severity" class="flex flex-row space-x-4">
+          <mat-radio-button value="Minor">Minor</mat-radio-button>
+          <mat-radio-button value="Moderate">Moderate</mat-radio-button>
+          <mat-radio-button value="Critical">Critical</mat-radio-button>
+        </mat-radio-group>
+      </div>
+
+      <!-- Due Date -->
+      <mat-form-field appearance="outline" class="w-full mb-4">
+        <input matInput type="date" formControlName="dueDate" name="dueDate" [matDatepicker]="picker">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <!-- Attachments -->
+      <mat-form-field appearance="outline" class="w-full mb-4">
+        <input matInput type="text" placeholder="Add attachment links" formControlName="attachments"
+          name="attachments" />
+      </mat-form-field>
+
+      <!-- Labels -->
+      <mat-form-field appearance="outline" class="w-full mb-4">
+        <input matInput type="text" placeholder="Enter labels" formControlName="labels" name="labels" />
+      </mat-form-field>
+
+      <!-- Environment -->
+      <mat-form-field appearance="outline" class="w-full mb-4">
+        <input matInput type="text" placeholder="Enter environment (e.g., UAT)" formControlName="environment"
+          name="environment" />
+      </mat-form-field>
+
+      <!-- Custom Fields -->
+      <mat-form-field appearance="outline" class="w-full mb-4">
+        <input matInput type="text" placeholder="Enter customfield_10000" formControlName="customfield_10000"
+          name="customfield_10000" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-full mb-4">
+        <input matInput type="text" placeholder="Enter customfield_20000" formControlName="customfield_20000"
+          name="customfield_20000" />
+      </mat-form-field>
+
+      <!-- Resolution Notes -->
+      <mat-form-field appearance="outline" class="w-full mb-4">
+        <textarea matInput rows="3" placeholder="Add any resolution notes" formControlName="resolutionNotes"
+          name="resolutionNotes"></textarea>
+      </mat-form-field>
+      <!-- Submit Button -->
+      <div class="flex justify-end">
+        <button mat-raised-button color="primary" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg"
+          type="button" (click)="onSubmit()">
+          Submit
+        </button>
+      </div>
+    </form>
   </div>
-  
+</div>

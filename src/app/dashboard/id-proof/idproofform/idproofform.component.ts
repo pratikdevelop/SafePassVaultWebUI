@@ -18,7 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select';
-import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
+import { MatNativeDateModule, MatOptionModule, provideNativeDateAdapter } from '@angular/material/core';
 import { ProofIdService } from '../../../services/proof-id.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { map, debounceTime, switchMap, catchError, Observable } from 'rxjs';
@@ -53,6 +53,7 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
   ],
   templateUrl: './idproofform.component.html',
   styleUrl: './idproofform.component.css',
+  providers: [provideNativeDateAdapter()],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IdproofformComponent {

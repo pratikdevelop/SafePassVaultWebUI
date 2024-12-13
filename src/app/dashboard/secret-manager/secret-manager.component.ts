@@ -21,6 +21,8 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { SecretsManagementFormComponent } from './dialog/secrets-management-form/secrets-management-form.component';
+import { ConfirmationComponent } from '../../common/confirmation/confirmation.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-secret-manager',
@@ -37,13 +39,24 @@ import { SecretsManagementFormComponent } from './dialog/secrets-management-form
     MatIconModule,
     SideNavComponent,
     MatSidenavModule,
+    MatCheckboxModule
   ],
   templateUrl: './secret-manager.component.html',
   styleUrl: './secret-manager.component.css',
 })
 export class SecretManagerComponent implements OnInit {
+  checkboxLabel(row: any = null): string {
+    throw new Error('Method not implemented.');
+  }
+  isAllSelected(): boolean {
+    throw new Error('Method not implemented.');
+  }
+  toggleAllRows() {
+    throw new Error('Method not implemented.');
+  }
   searchTerm: any;
   element: any;
+  selection: any;
   toggleSideBar() {
     throw new Error('Method not implemented.');
   }
@@ -54,8 +67,10 @@ export class SecretManagerComponent implements OnInit {
     'id',
     'name',
     'type',
-    'value',
     'description',
+    'created_by',
+    'created_At',
+    'updated_At',
     'action',
   ]; // Columns to display in the table
   isBreakPoint!: boolean;
@@ -111,7 +126,7 @@ export class SecretManagerComponent implements OnInit {
   loadSecrets() {
     this.secretService.getSecrets().subscribe({
       next: (data: any) => {
-        this.secrets = data.decryptedSecrets;
+        this.secrets = data.secrets;
         this.chageDetectorRef.detectChanges();
       },
       error: (error: any) => {
@@ -134,8 +149,26 @@ export class SecretManagerComponent implements OnInit {
     });
   }
 
-  deleteCard(arg0: any) {
-    throw new Error('Method not implemented.');
+  deleteCard(id: any): void {
+    this.dialog.open(ConfirmationComponent, {
+      width: '500px',
+      data: {
+        title: 'Delete Secret',
+        description: 'Are you sure you want to delete this Secrets?',
+      }
+    }
+    ).afterClosed().subscribe((confirmation) => {
+      if (confirmation) {
+        this.secretService.deleteSecret(id).subscribe({
+          next: (response) => {
+            this.loadSecrets();
+          },
+          error: (error) => {
+
+          }
+        })
+      }
+    })
   }
   updateFavourites(arg0: any) {
     throw new Error('Method not implemented.');
