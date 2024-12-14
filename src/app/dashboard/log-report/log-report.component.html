@@ -1,28 +1,58 @@
 <mat-sidenav-container class="h-[100vh] flex-auto overflow-hidden">
     <mat-sidenav #drawer [opened]="isSidebarOpen" [mode]="mode"
-        style="width: 18em !important; border-radius: 0% !important; display: flex !important; flex-direction: column !important; column-gap: 3rem !important; background-color: rgb(7, 13, 34) !important;">
+        style="width: 22em !important; border-radius: 0% !important; display: flex !important; flex-direction: column !important; column-gap: 3rem !important; background-color: rgb(7, 13, 34) !important;">
         <form [formGroup]="form"
-            class="border-r-1 flex flex-col h-full overflow-hidden overflow-y-auto space-y-6 py-4 px-0 bg-slate-900 flex-auto text-white px-8">
+            class="border-r-1 flex flex-col h-full overflow-hidden overflow-y-auto space-y-6 py-4 bg-slate-900 flex-auto text-white px-8">
             <span class="text-3xl font-bold">
                 Filter by:
             </span>
-            <mat-selection-list [multiple]="false" formControlName="filterList"
-                (selectionChange)="change($event.source._value)" class="flex flex-col space-y-6">
+            <mat-selection-list [multiple]="false" class="flex flex-col flex-auto space-y-6">
                 <!-- Entity Selection (dynamic) -->
-                <mat-form-field>
-                    <mat-label>Entity</mat-label>
-                    <mat-select formControlName="entity">
+                <mat-form-field appearance="outline">
+                    <mat-select formControlName="entity" (selectionChange)="change('entity')">
                         <mat-option *ngFor="let entity of entities" [value]="entity">{{ entity }}</mat-option>
                     </mat-select>
                 </mat-form-field>
 
                 <!-- Action Type Selection -->
-                <mat-form-field>
-                    <mat-label>Action Type</mat-label>
-                    <mat-select formControlName="action">
+                <mat-form-field appearance="outline">
+                    <mat-select formControlName="action" (selectionChange)="change('action')">
                         <mat-option *ngFor="let action of actions" [value]="action">{{ action }}</mat-option>
                     </mat-select>
                 </mat-form-field>
+                <mat-form-field appearance="outline" style="width: 75% !important;">
+                    <mat-select placeholder="Date range" (selectionChange)="onDateRangeChange($event.value)">
+                        <mat-option value="custom">Custom</mat-option>
+                        <mat-option value="today">Today</mat-option>
+                        <mat-option value="yesterday">Yesterday</mat-option>
+                        <mat-option value="lastWeek">Last week</mat-option>
+                        <mat-option value="last7Days">Last 7 days</mat-option>
+                        <mat-option value="lastMonth">Last month</mat-option>
+                        <mat-option value="last30Days">Last 30 days</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <div class="flex flex-col space-y-4" *ngIf="form.get('dateRangeType')?.value === 'custom'">
+                    <mat-form-field color="accent" appearance="outline">
+                        <mat-label>Start From</mat-label>
+                        <input matInput [matDatepicker]="picker1" formControlName="start"
+                            (dateChange)="onDateRangeSelectionChange($event, 'start')">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field color="accent" appearance="outline">
+                        <mat-label>End to:</mat-label>
+                        <input matInput [matDatepicker]="picker2" formControlName="end"
+                            (dateChange)="onDateRangeSelectionChange($event, 'end')">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2 color="primary"></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+
             </mat-selection-list>
         </form>
     </mat-sidenav>
@@ -37,13 +67,17 @@
                 <div class="flex sm:items-center space-x-2 sm:w-6/12 sm:justify-end">
                     <input matInput type="text" placeholder="Search the logs" aria-label="Search the logs"
                         class="w-8/12 py-2 px-3 border-2 border-slate-900 text-gray-500" [(ngModel)]="searchTerm"
-                        (keyup)="searchLogs()">
+                        (keyup)="searchLogs(searchTerm)">
                 </div>
             </nav>
 
             <!-- Log Table -->
             <div class="overflow-x-auto">
-                <table mat-table [dataSource]="filteredLogs" class="min-w-full table-auto">
+                <table mat-table [dataSource]="logs" class="min-w-full table-auto">
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef class="text-left px-4 py-2">S.No</th>
+                        <td mat-cell *matCellDef="let log; let i = index" class="text-left px-4 py-2">{{ i+1 }}</td>
+                    </ng-container>
                     <!-- Action Column -->
                     <ng-container matColumnDef="action">
                         <th mat-header-cell *matHeaderCellDef class="text-left px-4 py-2">Action</th>
@@ -52,14 +86,14 @@
 
                     <!-- Timestamp Column -->
                     <ng-container matColumnDef="timestamp">
-                        <th mat-header-cell *matHeaderCellDef class="text-left px-4 py-2">Timestamp</th>
+                        <th mat-header-cell *matHeaderCellDef class="text-left px-4 py-2">Performed At</th>
                         <td mat-cell *matCellDef="let log" class="text-left px-4 py-2">{{ log.timestamp | date: 'short'
                             }}</td>
                     </ng-container>
 
                     <!-- User Column -->
                     <ng-container matColumnDef="user">
-                        <th mat-header-cell *matHeaderCellDef class="text-left px-4 py-2">User</th>
+                        <th mat-header-cell *matHeaderCellDef class="text-left px-4 py-2">Performed By</th>
                         <td mat-cell *matCellDef="let log" class="text-left px-4 py-2">{{ log.userId.name }}</td>
                     </ng-container>
 
@@ -67,14 +101,6 @@
                     <ng-container matColumnDef="entity">
                         <th mat-header-cell *matHeaderCellDef class="text-left px-4 py-2">Entity</th>
                         <td mat-cell *matCellDef="let log" class="text-left px-4 py-2">{{ log.entity }}</td>
-                    </ng-container>
-
-                    <!-- Folder Column (If the entity is a folder, display its name) -->
-                    <ng-container matColumnDef="folder">
-                        <th mat-header-cell *matHeaderCellDef class="text-left px-4 py-2">Folder</th>
-                        <td mat-cell *matCellDef="let log" class="text-left px-4 py-2">{{ (log.newValue?.name | json) ||
-                            'N/A' }}
-                        </td>
                     </ng-container>
                     <<ng-container matColumnDef="ipAddress">
                         <th mat-header-cell *matHeaderCellDef class="text-left px-4 py-
@@ -86,21 +112,13 @@
 
 
                         <!-- Tag Column (Display tag name if the entity is a Tag) -->
-                        <ng-container matColumnDef="tag">
-                            <th mat-header-cell *matHeaderCellDef class="text-left px-4 py-2">Tag</th>
-                            <td mat-cell *matCellDef="let log" class="text-left px-4 py-2">{{ (log.newValue?.name |
-                                json) ||
-                                'N/A' }}
-                            </td>
+                        <ng-container matColumnDef="userAgent">
+                            <th mat-header-cell *matHeaderCellDef class="text-left px-4 py-2">User Agent</th>
+                            <td mat-cell *matCellDef="let log" class="text-left px-4 py-2">{{
+                                log.userAgent }}</td>
                         </ng-container>
 
-                        <!-- Password Website Column (If the entity is a password, show website) -->
-                        <ng-container matColumnDef="website">
-                            <th mat-header-cell *matHeaderCellDef class="text-left px-4 py-2">Website</th>
-                            <td mat-cell *matCellDef="let log" class="text-left px-4 py-2">{{ log.newValue?.website ||
-                                'N/A'
-                                }}</td>
-                        </ng-container>
+
 
                         <!-- Password Username Column -->
                         <ng-container matColumnDef="type">
@@ -109,13 +127,6 @@
                                 'N/A' }}</td>
                         </ng-container>
 
-                        <!-- Status Column -->
-                        <ng-container matColumnDef="status">
-                            <th mat-header-cell *matHeaderCellDef class="text-left px-4 py-2">New Value</th>
-                            <td mat-cell *matCellDef="let log" class="text-left px-4 py-2">
-                                <pre>{{ log.newValue | json }}</pre>
-                            </td>
-                        </ng-container>
 
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -123,7 +134,7 @@
             </div>
 
             <!-- Pagination -->
-            <mat-paginator [length]="filteredLogs.length" [pageSize]="pageSize" (page)="pageChanged($event)"
+            <mat-paginator [length]="logs.length" [pageSize]="pageSize" (page)="pageChanged($event)"
                 class="mt-4"></mat-paginator>
         </div>
     </mat-sidenav-content>
