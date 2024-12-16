@@ -161,22 +161,25 @@ export class FileExplorerComponent implements OnInit {
     });
   }
 
-  // Method to perform download action
   downloadFile(fileId: string): void {
-    this.fileService.getFilePreview(fileId).pipe().subscribe({
+    this.fileService.getFilePreview(fileId).subscribe({
       next: (response: any) => {
-        this.fileDownloadUrl = response.location; // Assuming location is the file's download URL
+        const fileDownloadUrl = response.location; // Assuming location is the file's download URL
         const link = document.createElement('a');
-        link.href = this.fileDownloadUrl;
-        link.download = response.originalName || 'file'; // Set download file name
+        link.href = fileDownloadUrl;
+        link.download = response.originalName || 'file'; // Set a default filename if none is provided
+        link.target = '_blank'; // Optional: Opens the link in a new tab if direct download fails
         link.click();
-        this.changeDetectorRef.detectChanges();
+  
+        // Optionally, clean up created DOM element
+        link.remove();
       },
       error: (error: any) => {
-        console.log(error);
+        console.error('Error during file download:', error);
       }
     });
   }
+  
 
   onEditFile(fileId: string): void {
     const file = this.dataSource.find(f => f._id === fileId);

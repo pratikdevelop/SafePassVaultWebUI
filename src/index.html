@@ -12,12 +12,15 @@
 
   <!-- Security Headers: -->
   <!-- Content-Security-Policy -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; 
-  script-src 'self' https://cdn.zudoku.dev https://www.googletagmanager.com; 
-  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.zudoku.dev; 
+  <meta http-equiv="Content-Security-Policy" content="
+  default-src 'self';
+  script-src 'self' https://cdn.zudoku.dev https://www.googletagmanager.com;
+  style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.zudoku.dev;
   font-src 'self' https://fonts.gstatic.com;
-  img-src 'self' https://www.google-analytics.com;
-  connect-src 'self' https://www.google-analytics.com;">
+  img-src 'self' https://www.google-analytics.com 
+  https://openui.fly.dev/openui/30.svg https://placehold.co/150;
+  connect-src 'self' http://localhost:3000 https://www.google-analytics.com;">
+
   <!-- X-Frame-Options -->
   <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 
