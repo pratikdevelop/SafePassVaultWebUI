@@ -42,3 +42,5 @@ testem.log
 /out
 Thumbs.db
 /chrome-extension
+
+api/
