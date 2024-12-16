@@ -36,7 +36,7 @@
               routerLink="/dashboard/cards">
               <mat-icon> credit_card </mat-icon>
               Cards</a>
-            <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" (click)="updateSideBar('card')"
+            <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" (click)="updateSideBar('address')"
               routerLink="/dashboard/address">
               <mat-icon> location_city </mat-icon>
               Address</a>
@@ -95,8 +95,8 @@
                 routerLink="/dashboard/cards">
                 <mat-icon> credit_card </mat-icon>
                 Cards</a>
-              <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" (click)="updateSideBar('card')"
-                routerLink="/dashboard/address">
+              <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer"
+                (click)="updateSideBar('address')" routerLink="/dashboard/address">
                 <mat-icon> location_city </mat-icon>
                 Address</a>
               <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" (click)="updateSideBar('file')"
@@ -122,7 +122,7 @@
           <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer"
             routerLink="/dashboard/log-report">Log Report</a>
           <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer"
-            *ngIf="userProfile?.role === 'admin'" routerLink="/admin/users">Administration</a>
+            *ngIf="userProfile?.user?.role === 'admin'" routerLink="/admin/users">Administration</a>
           <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer"
             routerLink="/dashboard/profile/personal-details">Profile</a>
           <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" (click)="logout()">

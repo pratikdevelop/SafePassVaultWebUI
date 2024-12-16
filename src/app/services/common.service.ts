@@ -32,9 +32,13 @@ export class CommonService {
       return response
     }));
   }
-
-  searchTags(name: string, type: any): Observable<any> {
-    return this.http.get(`${environment.api_url}/tags/search/${type}/${name}`);
+  searchTags(name: string, type: string): Observable<any> {
+    // Validate and sanitize inputs
+    if (!name || typeof name !== 'string') {
+      throw new Error('Invalid name parameter');
+    }
+    const sanitizedName = encodeURIComponent(name.trim());
+    return this.http.get(`${environment.api_url}/tags/search/${type}/${sanitizedName}`);
   }
 
   createTicket(formData: any): Observable<any> {

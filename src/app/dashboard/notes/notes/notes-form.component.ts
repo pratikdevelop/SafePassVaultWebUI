@@ -99,6 +99,8 @@ export class NotesFormComponent implements OnInit {
         });
       }
     });
+    this.searchTags();
+
   }
   onTagSelected(event: MatAutocompleteSelectedEvent): void {
     const tags = this.noteForm.value.tags || [];
