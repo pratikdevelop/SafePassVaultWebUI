@@ -26,7 +26,6 @@ import { FolderService } from '../../../services/folder.service';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatChipsModule,
-    MatChipListbox,
     MatAutocompleteModule,
     MatButtonModule,
     MatToolbarModule,

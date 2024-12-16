@@ -67,6 +67,12 @@ export const dashboardRoutes: Routes = [
         path: "log-report",
         loadComponent: () =>
           import('./log-report/log-report.component').then((m) => m.LogReportComponent),
+      },
+      {
+        path: 'tickets',
+        loadComponent: () =>
+          import('./report-issue/report-issue.component').then((m) => m.ReportIssueComponent),
+
       }
 
     ],

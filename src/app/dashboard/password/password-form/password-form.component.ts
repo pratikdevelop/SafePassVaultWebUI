@@ -1,9 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -21,11 +16,14 @@ import {
   MAT_DIALOG_DATA,
   MatDialog,
   MatDialogModule,
-  MatDialogRef
+  MatDialogRef,
 } from '@angular/material/dialog';
-import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {
+  MatAutocompleteModule,
+  MatAutocompleteSelectedEvent,
+} from '@angular/material/autocomplete';
+import { Observable, Subject } from 'rxjs';
+import { catchError, debounceTime, map, switchMap } from 'rxjs/operators';
 import { FolderService } from '../../../services/folder.service';
 import { TagsCreationDialogComponent } from '../../../common/tags-creation-dialog/tags-creation-dialog.component';
 
@@ -38,6 +36,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { CommonService } from '../../../services/common.service';
 
 @Component({
   selector: 'app-password-form',
@@ -55,7 +54,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatCheckboxModule,
     MatChipsModule,
     MatIconModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
   templateUrl: './password-form.component.html',
 })
@@ -70,6 +69,7 @@ export class PasswordFormComponent implements OnInit {
   private readonly detectorRef = inject(ChangeDetectorRef);
   private readonly dialogRef = inject(MatDialogRef<PasswordFormComponent>);
   private readonly folderService = inject(FolderService);
+  private readonly commonService = inject(CommonService);
   tags: any[] = [];
   folders: any[] = [];
   selectedTags: any[] = [];
@@ -94,41 +94,13 @@ export class PasswordFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.passwordForm.patchValue(this.data.password);
-    // this.selectedTags = [...this.data.password?.tags];
+    this.folderService.getFoldersByType('passwords').subscribe((folders) => {
+      console.log('folders', folders);
 
-    this.folderService.getFoldersByType('passwords').subscribe(
-      (folders) => {
-        console.log(
-          'folders',
-          folders
-        );
-
-        this.folders = folders;
-        this.filterFolders = folders;
-        console.log(
-          'folders',
-          this.folders
-        );
-
-      },
-    )
-    //   next: (data: any) => {
-    //     this.folders = data;
-    //     this.filterFolders = [...data];
-    //     console.log(
-    //       'Folders:',
-    //       data,
-    //     );
-
-    //   },
-    //   error: (error) => {
-    //     console.error(error);
-    //   },
-    //   complete: () => {
-    //     console.log('complete', this.data)
-    //   }
-    // })
+      this.folders = folders;
+      this.filterFolders = folders;
+      console.log('folders', this.folders);
+    });
   }
 
   onTagSelected(event: MatAutocompleteSelectedEvent): void {
@@ -143,27 +115,46 @@ export class PasswordFormComponent implements OnInit {
   }
 
   searchTags(): void {
-    const searchTerm = this.passwordForm.value.searchTerm?.trim().toLowerCase();
-    if (searchTerm) {
-      this.isLoading = true;
-      this.passwordService.searchTags(searchTerm).pipe(
-        map((tags: any[]) =>
-          tags.map((tag: any) => ({ name: tag.name, _id: tag._id }))
-        )
-      ).subscribe({
+    this.passwordForm
+      .get('searchTerm')
+      ?.valueChanges.pipe(
+        debounceTime(500), // Wait for 500ms after the user stops typing
+        switchMap((searchTerm: string) => {
+          if (searchTerm.trim()) {
+            // Only make the API call if the search term is not empty
+            this.isLoading = true;
+            return this.commonService
+              .searchTags(searchTerm.trim().toLowerCase(), 'passwords')
+              .pipe(
+                map((tags: any[]) =>
+                  tags.map((tag) => ({ name: tag.name, _id: tag._id }))
+                ),
+                catchError((error) => {
+                  console.error('Error searching tags:', error);
+                  this.isLoading = false;
+                  return []; // Return an empty array in case of error
+                })
+              );
+          } else {
+            // If the search term is empty, return an empty array and stop loading
+            this.isLoading = false;
+            return new Observable<any[]>((observer) => {
+              observer.next([]); // Emit an empty array
+              observer.complete();
+            });
+          }
+        })
+      )
+      .subscribe({
         next: (tags: any[]) => {
           this.tags = tags;
           this.isLoading = false;
         },
-        error: (error: any) => {
-          console.error('Error searching tags:', error);
+        error: (error) => {
+          console.error('Search error:', error);
           this.isLoading = false;
-        }
+        },
       });
-    } else {
-      this.tags = [];
-      this.isLoading = false;
-    }
   }
 
   onFolderSelected(event: MatAutocompleteSelectedEvent): void {
@@ -172,16 +163,18 @@ export class PasswordFormComponent implements OnInit {
   }
 
   createNewFolder(): void {
-    this.folderService.createFolder({
-      name: this.passwordForm.value.searchFolders,
-      type: 'passwords'
-    }).subscribe({
-      next: (folder: any) => {
-        this.passwordForm.get('folderId')?.setValue(folder._id);
-        this.passwordForm.get('searchFolders')?.setValue(folder.name);
-      },
-      error: (error: any) => console.error('Error creating folder:', error)
-    });
+    this.folderService
+      .createFolder({
+        name: this.passwordForm.value.searchFolders,
+        type: 'passwords',
+      })
+      .subscribe({
+        next: (folder: any) => {
+          this.passwordForm.get('folderId')?.setValue(folder._id);
+          this.passwordForm.get('searchFolders')?.setValue(folder.name);
+        },
+        error: (error: any) => console.error('Error creating folder:', error),
+      });
   }
 
   addPassword(): void {
@@ -214,21 +207,26 @@ export class PasswordFormComponent implements OnInit {
         this.dialogRef.close(true);
       });
     } else {
-      this.passwordService.updatePassword(this.passwordForm.value._id, newPasswordObject).subscribe(() => {
-        this.passwordForm.reset();
-        this.dialogRef.close(true);
-      });
+      this.passwordService
+        .updatePassword(this.passwordForm.value._id, newPasswordObject)
+        .subscribe(() => {
+          this.passwordForm.reset();
+          this.dialogRef.close(true);
+        });
     }
   }
 
   generateSecureKey(length: number): string {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+~';
-    return Array.from({ length }, () => characters.charAt(Math.floor(Math.random() * characters.length))).join('');
+    const characters =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+~';
+    return Array.from({ length }, () =>
+      characters.charAt(Math.floor(Math.random() * characters.length))
+    ).join('');
   }
 
   createNewTag(): void {
     const dialogRef = this.dialog.open(TagsCreationDialogComponent, {
-      width: '1400px'
+      width: '1400px',
     });
     dialogRef.afterClosed().subscribe({
       next: (result) => {
@@ -237,13 +235,15 @@ export class PasswordFormComponent implements OnInit {
           this.passwordForm.get('tags')?.setValue(this.passwordForm.value.tags);
         }
       },
-      error: (error) => console.error('Error:', error)
+      error: (error) => console.error('Error:', error),
     });
   }
 
   removeTag(tagId: string): void {
     const currentTags = this.passwordForm.get('tags')?.value || [];
-    const updatedTags = currentTags.filter((tag: { _id: string }) => tag._id !== tagId);
+    const updatedTags = currentTags.filter(
+      (tag: { _id: string }) => tag._id !== tagId
+    );
     this.passwordForm.get('tags')?.setValue(updatedTags);
     this.selectedTags = updatedTags;
   }
@@ -257,19 +257,47 @@ export class PasswordFormComponent implements OnInit {
 
   urlValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
-      const urlRegex = /^(https?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/;
+      const urlRegex =
+        /^(https?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/;
       return urlRegex.test(control.value) ? null : { url: true };
     };
   }
   searchFolders(): void {
-    const searchTerm = this.passwordForm.value.searchFolders
-    console.log(
-      this.passwordForm.value
-    );
-
-    this.folderService.searchFolders(searchTerm, 'passwords').subscribe((folders: any[]) => {
-      this.folders = folders;
-    });
+    this.passwordForm
+      .get('searchFolders')
+      ?.valueChanges.pipe(
+        debounceTime(500), // Wait for 500ms after the user stops typing
+        switchMap((searchFolders: string) => {
+          if (searchFolders.trim()) {
+            // Only make the API call if the search term is not empty
+            this.isLoading = true;
+            return this.folderService
+              .searchFolders(searchFolders.trim().toLowerCase(), 'passwords')
+              .pipe(
+                catchError((error) => {
+                  console.error('Error searching folders:', error);
+                  this.isLoading = false;
+                  return []; // Return an empty array in case of error
+                })
+              );
+          } else {
+            this.isLoading = false;
+            return new Observable<any[]>((observer) => {
+              observer.next([]); // Emit an empty array
+              observer.complete();
+            });
+          }
+        })
+      )
+      .subscribe({
+        next: (folders: any[]) => {
+          this.folders = folders;
+          this.isLoading = false;
+        },
+        error: (error) => {
+          console.error('Search error:', error);
+          this.isLoading = false;
+        },
+      });
   }
-
 }

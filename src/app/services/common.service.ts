@@ -32,4 +32,12 @@ export class CommonService {
       return response
     }));
   }
+
+  searchTags(name: string, type: any): Observable<any> {
+    return this.http.get(`${environment.api_url}/tags/search/${type}/${name}`);
+  }
+
+  createTicket(formData: any): Observable<any> {
+    return this.http.post(`${environment.api_url}/tickets`, formData);
+  }
 }

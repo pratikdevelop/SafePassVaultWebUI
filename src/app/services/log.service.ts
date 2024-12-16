@@ -13,7 +13,9 @@ export class LogService {
 
 
 
-  getLogs(): Observable<any> {
-    return this.http.get<any>('http://localhost:3000/api/audit')
+  getLogs(params: any): Observable<any> {
+    return this.http.get<any>('http://localhost:3000/api/audit', {
+      params: params
+    })
   }
 }

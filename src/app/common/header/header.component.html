@@ -1,7 +1,5 @@
 <header class="fixed inset-x-0 top-0 z-10 mb-20" *ngIf="!isLoading">
-  <nav
-    class="flex flex-col lg:flex-row items-center bg-gray-900 p-5 justify-between text-white relative"
-  >
+  <nav class="flex flex-col lg:flex-row items-center bg-gray-900 p-5 justify-between text-white relative">
     <div class="flex justify-between w-full lg:w-auto">
       <a routerLink="/" class="text-4xl">Safepassvault</a>
       <div class="flex lg:hidden">
@@ -11,246 +9,123 @@
       </div>
     </div>
 
-    <div
-      class="menu-content hidden lg:flex lg:flex-row lg:space-x-4 lg:justify-end w-full lg:w-auto"
-    >
-      <span
-        class="flex flex-col lg:flex-row items-center space-y-2 lg:space-y-0 lg:space-x-4 ml-auto"
-      >
+    <div class="menu-content hidden lg:flex lg:flex-row lg:space-x-4 lg:justify-end w-full lg:w-auto">
+      <span class="flex flex-col lg:flex-row items-center space-y-2 lg:space-y-0 lg:space-x-4 ml-auto">
         <ng-container *ngIf="token; else loggedOutMenu">
-          <a  class="text-sm font-extrabold capitalize" [matMenuTriggerFor]="pagesMenu">
+          <a class="text-sm font-extrabold capitalize cursor-pointer" [matMenuTriggerFor]="pagesMenu">
             Products
           </a>
           <!-- Custom Tailwind classes added to as -->
-          <a  class="text-sm font-extrabold capitalize"  routerLink="/dashboard/log-report">Log Report</a>
+          <a class="text-sm font-extrabold capitalize cursor-pointer" routerLink="/dashboard/log-report">Log Report</a>
+
+          <!-- New Ticket System Button -->
+          <a class="text-sm font-extrabold capitalize cursor-pointer" routerLink="/dashboard/tickets">
+            Report an Issue
+          </a>
 
           <mat-menu #pagesMenu="matMenu">
-            <a
-              mat-menu-item
-              class="text-sm font-extrabold capitalize"
-              (click)="updateSideBar('passwords')"
-              routerLink="/dashboard/passwords"
-            >
+            <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer"
+              (click)="updateSideBar('passwords')" routerLink="/dashboard/passwords">
               <mat-icon> lock </mat-icon>
-              Passwords</a
-            >
-            <a
-              mat-menu-item
-              class="text-sm font-extrabold capitalize"
-              (click)="updateSideBar('notes')"
-              routerLink="/dashboard/notes"
-            >
+              Passwords</a>
+            <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" (click)="updateSideBar('notes')"
+              routerLink="/dashboard/notes">
               <mat-icon> note </mat-icon>
-              Secure Notes</a
-            >
-            <a
-              mat-menu-item
-              class="text-sm font-extrabold capitalize"
-              (click)="updateSideBar('card')"
-              routerLink="/dashboard/cards"
-            >
+              Secure Notes</a>
+            <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" (click)="updateSideBar('card')"
+              routerLink="/dashboard/cards">
               <mat-icon> credit_card </mat-icon>
-              Cards</a
-            >
-            <a
-              mat-menu-item
-              class="text-sm font-extrabold capitalize"
-              (click)="updateSideBar('card')"
-              routerLink="/dashboard/address"
-            >
+              Cards</a>
+            <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" (click)="updateSideBar('card')"
+              routerLink="/dashboard/address">
               <mat-icon> location_city </mat-icon>
-              Address</a
-            >
-            <a
-              mat-menu-item
-              class="text-sm font-extrabold capitalize"
-              (click)="updateSideBar('file')"
-              routerLink="/dashboard/files"
-            >
+              Address</a>
+            <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" (click)="updateSideBar('file')"
+              routerLink="/dashboard/files">
               <mat-icon> attach_file </mat-icon>
-              File Storage</a
-            >
-            <a
-              mat-menu-item
-              class="text-sm font-extrabold capitalize"
-              (click)="updateSideBar('identity')"
-              routerLink="/dashboard/identity"
-            >
+              File Storage</a>
+            <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer"
+              (click)="updateSideBar('identity')" routerLink="/dashboard/identity">
               <mat-icon>perm_identity</mat-icon>
-              Identity</a
-            >
-            <a
-            mat-menu-item
-            class="text-sm font-extrabold capitalize"
-            (click)="updateSideBar('secrets')"
-            routerLink="/dashboard/secrets"
-          >
-            <mat-icon>security</mat-icon>
-            Secrets</a
-          >
+              Identity</a>
+            <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" (click)="updateSideBar('secrets')"
+              routerLink="/dashboard/secrets">
+              <mat-icon>security</mat-icon>
+              Secrets</a>
           </mat-menu>
-          <a
-            class="text-sm font-extrabold capitalize"
-            *ngIf="userProfile?.user.role === 'admin'"
-            routerLink="/admin/users"
-            >Administration</a
-          >
-          <a
-            class="text-sm font-extrabold capitalize"
-            routerLink="/dashboard/profile/personal-details"
-            >Profile</a
-          >
-          <a class="text-sm font-extrabold capitalize" (click)="logout()">
+          <a class="text-sm font-extrabold capitalize cursor-pointer" *ngIf="userProfile?.user.role === 'admin'"
+            routerLink="/admin/users">Administration</a>
+          <a class="text-sm font-extrabold capitalize cursor-pointer"
+            routerLink="/dashboard/profile/personal-details">Profile</a>
+          <a class="text-sm font-extrabold capitalize cursor-pointer" (click)="logout()">
             Logout
           </a>
         </ng-container>
         <ng-template #loggedOutMenu>
           <a [matMenuTriggerFor]="productsMenu">Products</a>
-          <a class="text-sm font-extrabold capitalize" routerLink="/plan-pricing"
-            >Plan and Pricing</a
-          >
-          <a
-            class="text-sm font-extrabold capitalize"
-            [matMenuTriggerFor]="documentationMenu"
-          >
-            Documentation</a
-          >
-
-          <a class="text-sm font-extrabold capitalize" routerLink="/support"
-            >Customer Support</a
-          >
-          <a class="text-sm font-extrabold capitalize" routerLink="/roadmap"> Roadmap </a>
-          <a class="text-sm font-extrabold capitalize" routerLink="/download">Download</a>
-          <a class="text-sm font-extrabold capitalize" routerLink="/auth/signup"
-            >Get Started</a
-          >
-          <a class="text-sm font-extrabold capitalize" routerLink="/auth/login">Log In</a>
+          <a class="text-sm font-extrabold capitalize cursor-pointer" routerLink="/plan-pricing">Plan and Pricing</a>
+          <a class="text-sm font-extrabold capitalize cursor-pointer" [matMenuTriggerFor]="documentationMenu">
+            Documentation</a>
+          <a class="text-sm font-extrabold capitalize cursor-pointer" routerLink="/support">Customer Support</a>
+          <a class="text-sm font-extrabold capitalize cursor-pointer" routerLink="/roadmap"> Roadmap </a>
+          <a class="text-sm font-extrabold capitalize cursor-pointer" routerLink="/download">Download</a>
+          <a class="text-sm font-extrabold capitalize cursor-pointer" routerLink="/auth/signup">Get Started</a>
+          <a class="text-sm font-extrabold capitalize cursor-pointer" routerLink="/auth/login">Log In</a>
         </ng-template>
       </span>
     </div>
 
     <mat-menu #mainMenu="matMenu">
       <ng-container *ngIf="token">
-        <div  class="flex flex-col">
-          <!-- <a
-            mat-menu-item
-            class="text-sm font-extrabold capitalize"
-            routerLink="/dashboard/passwords"
-            >Passwords</a
-          >
-          <a
-            mat-menu-item
-            class="text-sm font-extrabold capitalize"
-            routerLink="/dashboard/notes"
-            >Secure Notes</a
-          >
-          <a
-            mat-menu-item
-            class="text-sm font-extrabold capitalize"
-            routerLink="/dashboard/card"
-            >Cards</a
-          >
-          <a
-            mat-menu-item
-            class="text-sm font-extrabold capitalize"
-            routerLink="/dashboard/file"
-            >File Storage</a
-          >
-          <a
-            mat-menu-item
-            class="text-sm font-extrabold capitalize"
-            routerLink="/dashboard/identity"
-            >Identity</a
-          > -->
-          <a  mat-menu-item  class="text-sm font-extrabold capitalize" [matMenuTriggerFor]="pagesMenu">
+        <div class="flex flex-col">
+          <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" [matMenuTriggerFor]="pagesMenu">
             Products
           </a>
-          <!-- Custom Tailwind classes added to as -->
-  
           <mat-menu #pagesMenu="matMenu">
             <div class="flex flex-col">
-  
-            <a
-              mat-menu-item
-              class="text-sm font-extrabold capitalize"
-              (click)="updateSideBar('passwords')"
-              routerLink="/dashboard/passwords"
-            >
-              <mat-icon> lock </mat-icon>
-              Passwords</a
-            >
-            <a
-              mat-menu-item
-              class="text-sm font-extrabold capitalize"
-              (click)="updateSideBar('notes')"
-              routerLink="/dashboard/notes"
-            >
-              <mat-icon> note </mat-icon>
-              Secure Notes</a
-            >
-            <a
-              mat-menu-item
-              class="text-sm font-extrabold capitalize"
-              (click)="updateSideBar('card')"
-              routerLink="/dashboard/cards"
-            >
-              <mat-icon> credit_card </mat-icon>
-              Cards</a
-            >
-            <a
-              mat-menu-item
-              class="text-sm font-extrabold capitalize"
-              (click)="updateSideBar('card')"
-              routerLink="/dashboard/address"
-            >
-              <mat-icon> location_city </mat-icon>
-              Address</a
-            >
-            <a
-              mat-menu-item
-              class="text-sm font-extrabold capitalize"
-              (click)="updateSideBar('file')"
-              routerLink="/dashboard/files"
-            >
-              <mat-icon> attach_file </mat-icon>
-              File Storage</a
-            >
-            <a
-              mat-menu-item
-              class="text-sm font-extrabold capitalize"
-              (click)="updateSideBar('identity')"
-              routerLink="/dashboard/identity"
-            >
-              <mat-icon>perm_identity</mat-icon>
-              Identity</a
-            >
-            <a
-            mat-menu-item
-            class="text-sm font-extrabold capitalize"
-            (click)="updateSideBar('secrets')"
-            routerLink="/dashboard/secrets"
-          >
-            <mat-icon>security</mat-icon>
-            Secrets</a
-          >
-          </div>
+              <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer"
+                (click)="updateSideBar('passwords')" routerLink="/dashboard/passwords">
+                <mat-icon> lock </mat-icon>
+                Passwords</a>
+              <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" (click)="updateSideBar('notes')"
+                routerLink="/dashboard/notes">
+                <mat-icon> note </mat-icon>
+                Secure Notes</a>
+              <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" (click)="updateSideBar('card')"
+                routerLink="/dashboard/cards">
+                <mat-icon> credit_card </mat-icon>
+                Cards</a>
+              <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" (click)="updateSideBar('card')"
+                routerLink="/dashboard/address">
+                <mat-icon> location_city </mat-icon>
+                Address</a>
+              <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" (click)="updateSideBar('file')"
+                routerLink="/dashboard/files">
+                <mat-icon> attach_file </mat-icon>
+                File Storage</a>
+              <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer"
+                (click)="updateSideBar('identity')" routerLink="/dashboard/identity">
+                <mat-icon>perm_identity</mat-icon>
+                Identity</a>
+              <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer"
+                (click)="updateSideBar('secrets')" routerLink="/dashboard/secrets">
+                <mat-icon>security</mat-icon>
+                Secrets</a>
+            </div>
           </mat-menu>
-          <a  mat-menu-item  class="text-sm font-extrabold capitalize"  routerLink="/dashboard/log-report">Log Report</a>
-  
-          <a
-            mat-menu-item
-            class="text-sm font-extrabold capitalize"
-            *ngIf="userProfile?.role === 'admin'"
-            routerLink="/admin/users"
-            >Administration</a
-          >
-          <a
-            mat-menu-item
-            class="text-sm font-extrabold capitalize"
-            routerLink="/dashboard/profile/personal-details"
-            >Profile</a
-          >
-          <a mat-menu-item class="text-sm font-extrabold capitalize" (click)="logout()">
+
+          <!-- New Ticket System Button -->
+          <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" routerLink="/dashboard/tickets">
+            Report an Issue
+          </a>
+
+          <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer"
+            routerLink="/dashboard/log-report">Log Report</a>
+          <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer"
+            *ngIf="userProfile?.role === 'admin'" routerLink="/admin/users">Administration</a>
+          <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer"
+            routerLink="/dashboard/profile/personal-details">Profile</a>
+          <a mat-menu-item class="text-sm font-extrabold capitalize cursor-pointer" (click)="logout()">
             Logout
           </a>
 
@@ -268,8 +143,7 @@
           <a mat-menu-item routerLink="/download">Download</a>
 
           <a mat-menu-item [matMenuTriggerFor]="documentationMenu">
-            Documentation</a
-          >
+            Documentation</a>
           <a mat-menu-item routerLink="/support">Customer Support</a>
           <button mat-menu-item routerLink="/auth/login">Log In</button>
         </div>

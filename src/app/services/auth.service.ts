@@ -13,10 +13,6 @@ import {
 import { environment } from '../../environments/environment';
 import { AngularFireMessaging } from '@angular/fire/compat/messaging';
 
-
-
-
-
 @Injectable({
   providedIn: 'root',
 })
@@ -26,7 +22,7 @@ export class AuthService {
   public _userProfileSubject = new BehaviorSubject<any | null>(null);
   public userProfile$: Observable<any | null> =
     this._userProfileSubject.asObservable();
-    private readonly afMessaging = inject(AngularFireMessaging)
+  private readonly afMessaging = inject(AngularFireMessaging)
 
   signup(signupForm: any): Observable<any[]> {
     return this.http.post<any>(`${this.apiUrl}/register`, signupForm).pipe(

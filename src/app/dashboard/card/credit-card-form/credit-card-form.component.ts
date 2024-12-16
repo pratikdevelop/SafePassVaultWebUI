@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
@@ -12,7 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CardService } from '../../../services/card.service';
 import { MatSelectModule } from '@angular/material/select';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule, MatOptionModule } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule, MatOptionModule, provideNativeDateAdapter } from '@angular/material/core';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { TagsCreationDialogComponent } from '../../../common/tags-creation-dialog/tags-creation-dialog.component';
 import { FolderService } from '../../../services/folder.service';
@@ -59,7 +59,8 @@ export const MY_DATE_FORMATS = {
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] }, // Use MomentDateAdapter for moment.js
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS }, // Provide custom date formats
     { provide: MAT_DATE_LOCALE, useValue: 'en-US' }, // Set locale
-  ],
+    provideNativeDateAdapter()],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './credit-card-form.component.html',
   styleUrls: ['./credit-card-form.component.css'] // Corrected to `styleUrls`
 })
@@ -156,6 +157,10 @@ export class CreditCardFormComponent {
   createNewTag(): void {
     this.dialog.open(TagsCreationDialogComponent, {
       width: '1400px',
+      data: {
+        name: this.creditCardForm.value.searchTerm,
+        type: 'cards'
+      }
     });
   }
 

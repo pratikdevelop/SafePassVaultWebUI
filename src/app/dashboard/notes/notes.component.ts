@@ -2,9 +2,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import {
-  MAT_DIALOG_DATA,
   MatDialog,
-  MatDialogModule,
+  MatDialogModule
 } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSortModule } from '@angular/material/sort';
@@ -13,7 +12,7 @@ import { tap, catchError } from 'rxjs';
 import { NoteService } from '../../services/note.service';
 import { NotesFormComponent } from './notes/notes-form.component';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatChipListbox, MatChipsModule } from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
 import { CommonModule } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -25,14 +24,12 @@ import { ViewChild } from '@angular/core';
 import {
   MatDrawer,
   MatDrawerMode,
-  MatSidenavModule
+  MatSidenavModule,
 } from '@angular/material/sidenav';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FolderService } from '../../services/folder.service';
 import { HeaderComponent } from '../../common/header/header.component';
-import { SideNavComponent } from "../../common/side-nav/side-nav.component";
-import { MatCardModule } from '@angular/material/card';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { SideNavComponent } from '../../common/side-nav/side-nav.component';
 import { NoteViewComponent } from './note-view/note-view.component';
 @Component({
   selector: 'app-notes',
@@ -53,8 +50,8 @@ import { NoteViewComponent } from './note-view/note-view.component';
     CommonModule,
     MatSidenavModule,
     HeaderComponent,
-    SideNavComponent
-],
+    SideNavComponent,
+  ],
   templateUrl: './notes.component.html',
 })
 export class NotesComponent implements OnInit {
@@ -69,7 +66,6 @@ export class NotesComponent implements OnInit {
     'title',
     'content',
     'created_by',
-    // 'tags',
     'favourite',
     'update_at',
     'action',
@@ -81,8 +77,8 @@ export class NotesComponent implements OnInit {
   @ViewChild('drawer') drawer: MatDrawer | undefined;
   readonly breakpointObserver = inject(BreakpointObserver);
   readonly router = inject(Router);
-  readonly activateRouter = inject(ActivatedRoute)
-  readonly service  = inject(FolderService);
+  readonly activateRouter = inject(ActivatedRoute);
+  readonly service = inject(FolderService);
   mode: MatDrawerMode = 'side';
   folders: any[] = [];
   isSidebarOpen: boolean = true;
@@ -112,33 +108,32 @@ export class NotesComponent implements OnInit {
     );
 
     this.breakpointObserver
-    .observe(['(max-width: 600px)'])
-    .subscribe((result) => {
-      if (result.breakpoints['(max-width: 600px)']) {
-        this.isBreakPoint = true;
-        this.isSidebarOpen = false;
-        this.mode = 'over';
-      } else {
-        this.isSidebarOpen = true;
-        this.isBreakPoint = false;
-        this.mode = 'side';
+      .observe(['(max-width: 600px)'])
+      .subscribe((result) => {
+        if (result.breakpoints['(max-width: 600px)']) {
+          this.isBreakPoint = true;
+          this.isSidebarOpen = false;
+          this.mode = 'over';
+        } else {
+          this.isSidebarOpen = true;
+          this.isBreakPoint = false;
+          this.mode = 'side';
+        }
+      });
+
+    this.activateRouter.data.subscribe((response: any) => {
+      console.log('resolver data', response);
+    });
+    this.commonService.sideBarOpen.subscribe((res) => {
+      if (this.isBreakPoint) {
+        this.isSidebarOpen = res;
       }
     });
-    
-    this.activateRouter.data.subscribe((response: any) => {
-      console.log('resolver data',  response);
-      
-    })
-  this.commonService.sideBarOpen.subscribe((res) => {
-    if (this.isBreakPoint) {
-      this.isSidebarOpen = res;
+    if (this.router.url.includes('profile')) {
+      this.isShow = false;
+    } else {
+      this.isShow = true;
     }
-  });
-  if(this.router.url.includes('profile')) {
-    this.isShow = false;
-  }else {
-    this.isShow = true;
-  }
   }
 
   deleteNotes(id?: string): void {
@@ -214,15 +209,14 @@ export class NotesComponent implements OnInit {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
-      row._id + 1
-    }`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row._id + 1
+      }`;
   }
 
   viewNotee(note: any): void {
     this.dialog.open(NoteViewComponent, {
-      width:"500px",
-      height:"600px",
+      width: '500px',
+      height: '600px',
       data: { note },
     });
   }
@@ -254,6 +248,6 @@ export class NotesComponent implements OnInit {
   }
 
   toggleSideBar(): void {
-    this.commonService.toggleSideBar()
+    this.commonService.toggleSideBar();
   }
 }
