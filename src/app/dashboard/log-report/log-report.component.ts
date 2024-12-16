@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  OnInit,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -10,7 +11,8 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-
+import { Subscription } from 'rxjs';
+import { OnDestroy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -78,9 +80,10 @@ export const MY_DATE_FORMATS = {
   styleUrl: './log-report.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LogReportComponent {
+export class LogReportComponent implements OnInit, OnDestroy {
   searchTerm: any;
   logs: any[] = [];
+  private searchSubscription!: Subscription;
   displayedColumns: string[] = [
     'id',
     'action',
@@ -126,9 +129,14 @@ export class LogReportComponent {
     });
     this.getLogsReport();
     this.searchSubject.pipe(debounceTime(500)).subscribe((searchTerm) => {
-      this.form.get('searchTerm')?.setValue(searchTerm);
-      this.getLogsReport(); // Call the API or logic with the search term
-    });
+      this.searchSubscription = this.searchSubject.pipe(debounceTime(500)).subscribe((searchTerm) => {
+        this.form.get('searchTerm')?.setValue(searchTerm);
+        this.getLogsReport();
+      });
+    })
+  }
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
   }
 
   getLogsReport(): void {
@@ -187,7 +195,6 @@ export class LogReportComponent {
         start = today.subtract(30, 'days');
         end = today.endOf('day');
         break;
-      case 'custom':
       default:
         start = end = null;
         break;
@@ -205,7 +212,6 @@ export class LogReportComponent {
       this.getLogsReport();
     }
   }
-
   onDateRangeSelectionChange(event: any, type: string) {
     if (this.form.value.start && this.form.value.end) {
       const start = dayjs(this.form.value.start);
@@ -217,17 +223,26 @@ export class LogReportComponent {
         this.form.get('dateRangeType')?.updateValueAndValidity();
       }
       else {
-        let start = dayjs(this.form.value.start).utc().format('YYYY-MM-DD HH:mm:ss')
-        let end = dayjs(this.form.value.end).utc().format('YYYY-MM-DD HH:mm:ss')
-        console.log('start', start, end);
+
+        const formattedStart = this.form.value.start
+          ? dayjs(this.form.value.start).utc().format('YYYY-MM-DD HH:mm:ss')
+          : null;
+        const formattedEnd = this.form.value.end
+          ? dayjs(this.form.value.end).utc().format('YYYY-MM-DD HH:mm:ss')
+          : null;
+        console.log('start', formattedStart, formattedEnd);
 
         this.form.patchValue({
-          start: start ? start : null,
-          end: end ? end : null,
+          start: formattedStart,
+          end: formattedEnd,
         });
         this.form.updateValueAndValidity();
         this.getLogsReport();
       }
     }
+  }
+
+  ngOnDestroy(): void {
+    this.searchSubscription.unsubscribe();
   }
 }
