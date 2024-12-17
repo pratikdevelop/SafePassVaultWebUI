@@ -31,6 +31,7 @@ import { FolderService } from '../../services/folder.service';
 import { HeaderComponent } from '../../common/header/header.component';
 import { SideNavComponent } from '../../common/side-nav/side-nav.component';
 import { NoteViewComponent } from './note-view/note-view.component';
+import { ConfirmationComponent } from '../../common/confirmation/confirmation.component';
 @Component({
   selector: 'app-notes',
   standalone: true,
@@ -137,29 +138,43 @@ export class NotesComponent implements OnInit {
   }
 
   deleteNotes(id?: string): void {
-    const ids =
-      id ??
-      this.selection.selected
-        .map((note) => {
-          return note._id;
-        })
-        .join(',');
-    // Delete password using an observable
-    this.noteService
-      .deleteNote(ids)
-      .pipe(
-        tap(() => {
-          this.getNotes();
-        }),
-        catchError((error: any) => {
-          console.error('err', error);
-          throw error; // re-throw the error to prevent silent failures
-        })
-      )
-      .subscribe({
-        complete: () => {
-          this.changedetect.detectChanges();
+    this.dialog
+      .open(ConfirmationComponent, {
+        width: '500px',
+        data: {
+          title: 'Delete Item',
+          description: 'Are you sure you want to delete this item?',
         },
+      })
+      .afterClosed()
+      .subscribe((confirmation) => {
+        if (confirmation) {
+
+          const ids =
+            id ??
+            this.selection.selected
+              .map((note) => {
+                return note._id;
+              })
+              .join(',');
+          // Delete password using an observable
+          this.noteService
+            .deleteNote(ids)
+            .pipe(
+              tap(() => {
+                this.getNotes();
+              }),
+              catchError((error: any) => {
+                console.error('err', error);
+                throw error; // re-throw the error to prevent silent failures
+              })
+            )
+            .subscribe({
+              complete: () => {
+                this.changedetect.detectChanges();
+              },
+            });
+        }
       });
   }
 

@@ -8,11 +8,12 @@ import { OrganizationService } from '../../../../services/organization.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import countries from '../../../../country';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-form',
   standalone: true,
-  imports: [MatFormFieldModule, FormsModule, ReactiveFormsModule, MatInputModule, MatSelectModule, CommonModule, MatButtonModule, MatDialogModule],
+  imports: [MatFormFieldModule, FormsModule, ReactiveFormsModule, MatInputModule, MatSelectModule, CommonModule, MatButtonModule, MatDialogModule, MatSnackBarModule],
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.css'
 })
@@ -23,9 +24,11 @@ export class UserFormComponent {
 
   constructor(
     private fb: FormBuilder,
+    private snackBar: MatSnackBar,
     private organizationService: OrganizationService,
     public dialogRef: MatDialogRef<UserFormComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+
   ) {
     this.userForm = this.fb.group({
       name: ['', Validators.required],
@@ -53,9 +56,30 @@ export class UserFormComponent {
 
   onSubmit(): void {
     if (this.userForm.valid) {
-      // Handle form submission logic here
-      this.organizationService.sendInvitation(this.userForm.value.organization, this.userForm.value).subscribe((res) => {
-        this.dialogRef.close(this.userForm.value);
+      this.organizationService.sendInvitation(this.userForm.value.organization, this.userForm.value).subscribe({
+        next: (res) => {
+          this.dialogRef.close(this.userForm.value);
+          this.snackBar.open(
+            'Invitation sent successfully',
+            'Close',
+            {
+              duration: 3000,
+            }
+          )
+        },
+        error: (error) => {
+          console.error('Error on adding the user, e:', error);
+          this.snackBar.open(
+            'Error sending invitation',
+            'Close',
+            {
+              duration: 3000,
+              direction: "ltr"
+            }
+          )
+          this.dialogRef.close(null)
+
+        }
 
       })
     }

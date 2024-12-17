@@ -23,6 +23,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SecretsManagementFormComponent } from './dialog/secrets-management-form/secrets-management-form.component';
 import { ConfirmationComponent } from '../../common/confirmation/confirmation.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-secret-manager',
@@ -39,12 +40,19 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatIconModule,
     SideNavComponent,
     MatSidenavModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatMenuModule
   ],
   templateUrl: './secret-manager.component.html',
   styleUrl: './secret-manager.component.css',
 })
 export class SecretManagerComponent implements OnInit {
+  exports() {
+    throw new Error('Method not implemented.');
+  }
+  deleteSecrets() {
+    throw new Error('Method not implemented.');
+  }
   checkboxLabel(row: any = null): string {
     throw new Error('Method not implemented.');
   }

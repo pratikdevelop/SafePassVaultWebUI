@@ -21,7 +21,7 @@
       <mat-form-field appearance="outline" class="w-1/4">
         <mat-select formControlName="countryCode" required>
           <ng-container *ngFor="let country of coutries">
-            <mat-option selecte [value]="country.code">{{country.code}} ({{country.name}})</mat-option>
+            <mat-option selecte [value]="country.code">{{country.code}} ({{country.shortName }})</mat-option>
 
           </ng-container>
         </mat-select>

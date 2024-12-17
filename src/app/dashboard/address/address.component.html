@@ -1,145 +1,171 @@
 <mat-sidenav-container class="h-[100vh] flex-auto overflow-hidden">
-    <mat-sidenav *ngIf="isShow" #drawer [opened]="isSideBarOpen" [mode]="mode" style="
+  <mat-sidenav *ngIf="isShow" #drawer [opened]="isSideBarOpen" [mode]="mode" style="
       width: 15rem !important;
       border-radius: 0% !important;
       display: flex !important;
       flex-direction: column !important;
       column-gap: 3rem !important;
     ">
-        <app-side-nav></app-side-nav>
-    </mat-sidenav>
-    <mat-sidenav-content class="flex flex-col flex-auto">
-        <app-header></app-header>
-        <nav aria-label="Global"
-            class="flex flex-col sm:flex-row sm:items-center justify-between overflow-auto w-full text-primary-foreground bg-slate-800 shadow-lg p-3">
-            <div class="flex items-center space-x-2">
-                <button mat-icon-button (click)="toggleSideBar()" class="menu-button lg:hidden">
-                    <mat-icon>menu</mat-icon>
-                </button>
-                <span class="text-xl sm:text-3xl font-bold text-white">Addresses</span>
-            </div>
-            <div class="flex items-center space-x-3 sm:w-6/12 sm:justify-end">
-                <!-- Add Menu -->
-                <input matInput type="text" placeholder="Search the password" aria-label="Search the password"
-                    class="sm:w-6/12 py-2 px-3 border-2 border-slate-900 text-gray-500" />
-                <!-- Add Menu -->
-                <div class="flex flex-col items-start p-2">
-                    <button mat-icon (click)="OpenaddressFormDialog(null)" aria-label="Add new item">
-                        <mat-icon class="text-slate-50">add_circle_outline</mat-icon>
-                    </button>
-                </div>
-                <!-- Filter Menu -->
+    <app-side-nav></app-side-nav>
+  </mat-sidenav>
+  <mat-sidenav-content class="flex flex-col flex-auto">
+    <app-header></app-header>
+    <nav aria-label="Global"
+      class="flex flex-col sm:flex-row sm:items-center justify-between overflow-auto w-full text-primary-foreground bg-slate-800 shadow-lg p-3">
+      <div class="flex items-center space-x-2">
+        <button mat-icon-button (click)="toggleSideBar()" class="menu-button lg:hidden">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span class="text-xl sm:text-3xl font-bold text-white">Addresses</span>
+      </div>
+      <div class="flex items-center space-x-3 sm:w-6/12 sm:justify-end">
+        <!-- Add Menu -->
+        <input matInput type="text" placeholder="Search the password" aria-label="Search the password"
+          class="sm:w-6/12 py-2 px-3 border-2 border-slate-900 text-gray-500" />
+        <!-- Add Menu -->
+        <div class="flex flex-col items-start p-2">
+          <button mat-icon (click)="OpenaddressFormDialog(null)" aria-label="Add new item">
+            <mat-icon class="text-slate-50">add_circle_outline</mat-icon>
+          </button>
+        </div>
+        <!-- Filter Menu -->
 
-                <!-- Actions Menu -->
-                <div class="flex flex-col items-start p-2">
-                    <button mat-icon [matMenuTriggerFor]="actionMenu" aria-label="Actions menu">
-                        <mat-icon class="text-slate-50">settings</mat-icon>
-                    </button>
-                    <mat-menu #actionMenu="matMenu">
-                        <button mat-menu-item (click)="performAction('delete')">
-                            Delete
-                        </button>
-                        <button mat-menu-item (click)="performAction('add_favorites')">
-                            Add to Favourites
-                        </button>
-                        <button mat-menu-item (click)="performAction('share')">
-                            Share
-                        </button>
-                        <button mat-menu-item (click)="performAction('export')">
-                            Export
-                        </button>
-                    </mat-menu>
-                </div>
-            </div>
-        </nav>
-       <table mat-table  [dataSource]="addresses" class="table-auto w-full mat-elevation-z8 text-left" [dataSource]="addresses" [trackBy]="trackById">
-            <ng-container matColumnDef="select">
-              <th mat-header-cell *matHeaderCellDef>
-                <mat-checkbox (change)="$event ? toggleAllRows() : null"
-                  [checked]="selection.hasValue() && isAllSelected()"
-                  [indeterminate]="selection.hasValue() && !isAllSelected()" >
-                </mat-checkbox>
-              </th>
-              <td mat-cell *matCellDef="let row">
-                <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
-                  [checked]="selection.isSelected(row)">
-                </mat-checkbox>
-              </td>
-            </ng-container>
-          
-            <ng-container matColumnDef="favourite">
-              <th mat-header-cell *matHeaderCellDef>Favourites</th>
-              <td mat-cell *matCellDef="let row">
-                <button mat-menu-item matTooltip="Add to favourites" (click)="updateFavourites(row._id)">
-                  <mat-icon [ngStyle]="{ 'color': row.isFavorite ? '#F59E0B' : '#4B5563' }">
-                    stars
-                  </mat-icon>
+        <!-- Actions Menu -->
+        <div class="flex flex-col items-start p-2">
+          <button mat-icon [matMenuTriggerFor]="actionMenu" aria-label="Actions menu">
+            <mat-icon class="text-slate-50">settings</mat-icon>
+          </button>
+          <mat-menu #actionMenu="matMenu">
+            <button mat-menu-item (click)="performAction('delete')">
+              Delete
+            </button>
+            <button mat-menu-item (click)="performAction('add_favorites')">
+              Add to Favourites
+            </button>
+            <button mat-menu-item (click)="performAction('share')">
+              Share
+            </button>
+            <button mat-menu-item (click)="performAction('export')">
+              Export
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+    </nav>
+    <ng-container *ngIf="addresses.length > 0; else noDataTemplate">
+
+      <table mat-table [dataSource]="addresses" class="table-auto w-full mat-elevation-z8 text-left"
+        [dataSource]="addresses" [trackBy]="trackById">
+        <ng-container matColumnDef="select">
+          <th mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? toggleAllRows() : null" [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()">
+            </mat-checkbox>
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+              [checked]="selection.isSelected(row)">
+            </mat-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="favourite">
+          <th mat-header-cell *matHeaderCellDef>Favourites</th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-menu-item matTooltip="Add to favourites" (click)="updateFavourites(row._id)">
+              <mat-icon [ngStyle]="{ 'color': row.isFavorite ? '#F59E0B' : '#4B5563' }">
+                stars
+              </mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="_id">
+          <th mat-header-cell *matHeaderCellDef>ID</th>
+          <td mat-cell *matCellDef="let row; let i = index;">{{ i + 1 }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="city">
+          <th mat-header-cell *matHeaderCellDef>City</th>
+          <td mat-cell *matCellDef="let row">{{ row.city }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="state">
+          <th mat-header-cell *matHeaderCellDef>State</th>
+          <td mat-cell *matCellDef="let row">{{ row.state }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="zipCode">
+          <th mat-header-cell *matHeaderCellDef>Zip Code</th>
+          <td mat-cell *matCellDef="let row">{{ row.zipCode }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="country">
+          <th mat-header-cell *matHeaderCellDef>Country</th>
+          <td mat-cell *matCellDef="let row">{{ row.country }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="tags">
+          <th mat-header-cell *matHeaderCellDef>Tags</th>
+          <td mat-cell *matCellDef="let row">
+            <mat-chip-grid #chipGrid aria-label="Tag selection">
+              <mat-chip-row *ngFor="let tag of row.tags" (removed)="removeTag(tag._id, row)">
+                {{ tag.name }}
+                <button matChipRemove aria-label="Remove tag">
+                  <mat-icon>cancel</mat-icon>
                 </button>
-              </td>
-            </ng-container>
-          
-            <ng-container matColumnDef="_id">
-              <th mat-header-cell *matHeaderCellDef>ID</th>
-              <td mat-cell *matCellDef="let row; let i = index;">{{ i + 1 }}</td>
-            </ng-container>
-          
-            <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef>Name</th>
-              <td mat-cell *matCellDef="let row">{{ row.name }}</td>
-            </ng-container>
-          
-            <ng-container matColumnDef="city">
-              <th mat-header-cell *matHeaderCellDef>City</th>
-              <td mat-cell *matCellDef="let row">{{ row.city }}</td>
-            </ng-container>
-          
-            <ng-container matColumnDef="state">
-              <th mat-header-cell *matHeaderCellDef>State</th>
-              <td mat-cell *matCellDef="let row">{{ row.state }}</td>
-            </ng-container>
-          
-            <ng-container matColumnDef="zipCode">
-              <th mat-header-cell *matHeaderCellDef>Zip Code</th>
-              <td mat-cell *matCellDef="let row">{{ row.zipCode }}</td>
-            </ng-container>
-          
-            <ng-container matColumnDef="country">
-              <th mat-header-cell *matHeaderCellDef>Country</th>
-              <td mat-cell *matCellDef="let row">{{ row.country }}</td>
-            </ng-container>
-          
-            <ng-container matColumnDef="tags">
-              <th mat-header-cell *matHeaderCellDef>Tags</th>
-              <td mat-cell *matCellDef="let row">
-                <mat-chip-grid #chipGrid aria-label="Tag selection">
-                  <mat-chip-row *ngFor="let tag of row.tags" (removed)="removeTag(tag._id, row)">
-                    {{ tag.name }}
-                    <button matChipRemove aria-label="Remove tag">
-                      <mat-icon>cancel</mat-icon>
-                    </button>
-                  </mat-chip-row>
-                </mat-chip-grid>
-              </td>
-            </ng-container>
-          
-            <ng-container matColumnDef="actions">
-              <th mat-header-cell *matHeaderCellDef>Actions</th>
-              <td mat-cell *matCellDef="let row">
-                <button mat-mini-fab matTooltip="Edit address" (click)="OpenaddressFormDialog(row)">
-                  <mat-icon class="text-blue-500">edit</mat-icon>
-                </button>
-                <button mat-mini-fab matTooltip="Delete address" (click)="onDelete(row._id)">
-                  <mat-icon color="warn" class="text-red-600">delete</mat-icon>
-                </button>
-                <button mat-mini-fab matTooltip="View address" (click)="viewCardDetails(row)">
-                  <mat-icon class="text-tertiary">remove_red_eye</mat-icon>
-                </button>
-              </td>
-            </ng-container>
-          
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
-          
-    </mat-sidenav-content>
+              </mat-chip-row>
+            </mat-chip-grid>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef>Actions</th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-mini-fab matTooltip="Edit address" (click)="OpenaddressFormDialog(row)">
+              <mat-icon class="text-blue-500">edit</mat-icon>
+            </button>
+            <button mat-mini-fab matTooltip="Delete address" (click)="onDelete(row._id)">
+              <mat-icon color="warn" class="text-red-600">delete</mat-icon>
+            </button>
+            <button mat-mini-fab matTooltip="View address" (click)="viewCardDetails(row)">
+              <mat-icon class="text-tertiary">remove_red_eye</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </ng-container>
+    <ng-template #noDataTemplate>
+      <div class="flex items-center justify-center flex-col text-center p-6 h-[90vh] overflow-hidden">
+        <img src="https://placehold.co/150" alt="error-icon" class="w-24 h-24 text-primary mb-4 animate-bounce" />
+        <p class="text-primary font-extrabold text-2xl mt-2">
+          Oops! Data not found
+        </p>
+        <p class="text-muted-foreground text-sm mt-1">
+          It seems like we couldn't locate the information you requested.
+        </p>
+        <div class="flex space-x-6 mt-6">
+          <button (click)="loadAddresses()"
+            class="bg-secondary text-secondary-foreground px-5 py-3 rounded-full shadow-md hover:bg-secondary/80 transition duration-300">
+            Retry
+          </button>
+          <button (click)="OpenaddressFormDialog(null)"
+            class="bg-accent text-accent-foreground px-5 py-3 rounded-full shadow-md hover:bg-accent/80 transition duration-300">
+            Add
+          </button>
+        </div>
+      </div>
+    </ng-template>
+
+
+
+  </mat-sidenav-content>
 </mat-sidenav-container>

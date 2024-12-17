@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
@@ -19,40 +19,62 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
   styleUrl: './users.component.css'
 })
 export class UsersComponent {
+  toggleSideBar() {
+    throw new Error('Method not implemented.');
+  }
 
   displayedColumns: string[] = ['name', 'email', 'phone', 'invitation', 'action', 'created'];
-  dataSource = new MatTableDataSource<any>();
-  dialog = inject(MatDialog)
+  dataSource = [];
+  private readonly dialog = inject(MatDialog)
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
-  organizationService = inject(OrganizationService)
-  authService = inject(AuthService)
-  snackBar = inject(MatSnackBar);
+  private readonly organizationService = inject(OrganizationService)
+  private readonly authService = inject(AuthService)
+  private readonly snackBar = inject(MatSnackBar);
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.organizationService.getInvitations().subscribe((res: any)=>{
-      console.log('res', res);
-      
-      this.dataSource.data = res
+    this.organizationService.getInvitations().subscribe({
+      next: (users: any) => {
+        console.log('users', users);
+        this.dataSource = users;
+        this.changeDetectorRef.detectChanges()
+      },
+      error: (error) => {
+        console.log('error', error);
+        this.changeDetectorRef.detectChanges()
+      }
     })
-    
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
   }
 
   openUsersDialog(): void {
-   const dialogRef = this.dialog.open(UserFormComponent)
-    }
+    const dialogRef = this.dialog.open(UserFormComponent)
+    dialogRef.afterClosed().subscribe({
+      next: (confirmation: any) => {
+        if (confirmation) {
+          this.organizationService.getInvitations().subscribe({
+            next: (users: any) => {
+              console.log('users', users);
+              this.dataSource = users;
+              this.changeDetectorRef.detectChanges()
+            },
+            error: (error: any) => {
+              console.error('error', error);
+              this.changeDetectorRef.detectChanges()
+            }
+          })
+
+        }
+
+      }
+
+    })
+  }
   onEdit(user: any) {
     console.log('Edit user:', user);
     // Implement edit functionality
@@ -65,13 +87,18 @@ export class UsersComponent {
 
   resendInvitation(user: any): void {
     console.log('Resend invitation:', user);
-    this.authService.resendInvitation(user.organization, user.recipient._id).subscribe((Response)=>{
-      console.log('Response', Response);
-      this.snackBar.open('Invitation resent successfully', 'OK', {
-        duration: 2000,
+    this.authService.resendInvitation(user.organization, user.recipient._id).subscribe({
+      next: (Response) => {
+        this.snackBar.open('Invitation resent successfully', 'OK', {
+          duration: 2000,
         });
-
+        this.changeDetectorRef.detectChanges();
+      },
+      error: (error) => {
+        console.error('error', error);
+        this.changeDetectorRef.detectChanges();
+      }
     })
-    
+
   }
 }
