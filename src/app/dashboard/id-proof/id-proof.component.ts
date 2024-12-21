@@ -32,6 +32,18 @@ import { Identity } from '../../interfaces/identity';
 })
 
 export class IdProofComponent implements OnInit {
+  togglefavourites(arg0: string) {
+    throw new Error('Method not implemented.');
+  }
+  deleteIdentity(arg0: null) {
+    throw new Error('Method not implemented.');
+  }
+  viewIdentity(arg0: any) {
+    throw new Error('Method not implemented.');
+  }
+  onShareItem(arg0: any) {
+    throw new Error('Method not implemented.');
+  }
   @ViewChild('drawer') drawer: MatDrawer | undefined;
   readonly breakpointObserver = inject(BreakpointObserver);
   readonly commonService = inject(CommonService);
@@ -56,7 +68,7 @@ export class IdProofComponent implements OnInit {
     'createdBy',    // Add this column
     'actions'
   ];
-  dataSource!: MatTableDataSource<Identity>;
+  dataSource: Identity[] = [];
 
   constructor() {
     this.breakpointObserver
@@ -87,9 +99,14 @@ export class IdProofComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.idProofService.getProofIds().subscribe((response: any) => {
-      this.dataSource = new MatTableDataSource(response.proofIds);
-      this.changeDetetorRef.detectChanges()
+    this.idProofService.getProofIds().subscribe({
+      next: (response: any) => {
+        this.dataSource = response.proofIds;
+        this.changeDetetorRef.detectChanges()
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
     })
   }
 

@@ -44,6 +44,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { SharedItemService } from '../../services/shared-item.service';
+import { ConfirmationComponent } from '../../common/confirmation/confirmation.component';
 
 @Component({
   selector: 'app-password',
@@ -198,28 +199,41 @@ export class PasswordComponent implements OnInit {
   }
 
   deletePasswords(id?: string): void {
-    const ids =
-      id ??
-      this.selection.selected
-        .map((pass) => {
-          return pass._id;
-        })
-        .join(',');
-    this.passwordService
-      .deletePassword(ids)
-      .pipe(
-        tap(() => {
-          this.getPasswords();
-        }),
-        catchError((error: any) => {
-          console.error('err', error);
-          throw error;
-        })
-      )
-      .subscribe({
-        complete: () => {
-          this.changeDetectorReforRef.detectChanges();
+    this.dialog
+      .open(ConfirmationComponent, {
+        width: '500px',
+        data: {
+          title: 'Delete Item',
+          description: 'Are you sure you want to delete this item?',
         },
+      })
+      .afterClosed()
+      .subscribe((confirmation) => {
+        if (confirmation) {
+          const ids =
+            id ??
+            this.selection.selected
+              .map((pass) => {
+                return pass._id;
+              })
+              .join(',');
+          this.passwordService
+            .deletePassword(ids)
+            .pipe(
+              tap(() => {
+                this.getPasswords();
+              }),
+              catchError((error: any) => {
+                console.error('err', error);
+                throw error;
+              })
+            )
+            .subscribe({
+              complete: () => {
+                this.changeDetectorReforRef.detectChanges();
+              },
+            });
+        }
       });
   }
 
@@ -247,7 +261,7 @@ export class PasswordComponent implements OnInit {
       next: (result) => {
         result.passwordIds = passwordId;
         console.log(result);
-        
+
         if (result) {
           this.passwordService.sharePassword(result).subscribe({
             next: (result) => {
@@ -295,9 +309,8 @@ export class PasswordComponent implements OnInit {
     if (!row) {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
-      row._id + 1
-    }`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row._id + 1
+      }`;
   }
 
   updateFavourites(passwordId?: string): void {

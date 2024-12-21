@@ -50,6 +50,6 @@ export class FileService {
 
   // File preview
   getFilePreview(fileId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/preview/${fileId}`);
+    return this.http.get<Blob>(`${this.apiUrl}/preview/${fileId}`);
   }
 }

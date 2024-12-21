@@ -45,7 +45,7 @@
         </div>
       </div>
     </nav>
-    <div class="mat-elevation-z8">
+    <div class="mat-elevation-z8" *ngIf="dataSource.length > 0; else noDataTemplate ">
       <table mat-table [dataSource]="dataSource" class="mat-table">
         <ng-container matColumnDef="select">
           <th mat-header-cell *matHeaderCellDef>
@@ -186,5 +186,26 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
       </table>
     </div>
+    <ng-template #noDataTemplate>
+      <div class="flex items-center justify-center flex-col text-center p-6 h-[90vh] overflow-hidden">
+        <img src="https://placehold.co/150" alt="error-icon" class="w-24 h-24 text-primary mb-4 animate-bounce" />
+        <p class="text-primary font-extrabold text-2xl mt-2">
+          Oops! Data not found
+        </p>
+        <p class="text-muted-foreground text-sm mt-1">
+          It seems like we couldn't locate the information you requested.
+        </p>
+        <div class="flex space-x-6 mt-6">
+          <button
+            class="bg-secondary text-secondary-foreground px-5 py-3 rounded-full shadow-md hover:bg-secondary/80 transition duration-300">
+            Retry
+          </button>
+          <button
+            class="bg-accent text-accent-foreground px-5 py-3 rounded-full shadow-md hover:bg-accent/80 transition duration-300">
+            Add
+          </button>
+        </div>
+      </div>
+    </ng-template>
   </mat-sidenav-content>
 </mat-sidenav-container>

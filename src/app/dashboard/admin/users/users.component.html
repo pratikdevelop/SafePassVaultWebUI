@@ -1,67 +1,100 @@
 <nav aria-label="Global"
-    class="flex items-center justify-between w-full text-primary-foreground bg-background shadow-lg rounded-md p-3">
-    <div class="text-primary-foreground flex flex-col space-y-2">
-        <div class="text-xl font-extrabold text-accent">Users</div>
-    </div>
-    <button mat-flat-button color="primary" (click)="openUsersDialog()"> create Users</button>
-</nav>
-<div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort class="full-width-table">
-  
-      <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-        <td mat-cell *matCellDef="let user">{{ user.recipient.name }}</td>
-      </ng-container>
-  
-      <!-- Email Column -->
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
-        <td mat-cell *matCellDef="let user">{{ user.recipient.email }}</td>
-      </ng-container>
-  
-      <!-- Phone Column -->
-      <ng-container matColumnDef="phone">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone</th>
-        <td mat-cell *matCellDef="let user">{{ user.recipient.phone }}</td>
-      </ng-container>
-  
-      <!-- Invitation Column -->
-      <ng-container matColumnDef="invitation">
-        <th mat-header-cell *matHeaderCellDef>Invitation</th>
-        <td mat-cell *matCellDef="let user">{{ user.status }}</td>
-      </ng-container>
-  
-      <!-- Action Column -->
-      <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef>Action</th>
-        <td mat-cell *matCellDef="let user">
-          <button mat-icon-button (click)="onEdit(user)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-icon-button (click)="onDelete(user)">
-            <mat-icon>delete</mat-icon>
-          </button>
-          <button mat-icon-button (click)="resendInvitation(user)" *ngIf="user.status === 'pending'">
-            <mat-icon>send</mat-icon>
-
-          </button>
-        </td>
-
-      </ng-container>
-  
-      <!-- Created Date Column -->
-      <ng-container matColumnDef="created">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Created</th>
-        <td mat-cell *matCellDef="let user">{{ user.recipient.createdAt }}</td>
-      </ng-container>
-  
-      <!-- Header and Row Declarations -->
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  
-    <!-- Paginator -->
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  class="flex flex-col sm:flex-row sm:items-center justify-between w-full text-primary-foreground bg-slate-800 shadow-lg p-3">
+  <div class="flex items-center space-x-2">
+    <button mat-icon-button (click)="toggleSideBar()" class="menu-button lg:hidden">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="text-xl sm:text-3xl font-bold text-white">users</span>
   </div>
-  
+  <div class="flex sm:items-center space-x-1 sm:w-6/12 sm:justify-end">
+    <!-- Add Menu -->
+    <input matInput type="text" placeholder="Search the User by name, email" aria-label="Search the password"
+      class="w-8/12 py-2 px-3 border-2 border-slate-900 text-gray-500 bg-white" />
+    <!-- Add Menu -->
+    <div class="flex flex-col items-start p-2">
+      <button mat-icon (click)="openUsersDialog()" aria-label="Add new item">
+        <mat-icon class="text-slate-50">add_circle_outline</mat-icon>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="mat-elevation-z8" *ngIf="dataSource.length >0; else noDataTemplate">
+  <table mat-table [dataSource]="dataSource" matSort class="full-width-table">
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let user">{{ user.recipient.name }}</td>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+      <td mat-cell *matCellDef="let user">{{ user.recipient.email }}</td>
+    </ng-container>
+
+    <!-- Phone Column -->
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Phone</th>
+      <td mat-cell *matCellDef="let user">{{ user.recipient.phone }}</td>
+    </ng-container>
+
+    <!-- Invitation Column -->
+    <ng-container matColumnDef="invitation">
+      <th mat-header-cell *matHeaderCellDef>Invitation</th>
+      <td mat-cell *matCellDef="let user">{{ user.status }}</td>
+    </ng-container>
+
+    <!-- Action Column -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let user">
+        <button mat-icon-button (click)="onEdit(user)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onDelete(user)">
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button (click)="resendInvitation(user)" *ngIf="user.status === 'pending'">
+          <mat-icon>send</mat-icon>
+
+        </button>
+      </td>
+
+    </ng-container>
+
+    <!-- Created Date Column -->
+    <ng-container matColumnDef="created">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Created</th>
+      <td mat-cell *matCellDef="let user">{{ user.recipient.createdAt }}</td>
+    </ng-container>
+
+    <!-- Header and Row Declarations -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+</div>
+<ng-template #noDataTemplate>
+  <div class="flex items-center justify-center flex-col text-center p-6 h-[90vh] overflow-hidden">
+    <img src="https://placehold.co/150" alt="error-icon" class="w-24 h-24 text-primary mb-4 animate-bounce" />
+    <p class="text-primary font-extrabold text-2xl mt-2">
+      Oops! Data not found
+    </p>
+    <p class="text-muted-foreground text-sm mt-1">
+      It seems like we couldn't locate the information you requested.
+    </p>
+    <div class="flex space-x-6 mt-6">
+      <button
+        class="bg-secondary text-secondary-foreground px-5 py-3 rounded-full shadow-md hover:bg-secondary/80 transition duration-300">
+        Retry
+      </button>
+      <button
+        class="bg-accent text-accent-foreground px-5 py-3 rounded-full shadow-md hover:bg-accent/80 transition duration-300">
+        Add
+      </button>
+    </div>
+  </div>
+</ng-template>
