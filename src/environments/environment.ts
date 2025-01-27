@@ -1,7 +1,7 @@
 export const environment = {
     production: true,
     isElectron: false,
-    api_url: "https://cx4dm66fsj.execute-api.us-east-1.amazonaws.com/api",
+    api_url: "https://safepassvaultwebapi.onrender.com/api",
     firebaseConfig: {
         apiKey: "AIzaSyCH79TfIXVYmsXV-fgcPUUFxblTMLx7WSg",
         authDomain: "passowrd-app-api.firebaseapp.com",
