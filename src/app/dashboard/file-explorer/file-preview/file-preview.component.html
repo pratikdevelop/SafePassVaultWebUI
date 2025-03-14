@@ -1,0 +1,39 @@
+<div *ngIf="file" class="bg-white rounded-lg shadow-md p-4">
+    <div class="border-b border-gray-200 pb-2">
+        <h2 class="text-xl font-semibold">{{ file.originalName }}</h2>
+        <h3 class="text-gray-600">Size: {{ file.size | number }} bytes</h3>
+    </div>
+
+    <div class="mt-4">
+        <div class="file-info">
+            <p><strong>Uploaded At:</strong> {{ file.uploadedAt | date: 'medium' }}</p>
+            <p><strong>Shared With:</strong> {{ file.sharedWith.join(', ') || 'None' }}</p>
+            <p><strong>Owner:</strong> {{ file.ownerId.name }}</p>
+            <p><strong>Folder:</strong> {{ file.folderId.name }}</p>
+
+            <!-- File Preview (image/video/etc.) -->
+            <div *ngIf="file.location" class="mt-4">
+                <div class="file-preview">
+                    <img *ngIf="file.filename.endsWith('.jpg') || file.filename.endsWith('.png') || file.filename.endsWith('.jpeg')"
+                         [src]="getSanitizedImageUrl(file)" alt="File Preview" class="w-full h-auto rounded-lg">
+                         
+                    <iframe *ngIf="file.filename.endsWith('.pdf')" [src]="getSanitizedPdfUrl(file)"
+                            class="w-full h-64 border border-gray-300 rounded-lg"></iframe>
+                </div>
+            </div>
+            
+
+            <hr class="my-4 border-gray-300">
+        </div>
+    </div>
+
+    <div class="mt-4 flex justify-between">
+        <button (click)="openFileInNewTab(file.location)"
+            class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+            Open File
+        </button>
+        <button class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600">
+            Delete
+        </button>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+<nav aria-label="Global"
+  class="flex items-center justify-between w-full text-primary-foreground bg-background shadow-lg rounded-md p-3">
+  <div class="text-primary-foreground flex flex-col space-y-2">
+    <div class="text-xl font-extrabold text-accent">Organizations</div>
+  </div>
+  <button mat-flat-button color="primary" [disabled]="hideButton" #tooltip="matTooltip"
+    matTooltip="Info about the action" [matTooltipPosition]="'above'" matTooltipHideDelay="100000"
+    (click)="openOrganizationDialog()"> create
+    Organization</button>
+</nav>
+<mat-table [dataSource]="organizations" class="mat-elevation-z8">
+
+  <!-- ID Column -->
+  <ng-container matColumnDef="_id">
+    <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+    <mat-cell *matCellDef="let element; let i = index;">{{ i+1 }}</mat-cell>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+  </ng-container>
+
+  <!-- Description Column -->
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+  </ng-container>
+
+  <!-- Owner Name Column -->
+  <ng-container matColumnDef="ownerName">
+    <mat-header-cell *matHeaderCellDef> Owner Name </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.owner.name}} </mat-cell>
+  </ng-container>
+
+  <!-- Owner Email Column -->
+  <ng-container matColumnDef="ownerEmail">
+    <mat-header-cell *matHeaderCellDef> Owner Email </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.owner.email}} </mat-cell>
+  </ng-container>
+
+  <!-- Created At Column -->
+  <ng-container matColumnDef="createdAt">
+    <mat-header-cell *matHeaderCellDef> Created At </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.createdAt | date:'short'}} </mat-cell>
+  </ng-container>
+
+  <!-- Updated At Column -->
+  <ng-container matColumnDef="updatedAt">
+    <mat-header-cell *matHeaderCellDef> Updated At </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.updatedAt | date:'short'}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="action">
+    <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <div class="flex items-center space-x-2">
+        <button mat-mini-fab color="secondary" (click)="openOrganizationDialog(element)">
+          <mat-icon>
+           edit
+          </mat-icon>
+          
+        </button>
+        <button mat-mini-fab color="warn" (click)="deleteOrganization(element._id)">
+          <mat-icon>
+            delete
+          </mat-icon>
+  
+        </button>
+
+      </div>
+
+    </mat-cell>
+  </ng-container>
+  
+
+  <!-- Header and Row Definitions -->
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;" class="p-2"></mat-row>
+</mat-table>

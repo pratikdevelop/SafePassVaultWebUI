@@ -1,0 +1,50 @@
+<mat-sidenav-container class="relative flex flex-out h-[90vh]">
+  <!-- Sidenav -->
+  <mat-sidenav #sidenav [mode]="mode" [opened]="isSidebarOpen" class="sm: sidenav.closee()" style="
+      padding: 2rem 0 !important;
+      width: 20rem !important; 
+      background-color: rgb(37, 36, 44);
+      color: white !important;
+      border-radius: 0% !important;
+      display: flex !important;
+      flex-direction: column !important;
+      column-gap: 3rem !important;
+    ">
+    <div class="flex flex-col space-y-2">
+      <a class="px-4 py-2 text-white block text-center cursor-pointer" (click)="setTab('personal-details')">
+        Personal
+        Details</a>
+      <a class="px-4 py-2 text-white block text-center cursor-pointer" (click)="setTab('security')">Security Token</a>
+      <a class="px-4 py-2 text-white block text-center cursor-pointer" (click)="setTab('privacy')">Change Password</a>
+      <a class="px-4 py-2 text-white block text-center cursor-pointer" (click)="setTab('manage-notification')">Email
+        Notification</a>
+      <a class="px-4 py-2 text-white block text-center cursor-pointer" (click)="setTab('mfa-authentication')">MFA
+        Authentication</a>
+      <a class="px-4 py-2 text-white block text-center cursor-pointer" (click)="setTab('plan-details')"> Plan And
+        Usage</a>
+        <!-- <a class="px-4 py-2 text-white block text-center cursor-pointer" (click)="setTab('passwordless-option')"> 
+          Passwordless Option
+        </a> -->
+
+      <!-- SSO Integration -->
+      <!-- <div class="px-4 py-2 text-white text-center mt-4">
+      <p class="text-white text-lg">Sign in with:</p>
+      Google Auth Button
+      <button class="google-auth-btn my-2 p-2 w-full text-black bg-white"
+              (click)="signInWithGoogle()">Google</button>
+      Facebook Auth Button
+      <button class="facebook-auth-btn my-2 p-2 w-full text-white bg-blue-600"
+              (click)="signInWithFacebook()">Facebook</button>
+    </div> -->
+      <a class="px-4 py-2 text-white block text-center cursor-pointer" (click)="setTab('single-sign-on')">Single
+        Sign-On</a>
+      <a class="px-4 py-2 text-white block text-center cursor-pointer" (click)="setTab('key-inspector')">Key
+        Inspector</a>
+    </div>
+  </mat-sidenav>
+
+  <!-- Main content -->
+  <mat-sidenav-content class="p-4">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>  

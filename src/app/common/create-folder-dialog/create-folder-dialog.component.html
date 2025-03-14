@@ -1,0 +1,18 @@
+<mat-toolbar>
+  <h1 mat-dialog-title>Create New Folder</h1>
+  <span class="spacer"></span> <!-- Spacer to push the title to the left -->
+  <button mat-icon-button (click)="onClose()">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-dialog-content class="flex flex-col w-full">
+  <mat-form-field appearance="outline" class="w-full">
+    <input matInput placeholder="Folder Name" [(ngModel)]="folderName">
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-flat-button color="primary" (click)="onCreate()">Create</button>
+</mat-dialog-actions>

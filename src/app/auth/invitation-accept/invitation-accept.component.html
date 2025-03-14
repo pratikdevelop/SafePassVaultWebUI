@@ -1,0 +1,138 @@
+<div class="flex flex-col h-[100vh] w-full items-center justify-center">
+  <mat-horizontal-stepper [linear]="true" #stepper backgroundColor="primary"
+    class="bg-gray-100 p-6 rounded-lg shadow-lg">
+    <!-- Create Password Step -->
+    <mat-step [stepControl]="passwordForm">
+      <form [formGroup]="passwordForm" (ngSubmit)="onSubmitPassword()">
+        <ng-template matStepLabel>Create New Password</ng-template>
+        <div class="space-y-4">
+          <mat-form-field appearance="outline" class="w-full">
+
+            <input matInput formControlName="email" placeholder="name@company.com" required>
+            <mat-error *ngIf="emailForm.get('email')?.hasError('required')">
+              Email is required
+            </mat-error>
+            <mat-error *ngIf="emailForm.get('email')?.hasError('email')">
+              Enter a valid email
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-full">
+            <input matInput type="hide()? password: text" formControlName="password" placeholder="**********" required>
+            <button mat-icon-button type="button" matSuffix (click)="clickEvent($event)"
+              [attr.aria-label]="'Toggle password visibility'" [attr.aria-pressed]="hide()">
+              <mat-icon>{{
+                hide() ? "visibility_off" : "visibility"
+                }}</mat-icon>
+            </button>
+            <button mat-icon-button type="button" matSuffix (click)="generatePassword()"
+              aria-label="Generate a strong password">
+              <mat-icon>filter</mat-icon>
+            </button>
+            <mat-hint>Password must contain numbers, letters, and special
+              characters.</mat-hint>
+
+            <mat-error *ngIf="passwordForm.get('password')?.hasError('required')">
+              Password is required
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-full">
+            <input matInput type="password" formControlName="confirmPassword" placeholder="********" required>
+            <mat-error *ngIf="passwordForm.get('confirmPassword')?.hasError('required')">
+              Confirm Password is required
+            </mat-error>
+            <mat-error *ngIf="passwordForm.hasError('mismatch')">
+              Passwords do not match
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div>
+          <button mat-flat-button (click)="onSubmitPassword()" [disabled]="passwordForm.invalid">Set Password</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- Confirm Email Step -->
+    <mat-step [stepControl]="emailForm">
+      <form [formGroup]="emailForm" (ngSubmit)="onSubmitEmail()">
+        <ng-template matStepLabel>Confirm Your Email</ng-template>
+        <div class="space-y-4">
+          <mat-form-field appearance="outline" class="w-full">
+            <input matInput formControlName="OTP" required>
+            <mat-error *ngIf="emailForm.get('OTP')?.hasError('required')">
+              OTP is required
+            </mat-error>
+
+          </mat-form-field>
+        </div>
+        <div>
+          <button mat-flat-button (click)="onSubmitEmail()" [disabled]="emailForm.invalid">Confirm Email</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="securityForm">
+      <form [formGroup]="securityForm" class="flex flex-col space-y-6">
+        <ng-template matStepLabel>Security Questions</ng-template>
+
+        <!-- First Security Question -->
+        <mat-form-field appearance="outline">
+          <mat-select placeholder="Select your first security question" formControlName="securityQuestion1" required>
+            <mat-option value="firstPet">What was the name of your first pet?</mat-option>
+            <mat-option value="firstSchool">What was the name of your first school?</mat-option>
+            <mat-option value="motherMaiden">What is your mother's maiden name?</mat-option>
+            <mat-option value="favoriteColor">What is your favorite color?</mat-option>
+          </mat-select>
+          <mat-error *ngIf="
+              securityForm.get('securityQuestion1')?.hasError('required') ||
+              securityForm.get('securityQuestion1')?.touched
+            ">
+            Security Question 1 is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <input matInput placeholder="Your answer" formControlName="securityAnswer1" required />
+          <mat-error *ngIf="
+              securityForm.get('securityAnswer1')?.hasError('required') ||
+              securityForm.get('securityAnswer1')?.touched
+            ">
+            Answer is required
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Second Security Question -->
+        <mat-form-field appearance="outline">
+          <mat-select placeholder="Select your second security question" formControlName="securityQuestion2" required>
+            <mat-option value="favoriteBook">What is your favorite book?</mat-option>
+            <mat-option value="streetGrewUp">What street did you grow up on?</mat-option>
+            <mat-option value="bestFriend">What is the name of your best friend?</mat-option>
+            <mat-option value="firstJob">What was your first job?</mat-option>
+          </mat-select>
+          <mat-error *ngIf="
+              securityForm.get('securityQuestion2')?.hasError('required') ||
+              securityForm.get('securityQuestion2')?.touched
+            ">
+            Security Question 2 is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <input matInput placeholder="Your answer" formControlName="securityAnswer2" required />
+          <mat-error *ngIf="
+              securityForm.get('securityAnswer2')?.hasError('required') ||
+              securityForm.get('securityAnswer2')?.touched
+            ">
+            Answer is required
+          </mat-error>
+        </mat-form-field>
+
+        <div class="flex items-center justify-between">
+          <button mat-flat-button routerLink="/dashboar/passwords">Skip</button>
+          <button mat-flat-button (click)="addSecurityQuestion()">
+            Finish
+          </button>
+        </div>
+      </form>
+    </mat-step>
+  </mat-horizontal-stepper>
+
+</div>

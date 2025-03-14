@@ -1,0 +1,68 @@
+<nav aria-label="Global"
+  class="flex items-center justify-between w-full text-primary-foreground bg-background shadow-lg rounded-md p-3">
+  <div class="text-primary-foreground flex items-center space-x-2">
+    <button class="menu-button lg:hidden p-2 rounded-md hover:bg-muted transition duration-200">
+      <img aria-hidden="true" alt="menu-icon" src="https://openui.fly.dev/openui/24x24.svg?text=☰" />
+    </button>
+    <div class="text-xl sm:text-3xl font-bold">Billing and Plan Details</div>
+  </div>
+  <button mat-flat-button [routerLink]="['/dashboard/profile/upgrade']">
+    Update Plan
+  </button>
+</nav>
+
+<div *ngIf="planDetails" class="bg-card shadow mt-4 p-4 rounded-lg transition duration-200 hover:shadow-lg">
+  <div class="flex items-center">
+    <div class="mr-3">
+      <img aria-hidden="true" alt="star-icon" src="https://openui.fly.dev/openui/24x24.svg?text=⭐" />
+    </div>
+    <div class="flex-1">
+      <h3 class="text-lg font-semibold">{{ planDetails.planName }}</h3>
+      <div class="text-sm text-muted-foreground">{{ planDetails.description || 'No description available' }}</div>
+    </div>
+  </div>
+
+  <div class="mt-4 flex flex-col space-y-2">
+    <p class="font-bold text-xl">
+      Price: {{ planDetails.amount/100 | currency }}
+    </p>
+    <p class="text-sm text-muted-foreground">Features included:</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div *ngFor="let feature of planDetails.features">
+        <ul class="list-none">
+          <li class="mb-2 flex items-center">
+            <img aria-hidden="true" alt="check-icon" src="https://openui.fly.dev/openui/24x24.svg?text=✔️"
+              class="text-green-500 mr-2" />
+            {{ feature.text }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mt-6">
+  <h4 class="text-lg font-semibold text-primary-foreground">Frequently Asked Questions</h4>
+
+  <mat-accordion *ngIf="planDetails" class="bg-card p-4 rounded-lg shadow mt-2">
+    <!-- Question 1 -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>What happens when I upgrade?</mat-panel-title>
+      </mat-expansion-panel-header>
+      <p class="text-muted-foreground pl-4">
+        When you upgrade, you will gain access to all premium features immediately.
+      </p>
+    </mat-expansion-panel>
+
+    <!-- Question 2 -->
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Can I cancel my subscription?</mat-panel-title>
+      </mat-expansion-panel-header>
+      <p class="text-muted-foreground pl-4">
+        Yes, you can cancel your subscription at any time from your account settings.
+      </p>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

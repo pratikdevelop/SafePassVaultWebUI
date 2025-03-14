@@ -1,0 +1,36 @@
+<nav aria-label="Global" class="flex items-center  justify-between w-full text-primary-foreground bg-background shadow-lg rounded-md p-3">
+    <div class="text-primary-foreground flex  items-center space-x-2" >
+        <button mat-icon-button (click)="toggleSideBar()" class="menu-button lg:hidden">
+            <mat-icon>menu</mat-icon>
+          </button>
+        <div class="text-xl sm:text-3xl font-bold text-accent">Email Notification</div>
+      </div>
+    <button mat-flat-button type="submit">Save Changes</button>
+
+  </nav>
+  <form  [formGroup]="notificationForm" class="flex flex-col space-y-6 mt-4">
+    <mat-form-field appearance="outline" >
+        <mat-select class="" formControlName="notificationType">
+            <mat-option value="all">All Notifications</mat-option>
+            <mat-option value="password">Password Changes</mat-option>
+            <mat-option value="comments">Comments on Passwords</mat-option>
+            <mat-option value="tags">Tag Creation</mat-option>
+            <mat-option value="totp">Two-Factor Authentication</mat-option>
+            <mat-option value="invitations">Organization Invitations</mat-option>
+            <mat-option value="notes">Notes Added</mat-option>
+            <mat-option value="creditCard">Credit Card Information</mat-option>
+            <mat-option value="fileUploads">File Uploads</mat-option>
+            <mat-option value="fileSent">File Sent</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+        <mat-checkbox formControlName="notificationEnable"> Receive email updates for the selected notification type</mat-checkbox>
+        <mat-form-field appearance="outline" >
+            <mat-select aria-placeholder="Frequency" formControlName="notificationFrequency">
+                <mat-option value="immediate">Immediate</mat-option>
+        <mat-option value="daily">Daily Digest</mat-option>
+        <mat-option value="weekly">Weekly Digest</mat-option>
+            </mat-select>
+        </mat-form-field>
+      
+  </form>

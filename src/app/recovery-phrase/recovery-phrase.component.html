@@ -1,0 +1,45 @@
+<ng-container *ngIf="!isLoading">
+    <nav aria-label="Global"
+        class="flex items-center  justify-between w-full text-primary-foreground bg-background shadow-lg p-3">
+        <span class="flex items-center space-x-2">
+            <button mat-icon-button class="menu-button lg:hidden">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span class="font-bold  text-xl sm:text-6xl text-slate-800"> Key Inspector</span>
+    
+        </span>
+        <div class="flex items-center justify-start space-x-6">
+            <button mat-flat-button (click)="downloadKey('public')">Download Public Key</button>
+            <button mat-flat-button (click)="downloadKey('private')">Download Private Key</button>
+        </div>
+    </nav>
+    <div id="profile"
+        class="flex flex-col flex-auto md:flex-row  md:justify-between p-8  space-x-6 bg-card mt-10 shadow-xl">
+        <div class="flex flex-col text-white bg-slate-800 w-5/12 space-y-8 p-6  flex-auto">
+            <!-- Title and Download Buttons -->
+            <div class="text-2xl font-bold capitalize">Information of Public and Private Key</div>
+    
+            <!-- Key Info Section -->
+            <div class="key-info space-y-6">
+                <div><strong>Fingerprint:</strong> {{ publicKeyFingerprint }}</div>
+                <div><strong>Created:</strong> {{ publicKeyCreatedDate }}</div>
+                <div><strong>Expires:</strong> {{ publicKeyExpiresDate }}</div>
+                <div><strong>Key Length:</strong> {{ publicKeyLength }}</div>
+                <div><strong>Algorithm:</strong> {{ publicKeyAlgorithm }}</div>
+            </div>
+        </div>
+    
+        <!-- Public Key Section -->
+        <div class="flex flex-col text-white bg-slate-800 space-y-2 w-7/12 p-6">
+            <h4 class="text-2xl px-6 font-semibold">Public Key Block</h4>
+            <!-- Public Key Block with Scrollable Area -->
+                <blockquote class="text-sm font-mono bg-slate-800 text-white p-5">
+                    <!-- The public key will be wrapped here -->
+                    <span class="block leading-8">
+                        {{ publicKey }}
+                    </span>
+                </blockquote>
+        </div>
+    
+    </div>
+</ng-container>

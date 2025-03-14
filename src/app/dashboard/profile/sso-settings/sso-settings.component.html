@@ -1,0 +1,63 @@
+<nav aria-label="Global"
+  class="flex items-center space-x-2 justify-between w-full text-primary-foreground bg-background shadow-lg p-3">
+  <div class="flex items-center space-x-2">
+    <button mat-icon-button (click)="toggleSideBar()" class="menu-button lg:hidden">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span class="font-bold text-xl text-slate-900 sm:text-3xl text-accent">SSO Integration</span>
+  </div>
+  <button mat-flat-button type="button" (click)="saveSettings()" [disabled]="!ssoForm.valid">Save
+    Settings</button>
+</nav>
+<div id="profile" class="flex flex-col p-3 md:p-8 bg-card md:mx-20 mt-10 shadow-xl transition-transform transform">
+  <!-- Sidebar for SSO Providers -->
+  <div class="flex flex-col space-y-6  p-4 text-white">
+    <h2 class="text-lg font-semibold mb-4">SSO Providers</h2>
+    <nav class="flex items-center space-x-5">
+      <button *ngFor="let provider of ssoProviders" (click)="selectProvider(provider)"
+        class="w-full text-left px-4 py-2 rounded-md bg-gray-700 hover:bg-gray-600"
+        [class.bg-blue-500]="provider.id === selectedProvider.id">
+        {{ provider.name }}
+      </button>
+    </nav>
+  </div>
+
+  <!-- Main content area for selected provider settings -->
+  <div class="sso-main p-6">
+    <h2 class="text-lg font-semibold mb-4">Configure {{ selectedProvider.name }}</h2>
+
+    <form #ssoForm="ngForm">
+      <!-- Conditionally displayed fields based on the selected provider -->
+
+      <mat-form-field *ngIf="selectedProvider.fields.includes('loginUrl')" appearance="outline" class="w-full mb-4">
+        <input matInput placeholder="Login URL" [(ngModel)]="ssoSettings.loginUrl" name="loginUrl" required>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="selectedProvider.fields.includes('redirectUrl')" appearance="outline" class="w-full mb-4">
+        <input matInput placeholder="Redirect URL" [(ngModel)]="ssoSettings.redirectUrl" name="redirectUrl" required>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="selectedProvider.fields.includes('clientId')" appearance="outline" class="w-full mb-4">
+        <input matInput placeholder="Client ID" [(ngModel)]="ssoSettings.clientId" name="clientId" required>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="selectedProvider.fields.includes('tenantId')" appearance="outline" class="w-full mb-4">
+        <input matInput placeholder="Tenant ID" [(ngModel)]="ssoSettings.tenantId" name="tenantId" required>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="selectedProvider.fields.includes('secret')" appearance="outline" class="w-full mb-4">
+        <input matInput placeholder="Secret" [(ngModel)]="ssoSettings.secret" name="secret" type="password" required>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="selectedProvider.fields.includes('secretExpiry')" appearance="outline" class="w-full mb-4">
+        <input matInput placeholder="dd/MM/yyyy" [(ngModel)]="ssoSettings.secretExpiry" name="secretExpiry" required>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="selectedProvider.fields.includes('scopes')" appearance="outline" class="w-full mb-4">
+        <input matInput placeholder="e.g., profile, email" [(ngModel)]="ssoSettings.scopes" name="scopes">
+      </mat-form-field>
+
+      <!-- Save Button -->
+    </form>
+  </div>
+</div>

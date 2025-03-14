@@ -1,0 +1,90 @@
+<mat-toolbar color="primary">
+  <h2 mat-dialog-title>Add Notes</h2>
+</mat-toolbar>
+<mat-dialog-content class="mat-typography p-6">
+  <form [formGroup]="noteForm" class="flex flex-col space-y-6">
+    <mat-form-field appearance="outline">
+      <input matInput formControlName="title" placeholder="Enter title" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <textarea matInput formControlName="content" placeholder="Enter the description" required></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <input matInput formControlName="searchFolders" placeholder="Search Folders" [matAutocomplete]="folderAuto"
+        (input)="searchFolders()" />
+      <mat-autocomplete #folderAuto="matAutocomplete" (optionSelected)="onFolderSelected($event)">
+        <ng-container *ngIf="isLoading; else folderOptions">
+          <mat-option disabled>Loading folders...</mat-option>
+        </ng-container>
+        <ng-template #folderOptions>
+          <ng-container *ngIf="folders.length > 0; else noFolders">
+            <mat-option *ngFor="let folder of folders" [value]="folder">
+              {{ folder.label }}
+            </mat-option>
+          </ng-container>
+          <ng-template #noFolders>
+            <mat-option class="flex items-center space-x-4">
+              <span class="flex items-center space-x-4">
+                No matching folder found.
+                <button mat-icon-button color="primary" (click)="createNewFolder()">
+                  <mat-icon>add_circle_outline</mat-icon>
+                </button>
+              </span>
+
+            </mat-option>
+          </ng-template>
+        </ng-template>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <!-- Tags Autocomplete with Chips -->
+    <mat-form-field appearance="outline">
+      <input matInput formControlName="searchTerm" placeholder="Search Tags" [matAutocomplete]="auto"
+        [matChipInputFor]="chipGrid" (input)="searchTags()" />
+      <mat-chip-grid #chipGrid aria-label="Tag selection">
+        <ng-container *ngIf="selectedTags.length >0">
+          <mat-chip-row *ngFor="let tag of selectedTags" (removed)="removeTag(tag._id)">
+            {{ tag?.name }}
+            <button matChipRemove aria-label="Remove tag">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+
+        </ng-container>
+      </mat-chip-grid>
+
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onTagSelected($event)">
+        <ng-container *ngIf="noteForm.value.searchTerm?.length > 0">
+          <ng-container *ngIf="isLoading && noteForm.value.searchTerm?.length === 0; else tagOptions">
+            <mat-option>Loading tags...</mat-option>
+          </ng-container>
+          <ng-template #tagOptions>
+            <ng-container *ngIf="tags.length > 0; else noTags">
+              <mat-option *ngFor="let tag of tags" [value]="tag">
+                {{ tag?.name }}
+              </mat-option>
+            </ng-container>
+            <ng-template #noTags>
+              <mat-option>
+                <span class="flex items-center space-x-6">
+                  No matching tags found.
+                  <button mat-icon-button color="primary" (click)="createNewTag()">
+                    <mat-icon>add_circle_outline</mat-icon>
+                  </button>
+                </span>
+
+              </mat-option>
+            </ng-template>
+          </ng-template>
+        </ng-container>
+
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="!noteForm.valid">Save Note</button>
+</mat-dialog-actions>

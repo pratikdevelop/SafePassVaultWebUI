@@ -1,0 +1,19 @@
+<mat-toolbar color="primary">
+    <h2 mat-dialog-title>Tag Creation Form</h2>
+</mat-toolbar>
+<mat-dialog-content>
+    <form method="post" [formGroup]="tagForm" class="flex flex-col space-y-8">
+        <mat-form-field appearance="outline">
+            <input type="text" formControlName="name" matInput placeholder="tag name">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <textarea matInput formControlName="description" placeholder="Description (optional)"></textarea>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions class="flex justify-end space-x-5">
+    <button mat-flat-button color="primary" (click)="addTag()">
+        Add Tag
+    </button>
+    <button mat-flat-button color="error" mat-dialog-close>Close</button>
+</mat-dialog-actions>

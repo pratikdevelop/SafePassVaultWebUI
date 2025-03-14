@@ -1,0 +1,28 @@
+.file-preview-card {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.file-preview-img {
+  width: 100%;
+  height: auto;
+}
+
+.file-preview-pdf {
+  width: 100%;
+  height: 500px;
+}
+
+.file-info {
+  font-size: 14px;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+mat-divider {
+  margin: 10px 0;
+}

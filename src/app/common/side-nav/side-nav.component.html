@@ -1,0 +1,55 @@
+<form [formGroup]="form"
+  class="border-r-1  flex flex-col  h-full  overflow-hidden overflow-y-auto space-y-6 py-4 px-0 bg-slate-900  flex-auto text-white">
+  <mat-selection-list [multiple]="false" formControlName="filterList" (selectionChange)="change($event.source._value)">
+    <mat-list-option checkboxPosition="before" value="all" selected="true" aria-current="true"
+      style="color: white !important;">All Items</mat-list-option>
+    <mat-divider></mat-divider>
+
+    <mat-list-option checkboxPosition="before" value="favourite"
+      style="color: white !important;">Favourites</mat-list-option>
+    <mat-divider></mat-divider>
+
+    <mat-list-option checkboxPosition="before" value="shared_with_me" style="color: white !important;">Shared With
+      Me</mat-list-option>
+    <mat-divider></mat-divider>
+
+    <mat-list-option checkboxPosition="before" value="created_by_me" style="color: white !important;">Created By
+      Me</mat-list-option>
+    <mat-divider></mat-divider>
+
+    <div mat-subheader class="flex items-center justify-start ">
+      <span class="text-xl font-bold">Folders</span>
+      <button mat-icon-button class="ml-auto" (click)="openCreateFolderDialog($event, '')">
+        <mat-icon>create_new_folder</mat-icon>
+      </button>
+    </div>
+    <ng-container *ngFor="let folder of folders ; let i = index;">
+      <mat-list-option checkboxPosition="before" [value]="folder._id" class="flex items-center">
+        <div matListItemTitle class="flex items-center space-x-3">
+          <mat-icon matListItemIcon>folder</mat-icon>
+          <span>{{ folder.label }}</span>
+        </div>
+      </mat-list-option>
+      <mat-divider *ngIf="i+1 < folders.length"></mat-divider>
+    </ng-container>
+    <mat-divider></mat-divider>
+
+    <div mat-subheader class="flex items-center justify-start ">
+      <span class="text-xl font-bold">Tags</span>
+      <button mat-icon-button class="ml-auto" (click)="openCreateTags($event, '')">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <ng-container *ngFor="let tag of tags ; let i = index;">
+      <mat-list-option checkboxPosition="before" [value]="tag._id" class="flex items-center">
+        <div matListItemTitle class="flex items-center space-x-3">
+          <mat-icon matListItemIcon>label</mat-icon>
+
+          <span>{{ tag.label }}</span>
+        </div>
+      </mat-list-option>
+      <mat-divider *ngIf="i+1 < tags.length"></mat-divider>
+    </ng-container>
+  </mat-selection-list>
+
+</form>

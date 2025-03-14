@@ -1,0 +1,76 @@
+<mat-toolbar color="primary">
+  <h2 mat-dialog-title>{{ isEditMode ? 'Edit File' : 'Upload File' }}</h2>
+</mat-toolbar>
+<mat-dialog-content class="mat-typography p-6">
+  <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" class="flex flex-col space-y-4">
+    <!-- File Upload Input -->
+    <mat-form-field appearance="outline">
+      <mat-label>File</mat-label>
+      <button type="button" mat-icon-button matPrefix (click)="f_input.click()" *ngIf="!isEditMode || !fileData">
+        <mat-icon>attach_file</mat-icon>
+      </button>
+      <input type="text" readonly matInput [value]="fileData?.filename || 'No file selected'" [disabled]="isEditMode" />
+      <input type="file" multiple hidden #f_input (change)="onFileChange($event)" [disabled]="isEditMode && fileData" />
+      <mat-error *ngIf="uploadForm.get('file')?.hasError('required')">
+        This field is required
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Button to clear or remove file (for editing purposes) -->
+    <ng-container *ngIf="isEditMode && fileData">
+      <button type="button" mat-raised-button (click)="removeFile()" color="warn">
+        Remove File
+      </button>
+    </ng-container>
+
+
+
+    <!-- Folder Selection Input -->
+    <mat-form-field appearance="outline">
+      <mat-label>Folder</mat-label>
+      <input type="text" matInput formControlName="folderName" [matAutocomplete]="auto"
+        (input)="onFolderSearch($event)" />
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option (click)="change(folder)" *ngFor="let folder of filteredFolders" [value]="folder.name">
+          {{ folder.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <!-- Create Folder Button (visible when folder not found) -->
+    <button *ngIf="folderNotFound" mat-flat-button color="primary" type="button"
+      (click)="createFolder(uploadForm.get('folderName')!.value)">
+      Create Folder "{{ uploadForm.get('folderName')!.value }}"
+    </button>
+
+    <!-- Shared With Input -->
+    <mat-form-field class="shared-with-field">
+      <mat-chip-grid #chipGrid aria-label="Shared With">
+        <mat-chip-row *ngFor="let user of selectedUsers" [removable]="true" (removed)="removeUser(user)">
+          {{ user }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip-row>
+      </mat-chip-grid>
+      <input type="text" matInput placeholder="Shared With" formControlName="sharedWith"
+        [matAutocomplete]="autoSharedWith" [matChipInputFor]="chipGrid" (input)="searchUsers($event)"
+        [value]="selectedUsers.join(', ')" />
+      <mat-autocomplete #autoSharedWith="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let option of filteredUsers" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <!-- Additional Options -->
+    <div class="flex items-center justify-between">
+      <mat-checkbox formControlName="encrypted">Encrypted</mat-checkbox>
+      <mat-checkbox formControlName="offlineAccess">Offline Access</mat-checkbox>
+    </div>
+
+    <!-- Submit and Cancel Buttons -->
+    <div class="flex items-center justify-between">
+      <button mat-flat-button color="primary" type="submit">{{ isEditMode ? 'Save Changes' : 'Upload' }}</button>
+      <button mat-flat-button type="button" mat-dialog-close="true">Cancel</button>
+    </div>
+  </form>
+</mat-dialog-content>

@@ -1,0 +1,66 @@
+<nav aria-label="Global"
+    class="flex items-center justify-between w-full text-primary-foreground bg-background shadow-lg rounded-md p-3">
+    <div class="text-primary-foreground flex items-center space-x-2">
+        <button mat-icon-button (click)="toggleSideBar()" class="menu-button lg:hidden">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <div class="text-xl sm:text-3xl font-bold text-accent">MFA Settings</div>
+    </div>
+    <button mat-flat-button type="submit" (click)="onSubmit()">Save Changes</button>
+</nav>
+
+<form [formGroup]="mfaForm" class="flex flex-col space-y-6 p-3">
+    <mat-slide-toggle formControlName="mfaEnabled" color="primary" (change)="toggleMFA($event.checked)">
+        Enable MFA
+    </mat-slide-toggle>
+
+    <div *ngIf="mfaForm.get('mfaEnabled')?.value" class="flex flex-col">
+        <mat-form-field appearance="outline">
+            <mat-select formControlName="mfaMethod" (selectionChange)="selectMFAMethod($event)">
+                <mat-option value="totp">Time-Based One-Time Password (TOTP)</mat-option>
+                <mat-option value="sms">SMS Authentication</mat-option>
+                <mat-option value="email">Email Authentication</mat-option>
+                <!-- <mat-option value="fingerprint">Fingerprint Authentication</mat-option> -->
+                <!-- <mat-option value="face">Face Recognition Authentication</mat-option> -->
+                <mat-option value="webauthn">WebAuthn (Web Authentication)</mat-option>
+                <!-- <mat-option value="push">Push Notification Authentication</mat-option> -->
+            </mat-select>
+        </mat-form-field>
+
+        <!-- Push Notification Setup -->
+        <div *ngIf="mfaForm.get('mfaMethod')?.value === 'push'" class="setup-instructions">
+            <p>To enable push notifications, you must grant permission and register your device.</p>
+            <button mat-button (click)="setupPushNotification()">Setup Push Notification</button>
+        </div>
+
+        <mat-form-field appearance="outline" *ngIf="mfaForm.get('mfaMethod')?.value === 'totp'">
+            <input matInput [disabled]="userProfile.totpSecret !== null" formControlName="totpSecret"
+                placeholder="Enter your TOTP secret">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" *ngIf="mfaForm.get('mfaMethod')?.value === 'sms'">
+            <input matInput formControlName="smsPhoneNumber" placeholder="Enter your phone number">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" *ngIf="mfaForm.get('mfaMethod')?.value === 'email'">
+            <input matInput formControlName="emailAddress" placeholder="Enter your email address">
+        </mat-form-field>
+
+        <div *ngIf="mfaForm.get('mfaMethod')?.value === 'fingerprint'" class="setup-instructions">
+            <button mat-button (click)="startFingerprintRegistration()">Register Fingerprint</button>
+        </div>
+
+        <div *ngIf="mfaForm.get('mfaMethod')?.value === 'face'" class="setup-instructions">
+            <button mat-button (click)="startFaceRecognitionRegistration()">Register Face</button>
+        </div>
+
+        <div *ngIf="mfaForm.get('mfaMethod')?.value === 'webauthn'" class="setup-instructions">
+            <button mat-button (click)="onRegister()">Register WebAuthn</button>
+        </div>
+
+        <div *ngIf="qrCodeUrl">
+            <h3>Scan this QR code with your authentication app:</h3>
+            <img [src]="qrCodeUrl" alt="QR Code" />
+        </div>
+    </div>
+</form>

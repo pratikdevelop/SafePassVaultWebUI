@@ -1,0 +1,91 @@
+<mat-toolbar>
+  <h2 mat-dialog-title>
+    Profile
+    <p class="text-sm text-gray-600 dark:text-neutral-400">
+      Manage your name, password, and account settings.
+    </p>
+  </h2>
+</mat-toolbar>
+<mat-dialog-content class="bg-white rounded-xl shadow p-4 sm:p-7">
+
+
+  <form [formGroup]="profileForm" class="flex flex-col space-y-4">
+    <!-- Full Name -->
+    <mat-form-field appearance="outline">
+      <mat-label>Full name</mat-label>
+      <input matInput formControlName="name" name="name" placeholder="Enter your full name" required>
+    </mat-form-field>
+
+
+    <!-- Email -->
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" name="email" placeholder="Email" type="email" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Phone</mat-label>
+      <input matInput formControlName="phone" name="phone" placeholder="Phone" type="tel">
+    </mat-form-field>
+
+    <!-- Billing Address -->
+    <mat-form-field appearance="outline">
+      <mat-label>Billing Address</mat-label>
+      <input matInput formControlName="billingAddress" name="billingAddress" placeholder="Billing Address">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-select formControlName="country" required (selectionChange)="onCountryChange($event.value)">
+        <mat-option *ngFor="let country of countries" [value]="country.shortName">
+          {{ country.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="
+                profileForm.get('country')?.hasError('required') ||
+                profileForm.get('country')?.touched
+              ">
+        Country is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-select formControlName="state" required (selectionChange)="onStateChange($event.value)">
+        <mat-option *ngFor="let state of filteredStates" [value]="state.abbreviation">
+          {{ state.state }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="
+                profileForm.get('state')?.hasError('required') ||
+                profileForm.get('state')?.touched
+              ">
+        State/Province is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-select formControlName="city" required>
+        <mat-option *ngFor="let city of filteredCities" [value]="city.name">
+          {{ city.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="
+                profileForm.get('city')?.hasError('required') ||
+                profileForm.get('city')?.touched
+              ">
+        City is required
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="fill" class="w-full">
+      <mat-label>Postal Code</mat-label>
+      <input matInput formControlName="postalCode" name="postalCode" placeholder="Postal Code">
+    </mat-form-field>
+
+    <!-- Country -->
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class=" flex justify-end gap-x-2">
+  <button mat-button type="button" mat-dialog-close="true">Cancel</button>
+  <button mat-flat-button color="primary" type="submit" [disabled]="!profileForm.valid" (click)="updateProfile()">Save
+    changes</button>
+</mat-dialog-actions>

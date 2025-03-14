@@ -1,0 +1,127 @@
+<mat-toolbar color="primary">
+  <h2 mat-dialog-title>Add ID Proof</h2>
+</mat-toolbar>
+
+<mat-dialog-content class="mat-typography p-6">
+  <form [formGroup]="idProofForm" class="flex flex-col space-y-6">
+    <mat-form-field appearance="outline">
+      <!-- <mat-label>ID Type</mat-label> -->
+      <mat-select formControlName="idType" required placeholder="Choose Identity Type">
+        <mat-option *ngFor="let type of idTypes" [value]="type">
+          {{ type }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <!-- <mat-label>ID Number</mat-label> -->
+      <input matInput formControlName="idNumber" required placeholder="Identity Number">
+      <mat-hint *ngIf="idProofForm.get('idType')?.value === 'AadharCard'">12 digit Aadhar number</mat-hint>
+      <mat-hint *ngIf="idProofForm.get('idType')?.value === 'PANCard'">Format: ABCDE1234F</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <input matInput formControlName="issueDate" [matDatepicker]="picker" type="date" (input)="checkValidDate($event)"
+        placeholder="Identity Issue date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <input matInput formControlName="expiryDate" type="date" [matDatepicker]="picker1"
+        (input)="checkValidDate($event)" placeholder="Identity Expiry Date">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="outline">
+      <!-- <mat-label>Document Image URL</mat-label> -->
+      <input matInput formControlName="documentImageUrl" placeholder="Add image url" type="url">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <!-- <mat-label>Issued By</mat-label> -->
+      <input matInput formControlName="issuedBy" placeholder="Name of issued By" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <input matInput formControlName="searchFolders" placeholder="Search Folders" [matAutocomplete]="folderAuto"
+        (input)="searchFolders()" />
+      <mat-autocomplete #folderAuto="matAutocomplete" (optionSelected)="onFolderSelected($event)">
+        <ng-container *ngIf="isLoading; else folderOptions">
+          <mat-option disabled>Loading folders...</mat-option>
+        </ng-container>
+        <ng-template #folderOptions>
+          <ng-container *ngIf="folders.length > 0; else noFolders">
+            <mat-option *ngFor="let folder of folders" [value]="folder">
+              {{ folder.label }}
+            </mat-option>
+          </ng-container>
+          <ng-template #noFolders>
+            <mat-option class="flex items-center space-x-4">
+              <span class="flex items-center space-x-4">
+                No matching folder found.
+                <button mat-icon-button color="primary" (click)="createNewFolder()">
+                  <mat-icon>add_circle_outline</mat-icon>
+                </button>
+              </span>
+
+            </mat-option>
+          </ng-template>
+        </ng-template>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <!-- Tags Autocomplete with Chips -->
+    <mat-form-field appearance="outline">
+      <input matInput formControlName="searchTerm" placeholder="Search Tags" [matAutocomplete]="auto"
+        [matChipInputFor]="chipGrid" (input)="searchTags()" />
+      <mat-chip-grid #chipGrid aria-label="Tag selection">
+        <ng-container *ngIf="selectedTags.length >0">
+          <mat-chip-row *ngFor="let tag of selectedTags" (removed)="removeTag(tag._id)">
+            {{ tag?.name }}
+            <button matChipRemove aria-label="Remove tag">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+
+        </ng-container>
+      </mat-chip-grid>
+
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onTagSelected($event)">
+        <ng-container *ngIf="idProofForm.value.searchTerm?.length > 0">
+          <ng-container *ngIf="isLoading && idProofForm.value.searchTerm?.length === 0; else tagOptions">
+            <mat-option>Loading tags...</mat-option>
+          </ng-container>
+          <ng-template #tagOptions>
+            <ng-container *ngIf="tags.length > 0; else noTags">
+              <mat-option *ngFor="let tag of tags" [value]="tag">
+                {{ tag?.name }}
+              </mat-option>
+            </ng-container>
+            <ng-template #noTags>
+              <mat-option>
+                <span class="flex items-center space-x-6">
+                  No matching tags found.
+                  <button mat-icon-button color="primary" (click)="createNewTag()">
+                    <mat-icon>add_circle_outline</mat-icon>
+                  </button>
+                </span>
+
+              </mat-option>
+            </ng-template>
+          </ng-template>
+        </ng-container>
+
+      </mat-autocomplete>
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-flat-button color="primary" type="submit" (click)="onSubmit()" [disabled]="!idProofForm.valid">Save ID
+    Proof</button>
+</mat-dialog-actions>

@@ -1,0 +1,170 @@
+<header class="fixed inset-x-0 top-0 z-10 bg-gray-900 shadow-lg" *ngIf="!isLoading">
+  <nav class=" mx-auto flex flex-row items-center justify-between p-4 text-white">
+    <!-- Logo and Mobile Menu Button -->
+      <a routerLink="/" class="text-4xl font-bold">Safepassvault</a>
+      <!-- Mobile Menu Button -->
+       <div class="sm:hidden">
+         <button mat-icon-button  (click)="toggleMobileMenu()" aria-label="Toggle Menu">
+           <mat-icon>menu</mat-icon>
+         </button>
+       </div>
+
+    <!-- Desktop Menu -->
+    <div class="hidden lg:flex  lg:space-x-6">
+      <ng-container *ngIf="token; else loggedOutMenu">
+        <!-- Products Dropdown -->
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" [matMenuTriggerFor]="pagesMenu">
+          Products
+        </a>
+        <!-- Other Links -->
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" routerLink="/dashboard/log-report">
+          Log Report
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" routerLink="/dashboard/tickets">
+          Report an Issue
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" *ngIf="userProfile?.user.role === 'admin'"
+          routerLink="/admin/users">
+          Administration
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400"
+          routerLink="/dashboard/profile/personal-details">
+          Profile
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" (click)="logout()">
+          Logout
+        </a>
+      </ng-container>
+
+      <!-- Logged Out Menu -->
+      <ng-template #loggedOutMenu>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" [matMenuTriggerFor]="productsMenu">
+          Products
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" routerLink="/plan-pricing">
+          Plan and Pricing
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" [matMenuTriggerFor]="documentationMenu">
+          Documentation
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" routerLink="/support">
+          Customer Support
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" routerLink="/roadmap">
+          Roadmap
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" routerLink="/download">
+          Download
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" routerLink="/auth/signup">
+          Get Started
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" routerLink="/auth/login">
+          Log In
+        </a>
+      </ng-template>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="lg:hidden bg-gray-800" *ngIf="isMobileMenuOpen">
+    <div class="flex flex-col space-y-4 p-4">
+      <ng-container *ngIf="token; else loggedOutMobileMenu">
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" (click)="toggleMobileMenu()"
+          routerLink="/dashboard/passwords">
+          Passwords
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" (click)="toggleMobileMenu()"
+          routerLink="/dashboard/notes">
+          Secure Notes
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" (click)="toggleMobileMenu()"
+          routerLink="/dashboard/cards">
+          Cards
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" (click)="toggleMobileMenu()"
+          routerLink="/dashboard/address">
+          Address
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" (click)="toggleMobileMenu()"
+          routerLink="/dashboard/files">
+          File Storage
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" (click)="toggleMobileMenu()"
+          routerLink="/dashboard/identity">
+          Identity
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" (click)="toggleMobileMenu()"
+          routerLink="/dashboard/secrets">
+          Secrets
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" (click)="toggleMobileMenu()"
+          routerLink="/dashboard/tickets">
+          Report an Issue
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" (click)="toggleMobileMenu()"
+          routerLink="/dashboard/log-report">
+          Log Report
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" (click)="toggleMobileMenu()"
+          *ngIf="userProfile?.user?.role === 'admin'" routerLink="/admin/users">
+          Administration
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" (click)="toggleMobileMenu()"
+          routerLink="/dashboard/profile/personal-details">
+          Profile
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" (click)="logout()">
+          Logout
+        </a>
+      </ng-container>
+
+      <!-- Logged Out Mobile Menu -->
+      <ng-template #loggedOutMobileMenu>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" (click)="toggleMobileMenu()"
+          routerLink="/generator">
+          Password Generator
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" (click)="toggleMobileMenu()"
+          routerLink="/password-strength">
+          Password Checker
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" (click)="toggleMobileMenu()"
+          routerLink="/plan-pricing">
+          Plan and Pricing
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" (click)="toggleMobileMenu()"
+          routerLink="/auth/signup">
+          Get Started
+        </a>
+        <a class="text-sm font-semibold capitalize cursor-pointer hover:text-blue-400" (click)="toggleMobileMenu()"
+          routerLink="/auth/login">
+          Log In
+        </a>
+      </ng-template>
+    </div>
+  </div>
+  <mat-menu #pagesMenu="matMenu">
+    <a mat-menu-item routerLink="/dashboard/passwords">Passwords</a>
+    <a mat-menu-item routerLink="/dashboard/notes">Secure Notes</a>
+    <a mat-menu-item routerLink="/dashboard/cards">Cards</a>
+    <a mat-menu-item routerLink="/dashboard/address">Address</a>
+    <a mat-menu-item routerLink="/dashboard/files">File Storage</a>
+    <a mat-menu-item routerLink="/dashboard/identity">Identity</a>
+    <a mat-menu-item routerLink="/dashboard/secrets">Secrets</a>
+  </mat-menu>
+  
+  <mat-menu #productsMenu="matMenu">
+    <a mat-menu-item routerLink="/generator">Password Generator</a>
+    <a mat-menu-item routerLink="/password-strength">Password Checker</a>
+    <a mat-menu-item routerLink="/dashboard/passwords">Password Vault</a>
+    <a mat-menu-item routerLink="/dashboard/files">File Storage</a>
+  </mat-menu>
+  
+  <mat-menu #documentationMenu="matMenu">
+    <a mat-menu-item routerLink="/api-docs">API Guide</a>
+    <a mat-menu-item routerLink="/password-strength">Admin Guide</a>
+    <a mat-menu-item routerLink="/user-guide">User Guide</a>
+    <a mat-menu-item routerLink="/dashboard/files">Hosting Guide</a>
+  </mat-menu>
+</header>

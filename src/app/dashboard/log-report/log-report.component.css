@@ -1,0 +1,6 @@
+::ng-deep .mdc-text-field{
+  background-color: white !important;
+}
+.mat-mdc-form-field {
+    width: 75% !important;
+}

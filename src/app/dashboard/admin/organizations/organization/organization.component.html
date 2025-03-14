@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Create Organization</h2>
+<mat-dialog-content>
+  <form [formGroup]="organizationForm" class="flex flex-col space-y-10">
+    <mat-form-field appearance="outline">
+      <input matInput type="text" formControlName="name" />
+      @if(organizationForm.get('name')?.hasError('required')) {
+      <mat-error> Organization name is required </mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <input matInput type="text" formControlName="description" />
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+
+  <button mat-flat-button color="primary" type="button" (click)="data._id ? editaddOrganization(): addOrganization()"
+    [disabled]="!organizationForm.valid">
+   {{ data._id ? 'Edit': "Create"}} Organization
+  </button>
+</mat-dialog-actions>

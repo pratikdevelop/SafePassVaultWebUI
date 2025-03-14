@@ -1,0 +1,21 @@
+<div class="bg-gray-800 p-6 rounded-md shadow-md text-white">
+    <h2 class="text-xl font-semibold mb-4">SAML Configuration</h2>
+    <form (ngSubmit)="saveSamlSettings()">
+        <mat-form-field class="w-full mb-4">
+            <mat-label>Entry Point</mat-label>
+            <input matInput [(ngModel)]="samlSettings.entryPoint" name="entryPoint" required>
+        </mat-form-field>
+
+        <mat-form-field class="w-full mb-4">
+            <mat-label>Issuer</mat-label>
+            <input matInput [(ngModel)]="samlSettings.issuer" name="issuer" required>
+        </mat-form-field>
+
+        <mat-form-field class="w-full mb-4">
+            <mat-label>Certificate</mat-label>
+            <textarea matInput [(ngModel)]="samlSettings.cert" name="cert" required></textarea>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit">Save</button>
+    </form>
+</div>

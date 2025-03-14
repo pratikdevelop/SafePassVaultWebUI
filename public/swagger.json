@@ -1,0 +1,1133 @@
+{
+    "openapi": "3.0.0",
+    "x-stoplight": {
+        "id": "a4lq61ehwx44k"
+    },
+    "info": {
+        "title": "API Documentation",
+        "version": "1.0.0",
+        "description": "This API allows operations for address, audit logs, cards, files, folders, invitations, and notes."
+    },
+    "paths": {
+        "/addresses": {
+            "post": {
+                "summary": "Create new address",
+                "operationId": "createAddress",
+                "responses": {
+                    "200": {
+                        "description": "Address created successfully"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "0xucf6km2pcfv"
+                }
+            },
+            "get": {
+                "summary": "Get all addresses",
+                "operationId": "getAllAddresses",
+                "responses": {
+                    "200": {
+                        "description": "List of all addresses"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "nmt6nxlea23ai"
+                }
+            }
+        },
+        "/addresses/{id}": {
+            "get": {
+                "summary": "Get a single address by ID",
+                "operationId": "getAddressById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the address",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Address details"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "4ddjthp2vcpcf"
+                }
+            },
+            "put": {
+                "summary": "Update address by ID",
+                "operationId": "updateAddress",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the address",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Address updated successfully"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "shxsthbil68db"
+                }
+            },
+            "delete": {
+                "summary": "Delete address by ID",
+                "operationId": "deleteAddress",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the address",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Address deleted successfully"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "xo2wmpt3jnfbj"
+                }
+            }
+        },
+        "/audit": {
+            "get": {
+                "summary": "Get user audit logs",
+                "operationId": "getUserAuditLogs",
+                "responses": {
+                    "200": {
+                        "description": "List of user audit logs"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "lmxp89whtfylp"
+                }
+            }
+        },
+        "/cards": {
+            "post": {
+                "summary": "Create new card",
+                "operationId": "createCard",
+                "responses": {
+                    "200": {
+                        "description": "Card created successfully"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "824or9r5bkrpb"
+                }
+            },
+            "get": {
+                "summary": "Get all cards",
+                "operationId": "getAllCards",
+                "responses": {
+                    "200": {
+                        "description": "List of all cards"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "mauvm4o3y7xc5"
+                }
+            }
+        },
+        "/cards/{id}": {
+            "patch": {
+                "summary": "Update card by ID",
+                "operationId": "updateCard",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the card",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Card updated successfully"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "40raovytq2jnu"
+                }
+            },
+            "delete": {
+                "summary": "Delete card by ID",
+                "operationId": "deleteCard",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the card",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Card deleted successfully"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "ijux60qvhpykj"
+                }
+            }
+        },
+        "/cards/{cardIds}/favorite": {
+            "post": {
+                "summary": "Toggle favorite status of cards",
+                "operationId": "toggleFavorite",
+                "parameters": [
+                    {
+                        "name": "cardIds",
+                        "in": "path",
+                        "required": true,
+                        "description": "IDs of the cards",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cards marked as favorite"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "1alzpmxf44nqm"
+                }
+            }
+        },
+        "/files": {
+            "get": {
+                "summary": "Get all files",
+                "operationId": "getAllFiles",
+                "responses": {
+                    "200": {
+                        "description": "List of all files"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "gi3ghy2a8n7x0"
+                }
+            },
+            "post": {
+                "summary": "Upload a file",
+                "operationId": "uploadFile",
+                "responses": {
+                    "200": {
+                        "description": "File uploaded successfully"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "5lxov5t308oqz"
+                }
+            }
+        },
+        "/files/{id}": {
+            "put": {
+                "summary": "Update file metadata",
+                "operationId": "updateFile",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the file",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "File metadata updated"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "l7h41hpwuuddi"
+                }
+            },
+            "delete": {
+                "summary": "Delete file by ID",
+                "operationId": "deleteFile",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the file",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "File deleted successfully"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "o9dflks6wyreb"
+                }
+            }
+        },
+        "/folders": {
+            "post": {
+                "summary": "Create new folder",
+                "operationId": "createFolder",
+                "responses": {
+                    "200": {
+                        "description": "Folder created successfully"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "vmqaeygwhrpcc"
+                }
+            },
+            "get": {
+                "summary": "Get all folders",
+                "operationId": "getUserFolders",
+                "responses": {
+                    "200": {
+                        "description": "List of folders"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "83rw6s4tsx763"
+                }
+            }
+        },
+        "/folders/{id}": {
+            "put": {
+                "summary": "Update folder by ID",
+                "operationId": "updateFolder",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the folder",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Folder updated successfully"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "u56d2tt1msort"
+                }
+            },
+            "delete": {
+                "summary": "Delete folder by ID",
+                "operationId": "deleteFolder",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the folder",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Folder deleted successfully"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "npl87psynti7v"
+                }
+            }
+        },
+        "/invitations/{organizationId}/invitations": {
+            "post": {
+                "summary": "Send invitation to join an organization",
+                "operationId": "sendInvitation",
+                "parameters": [
+                    {
+                        "name": "organizationId",
+                        "in": "path",
+                        "required": true,
+                        "description": "Organization ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Invitation sent successfully"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "0w4ozrh60pbb7"
+                }
+            }
+        },
+        "/accept-invitation": {
+            "post": {
+                "summary": "Accept invitation to join an organization",
+                "operationId": "acceptInvitation",
+                "responses": {
+                    "200": {
+                        "description": "Invitation accepted successfully"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "hr1nmgtzvts9b"
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "summary": "Get all users",
+                "operationId": "getAllUsers",
+                "responses": {
+                    "200": {
+                        "description": "List of all users"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "yfk85zeszzn57"
+                }
+            }
+        },
+        "/resend-invitation/{organizationId}/{recipientId}": {
+            "post": {
+                "summary": "Resend an invitation",
+                "operationId": "resendInvitation",
+                "parameters": [
+                    {
+                        "name": "organizationId",
+                        "in": "path",
+                        "required": true,
+                        "description": "Organization ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "recipientId",
+                        "in": "path",
+                        "required": true,
+                        "description": "Recipient ID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Invitation resent successfully"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "d1d8rp3ebcja7"
+                }
+            }
+        },
+        "/notes": {
+            "post": {
+                "summary": "Create a new note",
+                "operationId": "createNote",
+                "responses": {
+                    "200": {
+                        "description": "Note created successfully"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "j6xddae3op70e"
+                }
+            },
+            "get": {
+                "summary": "Get all notes",
+                "operationId": "getAllNotes",
+                "responses": {
+                    "200": {
+                        "description": "List of all notes"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "jryxmmyo9py4k"
+                }
+            }
+        },
+        "/notes/export": {
+            "get": {
+                "summary": "Export all notes as CSV",
+                "operationId": "exportAllNotesAsCsv",
+                "responses": {
+                    "200": {
+                        "description": "CSV export of all notes"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "r426xlbx27640"
+                }
+            }
+        },
+        "/notes/{id}": {
+            "get": {
+                "summary": "Get note by ID",
+                "operationId": "getNoteById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the note",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Note details"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "bavfwc67ii2bc"
+                }
+            },
+            "patch": {
+                "summary": "Update note by ID",
+                "operationId": "updateNote",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the note",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Note updated successfully"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "h6gip2ym3rmdb"
+                }
+            },
+            "delete": {
+                "summary": "Delete note by ID",
+                "operationId": "deleteNote",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the note",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Note deleted successfully"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "jn2lhmu9j6lq1"
+                }
+            }
+        },
+        "/notes/{noteId}/favorite": {
+            "post": {
+                "summary": "Toggle favorite status of a note",
+                "operationId": "toggleFavorite",
+                "parameters": [
+                    {
+                        "name": "noteId",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID of the note",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Note marked as favorite"
+                    }
+                },
+                "x-stoplight": {
+                    "id": "ojsu9k8j0y9ye"
+                }
+            }
+        },
+        "/organization": {
+            "post": {
+                "summary": "Create organization",
+                "description": "Creates a new organization.",
+                "responses": {
+                    "201": {
+                        "description": "Organization created successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "t5kwxxl0r30fh"
+                }
+            }
+        },
+        "/organizations": {
+            "get": {
+                "summary": "Get organizations",
+                "description": "Retrieve a list of organizations.",
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved list of organizations."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "jsek67kpy7e0f"
+                }
+            }
+        },
+        "/organization/{id}": {
+            "get": {
+                "summary": "Get organization by ID",
+                "description": "Retrieve an organization by ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The ID of the organization."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved the organization."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "et08lbm00gwbu"
+                }
+            },
+            "put": {
+                "summary": "Update organization",
+                "description": "Update an organization by ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The ID of the organization."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Organization updated successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "zu42iiuwim6d1"
+                }
+            },
+            "delete": {
+                "summary": "Delete organization",
+                "description": "Delete an organization by ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The ID of the organization."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Organization deleted successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "2f49e1ng1omlg"
+                }
+            }
+        },
+        "/password": {
+            "post": {
+                "summary": "Create password",
+                "description": "Create a new password.",
+                "responses": {
+                    "201": {
+                        "description": "Password created successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "5nnwyn3gqtz6s"
+                }
+            },
+            "delete": {
+                "summary": "Delete passwords by IDs",
+                "description": "Delete passwords using the provided IDs.",
+                "parameters": [
+                    {
+                        "name": "ids",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "Comma-separated list of password IDs to delete."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Passwords deleted successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "5b0btnrwfgt1q"
+                }
+            }
+        },
+        "/password/{id}": {
+            "put": {
+                "summary": "Update password",
+                "description": "Update a password by ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The ID of the password."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Password updated successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "ltnt7j5uke0bt"
+                }
+            }
+        },
+        "/share": {
+            "post": {
+                "summary": "Share password",
+                "description": "Request to share a password.",
+                "responses": {
+                    "200": {
+                        "description": "Password shared successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "xzhbsv3ftunan"
+                }
+            }
+        },
+        "/share/{passwordId}/{shareToken}": {
+            "get": {
+                "summary": "Get shared password",
+                "description": "Retrieve a shared password using the share token.",
+                "parameters": [
+                    {
+                        "name": "passwordId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The ID of the password."
+                    },
+                    {
+                        "name": "shareToken",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The share token for the password."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Shared password retrieved successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "h6hjkw9g2gn59"
+                }
+            }
+        },
+        "/proof-id": {
+            "post": {
+                "summary": "Create proof ID",
+                "description": "Create a new proof ID.",
+                "responses": {
+                    "201": {
+                        "description": "Proof ID created successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "z05pv8mr5ys4r"
+                }
+            },
+            "get": {
+                "summary": "Get all proof IDs",
+                "description": "Retrieve all proof IDs.",
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved all proof IDs."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "csm7y7c3k8fu7"
+                }
+            }
+        },
+        "/proof-id/{id}": {
+            "get": {
+                "summary": "Get proof ID by ID",
+                "description": "Retrieve a proof ID by its ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The ID of the proof."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved proof ID."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "v2ab7733n086s"
+                }
+            },
+            "patch": {
+                "summary": "Update proof ID",
+                "description": "Update a proof ID by ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The ID of the proof."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Proof ID updated successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "j6ptrvsk65n0a"
+                }
+            },
+            "delete": {
+                "summary": "Delete proof ID",
+                "description": "Delete a proof ID by ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The ID of the proof ID."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Proof ID deleted successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "x34gvfdulgpxm"
+                }
+            }
+        },
+        "/secret": {
+            "post": {
+                "summary": "Create secret",
+                "description": "Create a new secret.",
+                "responses": {
+                    "201": {
+                        "description": "Secret created successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "83dglu0i2f1od"
+                }
+            },
+            "get": {
+                "summary": "Get all secrets",
+                "description": "Retrieve all secrets.",
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved secrets."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "u3z2c2pgjlfgs"
+                }
+            }
+        },
+        "/secret/{id}": {
+            "get": {
+                "summary": "Get secret by ID",
+                "description": "Retrieve a secret by its ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The ID of the secret."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved secret."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "nzou55n68uybh"
+                }
+            },
+            "put": {
+                "summary": "Update secret",
+                "description": "Update a secret by ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The ID of the secret."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Secret updated successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "xnmnl5a59mwk7"
+                }
+            },
+            "delete": {
+                "summary": "Delete secret",
+                "description": "Delete a secret by ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The ID of the secret."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Secret deleted successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "b8hj2io1lbzj4"
+                }
+            }
+        },
+        "/tag": {
+            "post": {
+                "summary": "Create tag",
+                "description": "Create a new tag.",
+                "responses": {
+                    "201": {
+                        "description": "Tag created successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "lgjky0j3y9evs"
+                }
+            }
+        },
+        "/tag/{id}": {
+            "get": {
+                "summary": "Get tag by ID",
+                "description": "Retrieve a tag by ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The ID of the tag."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully retrieved tag."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "zjc6avo68kviw"
+                }
+            },
+            "put": {
+                "summary": "Update tag",
+                "description": "Update a tag by ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The ID of the tag."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Tag updated successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "5lodyqlj0dg1r"
+                }
+            },
+            "delete": {
+                "summary": "Delete tag",
+                "description": "Delete a tag by ID.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "The ID of the tag."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Tag deleted successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "bihi0johk6xcw"
+                }
+            }
+        },
+        "/user": {
+            "post": {
+                "summary": "Register user",
+                "description": "Register a new user.",
+                "responses": {
+                    "201": {
+                        "description": "User registered successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "1fzbnvrmrgby5"
+                }
+            }
+        },
+        "/user/login": {
+            "post": {
+                "summary": "User login",
+                "description": "Login the user.",
+                "responses": {
+                    "200": {
+                        "description": "User logged in successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "o0zozimcbtk1t"
+                }
+            }
+        },
+        "/user/logout": {
+            "post": {
+                "summary": "User logout",
+                "description": "Logout the user.",
+                "responses": {
+                    "200": {
+                        "description": "User logged out successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "ogrnvcf2u2ug1"
+                }
+            }
+        },
+        "/user/profile": {
+            "get": {
+                "summary": "Get user profile",
+                "description": "Retrieve the profile of the authenticated user.",
+                "responses": {
+                    "200": {
+                        "description": "User profile retrieved successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "t77tgrtxq4i52"
+                }
+            },
+            "patch": {
+                "summary": "Update user profile",
+                "description": "Update the profile of the authenticated user.",
+                "responses": {
+                    "200": {
+                        "description": "User profile updated successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "5p6ue41c0rs19"
+                }
+            },
+            "delete": {
+                "summary": "Delete user profile",
+                "description": "Delete the profile of the authenticated user.",
+                "responses": {
+                    "200": {
+                        "description": "User profile deleted successfully."
+                    }
+                },
+                "x-stoplight": {
+                    "id": "307pag7srf777"
+                }
+            }
+        }
+    }
+}
